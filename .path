@@ -1,0 +1,6 @@
+#!/bin/bash
+
+export PATH=~/.local/bin:$PATH
+export VISUAL=vim
+export EDITOR="$VISUAL"
+export PATH=/snap/bin:$PATH

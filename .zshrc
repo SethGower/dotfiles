@@ -15,8 +15,6 @@ plugins=(
 
 source ~/.oh-my-zsh/oh-my-zsh.sh
 source ~/.alias
+source ~/.path
 
-export PATH=~/.local/bin:$PATH
-export VISUAL=vim
-export EDITOR="$VISUAL"
 xinput set-button-map 11 1 1 3
