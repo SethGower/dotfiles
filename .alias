@@ -31,6 +31,7 @@ alias party='curl parrot.live'
 
 alias gitlog="git log --date=local --format=\" * %h [%cd] %s\""
 alias dot="git --git-dir=${HOME}/.dot --work-tree=${HOME}"
+alias xclip='xclip -selection c'
 
 # Various Useful PDFs
 alias flowchart="screen -dm -S \"flowchart\" evince ~/Documents/PDFs/Flowchart.pdf"

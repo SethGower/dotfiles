@@ -13,6 +13,7 @@ plugins=(
 	zsh-syntax-highlighting
 )
 
+source ~/.oh-my-zsh/oh-my-zsh.sh
 source ~/.alias
 
 export PATH=~/.local/bin:$PATH
