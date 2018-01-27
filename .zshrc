@@ -11,6 +11,7 @@ plugins=(
 	git 
 	zsh-autosuggestions 
 	zsh-syntax-highlighting
+	sudo
 )
 
 source ~/.oh-my-zsh/oh-my-zsh.sh
@@ -22,5 +23,5 @@ source ~/.path
 [[ "${TERM}" != *"screen"* ]] && exec tmux new-session # -A -s 0
 
 if [[ -x "$(command -v "X")" ]]; then
-	xinput set-button-map 11 1 1 3
+	xinput set-button-map 6 1 1 3
 fi
