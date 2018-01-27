@@ -18,3 +18,6 @@ source ~/.alias
 source ~/.path
 
 xinput set-button-map 11 1 1 3
+
+# Launch tmux on start. Uncomment the end to attach on start.
+[[ "${TERM}" != *"screen"* ]] && exec tmux new-session # -A -s 0
