@@ -23,5 +23,7 @@ source ~/.path
 [[ "${TERM}" != *"screen"* ]] && exec tmux new-session # -A -s 0
 
 if [[ -x "$(command -v "X")" ]]; then
-	xinput set-button-map 6 1 1 3
+#	xinput set-button-map 6 1 1 3
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

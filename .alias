@@ -49,3 +49,7 @@ networkscript(){
 
 # Use git completions for "dot" alias when using zsh
 [[ "${SHELL}" == "/usr/bin/zsh" ]] && compdef dot=git
+
+tkl(){
+	tmux kill-session -t $1
+}
