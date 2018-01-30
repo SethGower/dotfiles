@@ -39,9 +39,6 @@ alias discrete="screen -dm -S \"Discrete-textbook\" evince ~/Documents/Courses/T
 alias symbols="screen -dm -S \"LatexSymbols\" evince ~/Documents/PDFs/Symbols.pdf"
 
 alias monitor=". ~/.monitor.sh" 
-gtksettheme(){
-     gsettings set org.gnome.desktop.interface gtk-theme $1
-}
  
 networkscript(){
      sh -c "$(wget $1 -O -)"
@@ -51,5 +48,7 @@ networkscript(){
 [[ "${SHELL}" == "/usr/bin/zsh" ]] && compdef dot=git
 
 tkl(){
-	tmux kill-session -t $1
+	for session; {
+		tmux kill-session -t $session
+	}
 }
