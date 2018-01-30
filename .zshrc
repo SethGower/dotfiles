@@ -26,4 +26,6 @@ if [[ -x "$(command -v "X")" ]]; then
 #	xinput set-button-map 6 1 1 3
 fi
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if [[ -x "$(command -v fzf)" ]]; then
+	[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+fi
