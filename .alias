@@ -37,9 +37,12 @@ alias xclip='xclip -selection c'
 alias flowchart="screen -dm -S \"flowchart\" evince ~/Documents/PDFs/Flowchart.pdf"
 alias discrete="screen -dm -S \"Discrete-textbook\" evince ~/Documents/Courses/Textbooks/Spring-2018/Discrete.pdf"
 alias symbols="screen -dm -S \"LatexSymbols\" evince ~/Documents/PDFs/Symbols.pdf"
+alias theorems="pdf ~/Documents/PDFs/booleanAlgebra.pdf"
+alias handbook="pdf ~/Documents/PDFs/players-handbook-5e.pdf"
 
 alias monitor=". ~/.monitor.sh" 
- 
+
+alias vi="vim --servername VIM"
 networkscript(){
      sh -c "$(wget $1 -O -)"
 }
