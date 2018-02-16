@@ -20,7 +20,7 @@ source ~/.path
 
 
 # Launch tmux on start. Uncomment the end to attach on start.
-[[ "${TERM}" != *"screen"* ]] && exec tmux new-session # -A -s 0
+[[ "${TERM}" != *"screen"* ]] && exec tmux new-session  -A -s 0
 
 if [[ -x "$(command -v "X")" ]]; then
 #	xinput set-button-map 6 1 1 3
