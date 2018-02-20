@@ -43,6 +43,9 @@ alias handbook="pdf ~/Documents/PDFs/players-handbook-5e.pdf"
 alias monitor=". ~/.monitor.sh" 
 
 alias vi="vim --servername VIM"
+
+alias scrot="scrot ~/Pictures/Screenshots/%b%d-%H:%M:%S.png"
+
 networkscript(){
      sh -c "$(wget $1 -O -)"
 }
