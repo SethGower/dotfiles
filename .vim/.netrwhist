@@ -1,3 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/home/seth/.altera.quartus'
+let g:netrw_dirhist_2='/home/seth/.config/i3'
+let g:netrw_dirhist_3='/home/seth/Documents/Development/aggregator/news_aggregator/logic'
+let g:netrw_dirhist_4='/home/seth'
+let g:netrw_dirhist_5='/sys/class/backlight/intel_backlight'

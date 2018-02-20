@@ -4,7 +4,6 @@
 .bash_logout
 .bashrc
 .cache
-.config
 .daily.sh
 .dc++
 .ecryptfs -> /home/.ecryptfs/seth/.ecryptfs
@@ -64,3 +63,4 @@ snap
 .altera
 .zcomp*
 .oh-my-zsh
+.config

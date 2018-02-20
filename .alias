@@ -55,3 +55,6 @@ tkl(){
 		tmux kill-session -t $session
 	}
 }
+
+eval $(thefuck --alias)
+
