@@ -176,8 +176,8 @@ bindsym $mod+shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 #sets up gaps
-gaps outer 5
-gaps inner 15
+#gaps outer 5
+#gaps inner 15
 
 # Bind Media Buttons
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
