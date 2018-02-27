@@ -23,7 +23,7 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-alias updateall='sudo apt update -q=3 && sudo apt upgrade -q=3 && sudo apt d    ist-upgrade -q=3 && sudo apt autoremove -q=3 && sudo apt clean -q=3 sudo apt     install -f -q=3'
+alias updateall='sudo apt update  && sudo apt upgrade  && sudo apt dist-upgrade  && sudo apt autoremove  && sudo apt clean && sudo apt install -f '
 alias netrestart='sudo -S service network-manager restart'
 alias gtkthemes="ls -1 /usr/share/themes/ | sed -e 's#/##g'"
 alias gtkcurrtheme="gsettings get org.gnome.desktop.interface gtk-theme"
@@ -43,6 +43,7 @@ alias handbook="pdf ~/Documents/PDFs/players-handbook-5e.pdf"
 alias monitor=". ~/.monitor.sh" 
 
 alias vi="vim --servername VIM"
+alias vim="vim --servername VIM"
 
 alias scrot="scrot ~/Pictures/Screenshots/%b%d-%H:%M:%S.png"
 
