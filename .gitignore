@@ -70,4 +70,9 @@ snap
 .shutter
 .xinitrc
 .xsession-errors
-
+.altera.quartus/           
+.intelFPGA_lite/           
+.lesshst                   
+.nylas-mail/               
+.thunderbird/          
+intelFPGA_lite/
