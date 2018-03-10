@@ -16,8 +16,8 @@
 \RequirePackage{xcolor, colortbl}
 \RequirePackage{amsmath}
 \RequirePackage{kmap}
-
-
+\RequirePackage{tikz-timing}
+\usetikztiminglibrary[rising arrows, falling arrows]{clockarrows}
 \setlength{\parindent}{0pt} % Don't indent paragraphs
 
 %%%%%%% Internal functions and environments
@@ -42,8 +42,10 @@
 \DeclareOption{CMPE}{
 	\newcommand{\KGCOEDocType}{CMPE}
 	\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+	\newcommand\risingedge{\texttiming[timing/c/rising arrows, timing/c/arrow pos=.7]{2{C}}}
+	\newcommand\fallingedge{\texttiming[timing/c/falling arrows]{3{C}}}
 	\definecolor{Gray}{gray}{.9}
-	\renewcommand{\maketitle}{%
+	\renewcommand{\maketitle}{
 	\vspace*{2.5cm}
 
 		\begin{center}
