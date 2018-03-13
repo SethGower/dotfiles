@@ -177,4 +177,4 @@ exec feh --bg-scale /usr/share/pixmaps/seth-2.png
 # runs compton in background, used for terminal and polybar transparency. 
 exec compton -b
 
-bindsym prtsc scrot
+bindsym --release Print exec "scrot -m /home/seth/Pictures/Screenshots/%b%d-%k:%M:%S.png"
