@@ -11,3 +11,7 @@ Here are some various plugins I am using
 - [vimtex](https://github.com/lervag/vimtex)
 
 I am still working on getting [deoplete](https://github.com/Shougo/deoplete.nvim) to work. 
+
+This is my background. It is a cipher that a friend of mine made, and then another friend made the actual photo. It is my name. 
+
+![background](background.png)
