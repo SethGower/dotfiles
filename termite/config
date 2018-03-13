@@ -1,0 +1,43 @@
+[options]
+font = Roboto Mono for Powerline
+
+[colors]
+
+# special
+foreground      = #eaeaea
+foreground_bold = #eaeaea
+cursor          = #eaeaea
+#background      = #333333
+background	= rgba(66, 66, 66, 0.6)
+
+# black
+color0  = #272822
+color8  = #757575
+
+# red
+color1  = #ce2121
+color9  = #ce2121
+
+# green
+color2  = #19930e
+color10 = #19930e
+
+# yellow
+color3  = #f4bf75
+color11 = #f4bf75
+
+# blue
+color4  = #256184
+color12 = #256184
+
+# magenta
+color5  = #9964ba
+color13 = #9863f9
+
+# cyan
+color6  = #009696
+color14 = #009696
+
+# white
+color7  = #f8f8f2
+color15 = #f9f8f5
