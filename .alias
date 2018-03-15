@@ -15,7 +15,7 @@ else
 fi
 
 pdf(){
-	screen -dm evince $1
+	tmux --new-session -d mupdf $1
 }
 
 alias ..="cd .."
@@ -34,9 +34,9 @@ alias dot="git --git-dir=${HOME}/.dot --work-tree=${HOME}"
 alias xclip='xclip -selection c'
 
 # Various Useful PDFs
-alias flowchart="screen -dm -S \"flowchart\" pdf ~/Documents/PDFs/Flowchart.pdf"
-alias discrete="screen -dm -S \"Discrete-textbook\" pdf ~/Documents/Courses/Textbooks/Spring-2018/Discrete.pdf"
-alias symbols="screen -dm -S \"LatexSymbols\" pdf ~/Documents/PDFs/Symbols.pdf"
+alias flowchart="pdf ~/Documents/PDFs/Flowchart.pdf"
+alias discrete="pdf ~/Documents/Courses/Textbooks/Spring-2018/Discrete.pdf"
+alias symbols="pdf ~/Documents/PDFs/Symbols.pdf"
 alias theorems="pdf ~/Documents/PDFs/booleanAlgebra.pdf"
 alias handbook="pdf ~/Documents/PDFs/players-handbook-5e.pdf"
 
@@ -45,7 +45,6 @@ alias monitor=". ~/.monitor.sh"
 alias vi="vim --servername VIM"
 alias vim="vim --servername VIM"
 
-alias scrot="scrot ~/Pictures/Screenshots/%m%d-%H:%M:%S.png"
 
 networkscript(){
      sh -c "$(wget $1 -O -)"

@@ -1,4 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =4
 let g:netrw_dirhist_1='/home/seth/.config/spotify'
 let g:netrw_dirhist_2='/home/seth/.terminfo'
+let g:netrw_dirhist_3='/etc/NetworkManager'
+let g:netrw_dirhist_4='/home/seth/.config/i3'

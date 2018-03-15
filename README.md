@@ -2,7 +2,7 @@
 
 These are the dotfiles for my arch rice. 
 
-![Screenshot](screenshot.png)
+![Screenshot](.config/screenshot.png)
 
 Here are some various plugins I am using
 
@@ -14,4 +14,4 @@ I am still working on getting [deoplete](https://github.com/Shougo/deoplete.nvim
 
 This is my background. It is a cipher that a friend of mine made, and then another friend made the actual photo. It is my name. 
 
-![background](background.png)
+![background](.config/background.png)

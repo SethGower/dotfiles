@@ -1,0 +1,210 @@
+[colors]
+background = #0000000 ;makes background transparent
+background-alt = #444
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #ff0000
+secondary = #3d3dc6
+alert = #bd2c40
+
+[bar/base]
+
+monitor = eDP1
+
+height = 30
+
+radius = 10
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 2
+line-color = #f00
+
+border-size = 4
+border-color = #0000000
+
+padding-left = 2
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = fixed:pixelsize=10;1
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-2 = siji:pixelsize=10;1
+font-3 = "Font Awesome 5 Free:size=10;1"
+
+separator = " | "
+cursor-click = pointer
+
+[bar/top]
+inherit = bar/base
+
+tray-position = right
+tray-padding = 2
+
+modules-left = ip hostname
+modules-center = date
+modules-right = filesystem volume xbacklight xkeyboard memory cpu battery wlan
+
+[bar/bottom]
+inherit = bar/base
+bottom = true
+modules-left = i3
+modules-center = xwindow
+modules-right = 
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:60%
+
+[module/xkeyboard]
+type = internal/xkeyboard
+
+format-prefix-foreground = ${colors.foreground-alt}
+;format-prefix-underline = ${colors.secondary}
+
+label-layout = %layout%
+;label-layout-underline = ${colors.secondary}
+
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = ${colors.secondary}
+;label-indicator-underline = ${colors.secondary}
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /home
+
+label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground-alt}
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+;label-focused-underline= ${colors.primary}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+;label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+[module/xbacklight]
+type = internal/xbacklight
+
+format = <label>
+label = %{F#f00}BL:%{F-} %percentage%%
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+;format-underline = #f90000
+label = %{F#f00}CPU:%{F-} %percentage:2%%
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix-foreground = ${colors.foreground-alt}
+;format-underline = #4bffdc
+label = %{F#f00}Mem:%{F-} %percentage_used%%
+
+[module/date]
+type = internal/date
+interval = 5
+
+date =" %m/%d/%y"
+date-alt = "%A, %B %d "
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+format-underline = #0a6cf5
+
+label = %date% %time%
+
+[module/volume]
+type = internal/alsa
+
+format-volume = <label-volume>
+format-prefix = VOL:
+format-prefix-foreground = ${colors.primary}
+
+label-volume =%{F#f00}VOL:%{F-} %percentage%%
+
+format-muted-foreground = ${colors.foreground-alt}
+label-muted = sound muted
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 98
+
+time-format = %H:%M
+
+format-charging = <label-charging>
+format-discharging = <label-discharging>
+
+label-charging = %{F#ff0}CHG:%{F-} %percentage%% %{F#ff0}Full in: %{F-}%time%
+label-discharging = %{F#f00}BAT:%{F-}%percentage%% %{F#ff0}Charge left: %{F-}%time%
+label-full = %{F#0f0}Fully Charged%{F-}
+
+[module/ip]
+type = custom/script
+interval = 2
+
+format = "<label> "
+format-prefix = "IPv4: "
+format-prefix-foreground = ${colors.primary}
+
+exec-if = ping -c 1 archlinux.org
+exec = echo $(curl --limit-rate 1k -s https://ifcfg.me)
+
+[module/hostname]
+type = custom/script
+interval = 30
+
+format = "<label> "
+format-prefix = "Host: " 
+format-prefix-foreground = ${colors.primary}
+
+exec = echo $(uname -n)
+
+[module/wlan]
+type = internal/network
+interface = wlp4s0
+interval = 3.0
+
+format-connected = <label-connected>
+label-connected = "%{F#ff0000}wlan:%{F-} %essid%%{F-}"
+
+format-disconnected = "wlan offline"
+
+[settings]
+screenchange-reload = true
