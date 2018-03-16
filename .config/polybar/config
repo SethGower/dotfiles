@@ -31,10 +31,10 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = fixed:pixelsize=10;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=10;1
-font-3 = "Font Awesome 5 Free:size=10;1"
+font-0 = Roboto-11;0
+font-1 = Font Awesome 5 Free:pixelsize=10;3
+font-2 = Font Awesome 5 Free Solid:pixelsize=10;3
+font-3 = Font Awesome 5 Brands:pixelsize=10;3
 
 separator = " | "
 cursor-click = pointer
@@ -45,20 +45,20 @@ inherit = bar/base
 tray-position = right
 tray-padding = 2
 
-modules-left = ip hostname
+modules-left = ip hostname linkspeed
 modules-center = date
-modules-right = filesystem volume xbacklight xkeyboard memory cpu battery wlan
+modules-right = volume xbacklight xkeyboard memory cpu battery wlan
 
 [bar/bottom]
 inherit = bar/base
 bottom = true
 modules-left = i3
 modules-center = xwindow
-modules-right = 
+modules-right = filesystem powermenu
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:60%
+label = %title:0:60% 
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -168,12 +168,29 @@ full-at = 98
 
 time-format = %H:%M
 
-format-charging = <label-charging>
-format-discharging = <label-discharging>
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity>  <label-discharging>
 
-label-charging = %{F#ff0}CHG:%{F-} %percentage%% %{F#ff0}Full in: %{F-}%time%
-label-discharging = %{F#f00}BAT:%{F-}%percentage%% %{F#ff0}Charge left: %{F-}%time%
-label-full = %{F#0f0}Fully Charged%{F-}
+;label-charging = %{F#ff0}CHG:%{F-} %percentage%% %{F#ff0}Full in: %{F-}%time%
+;label-discharging = %{F#f00}BAT:%{F-}%percentage%% %{F#ff0}Charge left: %{F-}%time%
+;label-full = %{F#0f0}Fully Charged%{F-}
+
+label-charging = %{F#ff0}%percentage%%%{F-}
+label-discharging = %{F#f00}%percentage%%%{F-}
+label-full =   %{F#0f0}%%percentage%%%{F-}
+
+ramp-capacity-0 =  
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-framerate = 100
 
 [module/ip]
 type = custom/script
@@ -206,5 +223,25 @@ label-connected = "%{F#ff0000}wlan:%{F-} %essid%%{F-}"
 
 format-disconnected = "wlan offline"
 
+[module/linkspeed]
+type = internal/network
+interface = wlp4s0
+interval = 3.0
+
+format-connected = <label-connected>
+label-connected = %{F#f00}Down:%{F-} %downspeed% %{F#f00}Up:%{F-}%upspeed%%{F-}
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = false
+menu-0-0 = Shutdown
+menu-0-0-exec = poweroff
+menu-0-1 = Restart
+menu-0-1-exec = reboot
+
+label-open = 
+label-close = 
+label-separator = "       "
 [settings]
 screenchange-reload = true
