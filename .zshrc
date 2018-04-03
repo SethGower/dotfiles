@@ -27,3 +27,6 @@ fi
 if [[ -x "$(command -v fzf)" ]]; then
 	[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fi
+
+zstyle ':completion:*:*:nvim:*:*files' ignored-patterns '*.pdf'
+zstyle ':completion:*:*:nvim:*:*files' ignored-patterns '*.o'

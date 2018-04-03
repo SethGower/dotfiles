@@ -41,3 +41,5 @@ color14 = #009696
 # white
 color7  = #f8f8f2
 color15 = #f9f8f5
+
+# vim: set ft=dosini :

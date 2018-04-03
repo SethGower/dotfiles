@@ -45,7 +45,7 @@ inherit = bar/base
 tray-position = right
 tray-padding = 2
 
-modules-left = ip hostname linkspeed
+modules-left = ip hostname linkspeed user
 modules-center = date
 modules-right = volume xbacklight xkeyboard memory cpu battery wlan
 
@@ -78,7 +78,8 @@ label-indicator-background = ${colors.secondary}
 type = internal/fs
 interval = 25
 
-mount-0 = /home
+mount-0 = /
+mount-1 = /home
 
 label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
@@ -90,24 +91,33 @@ format = <label-state> <label-mode>
 index-sort = true
 wrapping-scroll = false
 
+ws-icon-0 = 1;1
+ws-icon-1 = 2;2
+ws-icon-2 = 3;3
+ws-icon-3 = 4;4
+ws-icon-4 = 5;5
+ws-icon-5 = 6;6
+ws-icon-6 = 7;7
+ws-icon-7 = 8;
+ws-icon-8 = 9;
+ws-icon-9 = 10;10
+
 label-mode-padding = 2
 label-mode-foreground = #000
 label-mode-background = ${colors.primary}
 
 ; focused = Active workspace on focused monitor
-label-focused = %index%
+label-focused = %icon%
 label-focused-background = ${colors.background-alt}
-;label-focused-underline= ${colors.primary}
 label-focused-padding = 2
 
 ; unfocused = Inactive workspace on any monitor
-label-unfocused = %index%
+label-unfocused = %icon%
 label-unfocused-padding = 2
 
 ; visible = Active workspace on unfocused monitor
-label-visible = %index%
+label-visible = %index%  %icon%
 label-visible-background = ${self.label-focused-background}
-;label-visible-underline = ${self.label-focused-underline}
 label-visible-padding = ${self.label-focused-padding}
 
 ; urgent = Workspace with urgency hint set
@@ -177,7 +187,7 @@ format-discharging = <ramp-capacity>  <label-discharging>
 
 label-charging = %{F#ff0}%percentage%%%{F-}
 label-discharging = %{F#f00}%percentage%%%{F-}
-label-full =   %{F#0f0}%%percentage%%%{F-}
+label-full =   %{F#0f0}%percentage%%%{F-}
 
 ramp-capacity-0 =  
 ramp-capacity-1 = 
@@ -201,7 +211,7 @@ format-prefix = "IPv4: "
 format-prefix-foreground = ${colors.primary}
 
 exec-if = ping -c 1 archlinux.org
-exec = echo $(curl --limit-rate 1k -s https://ifcfg.me)
+exec = echo $(curl --limit-rate 1k -s ipinfo.io/ip)
 
 [module/hostname]
 type = custom/script
@@ -243,5 +253,17 @@ menu-0-1-exec = reboot
 label-open = 
 label-close = 
 label-separator = "       "
+
+[module/user]
+type = custom/script
+interval = 60
+
+format = "<label> "
+format-prefix = "User: "
+format-prefix-foreground = ${colors.primary}
+
+exec = echo $(whoami)
 [settings]
 screenchange-reload = true
+
+# vim: set ft=dosini :

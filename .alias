@@ -15,7 +15,7 @@ else
 fi
 
 pdf(){
-	tmux --new-session -d mupdf $1
+	screen -dm evince $1
 }
 
 alias ..="cd .."
@@ -23,10 +23,6 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-alias updateall='sudo apt update  && sudo apt upgrade  && sudo apt dist-upgrade  && sudo apt autoremove  && sudo apt clean && sudo apt install -f '
-alias netrestart='sudo -S service network-manager restart'
-alias gtkthemes="ls -1 /usr/share/themes/ | sed -e 's#/##g'"
-alias gtkcurrtheme="gsettings get org.gnome.desktop.interface gtk-theme"
 alias party='curl parrot.live'
 
 alias gitlog="git log --date=local --format=\" * %h [%cd] %s\""
@@ -40,11 +36,8 @@ alias symbols="pdf ~/Documents/PDFs/Symbols.pdf"
 alias theorems="pdf ~/Documents/PDFs/booleanAlgebra.pdf"
 alias handbook="pdf ~/Documents/PDFs/players-handbook-5e.pdf"
 
-alias monitor=". ~/.monitor.sh" 
-
-alias vi="vim --servername VIM"
-alias vim="vim --servername VIM"
-
+alias vim="nvim"
+alias vi="nvim"
 
 networkscript(){
      sh -c "$(wget $1 -O -)"
