@@ -39,6 +39,7 @@ alias handbook="pdf ~/Documents/PDFs/players-handbook-5e.pdf"
 alias vim="nvim"
 alias vi="nvim"
 
+alias open="screen -dm open xdg-open"
 networkscript(){
      sh -c "$(wget $1 -O -)"
 }

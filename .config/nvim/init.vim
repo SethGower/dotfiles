@@ -25,17 +25,21 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-
-call plug#begin('~/.vim/plugged')
-	"Plug 'SirVer/ultisnips'
-    "Plug 'honza/vim-snippets'
-    Plug 'lervag/vimtex'
-call plug#end()
+set rtp+=$HOME/.config/nvim/bundle/Vundle.vim/
+call vundle#begin()
+    Plugin 'lervag/vimtex'
+    "Plugin 'Valloric/YouCompleteMe'
+    Plugin 'SirVer/ultisnips'
+    Plugin 'honza/vim-snippets'
+    Plugin 'neomake/neomake'
+    "Plugin 'scrooloose/syntastic'
+    Plugin 'JPR75/VIP'
+call vundle#end()
+filetype plugin indent on
 
 autocmd FileType latex,tex,markdown,md setlocal spell spelllang=en_us
 
 let g:vimtex_view_general_viewer = 'evince'
-let g:deoplete#enable_at_startup = 1
 
 map j gj
 map k gk
@@ -47,3 +51,16 @@ augroup END
 if exists("b:did_ftplugin")
     finish
 endif
+
+let g:UltiSnipsExpandTrigger = "<C-j>"
+let g:UltiSnipsJumpForwardTrigger = "<C-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
+
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
