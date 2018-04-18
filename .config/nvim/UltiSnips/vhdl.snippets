@@ -19,7 +19,7 @@ snippet header "File header"
 --
 --  Entity:        `!p snip.rv = snip.fn.split(".")[0]`
 --  Architecture:  ${1:BEHAVIORAL}
---  Author:        ${2:Andrew Ramsey}
+--  Author:        ${2:Seth Gower}
 --  Created:       `date +%m/%d/%y`
 --  Modified:      ${3}
 --  VHDL'93
@@ -103,4 +103,14 @@ endsnippet
 
 snippet sig "signal"
 signal
+endsnippet
+
+snippet clock "clk_proccess:process..."
+clk_process:process
+begin
+    ${1} <= '0';
+    wait for ${2};
+    $1 <= '1';
+    wait for $2;
+end process;
 endsnippet

@@ -28,6 +28,7 @@ alias party='curl parrot.live'
 alias gitlog="git log --date=local --format=\" * %h [%cd] %s\""
 alias dot="git --git-dir=${HOME}/.dot --work-tree=${HOME}"
 alias xclip='xclip -selection c'
+alias open="xdg-open"
 
 # Various Useful PDFs
 alias flowchart="pdf ~/Documents/PDFs/Flowchart.pdf"
@@ -35,11 +36,15 @@ alias discrete="pdf ~/Documents/Courses/Textbooks/Spring-2018/Discrete.pdf"
 alias symbols="pdf ~/Documents/PDFs/Symbols.pdf"
 alias theorems="pdf ~/Documents/PDFs/booleanAlgebra.pdf"
 alias handbook="pdf ~/Documents/PDFs/players-handbook-5e.pdf"
+alias constitution="pdf ~/Documents/PDFs/EngineeringHouseConstitution.pdf"
 
+alias nvim="nvim -p"
 alias vim="nvim"
 alias vi="nvim"
 
 alias open="screen -dm open xdg-open"
+
+alias dsd="cd ~/Documents/Courses/DSD1"
 networkscript(){
      sh -c "$(wget $1 -O -)"
 }

@@ -186,5 +186,6 @@ exec --no-startup-id feh --bg-scale /usr/share/pixmaps/seth-2.png
 exec --no-startup-id polybar -r top
 exec --no-startup-id polybar -r bottom
 exec --no-startup-id nm-applet
+#exec --no-startup-id blueman-applet
 exec --no-startup-id spotify
 exec --no-startup-id thunderbird
