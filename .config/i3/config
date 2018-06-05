@@ -12,13 +12,14 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec --no-startup-id termite
+bindsym $mod+g exec --no-startup-id cool-retro-term
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start j4-dmenu (a program launcher)
 #bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i" --term="termite"
-bindsym $mod+d exec --no-startup-id rofi -show run
+bindsym $mod+d exec --no-startup-id rofi -show drun
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down

@@ -11,6 +11,7 @@ let g:HDL_Author = system("git config --global user.name")
 
 nnoremap <leader>C <Plug>SpecialVHDLPasteComponent
 nnoremap <leader>I <Plug>SpecialVHDLPasteInstance
+nnoremap <leader>i <Plug>SpecialVHDLPasteInstance
 nnoremap <leader>E <Plug>SpecialVHDLPasteEntity
 
 setlocal comments=:--

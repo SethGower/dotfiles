@@ -30,8 +30,9 @@ call vundle#begin()
     Plugin 'SirVer/ultisnips'
     Plugin 'honza/vim-snippets'
     Plugin 'neomake/neomake'
-    Plugin 'scrooloose/syntastic'
-    Plugin 'JPR75/VIP'
+    "Plugin 'scrooloose/syntastic'
+    "Plugin 'JPR75/VIP'
+    Plugin 'sethgower/vip'
     Bundle 'scrooloose/nerdtree'
     Bundle 'jistr/vim-nerdtree-tabs'
 call vundle#end()
@@ -64,16 +65,17 @@ let g:UltiSnipsExpandTrigger = "<C-j>"
 let g:UltiSnipsJumpForwardTrigger = "<C-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 "Syntastic config
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_tex_lacheck_quiet_messages = { 'regex': '\Vpossible unwanted space at' }
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_tex_lacheck_quiet_messages = { 'regex': '\Vpossible unwanted space at' }
+"let g:syntastic_disabled_filetypes=['tex']
 
 "YouCompleteMe (YCM) configuration options.
 let g:ycm_python_binary_path = 'python3'

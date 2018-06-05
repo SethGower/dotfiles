@@ -44,7 +44,7 @@ snippet ent "entity ... ; | architecture ...;"
 entity ${1:} is
 	port(
 	);
-end $1;
+end entity $1;
 architecture ${2:Behavioral} of $1 is
 begin
 end $2;
@@ -109,8 +109,16 @@ snippet clock "clk_proccess:process..."
 clk_process:process
 begin
     ${1} <= '0';
-    wait for ${2};
+    wait for ${2}/2;
     $1 <= '1';
-    wait for $2;
+    wait for $2/2;
 end process;
 endsnippet
+
+snippet func "function ${1} (${2})..."
+function ${1}(${2}) return ${3} is 
+begin
+${4}
+end function $1;
+endsnippet
+
