@@ -16,8 +16,6 @@ set autoindent
 set backspace=indent,eol,start
 set tabstop=4 shiftwidth=4 expandtab
 set smarttab
-syntax on
-colorscheme desert
 
 map j gj
 map k gk
@@ -30,13 +28,18 @@ call vundle#begin()
     Plugin 'SirVer/ultisnips'
     Plugin 'honza/vim-snippets'
     Plugin 'neomake/neomake'
-    "Plugin 'scrooloose/syntastic'
-    "Plugin 'JPR75/VIP'
     Plugin 'sethgower/vip'
     Bundle 'scrooloose/nerdtree'
     Bundle 'jistr/vim-nerdtree-tabs'
+    Plugin 'dracula/vim'
+    "Plugin 'bluz71/vim-moonfly-colors'
 call vundle#end()
 filetype plugin indent on
+
+syntax on
+colorscheme dracula
+set termguicolors
+let g:dracula_colorterm = 0
 
 autocmd FileType latex,tex,markdown,md setlocal spell spelllang=en_us
 
@@ -64,18 +67,6 @@ endif
 let g:UltiSnipsExpandTrigger = "<C-j>"
 let g:UltiSnipsJumpForwardTrigger = "<C-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
-
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-"Syntastic config
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-"let g:syntastic_tex_lacheck_quiet_messages = { 'regex': '\Vpossible unwanted space at' }
-"let g:syntastic_disabled_filetypes=['tex']
 
 "YouCompleteMe (YCM) configuration options.
 let g:ycm_python_binary_path = 'python3'
