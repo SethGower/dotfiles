@@ -37,9 +37,9 @@ call vundle#end()
 filetype plugin indent on
 
 syntax on
+let g:dracula_colorterm = 0
 colorscheme dracula
 set termguicolors
-let g:dracula_colorterm = 0
 
 autocmd FileType latex,tex,markdown,md setlocal spell spelllang=en_us
 
