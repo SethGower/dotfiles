@@ -110,7 +110,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 for_window [class="Spotify"] move to workspace 8
 
 assign [class="Thunderbird"] 9
-
+assign [class="Franz"] 10
 # reload the configuration file
 bindsym $mod+Shift+c reload
 
