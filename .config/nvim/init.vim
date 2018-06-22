@@ -16,6 +16,7 @@ set autoindent
 set backspace=indent,eol,start
 set tabstop=4 shiftwidth=4 expandtab
 set smarttab
+set inccommand=nosplit
 
 map j gj
 map k gk
@@ -32,7 +33,6 @@ call vundle#begin()
     Bundle 'scrooloose/nerdtree'
     Bundle 'jistr/vim-nerdtree-tabs'
     Plugin 'dracula/vim'
-    "Plugin 'bluz71/vim-moonfly-colors'
 call vundle#end()
 filetype plugin indent on
 
@@ -75,6 +75,6 @@ let g:ycm_key_list_previous_completion = ['<S_TAB>']
 let g:ycm_min_num_of_chars_for_completion = 2
 
 "Changes colorscheme of popup for YCM
-highlight Pmenu ctermfg=7  ctermbg=25
+highlight Pmenu guifg=7 guibg=13 ctermfg=7 ctermbg=13
 
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
