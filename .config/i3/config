@@ -17,41 +17,31 @@ bindsym $mod+g exec --no-startup-id cool-retro-term
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start j4-dmenu (a program launcher)
 #bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i" --term="termite"
 bindsym $mod+d exec --no-startup-id rofi -show drun
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-
 # move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
+bindsym $mod+Shift+Left move container to workspace prev
+bindsym $mod+Shift+Right move container to workspace next
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+greater move container to output right
+bindsym $mod+Shift+less move container to output left
 
 # split in horizontal orientation
 bindsym $sup+h split h
 
 # split in vertical orientation
 bindsym $sup+v split v
-
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -94,6 +84,8 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10 
+bindsym $mod+Left workspace prev
+bindsym $mod+Right workspace next
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -108,6 +100,7 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 for_window [class="Spotify"] move to workspace 8
+for_window [class="net-ftb-main-Main"] floating enable
 
 assign [class="Thunderbird"] 9
 assign [class="Franz"] 10
@@ -184,10 +177,11 @@ bindsym --release Shift+Print exec "escrotum /home/seth/Pictures/Screenshots/%b%
 #Auto start apps
 exec --no-startup-id compton -b
 exec --no-startup-id feh --bg-scale /usr/share/pixmaps/seth-2.png
-exec --no-startup-id polybar -r top
-exec --no-startup-id polybar -r bottom
 exec --no-startup-id nm-applet
 #exec --no-startup-id blueman-applet
 exec --no-startup-id spotify
 exec --no-startup-id thunderbird
-exec --no-startup-id franz-bin --
+exec --no-startup-id franz4-bin
+exec --no-startup-id nohup mons -a > /dev/null 2>&1 &
+exec --no-startup-id /opt/PB for Desktop/pb-for-desktop > /dev/null 2>&1 &
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh

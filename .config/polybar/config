@@ -8,7 +8,9 @@ secondary = #3d3dc6
 alert = #bd2c40
 
 [bar/base]
-monitor = eDP1
+;monitor = eDP1
+
+monitor = ${env:MONITOR}
 
 height = 30
 
@@ -48,8 +50,18 @@ modules-left = ip hostname linkspeed user
 modules-center = date
 modules-right = volume xbacklight xkeyboard memory cpu battery wlan
 
+[bar/top-secondary]
+inherit = bar/top
+
+modules-left = user
+modules-center = date
+modules-right = volume xbacklight xkeyboard memory cpu battery wlan
+
 [bar/bottom]
 inherit = bar/base
+
+monitor = eDP1
+
 bottom = true
 modules-left = i3
 modules-center = xwindow

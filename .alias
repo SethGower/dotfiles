@@ -24,6 +24,8 @@ alias dot="git --git-dir=${HOME}/.dot --work-tree=${HOME}"
 alias xclip='xclip -selection c'
 alias open="xdg-open"
 
+alias startbar="i3-msg 'exec --no-startup-id polybar -r top' && i3-msg 'exec --no-startup-id polybar -r bottom'"
+
 # Various Useful PDFs
 alias discrete="pdf ~/Documents/Courses/Textbooks/Spring-2018/Discrete.pdf"
 alias symbols="pdf ~/Documents/PDFs/Symbols.pdf"
