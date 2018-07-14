@@ -17,23 +17,30 @@ set backspace=indent,eol,start
 set tabstop=4 shiftwidth=4 expandtab
 set smarttab
 set inccommand=nosplit
+set clipboard=unnamed
 
 map j gj
 map k gk
 
-set rtp+=$HOME/.config/nvim/bundle/Vundle.vim/
-call vundle#begin()
-    Plugin 'lervag/vimtex'
-    Plugin 'Valloric/YouCompleteMe'
-    Plugin 'rdnetto/YCM-Generator'
-    Plugin 'SirVer/ultisnips'
-    Plugin 'honza/vim-snippets'
-    Plugin 'neomake/neomake'
-    Plugin 'sethgower/vip'
-    Bundle 'scrooloose/nerdtree'
-    Bundle 'jistr/vim-nerdtree-tabs'
-    Plugin 'dracula/vim'
-call vundle#end()
+" call vundle#rc("~/.config/nvim/bundle")
+call plug#begin()
+    Plug 'VundleVim/Vundle.vim'
+    Plug 'lervag/vimtex'
+    "Plug 'Valloric/YouCompleteMe'
+    "Plug 'rdnetto/YCM-Generator'
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
+    Plug 'neomake/neomake'
+    Plug 'sethgower/vip'
+    Plug 'dracula/vim'
+    Plug 'vim-airline/vim-airline'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'autozimu/LanguageClient-neovim', {
+        \ 'branch': 'next',
+        \ 'do': 'bash install.sh',
+        \ }
+call plug#end()
 filetype plugin indent on
 
 syntax on
@@ -58,6 +65,7 @@ augroup END
 let g:vimtex_view_general_viewer = 'evince'
 let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor='latex'
+let g:vimtex_quickfix_open_on_warning = 0
 
 if exists("b:did_ftplugin")
     finish
@@ -78,3 +86,29 @@ let g:ycm_min_num_of_chars_for_completion = 2
 highlight Pmenu guifg=7 guibg=13 ctermfg=7 ctermbg=13
 
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
+
+" Persistent undo
+set undodir=~/.config/nvim/undodir
+set undofile
+
+"call neomake#configure#automake('nwri')
+
+" Vim-airline
+let g:airline_powerline_fonts = 1
+
+" Deoplete
+call deoplete#enable()
+call deoplete#custom#source('LanguageClient', 'min_pattern_length', 2)
+
+" Language Servers
+set signcolumn=yes
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
+let g:LanguageClient_loggingLevel = 'DEBUG'
+let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
+
+let g:LanguageClient_serverCommands = {
+    \ 'python' : ['/usr/bin/pyls'],
+    \ 'sh': ['bash-language-server', 'start'],
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ }
