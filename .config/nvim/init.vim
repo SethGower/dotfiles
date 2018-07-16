@@ -18,19 +18,18 @@ set tabstop=4 shiftwidth=4 expandtab
 set smarttab
 set inccommand=nosplit
 set clipboard=unnamed
+let mapleader="\\"
 
 map j gj
 map k gk
 
+
 " call vundle#rc("~/.config/nvim/bundle")
 call plug#begin()
-    Plug 'VundleVim/Vundle.vim'
     Plug 'lervag/vimtex'
-    "Plug 'Valloric/YouCompleteMe'
-    "Plug 'rdnetto/YCM-Generator'
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
-    Plug 'neomake/neomake'
+    "Plug 'neomake/neomake'
     Plug 'sethgower/vip'
     Plug 'dracula/vim'
     Plug 'vim-airline/vim-airline'
@@ -40,6 +39,8 @@ call plug#begin()
         \ 'branch': 'next',
         \ 'do': 'bash install.sh',
         \ }
+    Plug 'w0rp/ale'
+    Plug 'Shougo/echodoc.vim'
 call plug#end()
 filetype plugin indent on
 
@@ -49,11 +50,6 @@ colorscheme dracula
 set termguicolors
 
 autocmd FileType latex,tex,markdown,md setlocal spell spelllang=en_us
-
-" NERDTree config
-let NERDTreeShowHidden=1
-let NERDTreeSortOrder=['[\/]$', '*']
-let NERDTreeIgnore=['.*\.swp$', '.*\.swo$', '.*\.pyc$']
 
 " simple augroup for vimtex. 
 augroup MyVimtex
@@ -76,16 +72,8 @@ let g:UltiSnipsExpandTrigger = "<C-j>"
 let g:UltiSnipsJumpForwardTrigger = "<C-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 
-"YouCompleteMe (YCM) configuration options.
-let g:ycm_python_binary_path = 'python3'
-let g:ycm_key_list_select_completion = ['<TAB>']
-let g:ycm_key_list_previous_completion = ['<S_TAB>']
-let g:ycm_min_num_of_chars_for_completion = 2
-
 "Changes colorscheme of popup for YCM
 highlight Pmenu guifg=7 guibg=13 ctermfg=7 ctermbg=13
-
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
 
 " Persistent undo
 set undodir=~/.config/nvim/undodir
@@ -95,6 +83,7 @@ set undofile
 
 " Vim-airline
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#ale#enabled = 1
 
 " Deoplete
 call deoplete#enable()
@@ -104,11 +93,56 @@ call deoplete#custom#source('LanguageClient', 'min_pattern_length', 2)
 set signcolumn=yes
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
-let g:LanguageClient_loggingLevel = 'DEBUG'
+let g:LanguageClient_loggingLevel = 'INFO'
 let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
 
 let g:LanguageClient_serverCommands = {
     \ 'python' : ['/usr/bin/pyls'],
     \ 'sh': ['bash-language-server', 'start'],
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'vhdl': ['/home/seth/.local/bin/vhdl-tools', 'lsp'],
     \ }
+
+let g:LanguageClient_diagnosticsDisplay = {
+            \1: {
+                \ "name": "Error",
+                \ "texthl": "ALEError",
+                \ "signText": "✖",
+                \ "signTexthl": "ALEErrorSign",
+            \},
+            \2: {
+                \ "name": "Warning",
+                \ "texthl": "ALEWarning",
+                \ "signText": "-",
+                \ "signTexthl": "ALEWarningSign",
+            \},
+            \3: {
+                \ "name": "Information",
+                \ "texthl": "ALEInfo",
+                \ "signText": "ℹ",
+                \ "signTexthl": "ALEInfoSign",
+            \},
+            \4: {
+                \ "name": "Hint",
+                \ "texthl": "ALEInfo",
+                \ "signText": "➤",
+                \ "signTexthl": "ALEInfoSign",
+            \},
+        \}
+let g:ale_sign_error = ">>"
+let g:ale_sign_warning = "--"
+
+let g:ale_fix_on_save = 1
+let g:ale_fixers = 
+            \ {
+            \ 'sh': ['shfmt'],
+            \ 'python': ['autopep8'],
+            \ 'java': ['google_java_format']
+            \ }
+
+nnoremap <leader>f :ALEFix<CR>
+let g:ale_linters = 
+            \ {
+            \ 'bash': ['language-server'],
+            \ 'python': ['autopep8'],
+            \ 'vhdl': ['ghdl']
+            \ }
