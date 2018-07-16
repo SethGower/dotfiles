@@ -4,3 +4,4 @@ export EDITOR="$VISUAL"
 export PATH=~/.local/bin:$PATH
 export PATH=/snap/bin:$PATH
 export PATH=$PATH:~/.yarn/bin
+export PATH=$PATH:/usr/local/go/bin/
