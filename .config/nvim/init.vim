@@ -18,6 +18,7 @@ set tabstop=4 shiftwidth=4 expandtab
 set smarttab
 set inccommand=nosplit
 set clipboard=unnamed
+
 let mapleader="\\"
 
 map j gj
@@ -41,6 +42,7 @@ call plug#begin()
         \ }
     Plug 'w0rp/ale'
     Plug 'Shougo/echodoc.vim'
+    Plug 'jiangmiao/auto-pairs'
 call plug#end()
 filetype plugin indent on
 
