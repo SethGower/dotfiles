@@ -1,4 +1,4 @@
-rofi.theme: /home/seth/.config/rofi/glue_pro_blue.rasi
+rofi.theme: /home/maui/.config/rofi/glue_pro_blue.rasi
 
 ! "Enabled modi" Set from: Default
 ! rofi.modi:                           window,run,ssh

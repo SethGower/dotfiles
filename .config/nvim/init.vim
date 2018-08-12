@@ -11,6 +11,7 @@ set showmatch
 set ignorecase
 set undolevels=1000
 set number
+"set relativenumber
 set t_Co=256
 set autoindent
 set backspace=indent,eol,start
@@ -18,6 +19,7 @@ set tabstop=4 shiftwidth=4 expandtab
 set smarttab
 set inccommand=nosplit
 set clipboard=unnamed
+set cursorline
 
 let mapleader="\\"
 
@@ -25,12 +27,10 @@ map j gj
 map k gk
 
 
-" call vundle#rc("~/.config/nvim/bundle")
 call plug#begin()
     Plug 'lervag/vimtex'
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
-    "Plug 'neomake/neomake'
     Plug 'sethgower/vip'
     Plug 'dracula/vim'
     Plug 'vim-airline/vim-airline'
@@ -101,7 +101,6 @@ let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
 let g:LanguageClient_serverCommands = {
     \ 'python' : ['/usr/bin/pyls'],
     \ 'sh': ['bash-language-server', 'start'],
-    \ 'vhdl': ['/home/seth/.local/bin/vhdl-tools', 'lsp'],
     \ }
 
 let g:LanguageClient_diagnosticsDisplay = {
@@ -148,3 +147,6 @@ let g:ale_linters =
             \ 'python': ['autopep8'],
             \ 'vhdl': ['ghdl']
             \ }
+
+" gitgutter
+let g:gitgutter_enabled = 1

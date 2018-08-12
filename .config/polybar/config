@@ -58,9 +58,9 @@ modules-center = date
 modules-right = volume xbacklight xkeyboard memory cpu battery wlan
 
 [bar/bottom]
-inherit = bar/base
+monitor = ${env:MONITOR}
 
-monitor = eDP1
+inherit = bar/base
 
 bottom = true
 modules-left = i3
@@ -216,7 +216,6 @@ format-prefix-foreground = ${colors.primary}
 exec-if = ping -c 1 archlinux.org
 ;exec = echo $(curl --limit-rate 1k -s ipinfo.io/ip)
 exec = ~/.config/polybar/ip.sh
-exec-alt = echo "Hello IP"
 
 [module/hostname]
 type = custom/script

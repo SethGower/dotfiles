@@ -12,5 +12,7 @@ MONITOR="eDP1" polybar -r bottom &
 
 MONITOR="HDMI1" polybar -r top-secondary &
 MONITOR="HDMI2" polybar -r top-secondary &
+MONITOR="HDMI1" polybar -r bottom &
+MONITOR="HDMI2" polybar -r bottom &
 
 echo "Bars launched..."
