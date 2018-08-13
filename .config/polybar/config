@@ -8,8 +8,7 @@ secondary = #3d3dc6
 alert = #bd2c40
 
 [bar/base]
-monitor = ${env:MONITOR}
-
+monitor = ${env:POLYBAR_PRIMARY} 
 height = 30
 
 radius = 10
@@ -44,26 +43,25 @@ inherit = bar/base
 tray-position = right
 tray-padding = 2
 
-modules-left = ip hostname linkspeed user
+modules-left = ${env:PRIMARY_TOP_LEFT: ip}
 modules-center = date
-modules-right = volume xkeyboard memory cpu 
+modules-right = ${env:PRIMARY_TOP_RIGHT}
 
 [bar/top-secondary]
 inherit = bar/top
 
 modules-left = user
 modules-center = date
-modules-right = volume xbacklight xkeyboard memory cpu battery wlan
 
 [bar/bottom]
-monitor = ${env:MONITOR}
+monitor = ${env:POLYBAR_PRIMARY}
 
 inherit = bar/base
 
 bottom = true
-modules-left = i3
-modules-center = xwindow
-modules-right = filesystem powermenu
+modules-left = ${env:PRIMARY_BOTTOM_LEFT}
+modules-center = ${env:PRIMARY_BOTTOM_CENTER}
+modules-right = ${env:PRIMARY_BOTTOM_RIGHT}
 
 [module/xwindow]
 type = internal/xwindow
@@ -237,7 +235,8 @@ format-disconnected = "wlan offline"
 
 [module/linkspeed]
 type = internal/network
-interface = wlp4s0
+;interface = wlp4s0
+interface = ${env:NETWORK_INTERFACE}
 interval = 3.0
 
 format-connected = <label-connected>

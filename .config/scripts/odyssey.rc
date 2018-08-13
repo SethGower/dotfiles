@@ -1,0 +1,13 @@
+# Polybar modules
+export TERMINAL=termite
+
+export PRIMARY_TOP_LEFT='ip hostname linkspeed user'
+export PRIMARY_TOP_CENTER='date'
+export PRIMARY_TOP_RIGHT='volume xkeyboard memory cpu'
+
+export PRIMARY_BOTTOM_LEFT='i3'
+export PRIMARY_BOTTOM_CENTER='xwindow'
+export PRIMARY_BOTTOM_RIGHT='filesystem powermenu'
+
+export NETWORK_INTERFACE='enp2s0'
+# vim:ft=sh

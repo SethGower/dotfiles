@@ -7,12 +7,9 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Launch bar1 and bar2
-MONITOR="eDP1" polybar -r top &
-MONITOR="eDP1" polybar -r bottom &
-
-MONITOR="HDMI1" polybar -r top-secondary &
-MONITOR="HDMI2" polybar -r top-secondary &
-MONITOR="HDMI1" polybar -r bottom &
-MONITOR="HDMI2" polybar -r bottom &
+export POLYBAR_PRIMARY=$(xrandr -q | awk '/primary/{print $1}')
+printf "[INFO] Starting polybar on primary monitor $POLYBAR_PRIMARY\n"
+polybar -r top &
+polybar -r bottom &
 
 echo "Bars launched..."

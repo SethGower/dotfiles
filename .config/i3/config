@@ -169,14 +169,12 @@ new_window 1pixel
 
 # Sets resolution 
 exec --no-startup-id xrandr --output eDP1 --mode 1920x1080
-
+exec --no-startup-id xrandr --output HDMI1 --primary
 # screenshot entire screen and store it in ~/Pictures/Screenshots/MonthD-Hour(24):Min:Seconds.png
-bindsym --release Print exec "escrotum -s /home/maui/Pictures/Screenshots/%b%d-%k:%M:%S.png"
-bindsym --release Shift+Print exec "escrotum /home/maui/Pictures/Screenshots/%b%d-%k:%M:%S.png"
+bindsym --release Print exec "escrotum -s ~/Pictures/Screenshots/%b%d-%k:%M:%S.png"
+bindsym --release Shift+Print exec "escrotum ~/Pictures/Screenshots/%b%d-%k:%M:%S.png"
 
 #Auto start apps
-exec --no-startup-id compton -b
-exec --no-startup-id feh --bg-scale /usr/share/pixmaps/seth-2.png
 exec --no-startup-id nm-applet
 #exec --no-startup-id blueman-applet
 #exec --no-startup-id spotify
