@@ -30,3 +30,6 @@ fi
 
 zstyle ':completion:*:*:nvim:*:*files' ignored-patterns '*.pdf'
 zstyle ':completion:*:*:nvim:*:*files' ignored-patterns '*.o'
+
+eval $(thefuck --alias)
+eval $(thefuck --alias heck)
