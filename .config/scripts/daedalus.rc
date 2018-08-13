@@ -1,0 +1,12 @@
+export TERMINAL='termite'
+
+export PRIMARY_TOP_LEFT='ip hostname linkspeed user'
+export PRIMARY_TOP_CENTER='date'
+export PRIMARY_TOP_RIGHT='volume xbacklight xkeyboard memory cpu bat wlan'
+
+export PRIMARY_BOTTOM_LEFT='i3'
+export PRIMARY_BOTTOM_CENTER='xwindow'
+export PRIMARY_BOTTOM_RIGHT='filesystem powermenu'
+
+export NETWORK_INTERFACE='wlp4s0'
+# vim:ft=sh
