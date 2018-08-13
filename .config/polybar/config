@@ -8,8 +8,6 @@ secondary = #3d3dc6
 alert = #bd2c40
 
 [bar/base]
-;monitor = eDP1
-
 monitor = ${env:MONITOR}
 
 height = 30
@@ -48,7 +46,7 @@ tray-padding = 2
 
 modules-left = ip hostname linkspeed user
 modules-center = date
-modules-right = volume xbacklight xkeyboard memory cpu battery wlan
+modules-right = volume xkeyboard memory cpu 
 
 [bar/top-secondary]
 inherit = bar/top
@@ -214,8 +212,8 @@ format-prefix = "IPv4: "
 format-prefix-foreground = ${colors.primary}
 
 exec-if = ping -c 1 archlinux.org
-;exec = echo $(curl --limit-rate 1k -s ipinfo.io/ip)
-exec = ~/.config/polybar/ip.sh
+exec = echo $(curl --limit-rate 1k -s ipinfo.io/ip)
+#exec = ~/.config/polybar/ip.sh
 
 [module/hostname]
 type = custom/script
