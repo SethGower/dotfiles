@@ -10,4 +10,6 @@ export PRIMARY_BOTTOM_CENTER='xwindow'
 export PRIMARY_BOTTOM_RIGHT='filesystem powermenu'
 
 export NETWORK_INTERFACE='enp2s0'
+
+export REDSHIFT_GAMMA=0.8
 # vim:ft=sh
