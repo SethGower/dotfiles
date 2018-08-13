@@ -51,5 +51,5 @@ tkl(){
 	}
 }
 
-eval $(thefuck --alias)
-eval $(thefuck --alias heck)
+#eval $(thefuck --alias)
+#eval $(thefuck --alias heck)
