@@ -39,11 +39,12 @@ cursor-click = pointer
 
 [bar/top]
 inherit = bar/base
+enable-ipc = true
 
 tray-position = right
 tray-padding = 2
 
-modules-left = ${env:PRIMARY_TOP_LEFT: ip}
+modules-left = ${env:PRIMARY_TOP_LEFT: ip} 
 modules-center = date
 modules-right = ${env:PRIMARY_TOP_RIGHT}
 
@@ -213,6 +214,21 @@ exec-if = ping -c 1 archlinux.org
 exec = echo $(curl --limit-rate 1k -s ipinfo.io/ip)
 #exec = ~/.config/polybar/ip.sh
 
+[module/ip-ipc]
+type = custom/ipc
+format = <output>
+format-prefix = "IPv4: "
+format-prefix-foreground = ${colors.primary}
+
+hook-0 = ~/.config/polybar/ip-ipc.sh public 
+hook-1 = ~/.config/polybar/ip-ipc.sh private
+
+click-left = polybar-msg -p %pid% hook ip-ipc 1
+click-right = polybar-msg -p %pid% hook ip-ipc 2
+
+
+initial = 1
+
 [module/hostname]
 type = custom/script
 interval = 30
@@ -264,6 +280,7 @@ format-prefix = "User: "
 format-prefix-foreground = ${colors.primary}
 
 exec = echo $(whoami)
+
 [settings]
 screenchange-reload = true
 
