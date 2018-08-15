@@ -44,7 +44,7 @@ enable-ipc = true
 tray-position = right
 tray-padding = 2
 
-modules-left = ${env:PRIMARY_TOP_LEFT: ip} 
+modules-left = ${env:PRIMARY_TOP_LEFT} 
 modules-center = date
 modules-right = ${env:PRIMARY_TOP_RIGHT}
 
@@ -202,17 +202,6 @@ animation-charging-3 = 
 animation-charging-4 = 
 animation-framerate = 100
 
-[module/ip]
-type = custom/script
-interval = 2
-
-format = "<label> "
-format-prefix = "IPv4: "
-format-prefix-foreground = ${colors.primary}
-
-exec-if = ping -c 1 archlinux.org
-exec = echo $(curl --limit-rate 1k -s ipinfo.io/ip)
-#exec = ~/.config/polybar/ip.sh
 
 [module/ip-ipc]
 type = custom/ipc
@@ -221,10 +210,8 @@ format-prefix = "IPv4: "
 format-prefix-foreground = ${colors.primary}
 
 hook-0 = ~/.config/polybar/ip-ipc.sh
-;hook-1 = ~/.config/polybar/ip-ipc.sh private
 
 click-left = polybar-msg -p %pid% hook ip-ipc 1
-;click-right = polybar-msg -p %pid% hook ip-ipc 2
 
 
 initial = 1
