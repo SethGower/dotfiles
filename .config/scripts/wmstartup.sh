@@ -52,11 +52,7 @@ $HOME/.config/polybar/launch.sh
 
 # MY EYES!!!! Start redshift
 printf "    [INFO] Starting redshift\n"
-if [[ $(hostname) == "odyssey" ]]; then
-	redshift-gtk -l 36.9:-76.3 -t 6500:4500 -g 0.8 -m randr &
-elif [[ $(hostname) == "daedalus" ]]; then
-	redshift-gtk -l 36.9:-76.3 -t 6500:4500 -m randr &
-fi
+redshift-gtk -l 36.9:-76.3 -t $REDSHIFT_DAY_TEMP:$REDSHIFT_NIGHT_TEMP -g $REDSHIFT_GAMMA -m randr &
 
 # Mons daemon to auto remove external monitors on laptop
 if [[ $(hostname) == 'daedalus' ]]; then
