@@ -18,7 +18,7 @@ fi
 
 # Kill everything
 printf "[INFO] Stopping existing services\n"
-services="polybar compton redshift"
+services="polybar compton redshift-gtk"
 
 for service in $services; do
 	printf "  [INFO] Sending signal to all $service\n"
@@ -53,9 +53,9 @@ $HOME/.config/polybar/launch.sh
 # MY EYES!!!! Start redshift
 printf "    [INFO] Starting redshift\n"
 if [[ $(hostname) == "odyssey" ]]; then
-	redshift -l 36.9:-76.3 -t 6500:4500 -g 0.8 -m randr &
+	redshift-gtk -l 36.9:-76.3 -t 6500:4500 -g 0.8 -m randr &
 elif [[ $(hostname) == "daedalus" ]]; then
-	redshift -l 36.9:-76.3 -t 6500:4500 -m randr &
+	redshift-gtk -l 36.9:-76.3 -t 6500:4500 -m randr &
 fi
 
 # Mons daemon to auto remove external monitors on laptop
@@ -69,4 +69,8 @@ printf "[INFO] Setting Wallpaper...\n"
 if which feh >/dev/null 2>&1; then
 	printf "    [INFO] Setting wallpaper with feh"
 	feh --bg-scale $HOME/.config/background.png
+fi
+
+if [[ -x /usr/bin/numlockx ]]; then
+	numlockx off
 fi
