@@ -220,11 +220,11 @@ format = <output>
 format-prefix = "IPv4: "
 format-prefix-foreground = ${colors.primary}
 
-hook-0 = ~/.config/polybar/ip-ipc.sh public 
-hook-1 = ~/.config/polybar/ip-ipc.sh private
+hook-0 = ~/.config/polybar/ip-ipc.sh
+;hook-1 = ~/.config/polybar/ip-ipc.sh private
 
 click-left = polybar-msg -p %pid% hook ip-ipc 1
-click-right = polybar-msg -p %pid% hook ip-ipc 2
+;click-right = polybar-msg -p %pid% hook ip-ipc 2
 
 
 initial = 1
