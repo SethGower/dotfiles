@@ -8,7 +8,6 @@ set smartindent
 set smartcase
 set hlsearch
 set showmatch
-set ignorecase
 set undolevels=1000
 set number
 "set relativenumber
@@ -90,6 +89,10 @@ let g:airline#extensions#ale#enabled = 1
 " Deoplete
 call deoplete#enable()
 call deoplete#custom#source('LanguageClient', 'min_pattern_length', 2)
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 
 " Language Servers
 set signcolumn=yes
