@@ -1,18 +1,9 @@
-[submodule ".oh-my-zsh"]
-	path = .oh-my-zsh
-	url = https://github.com/robbyrussell/oh-my-zsh.git
-[submodule ".custom_omz/plugins/zsh-syntax-highlighting"]
-	path = .custom_omz/plugins/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule ".custom_omz/plugins/zsh-autosuggestions"]
-	path = .custom_omz/plugins/zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions.git
-[submodule "zsh/.custom_omz/plugins/zsh-syntax-highlighting"]
-	path = zsh/.custom_omz/plugins/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "zsh/.custom_omz/plugins/zsh-autosuggestions"]
-	path = zsh/.custom_omz/plugins/zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions.git
 [submodule "zsh/oh-my-zsh"]
 	path = zsh/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
+[submodule "zsh/custom_omz/plugins/zsh-autosuggestions"]
+	path = zsh/custom_omz/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "zsh/custom_omz/plugins/zsh-syntax-highlighting"]
+	path = zsh/custom_omz/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
