@@ -1,0 +1,58 @@
+snippet pic "\begin{figure}..."
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=${1}]{${2}}
+    \caption{${3}}
+    \label{fig:${4}}
+\end{figure}
+endsnippet
+
+snippet tab "\begin{table}..."
+\begin{table}[H]
+    \centering
+    \caption{${VISUAL}${1:Table Caption}}
+    \label{tab:${2:label}}
+    \vspace{.1cm}
+    \begin{tabular}{${3}}
+        ${4}
+    \end{tabular}
+\end{table}
+endsnippet
+
+snippet eq "\begin{align*}..."
+\begin{align*}
+    ${1}
+\end{align*}
+endsnippet
+
+snippet report "\documentclass[CMPE]{KGCOEReport}..."
+\documentclass[${1:CMPE}]{KGCOEReport}
+
+\newcommand{\exerciseNumber}{${2}}
+\newcommand{\exerciseDescription}{${3}}
+\newcommand{\dateDone}{${4}}
+\newcommand{\dateSubmitted}{${5}}
+
+\begin{document}
+\maketitle
+
+\section*{Abstract}
+
+\section*{Design Methodology}
+
+\section*{Results and Analysis}
+
+\section*{Conclusion}
+
+\section*{Questions}
+
+\end{document}
+endsnippet
+
+snippet article "\documentclass{article}..."
+\documentclass[${1:11pt}]{article}
+
+\begin{document}
+
+\end{document}
+endsnippet
