@@ -10,10 +10,23 @@
     added = difftool --cached
     update-subs = submodule update --init --recursive --remote
 [diff]
-  tool = icdiff
+    tool = icdiff
 [difftool]
-  prompt = false
+    prompt = false
 [difftool "icdiff"]
-  cmd = /usr/bin/icdiff --line-numbers $LOCAL $REMOTE
+    cmd = /usr/bin/icdiff --line-numbers $LOCAL $REMOTE
 [pager]
-  difftool = true   
+    difftool = true   
+# Clone git repos with URLs like "gh:alexpearce/dotfiles"
+[url "https://github.com/"]
+    insteadOf = "gh:"
+[url "git@github.com:"]
+    pushInsteadOf = "gh:"
+# Clone CERN GitLab repos with URLs like "gl:lhcb/Hlt"
+[url "ssh://git@gitlab.cern.ch:7999/"]
+    insteadOf = "gl:"
+# Clone Arch User Repository repos with URLs like "aur:neomutt"
+[url "https://aur.archlinux.org/"]
+    insteadOf = "aur:"
+
+# vim: ft=dosini
