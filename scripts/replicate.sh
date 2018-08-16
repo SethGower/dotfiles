@@ -8,7 +8,8 @@ for dep in $deps; do
 done
 
 tempfolder="/tmp/dots"
-gitdir="$HOME/.dot"
+gitdir="$HOME/.config/.dot"
+intalldir="$HOME/.config"
 repo='git@gitlab.com:SethGower/dotfiles.git'
 config='git --git-dir="$gitdir" --work-tree="$HOME"'
 
@@ -22,6 +23,14 @@ rsync -rvl --exclude ".git" $tempfolder/ $HOME/
 rm -r $tempfolder
 $config submodule update --init --recursive --remote
 $config status.showUntrackedFiles no
+
+printf "Creating Symlinks for files: "
+for file in $(readfile -f $installdir/links/*.); do
+	printf "    $file"
+done
+
+ln -sf $(readfile -f $installdir/links/*.) ~/
+
 printf "$0: dotfiles set up successfully\n"
 printf "Be sure and configure the following before issuing any commits:\n"
 printf "    git config --global user.email\n"

@@ -1,6 +1,6 @@
 # Path to oh-my-zsh installation.
-export ZSH=${HOME}/.oh-my-zsh
-export ZSH_CUSTOM=$HOME/.custom_omz
+export ZSH=${HOME}/.config/zsh/oh-my-zsh
+export ZSH_CUSTOM=$HOME/.config/zsh/custom_omz
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -14,7 +14,7 @@ plugins=(
 	sudo
 )
 
-source ~/.oh-my-zsh/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh
 source ~/.alias
 source ~/.path
 
