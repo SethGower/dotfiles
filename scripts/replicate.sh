@@ -19,7 +19,7 @@ if ! $0; then
 	printf "Do you have the appropriate permissions? Does the remote host know your key?\n"
 	exit 2
 fi
-rsync -rvl --exclude ".git" $tempfolder/ $HOME/
+rsync -rvl --exclude ".git" $tempfolder/ $installdir/
 rm -r $tempfolder
 $config submodule update --init --recursive --remote
 $config status.showUntrackedFiles no
