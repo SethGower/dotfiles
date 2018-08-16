@@ -8,6 +8,7 @@
     stash-all = stash save --include-untracked
     showtool = "!f() { git difftool $1^ $1; }; f"
     added = difftool --cached
+    update-subs = submodule update --init --recursive --remote
 [diff]
   tool = icdiff
 [difftool]
