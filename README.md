@@ -16,3 +16,7 @@ $ stow i3 polybar vim # installs the contents of the i3 polybar and vim director
 ```
 
 Or you can use any of the other package folder in this repo. 
+
+### License
+
+This software is freely distributed under the terms of the [MIT License](https://opensource.org/licenses/MIT)
