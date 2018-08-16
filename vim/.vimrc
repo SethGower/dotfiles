@@ -1,0 +1,1 @@
+/home/seth/.config/vim/.config/nvim/init.vim

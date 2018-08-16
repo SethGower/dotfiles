@@ -2,15 +2,13 @@
 
 ### Installation
 
-Run the following:
+I use [GNU Stow](https://www.gnu.org/software/stow/) to install and link my dotfiles. 
 
-With `curl`
-```sh
-sh -c "$(curl -fsSL https://gitlab.com/SethGower/dotfiles/raw/master/scripts/replicate.sh)"
-```
 
-With `wget`
+All you need to do is simply clone this repo (I suggest into `~/.dotfiles`)
 
 ```sh
-sh -c "$(wget https://gitlab.com/SethGower/dotfiles/raw/master/scripts/replicate.sh -O -)"
+stow i3 polybar vim
 ```
+
+Or you can use any of the other package folder in this repo. 
