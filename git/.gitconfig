@@ -1,0 +1,18 @@
+[user]
+	name = Seth Gower
+	email = sdg7234@rit.edu
+	signingkey = A3726DEBEA9F4E63
+[commit]
+    gpgsign = true
+[alias]
+    stash-all = stash save --include-untracked
+    showtool = "!f() { git difftool $1^ $1; }; f"
+    added = difftool --cached
+[diff]
+  tool = icdiff
+[difftool]
+  prompt = false
+[difftool "icdiff"]
+  cmd = /usr/bin/icdiff --line-numbers $LOCAL $REMOTE
+[pager]
+  difftool = true   
