@@ -20,7 +20,7 @@ alias .....="cd ../../../.."
 alias party='curl parrot.live'
 
 alias gitlog="git log --date=local --format=\" * %h [%cd] %s\""
-alias dot="git --git-dir=${HOME}/.dot --work-tree=${HOME}"
+alias dot="git --git-dir=${HOME}/.dotfiles/.git --work-tree=${HOME}/.dotfiles"
 alias xclip='xclip -selection c'
 alias open="xdg-open"
 
