@@ -12,6 +12,7 @@ plugins=(
 	zsh-autosuggestions 
 	zsh-syntax-highlighting
 	sudo
+    zsh-autopair
 )
 
 source $ZSH/oh-my-zsh.sh

@@ -7,3 +7,6 @@
 [submodule "zsh/.custom_omz/plugins/zsh-autosuggestions"]
 	path = zsh/.custom_omz/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "zsh/.custom_omz/plugins/zsh-autopair"]
+	path = zsh/.custom_omz/plugins/zsh-autopair
+	url = https://github.com/hlissner/zsh-autopair.git
