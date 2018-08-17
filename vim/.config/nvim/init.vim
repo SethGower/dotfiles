@@ -30,7 +30,7 @@ call plug#begin()
     Plug 'lervag/vimtex', {'for':'tex'}
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
-    Plug 'sethgower/vip'
+    Plug 'sethgower/vip', {'for':'vhdl'}
     Plug 'dracula/vim'
     Plug 'vim-airline/vim-airline'
     Plug 'airblade/vim-gitgutter'
@@ -55,7 +55,7 @@ autocmd FileType latex,tex,markdown,md setlocal spell spelllang=en_us
 " simple augroup for vimtex. 
 augroup MyVimtex
 	    autocmd!
-        autocmd User VimtexEventQuit call system('latexmk -c') " Makes vimtex clean all log files and such when exiting vim
+        autocmd User VimtexEventQuit call system('latexmk -c') " Makes vimtex clean all log files and such when exiting vim, doesn't delete output files (pdfs)
         autocmd BufWinEnter *.tex :VimtexCompile " compiles when a tex file is opened. 
 augroup END
 
