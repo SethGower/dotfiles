@@ -27,7 +27,7 @@ map k gk
 
 
 call plug#begin()
-    Plug 'lervag/vimtex'
+    Plug 'lervag/vimtex', {'for':'tex'}
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
     Plug 'sethgower/vip'
@@ -148,7 +148,8 @@ let g:ale_linters =
             \ {
             \ 'bash': ['language-server'],
             \ 'python': ['autopep8'],
-            \ 'vhdl': ['ghdl']
+            \ 'vhdl': ['ghdl'],
+            \ 'tex' : ['lacheck']
             \ }
 
 " gitgutter
