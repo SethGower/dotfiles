@@ -37,7 +37,9 @@ alias nvim="nvim -p"
 alias vim="nvim"
 alias vi="nvim"
 
-alias dsd="cd ~/Documents/Courses/DSD1"
+
+hash -d dsd1=~/Documents/Courses/DSD1
+
 networkscript(){
      sh -c "$(wget $1 -O -)"
 }
