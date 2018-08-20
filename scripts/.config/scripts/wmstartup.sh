@@ -64,7 +64,7 @@ printf "[INFO] Setting Wallpaper...\n"
 
 if which feh >/dev/null 2>&1; then
 	printf "    [INFO] Setting wallpaper with feh"
-	feh --bg-scale $HOME/.config/background.png
+	feh --bg-scale $HOME/.dotfiles/background.png
 fi
 
 if [[ -x /usr/bin/numlockx ]]; then
