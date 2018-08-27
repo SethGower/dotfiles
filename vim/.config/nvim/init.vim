@@ -14,7 +14,7 @@ set number
 set t_Co=256
 set autoindent
 set backspace=indent,eol,start
-set tabstop=4 shiftwidth=4 expandtab
+set tabstop=2 shiftwidth=2 expandtab
 set smarttab
 set inccommand=nosplit
 set clipboard=unnamed
