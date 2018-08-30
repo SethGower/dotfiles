@@ -22,14 +22,8 @@ alias party='curl parrot.live'
 alias gitlog="git log --date=local --format=\" * %h [%cd] %s\""
 alias dot="git --git-dir=${HOME}/.dotfiles/.git --work-tree=${HOME}/.dotfiles"
 alias xclip='xclip -selection c'
-alias open="xdg-open"
-
-alias startbar="i3-msg 'exec --no-startup-id polybar -r top' && i3-msg 'exec --no-startup-id polybar -r bottom'"
 
 # Various Useful PDFs
-alias discrete="pdf ~/Documents/Courses/Textbooks/Spring-2018/Discrete.pdf"
-alias symbols="pdf ~/Documents/PDFs/Symbols.pdf"
-alias theorems="pdf ~/Documents/PDFs/booleanAlgebra.pdf"
 alias handbook="pdf ~/Documents/PDFs/players-handbook-5e.pdf"
 alias constitution="pdf ~/Documents/PDFs/EngineeringHouseConstitution.pdf"
 
@@ -40,10 +34,6 @@ alias vi="nvim"
 
 hash -d dsd1=~/Documents/Courses/DSD1
 
-networkscript(){
-     sh -c "$(wget $1 -O -)"
-}
-
 # Use git completions for "dot" alias when using zsh
 [[ "${SHELL}" == "/usr/bin/zsh" ]] && compdef dot=git
 
@@ -53,5 +43,8 @@ tkl(){
 	}
 }
 
+open(){
+  xdg-open $1 &> /dev/null &
+}
 eval $(thefuck --alias)
 eval $(thefuck --alias heck)
