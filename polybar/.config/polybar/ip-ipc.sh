@@ -2,7 +2,7 @@
 STATE=$(cat /tmp/polybar-ip-state)
 
 public=$(curl --limit-rate 1k -s ipinfo.io/ip)
-private=$(ip a | grep $NETWORK_INTERFACE | grep 'inet' | cut -d '/' -f1 | cut -d 't' -f2 | cut -d ' ' -f2)
+private=$(ip a | awk '/secondary/{print $2}' | cut -d '/' -f1)
 
 if [ $public == $private ]; then
 	echo $public
