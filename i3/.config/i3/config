@@ -171,8 +171,8 @@ new_window 1pixel
 exec_always --no-startup-id ~/.config/scripts/wmstartup.sh
 # Sets resolution 
 # screenshot entire screen and store it in ~/Pictures/Screenshots/MonthD-Hour(24):Min:Seconds.png
-bindsym --release Print exec "escrotum -s ~/Pictures/Screenshots/%b%d-%k:%M:%S.png"
-bindsym --release Shift+Print exec "escrotum ~/Pictures/Screenshots/%b%d-%k:%M:%S.png"
+bindsym --release Print exec "escrotum -s ~/Pictures/Screenshots/%b%d-%k-%M-%S.png"
+bindsym --release Shift+Print exec "escrotum ~/Pictures/Screenshots/%b%d-%k-%M-%S.png"
 
 #Auto start apps
 exec --no-startup-id nm-applet
