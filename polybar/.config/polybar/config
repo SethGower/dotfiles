@@ -51,6 +51,8 @@ modules-right = ${env:PRIMARY_TOP_RIGHT}
 [bar/top-secondary]
 inherit = bar/top
 
+monitor = ${env:POLYBAR_SECONDARY}
+
 modules-left = user
 modules-center = date
 
@@ -63,6 +65,11 @@ bottom = true
 modules-left = ${env:PRIMARY_BOTTOM_LEFT}
 modules-center = ${env:PRIMARY_BOTTOM_CENTER}
 modules-right = ${env:PRIMARY_BOTTOM_RIGHT}
+
+[bar/bottom-secondary]
+inherit = bar/bottom
+
+monitor = ${env:POLYBAR_SECONDARY}
 
 [module/xwindow]
 type = internal/xwindow
