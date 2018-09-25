@@ -41,7 +41,7 @@
 %%%%%%% Write a CE report
 \DeclareOption{CMPE}{
 	\newcommand{\KGCOEDocType}{CMPE}
-	\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+  \newcommand\numberthis{\refstepcounter{equation}\tag{\theequation}}
 	\newcommand\risingedge{\texttiming[timing/c/rising arrows, timing/c/arrow pos=.7]{2{C}}}
 	\newcommand\fallingedge{\texttiming[timing/c/falling arrows]{3{C}}}
 	\definecolor{Gray}{gray}{.9}
