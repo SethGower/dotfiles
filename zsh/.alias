@@ -27,9 +27,14 @@ alias xclip='xclip -selection c'
 alias handbook="pdf ~/Documents/PDFs/players-handbook-5e.pdf"
 alias constitution="pdf ~/Documents/PDFs/EngineeringHouseConstitution.pdf"
 
-alias nvim="nvim -p"
-alias vim="nvim"
-alias vi="nvim"
+if [[ -x "$(command -v nvim)" ]]; then
+  alias nvim="nvim -p"
+  alias vim="nvim"
+  alias vi="nvim"
+else
+  alias nvim="vim -p"
+  alias vi="vim"
+fi
 
 
 hash -d dsd1=~/Documents/Courses/DSD1
@@ -46,8 +51,6 @@ tkl(){
 open(){
   xdg-open $1 &> /dev/null &
 }
-eval $(thefuck --alias)
-eval $(thefuck --alias heck)
 
 h=()
 if [[ -r ~/.ssh/config ]]; then
@@ -56,4 +59,9 @@ fi
 if [[ $#h -gt 0 ]]; then
   zstyle ':completion:*:ssh:*' hosts $h
   zstyle ':completion:*:slogin:*' hosts $h
+fi
+
+if [[ -x $(command -v thefuck) ]]; then
+  eval $(thefuck --alias)
+  eval $(thefuck --alias heck)
 fi
