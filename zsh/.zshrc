@@ -2,9 +2,20 @@
 export ZSH=${HOME}/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.custom_omz
 
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+  SESSION_TYPE=remote/ssh
+else
+  case $(ps -o comm= -p $PPID) in
+    sshd|*/sshd) SESSION_TYPE=remote/ssh;;
+  esac
+fi
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
-ZSH_THEME="agnoster"
+if [ -n "$SESSION_TYPE" ]; then
+  ZSH_THEME="robbyrussel"
+else
+  ZSH_THEME="agnoster"
+fi
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
