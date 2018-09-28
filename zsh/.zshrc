@@ -12,7 +12,7 @@ fi
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 if [ -n "$SESSION_TYPE" ]; then
-  ZSH_THEME="robbyrussel"
+  #ZSH_THEME="robbyrussel"
 else
   ZSH_THEME="agnoster"
 fi
