@@ -40,6 +40,9 @@ for service in $services; do
 	unset i
 done
 
+printf "  [INFO] Killing Caffeine"
+kill -9 $(ps aux | awk '!/awk/ && /caffeine-ng/{print $2}')
+
 printf "[INFO] Starting Services...\n"
 
 # Compositor for transparency
@@ -53,6 +56,9 @@ $HOME/.config/polybar/launch.sh
 # MY EYES!!!! Start redshift
 printf "    [INFO] Starting redshift\n"
 redshift-gtk -c $HOME/.config/redshift/$(hostname).conf
+
+printf "    [INFO] Starting caffeine\n"
+caffeine &
 
 # Mons daemon to auto remove external monitors on laptop
 if [[ $(hostname) == 'daedalus' ]]; then
