@@ -20,6 +20,7 @@ setlocal formatoptions+=cro
 " Simple shortcuts from https://github.com/salinasv/vim-vhdl/
 iabbrev <buffer> dt downto
 iabbrev <buffer> sig signal
+iabbrev <buffer> var variable
 iabbrev <buffer> gen generate
 iabbrev <buffer> ot others
 iabbrev <buffer> sl std_logic
