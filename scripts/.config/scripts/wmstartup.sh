@@ -40,7 +40,7 @@ for service in $services; do
 	unset i
 done
 
-printf "  [INFO] Killing Caffeine"
+printf "  [INFO] Killing Caffeine\n"
 kill -9 $(ps aux | awk '!/awk/ && /caffeine-ng/{print $2}')
 
 printf "[INFO] Starting Services...\n"
