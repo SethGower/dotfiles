@@ -29,6 +29,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 source ~/.alias
 source ~/.path
+source ~/.function
 
 
 # Launch tmux on start. Uncomment the end to attach on start.
