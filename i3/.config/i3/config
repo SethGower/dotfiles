@@ -101,6 +101,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 for_window [class="Spotify"] move to workspace 8
 for_window [class="net-ftb-main-Main"] floating enable
+for_window [class="URxvt"] floating enable
 
 assign [class="Thunderbird"] 9
 assign [class="Franz"] 10
@@ -173,6 +174,11 @@ exec_always --no-startup-id ~/.config/scripts/wmstartup.sh
 # screenshot entire screen and store it in ~/Pictures/Screenshots/MonthD-Hour(24):Min:Seconds.png
 bindsym --release Print exec "escrotum -s ~/Pictures/Screenshots/%b%d-%k-%M-%S.png"
 bindsym --release Shift+Print exec "escrotum ~/Pictures/Screenshots/%b%d-%k-%M-%S.png"
+
+bindsym $mod+Shift+p exec --no-startup-id "urxvt -geometry 100x30 -e ranger $HOME/Documents/PDFs"
+bindsym $mod+Shift+s exec --no-startup-id "urxvt -geometry 100x30 -e ranger $HOME/Pictures/Screenshots"
+bindsym $mod+Shift+f exec --no-startup-id "urxvt -geometry 100x30 -e ranger $HOME/"
+
 
 #Auto start apps
 exec --no-startup-id nm-applet
