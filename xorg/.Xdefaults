@@ -15,7 +15,7 @@ URxvt*scrollBar: false
 ! special
 *.foreground:   #ffffff
 *.depth: 32
-*.background: rgba:001b/001b/001b/8888
+*.background: rgba:001b/001b/001b/cccc
 *.cursorColor:  #ffffff
 
 ! black
