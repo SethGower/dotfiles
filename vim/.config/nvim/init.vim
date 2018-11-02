@@ -51,7 +51,6 @@ colorscheme dracula
 set termguicolors
 
 autocmd FileType latex,tex,markdown,md setlocal spell spelllang=en_us
-
 " simple augroup for vimtex. 
 augroup MyVimtex
 	    autocmd!
@@ -152,5 +151,6 @@ let g:ale_linters =
             \ 'tex' : ['lacheck']
             \ }
 
+map <leader>at :ALEToggle<CR>
 " gitgutter
 let g:gitgutter_enabled = 1
