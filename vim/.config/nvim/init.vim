@@ -42,6 +42,8 @@ call plug#begin()
     Plug 'w0rp/ale'
     Plug 'Shougo/echodoc.vim'
     Plug 'jiangmiao/auto-pairs'
+    Plug 'chip/vim-fat-finger'
+    Plug 'kshenoy/vim-signature'
 call plug#end()
 filetype plugin indent on
 
