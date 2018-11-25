@@ -10,7 +10,7 @@ fi
 
 if [[ $(hostname) == 'odyssey' ]]; then
 	printf "[INFO] Setting HDMI1 to primary monitor\n"
-	xrandr --output HDMI1 --primary
+	xrandr --output HDMI2 --primary
 elif [[ $(hostname) == "daedalus" ]]; then
 	printf "[INFO] Setting primary monitor to eDP1 and setting resolution to 1080p\n"
 	xrandr --output eDP1 --mode 1920x1080

@@ -49,12 +49,13 @@ modules-center = date
 modules-right = ${env:PRIMARY_TOP_RIGHT}
 
 [bar/top-secondary]
-inherit = bar/top
+inherit = bar/base
 
 monitor = ${env:POLYBAR_SECONDARY}
 
 modules-left = user
 modules-center = date
+modules-right = ${env:PRIMARY_TOP_RIGHT}
 
 [bar/bottom]
 monitor = ${env:POLYBAR_PRIMARY}
