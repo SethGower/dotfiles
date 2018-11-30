@@ -30,7 +30,7 @@ call plug#begin()
     Plug 'lervag/vimtex', {'for':'tex'}
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
-    Plug 'sethgower/vip', {'for':'vhdl'}
+    Plug 'JPR75/vip', {'for':'vhdl'}
     Plug 'dracula/vim'
     Plug 'vim-airline/vim-airline'
     Plug 'airblade/vim-gitgutter'
