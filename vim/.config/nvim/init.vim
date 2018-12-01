@@ -10,7 +10,6 @@ set hlsearch
 set showmatch
 set undolevels=1000
 set number
-"set relativenumber
 set t_Co=256
 set autoindent
 set backspace=indent,eol,start
@@ -19,12 +18,12 @@ set smarttab
 set inccommand=nosplit
 set clipboard=unnamed
 set cursorline
+set noshowmode
 
 let mapleader="\\"
 
 map j gj
 map k gk
-
 
 call plug#begin()
     Plug 'lervag/vimtex', {'for':'tex'}
