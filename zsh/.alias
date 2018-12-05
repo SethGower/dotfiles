@@ -12,6 +12,10 @@ else
 	alias al="ls -lah --color"    # List in long format, include dotfiles.
 fi
 
+if [[ -x "$(command -v xstow)" ]]; then
+    alias stow="xstow"
+fi
+
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
