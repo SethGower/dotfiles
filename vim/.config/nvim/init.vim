@@ -10,7 +10,6 @@ set hlsearch
 set showmatch
 set undolevels=1000
 set number
-"set relativenumber
 set t_Co=256
 set autoindent
 set backspace=indent,eol,start
@@ -19,18 +18,18 @@ set smarttab
 set inccommand=nosplit
 set clipboard=unnamed
 set cursorline
+set noshowmode
 
 let mapleader="\\"
 
 map j gj
 map k gk
 
-
 call plug#begin()
     Plug 'lervag/vimtex', {'for':'tex'}
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
-    Plug 'sethgower/vip', {'for':'vhdl'}
+    Plug 'JPR75/vip', {'for':'vhdl'}
     Plug 'dracula/vim'
     Plug 'vim-airline/vim-airline'
     Plug 'airblade/vim-gitgutter'
@@ -42,6 +41,8 @@ call plug#begin()
     Plug 'w0rp/ale'
     Plug 'Shougo/echodoc.vim'
     Plug 'jiangmiao/auto-pairs'
+    Plug 'chip/vim-fat-finger'
+    Plug 'kshenoy/vim-signature'
 call plug#end()
 filetype plugin indent on
 

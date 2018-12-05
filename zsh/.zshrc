@@ -31,6 +31,7 @@ source ~/.alias
 source ~/.path
 source ~/.function
 
+compinit
 
 # Launch tmux on start. Uncomment the end to attach on start.
 if [[ $DISPLAY || $XDG_VTNR -ne 1 ]]; then
@@ -41,5 +42,4 @@ if [[ -x "$(command -v fzf)" ]]; then
 	[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fi
 
-zstyle ':completion:*:*:nvim:*:*files' ignored-patterns '*.pdf'
-zstyle ':completion:*:*:nvim:*:*files' ignored-patterns '*.o'
+zstyle ':completion:*:*:nvim:*' file-patterns '^*.(aux|log|pdf|dvi|o):source-files' '*:all-files'
