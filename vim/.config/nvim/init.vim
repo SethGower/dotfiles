@@ -132,15 +132,16 @@ let g:LanguageClient_diagnosticsDisplay = {
                 \ "signTexthl": "ALEInfoSign",
             \},
         \}
-let g:ale_sign_error = ">>"
-let g:ale_sign_warning = "--"
+let g:ale_sign_error = "✖"
+let g:ale_sign_warning = "-"
 
 let g:ale_fix_on_save = 1
 let g:ale_fixers = 
             \ {
             \ 'sh': ['shfmt'],
             \ 'python': ['autopep8'],
-            \ 'java': ['google_java_format']
+            \ 'java': ['google_java_format'],
+            \ 'c'   : ['clang-format','uncrustify']
             \ }
 
 nnoremap <leader>f :ALEFix<CR>
@@ -149,9 +150,17 @@ let g:ale_linters =
             \ 'bash': ['language-server'],
             \ 'python': ['autopep8'],
             \ 'vhdl': ['ghdl'],
-            \ 'tex' : ['lacheck']
+            \ 'tex' : ['lacheck'],
+            \ 'c'   : ['gcc']
             \ }
 
 map <leader>at :ALEToggle<CR>
+map <leader>ai :ALEInfo<CR>
+map <leader>al :ALELint<CR>
+
+let g:ale_c_parse_makefile = 1
+
 " gitgutter
 let g:gitgutter_enabled = 1
+
+map <leader>mc :make clean<CR>
