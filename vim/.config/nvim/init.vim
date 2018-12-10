@@ -141,7 +141,8 @@ let g:ale_fixers =
             \ 'sh': ['shfmt'],
             \ 'python': ['autopep8'],
             \ 'java': ['google_java_format'],
-            \ 'c'   : ['clang-format','uncrustify']
+            \ 'c'   : ['clang-format','uncrustify'],
+            \ 'markdown' : ['prettier']
             \ }
 
 nnoremap <leader>f :ALEFix<CR>
