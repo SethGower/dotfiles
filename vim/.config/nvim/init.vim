@@ -152,7 +152,7 @@ let g:ale_linters =
             \ 'python': ['autopep8'],
             \ 'vhdl': ['ghdl'],
             \ 'tex' : ['lacheck'],
-            \ 'c'   : ['gcc']
+            \ 'c'   : ['cquery','gcc']
             \ }
 
 map <leader>at :ALEToggle<CR>
