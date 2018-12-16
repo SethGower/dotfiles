@@ -73,6 +73,4 @@ if which feh >/dev/null 2>&1; then
 	feh --bg-scale $HOME/.dotfiles/background.png
 fi
 
-if [[ -x /usr/bin/numlockx ]]; then
-	numlockx off
-fi
+[[ -x /usr/bin/numlockx ]] && numlockx off
