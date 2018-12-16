@@ -1,7 +1,7 @@
 [user]
 	name = Seth Gower
 	email = sdg7234@rit.edu
-	signingkey = 23AF21BED46D7926
+	signingkey = A3726DEBEA9F4E63
 [commit]
 	gpgsign = true
 [alias]

@@ -194,3 +194,5 @@ exec --no-startup-id thunderbird
 exec --no-startup-id franz4-bin
 exec --no-startup-id nohup mons -a > /dev/null 2>&1 &
 exec --no-startup-id /opt/PB for Desktop/pb-for-desktop > /dev/null 2>&1 &
+
+exec --no-startup-id  mons -e right
