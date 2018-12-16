@@ -1,7 +1,5 @@
-[user]
-	name = Seth Gower
-	email = sdg7234@rit.edu
-	signingkey = 23AF21BED46D7926
+[include]
+    path= ~/.personalgitconfig
 [commit]
 	gpgsign = true
 [alias]
