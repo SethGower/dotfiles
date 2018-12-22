@@ -166,6 +166,10 @@ let g:gitgutter_enabled = 1
 
 map <leader>mc :make clean<CR>
 
+if has('nvr')
+    let $VISUAL = 'nvr -cc split --remote-wait'
+endif
+
 map <leader>wh  <C-w>h
 map <leader>wj  <C-w>j
 map <leader>wk  <C-w>k
