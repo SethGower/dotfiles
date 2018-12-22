@@ -165,3 +165,8 @@ let g:ale_c_parse_makefile = 1
 let g:gitgutter_enabled = 1
 
 map <leader>mc :make clean<CR>
+
+map <leader>wh  <C-w>h
+map <leader>wj  <C-w>j
+map <leader>wk  <C-w>k
+map <leader>wl  <C-w>l
