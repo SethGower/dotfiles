@@ -25,7 +25,7 @@ plugins=(
 	sudo
     zsh-autopair
 )
-
+ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
 source ~/.alias
 source ~/.path
