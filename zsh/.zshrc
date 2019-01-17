@@ -31,6 +31,10 @@ source ~/.alias
 source ~/.path
 source ~/.function
 
+if [ -f ~/.local_conf ]; then
+    source ~/.local_conf
+fi
+
 compinit
 
 # Launch tmux on start. Uncomment the end to attach on start.
