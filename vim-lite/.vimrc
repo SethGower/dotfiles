@@ -15,7 +15,6 @@ set autoindent
 set backspace=indent,eol,start
 set tabstop=4 shiftwidth=4 expandtab
 set smarttab
-set inccommand=nosplit
 set clipboard=unnamed
 set cursorline
 set noshowmode
@@ -39,7 +38,6 @@ filetype plugin indent on
 syntax on
 let g:dracula_colorterm = 0
 colorscheme dracula
-set termguicolors
 
 autocmd FileType latex,tex,markdown,md setlocal spell spelllang=en_us
 autocmd FileType make setlocal noexpandtab " prevents vim from placing spaces instead of tabs for makefiles (sadly)
