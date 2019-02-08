@@ -28,15 +28,15 @@
 
 %%%%%%% External functions and environments
 
-\newcommand{\classCode}{CMPE 250}  
+\newcommand{\classCode}{CMPE 260}  
 
 \newcommand{\name}{Seth Zerishnek-Gower}                              
 \newcommand{\LabSectionNum}{4}     
-\newcommand{\LabInstructor}{Dr.\ Shaaban}                           
+\newcommand{\LabInstructor}{Mr. Blocklove}                           
 
-\newcommand{\TAs}{Anthony Bachetta \\ Sahil Gogna \\ Donald Mannise}                                                                  
+\newcommand{\TAs}{Priya Jain  \\ Nabiel Kandiel\\ James Snedecor}
 \newcommand{\LectureSectionNum}{1} 
-\newcommand{\LectureInstructor}{Mr.\ Sarra}
+\newcommand{\LectureInstructor}{Mr.\ Cliver}
 	
 %%%%%%% Write a CE report
 \DeclareOption{CMPE}{
