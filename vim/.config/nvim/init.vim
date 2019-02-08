@@ -52,6 +52,7 @@ colorscheme dracula
 set termguicolors
 
 autocmd FileType latex,tex,markdown,md setlocal spell spelllang=en_us
+autocmd FileType make setlocal noexpandtab " prevents vim from placing spaces instead of tabs for makefiles (sadly)
 " simple augroup for vimtex. 
 augroup MyVimtex
 	    autocmd!
@@ -59,7 +60,8 @@ augroup MyVimtex
         autocmd BufWinEnter *.tex :VimtexCompile " compiles when a tex file is opened. 
 augroup END
 
-let g:vimtex_view_general_viewer = 'evince'
+"let g:vimtex_view_general_viewer = 'evince'
+let g:vimtex_view_method = 'zathura'
 let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor='latex'
 let g:vimtex_quickfix_open_on_warning = 0
@@ -141,7 +143,7 @@ let g:ale_fixers =
             \ 'sh': ['shfmt'],
             \ 'python': ['autopep8'],
             \ 'java': ['google_java_format'],
-            \ 'c'   : ['clang-format','uncrustify'],
+            \ 'c'   : ['clang-format'],
             \ 'markdown' : ['prettier']
             \ }
 
@@ -150,11 +152,11 @@ let g:ale_linters =
             \ {
             \ 'bash': ['language-server'],
             \ 'python': ['autopep8'],
-            \ 'vhdl': ['ghdl'],
             \ 'tex' : ['lacheck'],
             \ 'c'   : ['cquery','gcc']
             \ }
 
+let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, IndentWidth: 4}"'
 map <leader>at :ALEToggle<CR>
 map <leader>ai :ALEInfo<CR>
 map <leader>al :ALELint<CR>
