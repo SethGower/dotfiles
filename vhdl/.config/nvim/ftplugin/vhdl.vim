@@ -6,13 +6,14 @@ endif
 let g:UltiSnipsSnippetDir="~/.config/nvim/UltiSnips/"
 
 let g:vhdl_indent_genportmap = 0 " Keeps Vim from indenting port maps too much
-let g:HDL_Clock_Period = 10
+let g:HDL_Clock_Period = 100
 let g:HDL_Author = system("git config --global user.name")
 
-nnoremap <leader>C <Plug>SpecialVHDLPasteComponent
-nnoremap <leader>I <Plug>SpecialVHDLPasteInstance
+nnoremap <leader>c <Plug>SpecialVHDLPasteComponent
 nnoremap <leader>i <Plug>SpecialVHDLPasteInstance
-nnoremap <leader>E <Plug>SpecialVHDLPasteEntity
+nnoremap <leader>e <Plug>SpecialVHDLPasteEntity
+
+let g:ale_vhdl_ghdl_options = "--ieee=synopsys"
 
 setlocal comments=:--
 setlocal formatoptions+=cro
@@ -27,5 +28,5 @@ iabbrev <buffer> sl std_logic
 iabbrev <buffer> slv std_logic_vector
 iabbrev <buffer> uns unsigned
 iabbrev <buffer> toi to_integer
-iabbrev <buffer> tos to_unsigned
+iabbrev <buffer> tos to_signed
 iabbrev <buffer> tou to_unsigned
