@@ -19,6 +19,8 @@ set inccommand=nosplit
 set clipboard=unnamed
 set cursorline
 set noshowmode
+set textwidth=78
+set colorcolumn=+1
 
 let mapleader="\\"
 
@@ -53,7 +55,6 @@ set termguicolors
 
 autocmd FileType latex,tex,markdown,md setlocal spell spelllang=en_us
 autocmd FileType make setlocal noexpandtab " prevents vim from placing spaces instead of tabs for makefiles (sadly)
-
 
 " Ultisnips commands.
 let g:UltiSnipsExpandTrigger = "<C-j>"
@@ -91,6 +92,7 @@ let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
 let g:LanguageClient_serverCommands = {
     \ 'python' : ['/usr/bin/pyls'],
     \ 'sh': ['bash-language-server', 'start'],
+    \ 'c': ['cquery']
     \ }
 
 let g:LanguageClient_diagnosticsDisplay = {
@@ -128,8 +130,7 @@ let g:ale_fixers =
             \ 'sh': ['shfmt'],
             \ 'python': ['autopep8'],
             \ 'java': ['google_java_format'],
-            \ 'c'   : ['clang-format'],
-            \ 'markdown' : ['prettier']
+            \ 'c'   : ['clang-format']
             \ }
 
 nnoremap <leader>f :ALEFix<CR>
@@ -138,13 +139,15 @@ let g:ale_linters =
             \ 'bash': ['language-server'],
             \ 'python': ['autopep8'],
             \ 'tex' : ['lacheck'],
-            \ 'c'   : ['cquery','gcc']
+            \ 'c'   : ['cquery']
             \ }
 
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, IndentWidth: 4}"'
 map <leader>at :ALEToggle<CR>
 map <leader>ai :ALEInfo<CR>
 map <leader>al :ALELint<CR>
+map <leader>ad :ALEGoToDefinitionInTab<CR>
+map <leader>ar :ALEFindReferences<CR>
 
 let g:ale_c_parse_makefile = 1
 
