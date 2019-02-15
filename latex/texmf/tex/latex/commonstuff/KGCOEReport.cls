@@ -17,6 +17,7 @@
 \RequirePackage{amsmath}
 \RequirePackage{kmap}
 \RequirePackage{tikz-timing}
+\RequirePackage{pdfpages}
 \usetikztiminglibrary[rising arrows, falling arrows]{clockarrows}
 \setlength{\parindent}{0pt} % Don't indent paragraphs
 
