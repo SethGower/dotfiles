@@ -37,14 +37,15 @@ call plug#begin()
     Plug 'airblade/vim-gitgutter'
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch': 'next',
-        \ 'do': 'bash install.sh',
+        \ 'branch' : 'next',
+        \ 'do'     : 'bash install.sh',
         \ }
     Plug 'w0rp/ale'
     Plug 'Shougo/echodoc.vim'
     Plug 'jiangmiao/auto-pairs'
     Plug 'chip/vim-fat-finger'
     Plug 'kshenoy/vim-signature'
+    Plug 'godlygeek/tabular'
 call plug#end()
 filetype plugin indent on
 
@@ -57,8 +58,8 @@ autocmd FileType latex,tex,markdown,md setlocal spell spelllang=en_us
 autocmd FileType make setlocal noexpandtab " prevents vim from placing spaces instead of tabs for makefiles (sadly)
 
 " Ultisnips commands.
-let g:UltiSnipsExpandTrigger = "<C-j>"
-let g:UltiSnipsJumpForwardTrigger = "<C-j>"
+let g:UltiSnipsExpandTrigger       = "<C-j>"
+let g:UltiSnipsJumpForwardTrigger  = "<C-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 
 "Changes colorscheme of popup for YCM
@@ -84,41 +85,41 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Language Servers
 set signcolumn=yes
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
+let g:LanguageClient_autoStart    = 1
+let g:LanguageClient_loggingFile  = '/tmp/LanguageClient.log'
 let g:LanguageClient_loggingLevel = 'INFO'
 let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
 
 let g:LanguageClient_serverCommands = {
     \ 'python' : ['/usr/bin/pyls'],
-    \ 'sh': ['bash-language-server', 'start'],
-    \ 'c': ['cquery']
+    \ 'sh'     : ['bash-language-server', 'start'],
+    \ 'c'      : ['cquery']
     \ }
 
 let g:LanguageClient_diagnosticsDisplay = {
             \1: {
-                \ "name": "Error",
-                \ "texthl": "ALEError",
-                \ "signText": "✖",
-                \ "signTexthl": "ALEErrorSign",
+                \ "name"       : "Error",
+                \ "texthl"     : "ALEError",
+                \ "signText"   : "✖",
+                \ "signTexthl" : "ALEErrorSign",
             \},
-            \2: {
-                \ "name": "Warning",
-                \ "texthl": "ALEWarning",
-                \ "signText": "-",
-                \ "signTexthl": "ALEWarningSign",
+            \2                 : {
+                \ "name"       : "Warning",
+                \ "texthl"     : "ALEWarning",
+                \ "signText"   : "-",
+                \ "signTexthl" : "ALEWarningSign",
             \},
-            \3: {
-                \ "name": "Information",
-                \ "texthl": "ALEInfo",
-                \ "signText": "ℹ",
-                \ "signTexthl": "ALEInfoSign",
+            \3                 : {
+                \ "name"       : "Information",
+                \ "texthl"     : "ALEInfo",
+                \ "signText"   : "ℹ",
+                \ "signTexthl" : "ALEInfoSign",
             \},
-            \4: {
-                \ "name": "Hint",
-                \ "texthl": "ALEInfo",
-                \ "signText": "➤",
-                \ "signTexthl": "ALEInfoSign",
+            \4                 : {
+                \ "name"       : "Hint",
+                \ "texthl"     : "ALEInfo",
+                \ "signText"   : "➤",
+                \ "signTexthl" : "ALEInfoSign",
             \},
         \}
 let g:ale_sign_error = "✖"
@@ -127,19 +128,20 @@ let g:ale_sign_warning = "-"
 let g:ale_fix_on_save = 1
 let g:ale_fixers = 
             \ {
-            \ 'sh': ['shfmt'],
-            \ 'python': ['autopep8'],
-            \ 'java': ['google_java_format'],
-            \ 'c'   : ['clang-format']
+            \ 'sh'     : ['shfmt'],
+            \ 'python' : ['autopep8'],
+            \ 'java'   : ['google_java_format'],
+            \ 'c'      : ['clang-format'],
+            \ 'vhdl'   : ['remove_trailing_lines','trim_whitespace']
             \ }
 
 nnoremap <leader>f :ALEFix<CR>
 let g:ale_linters = 
             \ {
-            \ 'bash': ['language-server'],
-            \ 'python': ['autopep8'],
-            \ 'tex' : ['lacheck'],
-            \ 'c'   : ['cquery']
+            \ 'bash'   : ['language-server'],
+            \ 'python' : ['autopep8'],
+            \ 'tex'    : ['lacheck'],
+            \ 'c'      : ['cquery']
             \ }
 
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, IndentWidth: 4}"'
@@ -164,3 +166,10 @@ map <leader>wh  <C-w>h
 map <leader>wj  <C-w>j
 map <leader>wk  <C-w>k
 map <leader>wl  <C-w>l
+
+if exists(":Tabularize")
+      nmap <Leader>a= :Tabularize /=<CR>
+      vmap <Leader>a= :Tabularize /=<CR>
+      nmap <Leader>a: :Tabularize /:<CR>
+      vmap <Leader>a: :Tabularize /:<CR>
+    endif
