@@ -19,6 +19,7 @@ setlocal comments=:--
 setlocal formatoptions+=cro
 
 " Simple shortcuts from https://github.com/salinasv/vim-vhdl/
+iabbrev <buffer> con constant
 iabbrev <buffer> dt downto
 iabbrev <buffer> sig signal
 iabbrev <buffer> var variable
