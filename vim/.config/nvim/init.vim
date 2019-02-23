@@ -32,7 +32,7 @@ call plug#begin()
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
     Plug 'JPR75/vip', {'for':'vhdl'}
-    Plug 'dracula/vim'
+    Plug 'dracula/vim',{'as':'dracula'}
     Plug 'vim-airline/vim-airline'
     Plug 'airblade/vim-gitgutter'
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -47,29 +47,25 @@ call plug#begin()
     Plug 'kshenoy/vim-signature'
     Plug 'godlygeek/tabular'
 call plug#end()
-filetype plugin indent on
+filetype plugin indent on " for plug
 
 syntax on
-let g:dracula_colorterm = 0
+let g:dracula_colorterm = 0 " enables correct background color
 colorscheme dracula
-set termguicolors
+""set termguicolors
 
 autocmd FileType latex,tex,markdown,md setlocal spell spelllang=en_us
-autocmd FileType make setlocal noexpandtab " prevents vim from placing spaces instead of tabs for makefiles (sadly)
+autocmd FileType make setlocal noexpandtab " prevents vim from placing spaces 
+" instead of tabs for makefiles (sadly)
 
 " Ultisnips commands.
 let g:UltiSnipsExpandTrigger       = "<C-j>"
 let g:UltiSnipsJumpForwardTrigger  = "<C-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 
-"Changes colorscheme of popup for YCM
-highlight Pmenu guifg=7 guibg=13 ctermfg=7 ctermbg=13
-
 " Persistent undo
 set undodir=~/.config/nvim/undodir
 set undofile
-
-"call neomake#configure#automake('nwri')
 
 " Vim-airline
 let g:airline_powerline_fonts = 1
@@ -77,7 +73,7 @@ let g:airline#extensions#ale#enabled = 1
 
 " Deoplete
 call deoplete#enable()
-call deoplete#custom#source('LanguageClient', 'min_pattern_length', 2)
+call deoplete#custom#source('LanguageClient', 'min_pattern_length', 4)
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -168,8 +164,8 @@ map <leader>wk  <C-w>k
 map <leader>wl  <C-w>l
 
 if exists(":Tabularize")
-      nmap <Leader>a= :Tabularize /=<CR>
-      vmap <Leader>a= :Tabularize /=<CR>
-      nmap <Leader>a: :Tabularize /:<CR>
-      vmap <Leader>a: :Tabularize /:<CR>
-    endif
+    nmap <Leader>a= :Tabularize /=<CR>
+    vmap <Leader>a= :Tabularize /=<CR>
+    nmap <Leader>a: :Tabularize /:<CR>
+    vmap <Leader>a: :Tabularize /:<CR>
+endif
