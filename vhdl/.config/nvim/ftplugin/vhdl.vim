@@ -9,9 +9,11 @@ let g:vhdl_indent_genportmap = 0 " Keeps Vim from indenting port maps too much
 let g:HDL_Clock_Period = 100
 let g:HDL_Author = system("git config --global user.name")
 
-nnoremap <leader>c <Plug>SpecialVHDLPasteComponent
-nnoremap <leader>i <Plug>SpecialVHDLPasteInstance
-nnoremap <leader>e <Plug>SpecialVHDLPasteEntity
+if exists(":Tabularize")
+    map <leader>v: :Tabularize /:[^:=]<CR>
+    map <leader>vs :Tabularize /<=<CR>
+    map <leader>vw :Tabularize /=><CR>
+endif
 
 let g:ale_vhdl_ghdl_options = "--ieee=synopsys"
 
