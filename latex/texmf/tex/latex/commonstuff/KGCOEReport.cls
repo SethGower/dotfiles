@@ -13,7 +13,8 @@
 %\RequirePackage[most]{tcolorbox}  % For the "RIT" box on EEEE cover
 \RequirePackage{float}
 \RequirePackage{hyperref}
-\RequirePackage{xcolor, colortbl}
+\RequirePackage[table]{xcolor}
+\RequirePackage{colortbl}
 \RequirePackage{amsmath}
 \RequirePackage{kmap}
 \RequirePackage{tikz-timing}
