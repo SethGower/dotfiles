@@ -178,8 +178,8 @@ new_window 1pixel
 exec_always --no-startup-id ~/.config/scripts/wmstartup.sh
 # Sets resolution 
 # screenshot entire screen and store it in ~/Pictures/Screenshots/MonthD-Hour(24):Min:Seconds.png
-bindsym --release Print exec "escrotum -s ~/Pictures/Screenshots/%b%d-%k-%M-%S.png"
-bindsym --release Shift+Print exec "escrotum ~/Pictures/Screenshots/%b%d-%k-%M-%S.png"
+bindsym --release Print exec "maim -u -s -n -l -c 0.157,0.333,0.466,0.4 | xclip -selection clipboard -t image/png" 
+bindsym --release Shift+Print exec "maim -u -s -n -l -c 0.157,0.333,0.466,0.4  ~/Pictures/Screenshots/%b%d-%k-%M-%S.png"
 
 bindsym $mod+Shift+p exec --no-startup-id "urxvt -geometry 100x30 -e ranger $HOME/Documents/PDFs"
 bindsym $mod+Shift+s exec --no-startup-id "urxvt -geometry 100x30 -e ranger $HOME/Pictures/Screenshots"
