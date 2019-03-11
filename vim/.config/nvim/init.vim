@@ -54,7 +54,7 @@ let g:dracula_colorterm = 0 " enables correct background color
 colorscheme dracula
 ""set termguicolors
 
-autocmd FileType latex,tex,markdown,md setlocal spell spelllang=en_us
+autocmd FileType latex,tex,markdown,md,text setlocal spell spelllang=en_us
 autocmd FileType make setlocal noexpandtab " prevents vim from placing spaces 
 " instead of tabs for makefiles (sadly)
 
@@ -128,7 +128,9 @@ let g:ale_fixers =
             \ 'python' : ['autopep8'],
             \ 'java'   : ['google_java_format'],
             \ 'c'      : ['clang-format'],
-            \ 'vhdl'   : ['remove_trailing_lines','trim_whitespace']
+            \ 'cpp'    : ['clang-format'],
+            \ 'vhdl'   : ['remove_trailing_lines','trim_whitespace'],
+            \ 'text'   : ['textlint','remove_trailing_lines','trim_whitespace']
             \ }
 
 nnoremap <leader>f :ALEFix<CR>
