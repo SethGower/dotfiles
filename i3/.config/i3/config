@@ -147,7 +147,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-bindsym $sup+l exec --no-startup-id betterlockscreen -l
+bindsym $sup+l exec --no-startup-id ~/.config/i3/lock.sh
 
 bindsym $mod+shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
