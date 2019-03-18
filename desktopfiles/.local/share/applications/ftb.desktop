@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Exec=java -jar /home/seth/.local/bin/FTB_Launcher.jar
+Name=Feed The Beast
+Comment=Feed the Beast Launcher
