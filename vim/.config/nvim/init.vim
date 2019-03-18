@@ -129,8 +129,8 @@ let g:ale_fixers =
             \ 'java'   : ['google_java_format'],
             \ 'c'      : ['clang-format'],
             \ 'cpp'    : ['clang-format'],
-            \ 'vhdl'   : ['remove_trailing_lines','trim_whitespace'],
-            \ 'text'   : ['textlint','remove_trailing_lines','trim_whitespace']
+            \ 'text'   : ['textlint','remove_trailing_lines','trim_whitespace'],
+            \ 'vhdl'   : ['remove_trailing_lines','trim_whitespace']
             \ }
 
 nnoremap <leader>f :ALEFix<CR>
