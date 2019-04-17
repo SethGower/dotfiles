@@ -46,6 +46,7 @@ call plug#begin()
     Plug 'chip/vim-fat-finger'
     Plug 'kshenoy/vim-signature'
     Plug 'godlygeek/tabular'
+    Plug 'tpope/vim-commentary'
 call plug#end()
 filetype plugin indent on " for plug
 
