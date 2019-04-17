@@ -47,6 +47,7 @@ call plug#begin()
     Plug 'kshenoy/vim-signature'
     Plug 'godlygeek/tabular'
     Plug 'tpope/vim-commentary'
+    Plug 'PratikBhusal/vim-grip'
 call plug#end()
 filetype plugin indent on " for plug
 
@@ -131,7 +132,8 @@ let g:ale_fixers =
             \ 'c'      : ['clang-format'],
             \ 'cpp'    : ['clang-format'],
             \ 'text'   : ['textlint','remove_trailing_lines','trim_whitespace'],
-            \ 'vhdl'   : ['remove_trailing_lines','trim_whitespace']
+            \ 'vhdl'   : ['remove_trailing_lines','trim_whitespace'],
+            \ 'make'   : ['remove_trailing_lines','trim_whitespace']
             \ }
 
 nnoremap <leader>f :ALEFix<CR>
