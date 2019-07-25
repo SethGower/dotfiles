@@ -26,17 +26,16 @@ alias grep='grep --color=always'
 alias handbook="pdf ~/Documents/PDFs/players-handbook-5e.pdf"
 alias constitution="pdf ~/Documents/PDFs/EngineeringHouseConstitution.pdf"
 
-if [[ -x "$(command -v nvim)" ]]; then
-  alias nvim="nvim -p"
-  alias vim="nvim"
-  alias vi="nvim"
-else
-  alias nvim="vim -p"
-  alias vi="vim"
-fi
+#if [[ -x "$(command -v nvim)" ]]; then
+#  alias nvim="nvim -p"
+#  alias vim="nvim"
+#  alias vi="nvim"
+#else
+#  alias nvim="vim -p"
+#  alias vi="vim"
+#fi
 
 
-hash -d dsd1=~/Documents/Courses/DSD1
 
 # Use git completions for "dot" alias when using zsh
 [[ "${SHELL}" == "/usr/bin/zsh" ]] && compdef dot=git
