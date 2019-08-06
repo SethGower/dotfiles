@@ -46,11 +46,6 @@ bindsym $sup+v split v
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
@@ -153,8 +148,9 @@ bindsym $mod+shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 bindsym $mod+equal floating toggle
 
+bindsym $mod+w exec --no-startup-id "rofi -show window -modi window -theme sidebar"
 #sets up gaps
-gaps outer 5
+gaps outer 30
 gaps inner 15
 
 # Bind Media Buttons
@@ -188,10 +184,4 @@ bindsym $mod+Shift+f exec --no-startup-id "urxvt -geometry 100x30 -e ranger $HOM
 #Auto start apps
 exec --no-startup-id nm-applet
 #exec --no-startup-id blueman-applet
-#exec --no-startup-id spotify
-exec --no-startup-id thunderbird
-exec --no-startup-id franz4-bin
 exec --no-startup-id nohup mons -a > /dev/null 2>&1 &
-exec --no-startup-id /opt/PB for Desktop/pb-for-desktop > /dev/null 2>&1 &
-
-exec --no-startup-id  mons -e right
