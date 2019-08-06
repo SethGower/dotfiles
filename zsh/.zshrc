@@ -14,7 +14,7 @@ fi
 if [ -n "$SESSION_TYPE" ]; then
   #ZSH_THEME="robbyrussel"
 else
-  ZSH_THEME="agnoster"
+  ZSH_THEME="candy"
 fi
 
 # Add wisely, as too many plugins slow down shell startup.
@@ -24,6 +24,7 @@ plugins=(
 	zsh-syntax-highlighting
 	sudo
     zsh-autopair
+#    vi-mode
 )
 ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
