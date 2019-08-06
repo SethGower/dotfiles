@@ -48,6 +48,12 @@ call plug#begin()
     Plug 'godlygeek/tabular'
     Plug 'tpope/vim-commentary'
     Plug 'PratikBhusal/vim-grip'
+    Plug 'tmhedberg/SimpylFold', {'for':'python'}
+    Plug 'scrooloose/nerdtree'
+    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'deoplete-plugins/deoplete-jedi', {'for':'python'}
+    Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 filetype plugin indent on " for plug
 
@@ -127,7 +133,7 @@ let g:ale_fix_on_save = 1
 let g:ale_fixers = 
             \ {
             \ 'sh'     : ['shfmt'],
-            \ 'python' : ['autopep8'],
+            \ 'python' : ['autopep8', 'isort'],
             \ 'java'   : ['google_java_format'],
             \ 'c'      : ['clang-format'],
             \ 'cpp'    : ['clang-format'],
@@ -140,7 +146,7 @@ nnoremap <leader>f :ALEFix<CR>
 let g:ale_linters = 
             \ {
             \ 'bash'   : ['language-server'],
-            \ 'python' : ['autopep8'],
+            \ 'python' : ['autopep8', 'python-language-server'],
             \ 'tex'    : ['lacheck'],
             \ 'c'      : ['cquery']
             \ }
@@ -149,7 +155,7 @@ let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, IndentWidth: 4}"
 map <leader>at :ALEToggle<CR>
 map <leader>ai :ALEInfo<CR>
 map <leader>al :ALELint<CR>
-map <leader>ad :ALEGoToDefinitionInTab<CR>
+map <leader>ad :ALEGoToDefinition<CR>
 map <leader>ar :ALEFindReferences<CR>
 
 let g:ale_c_parse_makefile = 1
@@ -168,9 +174,32 @@ map <leader>wj  <C-w>j
 map <leader>wk  <C-w>k
 map <leader>wl  <C-w>l
 
+nnoremap <space> za
+
 if exists(":Tabularize")
     nmap <Leader>a= :Tabularize /=<CR>
     vmap <Leader>a= :Tabularize /=<CR>
     nmap <Leader>a: :Tabularize /:<CR>
     vmap <Leader>a: :Tabularize /:<CR>
 endif
+
+" Nerd Tree Stuff
+map <leader>nt :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+" If no file is opened when vim is opened, open NERDTree
+" Open NERDTree when vim opens
+autocmd vimenter * NERDTree
+" Refocus on the other window not NERDTree
+autocmd VimEnter * wincmd p
