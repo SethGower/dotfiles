@@ -17,6 +17,19 @@ $ stow i3 polybar vim # installs the contents of the i3 polybar and vim director
 
 Or you can use any of the other package folder in this repo. 
 
+### Usage
+
+#### Branching
+
+I have started using branches to differentiate between different versions of
+my dotfiles. The current version that I am using will be stored in master as
+well as its named branch. Other versions are stored in other branches. Current
+branches are 
+
+- alpha (newest)
+- beta (first rice. Naming is reversed because of creation of branches and
+  stuff)
+
 ### License
 
 This software is freely distributed under the terms of the [MIT License](https://opensource.org/licenses/MIT)
