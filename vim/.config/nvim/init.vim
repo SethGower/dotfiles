@@ -54,6 +54,7 @@ call plug#begin()
     Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'deoplete-plugins/deoplete-jedi', {'for':'python'}
     Plug 'christoomey/vim-tmux-navigator'
+    Plug 'dylanaraps/wal.vim'
 call plug#end()
 filetype plugin indent on " for plug
 

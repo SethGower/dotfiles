@@ -1,3 +1,4 @@
+(cat ~/.cache/wal/sequences &)
 # Path to oh-my-zsh installation.
 export ZSH=${HOME}/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.custom_omz
@@ -39,12 +40,15 @@ fi
 compinit
 
 # Launch tmux on start. Uncomment the end to attach on start.
-if [[ $DISPLAY || $XDG_VTNR -ne 1 ]]; then
-	[[ "${TERM}" != *"screen"* ]] && exec tmux new-session  #-A -s 0
-fi
+# if [[ $DISPLAY || $XDG_VTNR -ne 1 ]]; then
+# 	[[ "${TERM}" != *"screen"* ]] && exec tmux new-session  #-A -s 0
+# fi
 
 if [[ -x "$(command -v fzf)" ]]; then
 	[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fi
 
 zstyle ':completion:*:*:nvim:*' file-patterns '^*.(aux|log|pdf|dvi|o):source-files' '*:all-files'
+
+
+(cat ~/.cache/wal/sequences &)

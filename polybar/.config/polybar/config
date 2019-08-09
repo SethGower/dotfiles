@@ -1,11 +1,10 @@
 [colors]
-background = #0000000 ;makes background transparent
-background-alt = #444
-foreground = #dfdfdf
-foreground-alt = #555
-primary = #ff0000
-secondary = #3d3dc6
-alert = #bd2c40
+background = ${xrdb:color0:#222}
+foreground = ${xrdb:color7:#222}
+foreground-alt = ${xrdb:color7:#222}
+primary = ${xrdb:color1:#222}
+secondary = ${xrdb:color3:#222}
+alert = ${xrdb:color3:#222}
 
 [bar/base]
 monitor = ${env:POLYBAR_PRIMARY} 
@@ -31,18 +30,24 @@ module-margin-right = 1
 
 font-0 = Roboto-11;0
 font-1 = FontAwesome:style=Regular:pixelsize=11;1
-separator = " | "
+;separator = " | "
 cursor-click = pointer
 
 [bar/top]
 inherit = bar/base
 enable-ipc = true
 
+width = 80%
+override-redirect = true
+wm-restack = i3
+bottom = false
+offset-x = 10%
+
 tray-position = right
 tray-padding = 2
 
 modules-left = ${env:PRIMARY_TOP_LEFT} 
-modules-center = date
+modules-center = ${env:PRIMARY_TOP_CENTER}
 modules-right = ${env:PRIMARY_TOP_RIGHT}
 
 [bar/top-secondary]
@@ -51,74 +56,36 @@ inherit = bar/base
 monitor = ${env:POLYBAR_SECONDARY}
 
 modules-left = user
-modules-center = date
+modules-center = ${env:PRIMARY_TOP_CENTER}
 modules-right = ${env:PRIMARY_TOP_RIGHT}
 
-[bar/bottom]
-monitor = ${env:POLYBAR_PRIMARY}
-
-inherit = bar/base
-
-bottom = true
-modules-left = ${env:PRIMARY_BOTTOM_LEFT}
-modules-center = ${env:PRIMARY_BOTTOM_CENTER}
-modules-right = ${env:PRIMARY_BOTTOM_RIGHT}
-
-[bar/bottom-secondary]
-inherit = bar/bottom
-
-monitor = ${env:POLYBAR_SECONDARY}
 
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:120% 
 
-[module/xkeyboard]
-type = internal/xkeyboard
-format-prefix-foreground = ${colors.foreground-alt}
-label-layout = %layout%
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
 
-[module/filesystem]
-type = internal/fs
-interval = 25
-mount-0 = /
-mount-1 = /home
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
-label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = ${colors.foreground-alt}
 
 [module/i3]
 type = internal/i3
 format = <label-state> <label-mode>
+strip-wsnumbers = true
 index-sort = true
 wrapping-scroll = false
 
-ws-icon-0 = 1;1
-ws-icon-1 = 2;2
-ws-icon-2 = 3;3
-ws-icon-3 = 4;4
-ws-icon-4 = 5;5
-ws-icon-5 = 6;6
-ws-icon-6 = 7;7
-ws-icon-7 = 8;
-ws-icon-8 = 9;
-ws-icon-9 = 10;
-
 label-mode-padding = 2
-label-mode-foreground = #000
+label-mode-foreground = ${colors.primary}
 label-mode-background = ${colors.primary}
 
 ; focused = Active workspace on focused monitor
-label-focused = %icon%
-label-focused-background = ${colors.background-alt}
+label-focused = %name%
+label-focused-background = ${colors.secondary}
 label-focused-padding = 2
 
 ; unfocused = Inactive workspace on any monitor
-label-unfocused = %icon%
+label-unfocused = %name%
 label-unfocused-padding = 2
+label-unfocused-background = ${colors.background}
 
 ; visible = Active workspace on unfocused monitor
 label-visible = %index%  %icon%
@@ -135,33 +102,6 @@ type = internal/xbacklight
 
 format = <label>
 label = %{F#f00}BL:%{F-} %percentage%%
-
-[module/cpu]
-type = internal/cpu
-interval = 2
-;format-underline = #f90000
-label = %{F#f00}CPU:%{F-} %percentage:2%%
-
-[module/memory]
-type = internal/memory
-interval = 2
-format-prefix-foreground = ${colors.foreground-alt}
-;format-underline = #4bffdc
-label = %{F#f00}Mem:%{F-} %percentage_used%%
-
-[module/date]
-type = internal/date
-interval = 5
-
-date =" %m/%d/%y"
-date-alt = "%A, %B %d "
-
-time = %H:%M
-time-alt = %H:%M:%S
-
-format-underline = #0a6cf5
-
-label = %date% %time%
 
 [module/volume]
 type = internal/alsa
@@ -186,10 +126,6 @@ time-format = %H:%M
 format-charging = <animation-charging> <label-charging>
 format-discharging = <ramp-capacity>  <label-discharging>
 
-;label-charging = %{F#ff0}CHG:%{F-} %percentage%% %{F#ff0}Full in: %{F-}%time%
-;label-discharging = %{F#f00}BAT:%{F-}%percentage%% %{F#ff0}Charge left: %{F-}%time%
-;label-full = %{F#0f0}Fully Charged%{F-}
-
 label-charging = %{F#ff0}%percentage%%%{F-}
 label-discharging = %{F#f00}%percentage%%%{F-}
 label-full =   %{F#0f0}%percentage%%%{F-}
@@ -207,71 +143,10 @@ animation-charging-3 = 
 animation-charging-4 = 
 animation-framerate = 100
 
-
-[module/ip-ipc]
-type = custom/ipc
-format = <output>
-format-prefix = "IPv4: "
-format-prefix-foreground = ${colors.primary}
-
-hook-0 = ~/.config/polybar/ip-ipc.sh
-
-click-left = polybar-msg -p %pid% hook ip-ipc 1
-
-
-initial = 1
-
-[module/hostname]
-type = custom/script
-interval = 30
-
-format = "<label> "
-format-prefix = "Host: " 
-format-prefix-foreground = ${colors.primary}
-
-exec = echo $(uname -n)
-
-[module/wlan]
-type = internal/network
-interface = wlp4s0
-interval = 3.0
-
-format-connected = <label-connected>
-label-connected = "%{F#ff0000}wlan:%{F-} %essid%%{F-}"
-
-format-disconnected = "wlan offline"
-
-[module/linkspeed]
-type = internal/network
-;interface = wlp4s0
-interface = ${env:NETWORK_INTERFACE}
-interval = 3.0
-
-format-connected = <label-connected>
-label-connected = %{F#f00}Down:%{F-} %downspeed% %{F#f00}Up:%{F-}%upspeed%%{F-}
-
-[module/powermenu]
-type = custom/menu
-
-expand-right = false
-menu-0-0 = Shutdown
-menu-0-0-exec = poweroff
-menu-0-1 = Restart
-menu-0-1-exec = reboot
-
-label-open = 
-label-close = 
-label-separator = "       "
-
-[module/user]
-type = custom/script
-interval = 60
-
-format = "<label> "
-format-prefix = "User: "
-format-prefix-foreground = ${colors.primary}
-
-exec = echo $(whoami)
+[module/date]
+type = internal/date
+time = %H:%M
+label = %time%
 
 [settings]
 screenchange-reload = true

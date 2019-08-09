@@ -7,8 +7,8 @@ font = Roboto Mono 11
 foreground      = #F8F8F2
 foreground_bold = #F8F8F2
 cursor          = #F8F8F2
-background      = #282A36
-#background	= rgba(66, 66, 66, 0.6)
+;background      = #282A36
+background	= rgba(66, 66, 66, 0.6)
 
 # black
 color0  = #272822

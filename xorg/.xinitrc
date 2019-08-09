@@ -2,3 +2,5 @@ exec i3
 [[ -f ~/.Xdefaults ]] && xrdb -merge -I$HOME ~/.Xdefaults
 [[ -f ~/.xprofile ]] && source ~/.xprofile
 [[ $(hostname) -e "odyssey" ]] && exec mons -e left &
+wal -R
+date >> ~/.did_run
