@@ -18,7 +18,7 @@ fi
 
 # Kill everything
 printf "[INFO] Stopping existing services\n"
-services="polybar compton redshift-gtk"
+services="polybar compton redshift-gtk conky"
 
 for service in $services; do
     printf "  [INFO] Sending signal to all $service\n"
@@ -55,10 +55,13 @@ $HOME/.config/polybar/launch.sh
 
 # MY EYES!!!! Start redshift
 printf "    [INFO] Starting redshift\n"
-redshift-gtk -c $HOME/.config/redshift/$(hostname).conf
+redshift-gtk -c $HOME/.config/redshift/$(hostname).conf &
 
 printf "    [INFO] Starting caffeine\n"
 caffeine &
+
+printf"     [INFO] Starting conky'\n"
+conky -d
 
 # Mons daemon to auto remove external monitors on laptop
 if [[ $(hostname) == 'daedalus' ]]; then

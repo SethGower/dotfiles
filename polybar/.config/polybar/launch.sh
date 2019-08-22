@@ -12,8 +12,6 @@ export POLYBAR_SECONDARY=$(xrandr -q | awk '/ connected/ && !/primary/{print $1}
 
 printf "[INFO] Starting polybar on primary monitor $POLYBAR_PRIMARY\n"
 polybar -r top &
-polybar -r bottom &
 
-polybar -r top-secondary &
-polybar -r bottom-secondary &
+# polybar -r top-secondary &
 echo "Bars launched..."

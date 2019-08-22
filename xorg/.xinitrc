@@ -3,4 +3,3 @@ exec i3
 [[ -f ~/.xprofile ]] && source ~/.xprofile
 [[ $(hostname) -e "odyssey" ]] && exec mons -e left &
 wal -R
-date >> ~/.did_run

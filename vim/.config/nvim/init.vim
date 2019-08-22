@@ -15,6 +15,7 @@ set autoindent
 set backspace=indent,eol,start
 set tabstop=4 shiftwidth=4 expandtab
 set smarttab
+set breakindent
 set inccommand=nosplit
 set clipboard=unnamed
 set cursorline
@@ -60,7 +61,7 @@ filetype plugin indent on " for plug
 
 syntax on
 let g:dracula_colorterm = 0 " enables correct background color
-colorscheme dracula
+colorscheme wal
 ""set termguicolors
 
 autocmd FileType latex,tex,markdown,md,text setlocal spell spelllang=en_us

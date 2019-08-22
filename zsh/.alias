@@ -64,3 +64,5 @@ if [[ -x $(command -v thefuck) ]]; then
   eval $(thefuck --alias)
   eval $(thefuck --alias heck)
 fi
+
+alias please="sudo"

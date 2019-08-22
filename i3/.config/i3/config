@@ -10,6 +10,8 @@ font pango:DejaVu Sans 12, FontAwesome 9
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+
+bindsym $sup+s sticky toggle
 # start a terminal
 bindsym $mod+Return exec --no-startup-id termite
 
