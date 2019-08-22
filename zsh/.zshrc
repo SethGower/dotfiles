@@ -52,4 +52,4 @@ zstyle ':completion:*:*:nvim:*' file-patterns '^*.(aux|log|pdf|dvi|o):source-fil
 
 
 # If wal is installed, use it
-if [[ -x $(command -v wal) ]] &&(cat ~/.cache/wal/sequences &)
+[[ -x $(command -v wal) ]] &&(cat ~/.cache/wal/sequences &)
