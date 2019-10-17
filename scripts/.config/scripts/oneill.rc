@@ -1,0 +1,12 @@
+export TERMINAL='termite'
+
+export PRIMARY_TOP_LEFT='i3'
+export PRIMARY_TOP_CENTER='xwindow'
+export PRIMARY_TOP_RIGHT='volume xbacklight battery battery1 date'
+
+export NETWORK_INTERFACE='wlp3s0'
+
+export REDSHIFT_GAMMA=1.0
+export REDSHIFT_DAY_TEMP=6500
+export REDSHIFT_NIGHT_TEMP=5500
+# vim:ft=sh
