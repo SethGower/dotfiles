@@ -77,4 +77,8 @@ if which feh >/dev/null 2>&1; then
     #wal -R
 fi
 
+if which dunst >/dev/null 2>&1; then
+    dunst &
+fi
+
 [[ -x /usr/bin/numlockx ]] && numlockx off

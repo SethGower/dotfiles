@@ -10,19 +10,20 @@
 %%%%%%% Required packages
 \RequirePackage{multicol} %Make columns
 \RequirePackage[margin=1in]{geometry} %Change margins
-%\RequirePackage[most]{tcolorbox}  % For the "RIT" box on EEEE cover
+\RequirePackage[most]{tcolorbox}  % For the "RIT" box on EEEE cover
 \RequirePackage{float}
 \RequirePackage{hyperref}
-\RequirePackage[table]{xcolor}
 \RequirePackage{colortbl}
 \RequirePackage{amsmath}
 \RequirePackage{kmap}
 \RequirePackage{tikz-timing}
 \RequirePackage{pdfpages}
+\RequirePackage{fancyhdr}
 \usetikztiminglibrary[rising arrows, falling arrows]{clockarrows}
 \setlength{\parindent}{0pt} % Don't indent paragraphs
 
 %%%%%%% Internal functions and environments
+\newcommand\numberthis{\refstepcounter{equation}\tag{\theequation}}
 % Used to make sure the TA listing is even
 \newenvironment{_TAalignment}{%
 \def\\{\newline\leavevmode\phantom{TA:}}
@@ -30,6 +31,10 @@
 
 %%%%%%% External functions and environments
 
+	
+%%%%%%% Write a CE report
+\DeclareOption{CMPE}{
+\RequirePackage[table]{xcolor}
 \newcommand{\classCode}{CMPE 260}  
 
 \newcommand{\name}{Seth Zerishnek-Gower}                              
@@ -39,11 +44,7 @@
 \newcommand{\TAs}{Priya Jain  \\ Nabiel Kandiel\\ James Snedecor}
 \newcommand{\LectureSectionNum}{1} 
 \newcommand{\LectureInstructor}{Mr.\ Cliver}
-	
-%%%%%%% Write a CE report
-\DeclareOption{CMPE}{
 	\newcommand{\KGCOEDocType}{CMPE}
-  \newcommand\numberthis{\refstepcounter{equation}\tag{\theequation}}
 	\newcommand\risingedge{\texttiming[timing/c/rising arrows, timing/c/arrow pos=.7]{2{C}}}
 	\newcommand\fallingedge{\texttiming[timing/c/falling arrows]{3{C}}}
 	\definecolor{Gray}{gray}{.9}
@@ -95,6 +96,26 @@
 }
 %%%%%%% Write a EE report
 \DeclareOption{EEEE}{
+    \pagestyle{fancy}
+    \fancyhf{}
+
+    \newcommand{\V}[1]{{V_{#1}}}
+    \newcommand{\knprime}{{k_n}^\prime}
+    \newcommand{\twoPhi}{\left| 2 \Phi_F \right|}
+    \newcommand{\wol}{\frac{W}{L}}
+    \newcommand{\vol}{$\V{OL}$}
+    \newcommand{\vth}{$\V{th}$}
+    \newcommand{\voh}{$\V{OH}$}
+    \newcommand{\unit}[1]{\ \si{#1}}
+    \newcommand{\paren}[1]{\left( #1 \right)}
+    \newcommand{\sqBrac}[1]{\left[ #1 \right]}
+    \newcommand{\evalAt}[2]{\left. #1 \right\rvert_{#2}}
+    \newcommand{\partialDeriv}[2]{\frac{\partial #1}{\partial #2}}
+    \newcommand{\e}[2]{#1\mathrm{e}{#2}}
+    \lhead{Tech Memo Lab: \#\exerciseNumber}
+    \rhead{\name}
+    \cfoot{\classCode\ - \className\hspace{1cm}\dateSubmitted\hspace{1cm}Page:
+    \thepage}
 	\newcommand{\KGCOEDocType}{EEEE}
 
 	\renewcommand{\maketitle}{%

@@ -17,7 +17,7 @@ set tabstop=4 shiftwidth=4 expandtab
 set smarttab
 set breakindent
 set inccommand=nosplit
-set clipboard=unnamed
+set clipboard+=unnamedplus
 set cursorline
 set noshowmode
 set textwidth=78
@@ -56,16 +56,21 @@ call plug#begin()
     Plug 'deoplete-plugins/deoplete-jedi', {'for':'python'}
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'dylanaraps/wal.vim'
+    Plug 'chrisbra/Colorizer'
+    Plug 'tpope/vim-surround'
+    Plug 'neovim/pynvim'
 call plug#end()
 filetype plugin indent on " for plug
 
 syntax on
 let g:dracula_colorterm = 0 " enables correct background color
-colorscheme wal
+colorscheme dracula
 ""set termguicolors
 
 autocmd FileType latex,tex,markdown,md,text setlocal spell spelllang=en_us
 autocmd FileType make setlocal noexpandtab " prevents vim from placing spaces 
+autocmd BufNewFile,BufRead *.h set ft=c
+autocmd BufNewFile,BufRead *.toml set ft=dosini
 " instead of tabs for makefiles (sadly)
 
 " Ultisnips commands.
@@ -99,7 +104,8 @@ let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
 let g:LanguageClient_serverCommands = {
     \ 'python' : ['/usr/bin/pyls'],
     \ 'sh'     : ['bash-language-server', 'start'],
-    \ 'c'      : ['cquery']
+    \ 'c'      : ['cquery'],
+    \ 'rust'   : ['rls']
     \ }
 
 let g:LanguageClient_diagnosticsDisplay = {
@@ -141,7 +147,9 @@ let g:ale_fixers =
             \ 'cpp'    : ['clang-format'],
             \ 'text'   : ['textlint','remove_trailing_lines','trim_whitespace'],
             \ 'vhdl'   : ['remove_trailing_lines','trim_whitespace'],
-            \ 'make'   : ['remove_trailing_lines','trim_whitespace']
+            \ 'make'   : ['remove_trailing_lines','trim_whitespace'],
+            \ 'rust'   : ['rustfmt'],
+            \ 'perl'   : ['perltidy']
             \ }
 
 nnoremap <leader>f :ALEFix<CR>
@@ -150,15 +158,17 @@ let g:ale_linters =
             \ 'bash'   : ['language-server'],
             \ 'python' : ['autopep8', 'python-language-server'],
             \ 'tex'    : ['lacheck'],
-            \ 'c'      : ['cquery']
+            \ 'c'      : ['cquery'],
+            \ 'rust'   : ['rls']
             \ }
 
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, IndentWidth: 4}"'
-map <leader>at :ALEToggle<CR>
-map <leader>ai :ALEInfo<CR>
-map <leader>al :ALELint<CR>
-map <leader>ad :ALEGoToDefinition<CR>
-map <leader>ar :ALEFindReferences<CR>
+map <leader>at  :ALEToggle<CR>
+map <leader>ai  :ALEInfo<CR>
+map <leader>al  :ALELint<CR>
+map <leader>ad  :ALEGoToDefinition<CR>
+map <leader>aR :ALEFindReferences<CR>
+map <leader>ar  :ALERename<CR>
 
 let g:ale_c_parse_makefile = 1
 

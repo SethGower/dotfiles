@@ -26,3 +26,5 @@
     insteadOf = "aur:"
 
 # vim: ft=dosini
+[gpg]
+	program = gpg
