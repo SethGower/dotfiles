@@ -1,4 +1,5 @@
 #!/bin/bash
+rm /tmp/lock.png
 scrot -z /tmp/lock.png
 mogrify -resize 5% /tmp/lock.png
 mogrify -resize 2000% /tmp/lock.png
