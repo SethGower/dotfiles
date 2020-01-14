@@ -1,3 +1,4 @@
+#!/bin/bash
 unset TERMINAL
 unset POLYBAR_PRIMARY
 unset PRIMARY_TOP_LEFT PRIMARY_TOP_CENTER PRIMARY_TOP_RIGHT
@@ -8,17 +9,31 @@ if [[ -x "$HOME/.config/scripts/$(hostname).rc" ]]; then
     source $HOME/.config/scripts/$(hostname).rc
 fi
 
+echo $POLYBAR_PRIMARY
 if [[ $(hostname) == 'odyssey' ]]; then
     printf "[INFO] Setting HDMI1 to primary monitor\n"
     xrandr --output HDMI2 --primary
 elif [[ $(hostname) == "daedalus" ]]; then
     printf "[INFO] Setting primary monitor to eDP1 and setting resolution to 1080p\n"
     xrandr --output eDP1 --mode 1920x1080
+elif [[ $(hostname) == "D3271SXG-L" ]]; then
+    printf "[INFO] Setting primary monitor to DP-1-1\n"
+    xrandr --output DP-1-1 --primary
+    xrandr --output DP-1-2 --right-of DP-1-1
+    xrandr --output eDP-1 --right-of DP-1-2
+    var=$(xrandr -q | awk '/ connected/ && !/eDP-1/{print $1}')
+    if [ -z "$var" ]
+    then
+        echo "[INFO] No external displays detected, keeping the Built in display enabled."
+    else
+        echo "[INFO] Detected external displays, disabling built in display"
+        xrandr --output eDP-1 --off
+    fi
 fi
 
 # Kill everything
 printf "[INFO] Stopping existing services\n"
-services="polybar compton redshift-gtk conky"
+services="polybar compton redshift conky dunst"
 
 for service in $services; do
     printf "  [INFO] Sending signal to all $service\n"
@@ -27,6 +42,7 @@ done
 # Wait for them to die
 for service in $services; do
     i=0
+    echo $service
     while pgrep $service >/dev/null 2>&1; do
         if [[ "$i" == "10" ]]; then
             printf "  [INFO] Waited too long, killing $service with prejudice\n"
