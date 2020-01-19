@@ -1,0 +1,41 @@
+export TERMINAL='termite'
+
+# export POLYBAR_PRIMARY='DP-1-1'
+export PRIMARY_TOP_LEFT='i3'
+export PRIMARY_TOP_CENTER='xwindow'
+export PRIMARY_TOP_RIGHT='volume xbacklight date'
+
+export NETWORK_INTERFACE='virbr0'
+
+export REDSHIFT_GAMMA=1.0
+export REDSHIFT_DAY_TEMP=6500
+export REDSHIFT_NIGHT_TEMP=5500
+
+printf "[INFO] Setting primary monitor to DP-1-1\n"
+xrandr --output DP-1-1 --primary
+xrandr --output DP-1-2 --right-of DP-1-1
+xrandr --output eDP-1 --right-of DP-1-2
+var=$(xrandr -q | awk '/ connected/ && !/eDP-1/{print $1}')
+if [ -z "$var" ]
+then
+    echo "[INFO] No external displays detected, keeping the Built in display enabled."
+else
+    echo "[INFO] Detected external displays, disabling built in display"
+    xrandr --output eDP-1 --off
+fi
+services="polybar compton redshift dunst"
+start_services(){
+    # Compositor for transparency
+    printf "    [INFO] Starting compton\n"
+    compton &
+    
+    # Bars
+    printf "    [INFO] Starting polybar\n"
+    $HOME/.config/polybar/launch.sh top top-secondary
+    
+    # MY EYES!!!! Start redshift
+    printf "    [INFO] Starting redshift\n"
+    redshift -c $HOME/.config/redshift/$(hostname).conf &
+    
+}
+# vim:ft=sh

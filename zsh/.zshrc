@@ -1,4 +1,5 @@
-(cat ~/.cache/wal/sequences &)
+# If wal is installed, use it
+[[ -x $(command -v wal) ]] &&(cat ~/.cache/wal/sequences &)
 # Path to oh-my-zsh installation.
 export ZSH=${HOME}/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.custom_omz
@@ -13,7 +14,7 @@ fi
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 if [ -n "$SESSION_TYPE" ]; then
-  #ZSH_THEME="robbyrussel"
+  ZSH_THEME="robbyrussel"
 else
   ZSH_THEME="candy"
 fi
@@ -49,7 +50,3 @@ if [[ -x "$(command -v fzf)" ]]; then
 fi
 
 zstyle ':completion:*:*:nvim:*' file-patterns '^*.(aux|log|pdf|dvi|o):source-files' '*:all-files'
-
-
-# If wal is installed, use it
-[[ -x $(command -v wal) ]] &&(cat ~/.cache/wal/sequences &)

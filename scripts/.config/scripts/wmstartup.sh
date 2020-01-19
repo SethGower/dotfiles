@@ -1,3 +1,4 @@
+#!/bin/bash
 unset TERMINAL
 unset POLYBAR_PRIMARY
 unset PRIMARY_TOP_LEFT PRIMARY_TOP_CENTER PRIMARY_TOP_RIGHT
@@ -12,10 +13,8 @@ else
     things like polybar and services being started"
 fi
 
-
 # Kill everything
 printf "[INFO] Stopping existing services\n"
-echo $services
 
 for service in $services; do
     printf "  [INFO] Sending signal to all $service\n"
@@ -24,6 +23,7 @@ done
 # Wait for them to die
 for service in $services; do
     i=0
+    echo $service
     while pgrep $service >/dev/null 2>&1; do
         if [[ "$i" == "10" ]]; then
             printf "  [INFO] Waited too long, killing $service with prejudice\n"
@@ -38,14 +38,10 @@ for service in $services; do
 done
 
 printf "[INFO] Starting Services...\n"
-start_services()
-
-# Mons daemon to auto remove external monitors on laptop
-if [[ $(hostname) == 'daedalus' ]]; then
-fi
+start_services
 
 # checks if dunst is installed
-if [[ -n $(which dunst) ]]
+if [[ -n $(which dunst) ]];
 then
     dunst &
 fi

@@ -15,7 +15,7 @@ printf "[INFO] Setting HDMI1 to primary monitor\n"
 xrandr --output HDMI2 --primary
 
 
-services="polybar compton redshift conky"
+services="polybar compton redshift conky caffeine dunst"
 start_services(){
     # Compositor for transparency
     printf "    [INFO] Starting compton\n"
