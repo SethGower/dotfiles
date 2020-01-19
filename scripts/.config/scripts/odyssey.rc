@@ -1,13 +1,9 @@
 # Polybar modules
 export TERMINAL=termite
 
-export PRIMARY_TOP_LEFT='ip-ipc hostname linkspeed user'
-export PRIMARY_TOP_CENTER='date'
-export PRIMARY_TOP_RIGHT='volume xkeyboard memory cpu'
-
-export PRIMARY_BOTTOM_LEFT='i3'
-export PRIMARY_BOTTOM_CENTER='xwindow'
-export PRIMARY_BOTTOM_RIGHT='filesystem powermenu'
+export PRIMARY_TOP_LEFT='i3'
+export PRIMARY_TOP_CENTER='xwindow'
+export PRIMARY_TOP_RIGHT='volume xbacklight date'
 
 export NETWORK_INTERFACE='enp3s0'
 
@@ -15,4 +11,28 @@ export REDSHIFT_GAMMA=0.8
 export REDSHIFT_DAY_TEMP=6500
 export REDSHIFT_NIGHT_TEMP=4500
 
+printf "[INFO] Setting HDMI1 to primary monitor\n"
+xrandr --output HDMI2 --primary
+
+
+services="polybar compton redshift conky"
+start_services(){
+    # Compositor for transparency
+    printf "    [INFO] Starting compton\n"
+    compton &
+    
+    # Bars
+    printf "    [INFO] Starting polybar\n"
+    $HOME/.config/polybar/launch.sh
+    
+    # MY EYES!!!! Start redshift
+    printf "    [INFO] Starting redshift\n"
+    redshift -c $HOME/.config/redshift/$(hostname).conf &
+    
+    printf "    [INFO] Starting caffeine\n"
+    caffeine &
+    
+    printf"     [INFO] Starting conky'\n"
+    conky -d
+}
 # vim:ft=sh

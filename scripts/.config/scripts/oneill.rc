@@ -9,4 +9,26 @@ export NETWORK_INTERFACE='wlp3s0'
 export REDSHIFT_GAMMA=1.0
 export REDSHIFT_DAY_TEMP=6500
 export REDSHIFT_NIGHT_TEMP=5500
+
+services="polybar compton redshift conky"
+start_services(){
+    # Compositor for transparency
+    printf "    [INFO] Starting compton\n"
+    compton &
+    
+    # Bars
+    printf "    [INFO] Starting polybar\n"
+    $HOME/.config/polybar/launch.sh
+    
+    # MY EYES!!!! Start redshift
+    printf "    [INFO] Starting redshift\n"
+    redshift -c $HOME/.config/redshift/$(hostname).conf &
+    
+    printf "    [INFO] Starting caffeine\n"
+    caffeine &
+    
+    printf"     [INFO] Starting conky'\n"
+    conky -d
+}
+
 # vim:ft=sh

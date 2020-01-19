@@ -2,23 +2,20 @@ unset TERMINAL
 unset POLYBAR_PRIMARY
 unset PRIMARY_TOP_LEFT PRIMARY_TOP_CENTER PRIMARY_TOP_RIGHT
 unset PRIMARY_BOTTOM_LEFT PRIMARY_BOTTOM_CENTER PRIMARY_BOTTOM_RIGHT
+unset services
 
 if [[ -x "$HOME/.config/scripts/$(hostname).rc" ]]; then
     printf "[INFO] Sourcing ~/.config/scripts/$(hostname).rc\n"
     source $HOME/.config/scripts/$(hostname).rc
+else
+    printf "[ERROR] Unable to execute $(hotname).rc, this will prevent certain
+    things like polybar and services being started"
 fi
 
-if [[ $(hostname) == 'odyssey' ]]; then
-    printf "[INFO] Setting HDMI1 to primary monitor\n"
-    xrandr --output HDMI2 --primary
-elif [[ $(hostname) == "daedalus" ]]; then
-    printf "[INFO] Setting primary monitor to eDP1 and setting resolution to 1080p\n"
-    xrandr --output eDP1 --mode 1920x1080
-fi
 
 # Kill everything
 printf "[INFO] Stopping existing services\n"
-services="polybar compton redshift-gtk conky"
+echo $services
 
 for service in $services; do
     printf "  [INFO] Sending signal to all $service\n"
@@ -40,44 +37,16 @@ for service in $services; do
     unset i
 done
 
-printf "  [INFO] Killing Caffeine\n"
-kill -9 $(ps aux | awk '!/awk/ && /caffeine-ng/{print $2}')
-
 printf "[INFO] Starting Services...\n"
-
-# Compositor for transparency
-printf "    [INFO] Starting compton\n"
-compton &
-
-# Bars
-printf "    [INFO] Starting polybar\n"
-$HOME/.config/polybar/launch.sh
-
-# MY EYES!!!! Start redshift
-printf "    [INFO] Starting redshift\n"
-redshift-gtk -c $HOME/.config/redshift/$(hostname).conf &
-
-printf "    [INFO] Starting caffeine\n"
-caffeine &
-
-printf"     [INFO] Starting conky'\n"
-conky -d
+start_services()
 
 # Mons daemon to auto remove external monitors on laptop
 if [[ $(hostname) == 'daedalus' ]]; then
-    printf "    [INFO] Starting mons daemon\n"
-    mons -a >/dev/null 2>&1 &
 fi
 
-printf "[INFO] Setting Wallpaper...\n"
-
-if which feh >/dev/null 2>&1; then
-    printf "    [INFO] Setting wallpaper with feh"
-    #feh --bg-scale $HOME/.wallpapers/background.png
-    #wal -R
-fi
-
-if which dunst >/dev/null 2>&1; then
+# checks if dunst is installed
+if [[ -n $(which dunst) ]]
+then
     dunst &
 fi
 
