@@ -5,3 +5,4 @@ Terminal=false
 Exec=java -jar /home/seth/.local/bin/FTB_Launcher.jar
 Name=Feed The Beast
 Comment=Feed the Beast Launcher
+Icon=/home/seth/.local/share/icons/hicolor/48x48/apps/ftb-launcher.png

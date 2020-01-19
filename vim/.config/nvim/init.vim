@@ -215,3 +215,5 @@ let g:NERDTreeIndicatorMapCustom = {
 autocmd vimenter * NERDTree
 " Refocus on the other window not NERDTree
 autocmd VimEnter * wincmd p
+
+let g:NERDTreeIgnore=['\~$', '\.o[[file]]', '\.fls$','\.log$', '\.pdf$', '\.gz$', '\.aux$', '\.fdb_latexmk$']
