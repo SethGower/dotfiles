@@ -225,3 +225,5 @@ bindsym $mod+Shift+w exec --no-startup-id "urxvt -geometry 100x30 -e ranger $HOM
 exec --no-startup-id nohup mons -a > /dev/null 2>&1 &
 
 # exec --no-startup-id spotify & 
+
+workspace 1 output primary

@@ -34,15 +34,16 @@ font-1 = FontAwesome:style=Solid:pixelsize=11;1
 ;separator = " | "
 cursor-click = pointer
 
-[bar/top]
-inherit = bar/base
-enable-ipc = true
-
 width = 80%
 override-redirect = true
 wm-restack = i3
 bottom = false
 offset-x = 10%
+
+[bar/top]
+inherit = bar/base
+enable-ipc = true
+
 
 tray-position = right
 tray-padding = 2
@@ -56,7 +57,7 @@ inherit = bar/base
 
 monitor = ${env:POLYBAR_SECONDARY}
 
-modules-left = user
+modules-left = ${env:PRIMARY_TOP_LEFT} 
 modules-center = ${env:PRIMARY_TOP_CENTER}
 modules-right = ${env:PRIMARY_TOP_RIGHT}
 

@@ -1,6 +1,5 @@
 export TERMINAL='termite'
 
-# export POLYBAR_PRIMARY='DP-1-1'
 export PRIMARY_TOP_LEFT='i3'
 export PRIMARY_TOP_CENTER='xwindow'
 export PRIMARY_TOP_RIGHT='volume xbacklight date'
@@ -37,5 +36,10 @@ start_services(){
     printf "    [INFO] Starting redshift\n"
     redshift -c $HOME/.config/redshift/$(hostname).conf &
     
+}
+
+set_wallpaper(){
+    wal -Rn
+    feh --bg-fill ~/.wallpapers/audrey-erie-canal.jpg
 }
 # vim:ft=sh

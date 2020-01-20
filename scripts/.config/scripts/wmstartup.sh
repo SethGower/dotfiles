@@ -46,4 +46,7 @@ then
     dunst &
 fi
 
+printf "[INFO] Setting Wallpaper\n"
+set_wallpaper
+
 [[ -x /usr/bin/numlockx ]] && numlockx off
