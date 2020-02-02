@@ -110,7 +110,7 @@ let g:ale_linters =
             \ 'bash'   : ['language-server'],
             \ 'python' : ['autopep8', 'python-language-server'],
             \ 'tex'    : ['lacheck'],
-            \ 'c'      : ['cquery'],
+            \ 'c'      : ['ccls'],
             \ 'rust'   : ['rls']
             \ }
 
@@ -119,6 +119,7 @@ map <leader>at  :ALEToggle<CR>
 map <leader>ai  :ALEInfo<CR>
 map <leader>al  :ALELint<CR>
 map <leader>ad  :ALEGoToDefinition<CR>
+map <leader>adt :ALEGoToTypeDefinition<CR>
 map <leader>ar  :ALEFindReferences<CR>
 map <leader>aR  :ALERename<CR>
 
