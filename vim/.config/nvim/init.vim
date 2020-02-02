@@ -20,7 +20,7 @@ set inccommand=nosplit
 set clipboard+=unnamedplus
 set cursorline
 set noshowmode
-set textwidth=78
+set textwidth=80
 set colorcolumn=+1
 
 let mapleader="\\"
@@ -37,27 +37,18 @@ call plug#begin()
     Plug 'vim-airline/vim-airline'
     Plug 'airblade/vim-gitgutter'
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch' : 'next',
-        \ 'do'     : 'bash install.sh',
-        \ }
-    Plug 'w0rp/ale'
+    Plug 'dense-analysis/ale'
     Plug 'Shougo/echodoc.vim'
     Plug 'jiangmiao/auto-pairs'
     Plug 'chip/vim-fat-finger'
     Plug 'kshenoy/vim-signature'
     Plug 'godlygeek/tabular'
     Plug 'tpope/vim-commentary'
-    Plug 'PratikBhusal/vim-grip'
     Plug 'tmhedberg/SimpylFold', {'for':'python'}
     Plug 'scrooloose/nerdtree'
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'deoplete-plugins/deoplete-jedi', {'for':'python'}
-    Plug 'christoomey/vim-tmux-navigator'
-    Plug 'dylanaraps/wal.vim'
-    Plug 'chrisbra/Colorizer'
-    Plug 'tpope/vim-surround'
     Plug 'neovim/pynvim'
 call plug#end()
 filetype plugin indent on " for plug
@@ -88,7 +79,6 @@ let g:airline#extensions#ale#enabled = 1
 
 " Deoplete
 call deoplete#enable()
-call deoplete#custom#source('LanguageClient', 'min_pattern_length', 4)
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -96,48 +86,10 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Language Servers
 set signcolumn=yes
-let g:LanguageClient_autoStart    = 1
-let g:LanguageClient_loggingFile  = '/tmp/LanguageClient.log'
-let g:LanguageClient_loggingLevel = 'INFO'
-let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
-
-let g:LanguageClient_serverCommands = {
-    \ 'python' : ['/usr/bin/pyls'],
-    \ 'sh'     : ['bash-language-server', 'start'],
-    \ 'c'      : ['cquery'],
-    \ 'rust'   : ['rls']
-    \ }
-
-let g:LanguageClient_diagnosticsDisplay = {
-            \1: {
-                \ "name"       : "Error",
-                \ "texthl"     : "ALEError",
-                \ "signText"   : "✖",
-                \ "signTexthl" : "ALEErrorSign",
-            \},
-            \2                 : {
-                \ "name"       : "Warning",
-                \ "texthl"     : "ALEWarning",
-                \ "signText"   : "-",
-                \ "signTexthl" : "ALEWarningSign",
-            \},
-            \3                 : {
-                \ "name"       : "Information",
-                \ "texthl"     : "ALEInfo",
-                \ "signText"   : "ℹ",
-                \ "signTexthl" : "ALEInfoSign",
-            \},
-            \4                 : {
-                \ "name"       : "Hint",
-                \ "texthl"     : "ALEInfo",
-                \ "signText"   : "➤",
-                \ "signTexthl" : "ALEInfoSign",
-            \},
-        \}
-let g:ale_sign_error = "✖"
+let g:ale_sign_error = "x"
 let g:ale_sign_warning = "-"
 
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 let g:ale_fixers = 
             \ {
             \ 'sh'     : ['shfmt'],
@@ -167,13 +119,14 @@ map <leader>at  :ALEToggle<CR>
 map <leader>ai  :ALEInfo<CR>
 map <leader>al  :ALELint<CR>
 map <leader>ad  :ALEGoToDefinition<CR>
-map <leader>aR :ALEFindReferences<CR>
-map <leader>ar  :ALERename<CR>
+map <leader>ar  :ALEFindReferences<CR>
+map <leader>aR  :ALERename<CR>
 
 let g:ale_c_parse_makefile = 1
 
 " gitgutter
 let g:gitgutter_enabled = 1
+map <leader>gs  :GitGutterStageHunk<CR>
 
 map <leader>mc :make clean<CR>
 
