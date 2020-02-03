@@ -89,18 +89,15 @@ set signcolumn=yes
 let g:ale_sign_error = "x"
 let g:ale_sign_warning = "-"
 
-let g:ale_fix_on_save = 0
+let g:ale_fix_on_save = 1
 let g:ale_fixers = 
             \ {
             \ 'sh'     : ['shfmt'],
             \ 'python' : ['autopep8', 'isort'],
             \ 'java'   : ['google_java_format'],
-            \ 'c'      : ['clang-format'],
-            \ 'cpp'    : ['clang-format'],
             \ 'text'   : ['textlint','remove_trailing_lines','trim_whitespace'],
             \ 'vhdl'   : ['remove_trailing_lines','trim_whitespace'],
             \ 'make'   : ['remove_trailing_lines','trim_whitespace'],
-            \ 'rust'   : ['rustfmt'],
             \ 'perl'   : ['perltidy']
             \ }
 
@@ -109,8 +106,6 @@ let g:ale_linters =
             \ {
             \ 'bash'   : ['language-server'],
             \ 'python' : ['autopep8', 'python-language-server'],
-            \ 'tex'    : ['lacheck'],
-            \ 'c'      : ['ccls'],
             \ 'rust'   : ['rls']
             \ }
 
