@@ -207,7 +207,8 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute s
 bindsym $mod+Shift+Return exec --no-startup-id firefox
 
 # Removes window title bar
-new_window 1pixel
+default_border pixel 1
+default_floating_border pixel 1
 
 # launches initial config
 exec_always --no-startup-id ~/.config/scripts/wmstartup.sh
