@@ -93,7 +93,6 @@ let g:ale_fix_on_save = 1
 let g:ale_fixers = 
             \ {
             \ 'sh'     : ['shfmt'],
-            \ 'python' : ['autopep8', 'isort'],
             \ 'java'   : ['google_java_format'],
             \ 'text'   : ['textlint','remove_trailing_lines','trim_whitespace'],
             \ 'vhdl'   : ['remove_trailing_lines','trim_whitespace'],
@@ -104,9 +103,7 @@ let g:ale_fixers =
 nnoremap <leader>f :ALEFix<CR>
 let g:ale_linters = 
             \ {
-            \ 'bash'   : ['language-server'],
-            \ 'python' : ['autopep8', 'python-language-server'],
-            \ 'rust'   : ['rls']
+            \ 'bash'   : ['language-server']
             \ }
 
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, IndentWidth: 4}"'
