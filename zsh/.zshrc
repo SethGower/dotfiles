@@ -45,8 +45,6 @@ if [[ $DISPLAY || $XDG_VTNR -ne 1 ]]; then
 	[[ "${TERM}" != *"screen"* ]] && exec tmux new-session  #-A -s 0
 fi
 
-if [[ -x "$(command -v fzf)" ]]; then
-	[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 zstyle ':completion:*:*:nvim:*' file-patterns '^*.(aux|log|pdf|dvi|o):source-files' '*:all-files'

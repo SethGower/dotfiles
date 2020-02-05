@@ -111,8 +111,8 @@ map <leader>at  :ALEToggle<CR>
 map <leader>ai  :ALEInfo<CR>
 map <leader>al  :ALELint<CR>
 map <leader>ad  :ALEGoToDefinition<CR>
-map <leader>adt :ALEGoToTypeDefinition<CR>
 map <leader>ar  :ALEFindReferences<CR>
+map <leader>an  :ALENext<CR>
 map <leader>aR  :ALERename<CR>
 
 let g:ale_c_parse_makefile = 1
