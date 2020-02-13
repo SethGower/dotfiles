@@ -106,11 +106,12 @@ let g:ale_linters =
             \ 'bash'   : ['language-server']
             \ }
 
-let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, IndentWidth: 4}"'
 map <leader>at  :ALEToggle<CR>
 map <leader>ai  :ALEInfo<CR>
 map <leader>al  :ALELint<CR>
 map <leader>ad  :ALEGoToDefinition<CR>
+map <leader>avd :ALEGoToDefinitionInVSplit<CR>
+map <leader>asd :ALEGoToDefinitionInSplit<CR>
 map <leader>ar  :ALEFindReferences<CR>
 map <leader>an  :ALENext<CR>
 map <leader>aR  :ALERename<CR>
