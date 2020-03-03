@@ -43,11 +43,17 @@ start_services(){
     # MY EYES!!!! Start redshift
     printf "    [INFO] Starting redshift\n"
     redshift -c $HOME/.config/redshift/$(hostname).conf &
+
+    printf "    [INFO] Starting nm-applet\n"
+    nm-applet & 
+
+    printf "    [INFO] Starting Dunst\n"
+    dunst & 
     
 }
 
 set_wallpaper(){
     wal -Rn
-    feh --bg-fill ~/.wallpapers/audrey-erie-canal.jpg
+    feh --bg-fill ~/.wallpapers/big-chair.jpg
 }
 # vim:ft=sh
