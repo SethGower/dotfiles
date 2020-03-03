@@ -23,18 +23,14 @@ alias dot="git --git-dir=${HOME}/.dotfiles/.git --work-tree=${HOME}/.dotfiles"
 alias xclip='xclip -selection c'
 alias grep='grep --color=always'
 
-# Various Useful PDFs
-alias handbook="pdf ~/Documents/PDFs/players-handbook-5e.pdf"
-alias constitution="pdf ~/Documents/PDFs/EngineeringHouseConstitution.pdf"
-
-#if [[ -x "$(command -v nvim)" ]]; then
-#  alias nvim="nvim -p"
-#  alias vim="nvim"
-#  alias vi="nvim"
-#else
-#  alias nvim="vim -p"
-#  alias vi="vim"
-#fi
+if [[ -x "$(command -v nvim)" ]]; then
+  alias nvim="nvim"
+  alias vim="nvim"
+  alias vi="nvim"
+else
+  alias nvim="vim"
+  alias vi="vim"
+fi
 
 
 
