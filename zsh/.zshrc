@@ -41,9 +41,9 @@ fi
 compinit
 
 # Launch tmux on start. Uncomment the end to attach on start.
-if [[ $DISPLAY || $XDG_VTNR -ne 1 ]]; then
-	[[ "${TERM}" != *"screen"* ]] && exec tmux new-session  #-A -s 0
-fi
+# if [[ $DISPLAY || $XDG_VTNR -ne 1 ]]; then
+# 	[[ "${TERM}" != *"screen"* ]] && exec tmux new-session  #-A -s 0
+# fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
