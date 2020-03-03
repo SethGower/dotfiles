@@ -1,9 +1,8 @@
 #!/bin/bash
 unset TERMINAL
-unset POLYBAR_PRIMARY
-unset PRIMARY_TOP_LEFT PRIMARY_TOP_CENTER PRIMARY_TOP_RIGHT
-unset PRIMARY_BOTTOM_LEFT PRIMARY_BOTTOM_CENTER PRIMARY_BOTTOM_RIGHT
 unset services
+
+echo $(compgen -v | grep "POLYBAR")
 
 if [[ -x "$HOME/.config/scripts/$(hostname).rc" ]]; then
     printf "[INFO] Sourcing ~/.config/scripts/$(hostname).rc\n"
