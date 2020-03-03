@@ -26,7 +26,6 @@ plugins=(
 	zsh-syntax-highlighting
 	sudo
     zsh-autopair
-#    vi-mode
 )
 ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
