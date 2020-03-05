@@ -1,8 +1,10 @@
 export TERMINAL='termite'
 
-export PRIMARY_TOP_LEFT='i3'
-export PRIMARY_TOP_CENTER='xwindow'
-export PRIMARY_TOP_RIGHT='volume xbacklight battery battery1 date'
+export POLYBAR_PRIMARY_TOP_LEFT='i3'
+export POLYBAR_PRIMARY_TOP_CENTER='xwindow'
+export POLYBAR_PRIMARY_TOP_RIGHT='volume xbacklight battery battery1 date'
+
+export POLYBAR_PRIMARY="eDP1"
 
 export NETWORK_INTERFACE='wlp3s0'
 
