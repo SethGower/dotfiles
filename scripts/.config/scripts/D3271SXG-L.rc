@@ -2,7 +2,7 @@ export TERMINAL='termite'
 
 export POLYBAR_PRIMARY_TOP_LEFT='i3'
 export POLYBAR_PRIMARY_TOP_CENTER='xwindow'
-export POLYBAR_PRIMARY_TOP_RIGHT='volume xbacklight date'
+export POLYBAR_PRIMARY_TOP_RIGHT='volume date'
 
 export POLYBAR_PRIMARY="DP-1-1"
 export POLYBAR_SECONDARY="DP-1-2"
