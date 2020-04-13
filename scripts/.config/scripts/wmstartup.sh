@@ -39,13 +39,12 @@ done
 printf "[INFO] Starting Services...\n"
 start_services
 
+./fix-monitors.py
+
 # checks if dunst is installed
 if [[ -n $(which dunst) ]];
 then
     dunst &
 fi
-
-printf "[INFO] Setting Wallpaper\n"
-set_wallpaper
 
 [[ -x /usr/bin/numlockx ]] && numlockx off

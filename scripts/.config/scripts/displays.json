@@ -1,0 +1,9 @@
+{
+    "configurations": {
+        "odyssey": {
+            "outputs": ["HDMI-0", "DVI-D-0"],
+            "transition_output": "DVI-D-0",
+            "command": "xrandr --output HDMI-0 --primary --auto --output DVI-D-0 --auto --left-of HDMI-0; feh --bg-fill ~/.wallpapers/big-chair.jpg"
+        }
+    }
+}
