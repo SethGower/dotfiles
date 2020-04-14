@@ -1,0 +1,43 @@
+export TERMINAL='termite'
+
+export POLYBAR_PRIMARY_TOP_LEFT='i3'
+export POLYBAR_PRIMARY_TOP_CENTER='xwindow'
+export POLYBAR_PRIMARY_TOP_RIGHT='volume date'
+
+export POLYBAR_PRIMARY="HDMI-3"
+export POLYBAR_SECONDARY="HDMI-2"
+export POLYBAR_TERTIARY="VGA-1"
+
+export NETWORK_INTERFACE='virbr0'
+
+export REDSHIFT_GAMMA=1.0
+export REDSHIFT_DAY_TEMP=6500
+export REDSHIFT_NIGHT_TEMP=5500
+
+services="polybar compton redshift dunst"
+start_services(){
+    # Compositor for transparency
+    printf "    [INFO] Starting compton\n"
+    compton &
+    
+    # Bars
+    printf "    [INFO] Starting polybar\n"
+    $HOME/.config/polybar/launch.sh top top-secondary top-tertiary &
+    
+    # MY EYES!!!! Start redshift
+    printf "    [INFO] Starting redshift\n"
+    redshift -c $HOME/.config/redshift/$(hostname).conf &
+
+    printf "    [INFO] Starting nm-applet\n"
+    nm-applet & 
+
+    printf "    [INFO] Starting Dunst\n"
+    dunst & 
+    
+}
+
+set_wallpaper(){
+    wal -Rn
+    feh --bg-fill ~/.wallpapers/big-chair.jpg
+}
+# vim:ft=sh
