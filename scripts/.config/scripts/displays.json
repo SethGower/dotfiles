@@ -7,8 +7,7 @@
         },
         "work_laptop_docked": {
             "outputs": ["VGA-1", "HDMI-3","HDMI-2","eDP-1"],
-            "transition_output": "HDMI-3",
-            "command": "xrandr --output HDMI-3 --primary --auto --output VGA-1 --auto --left-of HDMI-3 --output HDMI-2 --auto --right-of HDMI-3 --rotate left --output eDP-1 --off; feh --bg-fill ~/.wallpapers/big-chair.jpg"
+            "command": "xrandr --output VGA-1 --mode 1920x1080 --pos 0x300 --output HDMI-3 --primary --mode 1920x1080 --pos 1920x300 --output HDMI-2 --mode 1920x1080 --pos 3840x0 --rotate left --output eDP-1 --off; feh --bg-fill ~/.wallpapers/big-chair.jpg"
         },
         "laptop_undocked": {
             "outputs": ["eDP-1"],
