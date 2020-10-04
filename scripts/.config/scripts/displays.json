@@ -1,14 +1,8 @@
 {
     "configurations": {
         "odyssey": {
-            "outputs": ["HDMI-0", "DVI-D-0"],
-            "transition_output": "DVI-D-0",
-            "command": "xrandr --output HDMI-0 --primary --auto --output DVI-D-0 --auto --left-of HDMI-0; feh --bg-fill ~/.wallpapers/big-chair.jpg"
-        },
-        "work_laptop_docked": {
-            "outputs": ["VGA-1", "HDMI-3","HDMI-2","eDP-1"],
-            "transition_output": "HDMI-3",
-            "command": "xrandr --output HDMI-3 --primary --auto --output VGA-1 --auto --left-of HDMI-3 --output HDMI-2 --auto --right-of HDMI-3 --rotate left --output eDP-1 --off; feh --bg-fill ~/.wallpapers/big-chair.jpg"
+            "outputs": ["DP-3", "DP-5"],
+            "command": "xrandr --output DP-5 --primary --auto  --output DP-3 --auto --right-of DP-5; feh --bg-fill ~/.wallpapers/collage.png"
         },
         "laptop_undocked": {
             "outputs": ["eDP-1"],
