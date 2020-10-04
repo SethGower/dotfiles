@@ -22,8 +22,9 @@ class State:
         cmd = "xrandr | grep -e \" connected [^(]\" | sed -e \"s/\\([A-Z0-9]\\+\\) connected.*/\\1/\""
         self.active = set(shell(cmd).strip().split("\n"))
 
-        cmd = "cat /proc/acpi/button/lid/LID0/state | sed -e \"s/.*:\\s\\+//g\""
-        self.lid = shell(cmd).strip()
+        cmd = "cat /proc/acpi/button/lid/LID**/state"
+        self.lid = shell(cmd).split(':')[1].strip()
+        print(self.lid)
 
 
 class Configuration:
