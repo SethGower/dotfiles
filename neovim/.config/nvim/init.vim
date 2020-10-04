@@ -21,7 +21,6 @@ set clipboard+=unnamedplus
 set cursorline
 set noshowmode
 set textwidth=80
-set colorcolumn=+1
 
 let mapleader="\\"
 
@@ -36,8 +35,6 @@ call plug#begin()
     Plug 'dracula/vim',{'as':'dracula'}
     Plug 'vim-airline/vim-airline'
     Plug 'airblade/vim-gitgutter'
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'dense-analysis/ale'
     Plug 'Shougo/echodoc.vim'
     Plug 'jiangmiao/auto-pairs'
     Plug 'chip/vim-fat-finger'
@@ -48,10 +45,13 @@ call plug#begin()
     Plug 'scrooloose/nerdtree'
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'Xuyuanp/nerdtree-git-plugin'
-    Plug 'deoplete-plugins/deoplete-jedi', {'for':'python'}
     Plug 'neovim/pynvim'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'jackguo380/vim-lsp-cxx-highlight'
 call plug#end()
 filetype plugin indent on " for plug
+
+let g:lsp_cxx_hl_log_file = '/tmp/vim-lsp-cxx-hl.log'
 
 syntax on
 let g:dracula_colorterm = 0 " enables correct background color
@@ -75,10 +75,10 @@ set undofile
 
 " Vim-airline
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#coc#enabled = 1
+let airline#extensions#coc#error_symbol = 'Error:'
+let airline#extensions#coc#warning_symbol = 'Warning:'
 
-" Deoplete
-call deoplete#enable()
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -86,37 +86,64 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Language Servers
 set signcolumn=yes
-let g:ale_sign_error = "x"
-let g:ale_sign_warning = "-"
 
-let g:ale_fix_on_save = 1
-let g:ale_fixers = 
-            \ {
-            \ 'sh'     : ['shfmt'],
-            \ 'java'   : ['google_java_format'],
-            \ 'text'   : ['textlint','remove_trailing_lines','trim_whitespace'],
-            \ 'vhdl'   : ['remove_trailing_lines','trim_whitespace'],
-            \ 'make'   : ['remove_trailing_lines','trim_whitespace'],
-            \ 'perl'   : ['perltidy']
-            \ }
+" nnoremap <leader>f :ALEFix<CR>
 
-nnoremap <leader>f :ALEFix<CR>
-let g:ale_linters = 
-            \ {
-            \ 'bash'   : ['language-server']
-            \ }
+" map <leader>at  :ALEToggle<CR>
+" map <leader>ai  :ALEInfo<CR>
+" map <leader>al  :ALELint<CR>
+" map <leader>ad  :ALEGoToDefinition<CR>
+" map <leader>avd :ALEGoToDefinitionInVSplit<CR>
+" map <leader>asd :ALEGoToDefinitionInSplit<CR>
+" map <leader>ar  :ALEFindReferences<CR>
+" map <leader>an  :ALENext<CR>
+" map <leader>aR  :ALERename<CR>
 
-map <leader>at  :ALEToggle<CR>
-map <leader>ai  :ALEInfo<CR>
-map <leader>al  :ALELint<CR>
-map <leader>ad  :ALEGoToDefinition<CR>
-map <leader>avd :ALEGoToDefinitionInVSplit<CR>
-map <leader>asd :ALEGoToDefinitionInSplit<CR>
-map <leader>ar  :ALEFindReferences<CR>
-map <leader>an  :ALENext<CR>
-map <leader>aR  :ALERename<CR>
+" CoC Stuff
+set colorcolumn=+1
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
 
-let g:ale_c_parse_makefile = 1
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocActionAsync('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+command! -nargs=0 Format :call CocAction('format')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 
 " gitgutter
 let g:gitgutter_enabled = 1
@@ -145,7 +172,7 @@ endif
 " Nerd Tree Stuff
 map <leader>nt :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
     \ "Untracked" : "✭",
