@@ -23,8 +23,9 @@ class State:
         self.active = set(shell(cmd).strip().split("\n"))
 
         cmd = "cat /proc/acpi/button/lid/LID**/state"
-        self.lid = shell(cmd).split(':')[1].strip()
-        print(self.lid)
+        res = shell(cmd)
+        if len(res):
+            self.lid = res.split(':')[1].strip()
 
 
 class Configuration:
