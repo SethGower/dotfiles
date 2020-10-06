@@ -5,9 +5,9 @@ export POLYBAR_PRIMARY_TOP_CENTER='xwindow'
 export POLYBAR_PRIMARY_TOP_RIGHT='volume volume-headphones date'
 
 export POLYBAR_PRIMARY=$(xrandr -q | awk '/primary/{print $1}')
-export POLYBAR_SECONDARY="DVI-D-0"
+export POLYBAR_SECONDARY="DP-3"
 
-export NETWORK_INTERFACE='wlp3s0'
+export NETWORK_INTERFACE='enp3s0'
 
 export REDSHIFT_GAMMA=1.0
 export REDSHIFT_DAY_TEMP=6500
@@ -21,14 +21,14 @@ start_services(){
     
     # Bars
     printf "    [INFO] Starting polybar\n"
-    $HOME/.config/polybar/launch.sh top top-secondary
+    $HOME/.config/polybar/launch.sh top top-secondary & 
     
     # MY EYES!!!! Start redshift
     printf "    [INFO] Starting redshift\n"
     redshift -c $HOME/.config/redshift/$(hostname).conf &
     
-    #printf "    [INFO] Starting caffeine\n"
-    #caffeine &> /dev/null &
+    printf "    [INFO] Starting caffeine\n"
+    caffeine &> /dev/null &
     
     #printf"     [INFO] Starting conky'\n"
     #conky -d
@@ -37,7 +37,8 @@ start_services(){
 
 set_wallpaper(){
     wal -Rn
-    feh --bg-fill ~/.wallpapers/big-chair.jpg
+    ~/.config/scripts/fix-monitors.py
+    # feh --bg-fill ~/.wallpapers/big-chair.jpg
 }
 
 # vim:ft=sh

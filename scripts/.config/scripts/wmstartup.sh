@@ -36,10 +36,11 @@ for service in $services; do
     unset i
 done
 
+set_wallpaper
+
 printf "[INFO] Starting Services...\n"
 start_services
 
-./fix-monitors.py
 
 # checks if dunst is installed
 if [[ -n $(which dunst) ]];
