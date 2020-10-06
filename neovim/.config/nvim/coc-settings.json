@@ -28,7 +28,7 @@
             }
         },
         "hdlChecker": {
-            "command": "/home/seth/.local/bin/hdl_checker",
+            "command": "hdl_checker",
             "args": [
                 "--lsp"
             ],
