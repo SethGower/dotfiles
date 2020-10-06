@@ -138,6 +138,7 @@ for_window [class="Qalculate"] floating enable
 for_window [class="net-ftb-main-Bootstrap"] floating enable
 for_window [title="Friends List"] floating enable
 for_window [title="Steam - News"] floating enable
+for_window [instance="origin.exe"] floating enable
 
 assign [class="Thunderbird"] 9
 assign [class="Franz"] 10
