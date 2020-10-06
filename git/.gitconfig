@@ -27,3 +27,5 @@
 	program = gpg
 [core]
 	excludesfile = /home/sgower/.gitignore_global
+[pull]
+	rebase = false
