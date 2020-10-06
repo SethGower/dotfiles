@@ -2,5 +2,4 @@
 [[ -f ~/.xprofile ]] && source ~/.xprofile
 [[ -x $(which wal) ]] && wal -R
 xbindkeys &
-barrier &
 exec i3
