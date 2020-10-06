@@ -10,20 +10,18 @@
 %%%%%%% Required packages
 \RequirePackage{multicol} %Make columns
 \RequirePackage[margin=1in]{geometry} %Change margins
-\RequirePackage[most]{tcolorbox}  % For the "RIT" box on EEEE cover
+%\RequirePackage[most]{tcolorbox}  % For the "RIT" box on EEEE cover
 \RequirePackage{float}
 \RequirePackage{hyperref}
-\RequirePackage{colortbl}
+\RequirePackage{xcolor, colortbl}
 \RequirePackage{amsmath}
 \RequirePackage{kmap}
 \RequirePackage{tikz-timing}
-\RequirePackage{pdfpages}
-\RequirePackage{fancyhdr}
+\RequirePackage{siunitx}
 \usetikztiminglibrary[rising arrows, falling arrows]{clockarrows}
 \setlength{\parindent}{0pt} % Don't indent paragraphs
 
 %%%%%%% Internal functions and environments
-\newcommand\numberthis{\refstepcounter{equation}\tag{\theequation}}
 % Used to make sure the TA listing is even
 \newenvironment{_TAalignment}{%
 \def\\{\newline\leavevmode\phantom{TA:}}
@@ -31,122 +29,93 @@
 
 %%%%%%% External functions and environments
 
-	
+\newcommand{\name}{Seth Zerishnek-Gower}
 %%%%%%% Write a CE report
 \DeclareOption{CMPE}{
-\RequirePackage[table]{xcolor}
-\newcommand{\classCode}{CMPE 260}  
+    \newcommand{\KGCOEDocType}{CMPE}
+    \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+    \newcommand\risingedge{\texttiming[timing/c/rising arrows, timing/c/arrow pos=.7]{2{C}}}
+    \newcommand\fallingedge{\texttiming[timing/c/falling arrows]{3{C}}}
+    \definecolor{Gray}{gray}{.9}
+    \renewcommand{\maketitle}{
+    \vspace*{2.5cm}
 
-\newcommand{\name}{Seth Zerishnek-Gower}                              
-\newcommand{\LabSectionNum}{4}     
-\newcommand{\LabInstructor}{Mr. Blocklove}                           
+        \begin{center}
+            \large
+            \textbf{\classCode\ Laboratory Exercise \exerciseNumber}
 
-\newcommand{\TAs}{Priya Jain  \\ Nabiel Kandiel\\ James Snedecor}
-\newcommand{\LectureSectionNum}{1} 
-\newcommand{\LectureInstructor}{Mr.\ Cliver}
-	\newcommand{\KGCOEDocType}{CMPE}
-	\newcommand\risingedge{\texttiming[timing/c/rising arrows, timing/c/arrow pos=.7]{2{C}}}
-	\newcommand\fallingedge{\texttiming[timing/c/falling arrows]{3{C}}}
-	\definecolor{Gray}{gray}{.9}
-	\renewcommand{\maketitle}{
-	\vspace*{2.5cm}
+            \bigskip
 
-		\begin{center}
-			\large
-			\textbf{\classCode \ Laboratory Exercise \exerciseNumber}
+            \textbf{\exerciseDescription}
+            \normalsize
+        \end{center}
 
-			\bigskip
+        \vspace*{5cm}
 
-			\textbf{\exerciseDescription}
-			\normalsize
-		\end{center}
-
-		\vspace*{5cm}
-
-		\begin{multicols}{2}
-			\phantom{LaTeX doesn't like empty columns} % Phantom will take up that much space, but not actually appear
-			\columnbreak{} % Starts the second column
-			\begin{flushleft} % Make sure LaTeX does not try to justify these lines
-				\name\\
-				Performed: \dateDone\\
-				Submitted: \dateSubmitted\\
-				\vspace*{\baselineskip} % Adds one line of spacing on this line, like the template
-				Lab Section: \LabSectionNum\\
-				Instructor: \LabInstructor\\
-				TA:\begin{_TAalignment}\TAs  % There can't be a space between the \TAs and the enviroment declaration
-				\end{_TAalignment}
-				\vspace*{\baselineskip}
-				Lecture Section: \LectureSectionNum\\
-				Professor: \LectureInstructor\\
-			\end{flushleft}
-		\end{multicols}
+        \begin{multicols}{2}
+            \phantom{LaTeX doesn't like empty columns} % Phantom will take up that much space, but not actually appear
+            \columnbreak{} % Starts the second column
+            \begin{flushleft} % Make sure LaTeX does not try to justify these lines
+                \name\\
+                Performed: \dateDone\\
+                Submitted: \dateSubmitted\\
+                \vspace*{\baselineskip} % Adds one line of spacing on this line, like the template
+                Lab Section: \LabSectionNum\\
+                Instructor: \LabInstructor\\
+                TA:\begin{_TAalignment}\TAs  % There can't be a space between the \TAs and the enviroment declaration
+                \end{_TAalignment}
+                \vspace*{\baselineskip}
+                Lecture Section: \LectureSectionNum\\
+                Professor: \LectureInstructor\\
+            \end{flushleft}
+        \end{multicols}
 
 
-		\vspace{1cm}
+        \vspace{1cm}
 
-		By submitting this report, you attest that you neither have given nor have received any assistance (including writing, collecting data, plotting figures, tables or graphs, or using previous student reports as a reference), and you further acknowledge that giving or receiving such assistance will result in a failing grade for this course.
+        By submitting this report, you attest that you neither have given nor have received any assistance (including writing, collecting data, plotting figures, tables or graphs, or using previous student reports as a reference), and you further acknowledge that giving or receiving such assistance will result in a failing grade for this course.
 
-		\vfill
+        \vfill
 
-		{\centering{}
-		Your Signature: \hrulefill}
+        {\centering{}
+        Your Signature: \hrulefill}
 
-		\newpage
-	}
+        \newpage
+    }
 }
 %%%%%%% Write a EE report
 \DeclareOption{EEEE}{
-    \pagestyle{fancy}
-    \fancyhf{}
+    \newcommand{\KGCOEDocType}{EEEE}
 
-    \newcommand{\V}[1]{{V_{#1}}}
-    \newcommand{\knprime}{{k_n}^\prime}
-    \newcommand{\twoPhi}{\left| 2 \Phi_F \right|}
-    \newcommand{\wol}{\frac{W}{L}}
-    \newcommand{\vol}{$\V{OL}$}
-    \newcommand{\vth}{$\V{th}$}
-    \newcommand{\voh}{$\V{OH}$}
-    \newcommand{\unit}[1]{\ \si{#1}}
-    \newcommand{\paren}[1]{\left( #1 \right)}
-    \newcommand{\sqBrac}[1]{\left[ #1 \right]}
-    \newcommand{\evalAt}[2]{\left. #1 \right\rvert_{#2}}
-    \newcommand{\partialDeriv}[2]{\frac{\partial #1}{\partial #2}}
-    \newcommand{\e}[2]{#1\mathrm{e}{#2}}
-    \lhead{Tech Memo Lab: \#\exerciseNumber}
-    \rhead{\name}
-    \cfoot{\classCode\ - \className\hspace{1cm}\dateSubmitted\hspace{1cm}Page:
-    \thepage}
-	\newcommand{\KGCOEDocType}{EEEE}
+    \renewcommand{\maketitle}{%
 
-	\renewcommand{\maketitle}{%
+        \begin{flushright}\begin{tcolorbox}[colback=black,coltext=white,halign=center,boxrule=0pt,
+            sharp corners, width=0.5\textwidth, fontupper={\Large \bfseries}]
+            Rochester Institute of \\ Technology
+        \end{tcolorbox}\end{flushright}
 
-		\begin{flushright}\begin{tcolorbox}[colback=black,coltext=white,halign=center,boxrule=0pt,
-			sharp corners, width=0.5\textwidth, fontupper={\Large \bfseries}]
-			Rochester Institute of \\ Technology
-		\end{tcolorbox}\end{flushright}
+        \huge
+        \textbf{\classCode \ - \className \ Technical Memo}\\
+        \normalsize
 
-		\huge
-		\textbf{\classCode \ - \className \ Technical Memo}\\
-		\normalsize
+        \noindent
+        \begin{tabular}{ll}
+        \textbf{From:} &\name\\
 
-		\noindent
-		\begin{tabular}{ll}
-		\textbf{From:} &\name\\
+        % Optional parameter of partner
+        \ifdefined\partnerName
+            \textbf{Partner:} &\partnerName\\
+            \\
+        \fi
 
-		% Optional parameter of partner
-		\ifdefined\partnerName
-			\textbf{Partner:} &\partnerName\\
-			\\
-		\fi
+        \textbf{To:} &\TAs \ | Section \LabSectionNum\\
+        \textbf{Date:} &Performed: \dateDone; Due: \dateSubmitted\\
+        \textbf{Subject:} &Lab \exerciseNumber: \exerciseDescription
+        \end{tabular}
 
-		\textbf{To:} &\TAs \ | Section \LabSectionNum\\
-		\textbf{Date:} &Performed: \dateDone; Due: \dateSubmitted\\
-		\textbf{Subject:} &Lab \exerciseNumber: \exerciseDescription
-		\end{tabular}
-
-		\noindent
-		\rule{\textwidth}{.1pt}
-	}
+        \noindent
+        \rule{\textwidth}{.1pt}
+    }
 }
 % Pass any other options to
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
