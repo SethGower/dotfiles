@@ -87,17 +87,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Language Servers
 set signcolumn=yes
 
-" nnoremap <leader>f :ALEFix<CR>
-
-" map <leader>at  :ALEToggle<CR>
-" map <leader>ai  :ALEInfo<CR>
-" map <leader>al  :ALELint<CR>
-" map <leader>ad  :ALEGoToDefinition<CR>
-" map <leader>avd :ALEGoToDefinitionInVSplit<CR>
-" map <leader>asd :ALEGoToDefinitionInSplit<CR>
-" map <leader>ar  :ALEFindReferences<CR>
-" map <leader>an  :ALENext<CR>
-" map <leader>aR  :ALERename<CR>
 
 " CoC Stuff
 set colorcolumn=+1
