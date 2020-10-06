@@ -59,10 +59,10 @@ colorscheme dracula
 ""set termguicolors
 
 autocmd FileType latex,tex,markdown,md,text setlocal spell spelllang=en_us
-autocmd FileType make setlocal noexpandtab " prevents vim from placing spaces 
+autocmd FileType make setlocal noexpandtab " prevents vim from placing spaces
+                                           " instead of tabs for makefiles (sadly)
 autocmd BufNewFile,BufRead *.h set ft=c
 autocmd BufNewFile,BufRead *.toml set ft=dosini
-" instead of tabs for makefiles (sadly)
 
 " Ultisnips commands.
 let g:UltiSnipsExpandTrigger       = "<C-j>"
