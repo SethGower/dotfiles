@@ -48,6 +48,7 @@ call plug#begin()
     Plug 'neovim/pynvim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'jackguo380/vim-lsp-cxx-highlight'
+    Plug 'igankevich/mesonic'
 call plug#end()
 filetype plugin indent on " for plug
 
