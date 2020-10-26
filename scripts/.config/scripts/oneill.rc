@@ -22,7 +22,7 @@ start_services(){
     
     # Bars
     printf "    [INFO] Starting polybar\n"
-    $HOME/.config/polybar/launch.sh top top-secondary
+    $HOME/.config/polybar/launch.sh top
     
     # MY EYES!!!! Start redshift
     printf "    [INFO] Starting redshift\n"
@@ -31,8 +31,6 @@ start_services(){
     printf "    [INFO] Starting caffeine\n"
     caffeine &> /dev/null &
     
-    printf"     [INFO] Starting conky'\n"
-    conky -d
 
 }
 

@@ -5,9 +5,9 @@
             "command": "xrandr --output DP-5 --primary --auto  --output DP-3 --auto --right-of DP-5; feh --bg-fill ~/.wallpapers/collage.png"
         },
         "laptop_undocked": {
-            "outputs": ["eDP-1"],
-            "transition_output": "eDP-1",
-            "command": "xrandr --output eDP-1 --primary --auto; feh --bg-fill ~/.wallpapers/big-chair.jpg"
+            "outputs": ["eDP1"],
+            "transition_output": "eDP1",
+            "command": "xrandr --output eDP1 --primary --auto; feh --bg-fill ~/.wallpapers/collage.png"
         }
     }
 }
