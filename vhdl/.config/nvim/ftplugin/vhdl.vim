@@ -18,6 +18,7 @@ endif
 let g:ale_vhdl_ghdl_options = "--ieee=synopsys"
 
 setlocal comments=:--
+setlocal commentstring=--%s
 setlocal formatoptions+=cro
 
 " Simple shortcuts from https://github.com/salinasv/vim-vhdl/

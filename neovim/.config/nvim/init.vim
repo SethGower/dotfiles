@@ -56,6 +56,7 @@ let g:lsp_cxx_hl_log_file = '/tmp/vim-lsp-cxx-hl.log'
 syntax on
 let g:dracula_colorterm = 0 " enables correct background color
 colorscheme dracula
+hi Comment ctermfg=Yellow
 ""set termguicolors
 
 autocmd FileType latex,tex,markdown,md,text setlocal spell spelllang=en_us
@@ -132,7 +133,6 @@ command! -nargs=0 Format :call CocAction('format')
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 
 " gitgutter
 let g:gitgutter_enabled = 1
