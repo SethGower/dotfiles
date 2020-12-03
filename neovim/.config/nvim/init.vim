@@ -130,6 +130,8 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 command! -nargs=0 Format :call CocAction('format')
+nmap <leader>f <Plug>(coc-format)
+autocmd BufWritePre * %s/\s\+$//e " remove trailing white space on write
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
