@@ -21,8 +21,8 @@ fi
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-	git 
-	zsh-autosuggestions 
+	git
+	zsh-autosuggestions
 	zsh-syntax-highlighting
 	sudo
     zsh-autopair
@@ -51,3 +51,7 @@ if [[ -f ~/.fzf.zsh ]];then
 fi
 
 zstyle ':completion:*:*:nvim:*' file-patterns '^*.(aux|log|pdf|dvi|o):source-files' '*:all-files'
+
+if [[ -x "$(command -v starship)" ]]; then
+    eval "$(starship init zsh)"
+fi

@@ -24,7 +24,6 @@ alias xclip='xclip -selection c'
 alias grep='grep --color=always'
 
 if [[ -x "$(command -v nvim)" ]]; then
-  alias nvim="nvim"
   alias vim="nvim"
   alias vi="nvim"
 else
