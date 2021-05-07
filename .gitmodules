@@ -10,3 +10,6 @@
 [submodule "zsh/.custom_omz/plugins/zsh-autopair"]
 	path = zsh/.custom_omz/plugins/zsh-autopair
 	url = https://github.com/hlissner/zsh-autopair.git
+[submodule "suckless/st"]
+	path = suckless/st
+	url = git://git.suckless.org/st
