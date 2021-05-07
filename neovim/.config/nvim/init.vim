@@ -13,7 +13,7 @@ set number
 set t_Co=256
 set autoindent
 set backspace=indent,eol,start
-set tabstop=4 shiftwidth=4 expandtab
+set tabstop=2 shiftwidth=2 expandtab
 set smarttab
 set breakindent
 set inccommand=nosplit
@@ -130,6 +130,8 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 command! -nargs=0 Format :call CocAction('format')
+nmap <leader>f <Plug>(coc-format)
+autocmd BufWritePre * %s/\s\+$//e " remove trailing white space on write
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
