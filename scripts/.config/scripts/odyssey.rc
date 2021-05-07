@@ -5,7 +5,7 @@ export POLYBAR_PRIMARY_TOP_CENTER='xwindow'
 export POLYBAR_PRIMARY_TOP_RIGHT='volume volume-headphones date'
 
 export POLYBAR_PRIMARY=$(xrandr -q | awk '/primary/{print $1}')
-export POLYBAR_SECONDARY="DP-3"
+export POLYBAR_SECONDARY="DP-5"
 
 export NETWORK_INTERFACE='enp3s0'
 
@@ -30,9 +30,6 @@ start_services(){
     printf "    [INFO] Starting caffeine\n"
     caffeine &> /dev/null &
     
-    #printf"     [INFO] Starting conky'\n"
-    #conky -d
-
 }
 
 set_wallpaper(){

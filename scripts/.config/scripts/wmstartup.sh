@@ -38,6 +38,8 @@ done
 
 set_wallpaper
 
+sleep 2
+
 printf "[INFO] Starting Services...\n"
 start_services
 

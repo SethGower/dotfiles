@@ -2,7 +2,7 @@
     "configurations": {
         "odyssey": {
             "outputs": ["DP-3", "DP-5"],
-            "command": "xrandr --output DP-5 --primary --auto  --output DP-3 --auto --right-of DP-5; feh --bg-fill ~/.wallpapers/collage.png"
+            "command": "xrandr --output DP-3 --primary --auto  --output DP-5 --auto --right-of DP-3; feh --bg-fill ~/.wallpapers/collage.png"
         },
         "laptop_undocked": {
             "outputs": ["eDP1"],
