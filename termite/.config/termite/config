@@ -1,5 +1,6 @@
 [options]
-font = Roboto Mono 11
+font = Roboto Mono Nerd Font 11
+font = Iosevka 11
 
 [colors]
 
