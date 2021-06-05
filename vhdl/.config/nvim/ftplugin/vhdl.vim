@@ -15,8 +15,6 @@ if exists(":Tabularize")
     map <leader>vw :Tabularize /=><CR>
 endif
 
-let g:ale_vhdl_ghdl_options = "--ieee=synopsys"
-
 setlocal comments=:--
 setlocal commentstring=--%s
 setlocal formatoptions+=cro

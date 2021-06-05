@@ -3,11 +3,11 @@ if exists("b:did_ftplugin")
     finish
 endif
 
-" simple augroup for vimtex. 
+" simple augroup for vimtex.
 augroup MyVimtex
 	    autocmd!
         autocmd User VimtexEventQuit call system('latexmk -c') " Makes vimtex clean all log files and such when exiting vim, doesn't delete output files (pdfs)
-        autocmd BufWinEnter *.tex :VimtexCompile " compiles when a tex file is opened. 
+        autocmd BufWinEnter *.tex :VimtexCompile " compiles when a tex file is opened.
 augroup END
 
 if exists(":Tabularize")
@@ -20,4 +20,3 @@ let g:tex_flavor='latex'
 let g:vimtex_quickfix_open_on_warning = 0
 
 let g:AutoPairs['$']='$'
-let b:ale_linters = ['texlab']

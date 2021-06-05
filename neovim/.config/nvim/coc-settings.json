@@ -38,5 +38,6 @@
                 "vhdl"
             ]
         }
-    }
+    },
+    "git.addGBlameToVirtualText": true
 }
