@@ -43,10 +43,13 @@ call plug#begin()
     Plug 'scrooloose/nerdtree'
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'tpope/vim-fugitive'
     Plug 'neovim/pynvim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'jackguo380/vim-lsp-cxx-highlight'
     Plug 'igankevich/mesonic'
+    Plug 'moll/vim-bbye'
+    Plug 'aymericbeaumet/vim-symlink'
 call plug#end()
 filetype plugin indent on " for plug
 
