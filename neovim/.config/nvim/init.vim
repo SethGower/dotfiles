@@ -35,21 +35,22 @@ call plug#begin()
     Plug 'JPR75/vip', {'for':'vhdl'}
     Plug 'dracula/vim',{'as':'dracula'}
     Plug 'vim-airline/vim-airline'
-    Plug 'airblade/vim-gitgutter'
     Plug 'Shougo/echodoc.vim'
     Plug 'jiangmiao/auto-pairs'
     Plug 'chip/vim-fat-finger'
-    Plug 'kshenoy/vim-signature'
     Plug 'godlygeek/tabular'
     Plug 'tpope/vim-commentary'
     Plug 'tmhedberg/SimpylFold', {'for':'python'}
     Plug 'scrooloose/nerdtree'
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'tpope/vim-fugitive'
     Plug 'neovim/pynvim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'jackguo380/vim-lsp-cxx-highlight'
     Plug 'igankevich/mesonic'
+    Plug 'moll/vim-bbye'
+    Plug 'aymericbeaumet/vim-symlink'
 call plug#end()
 filetype plugin indent on " for plug
 
@@ -132,15 +133,11 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 command! -nargs=0 Format :call CocAction('format')
 nmap <leader>f <Plug>(coc-format)
-autocmd BufWritePre * %s/\s\+$//e " remove trailing white space on write
-
+" autocmd BufWritePre * %s/\s\+$//e " remove trailing white space on write
+map <leader>ws :%s/\s\+$//e<CR>
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
-
-" gitgutter
-let g:gitgutter_enabled = 1
-map <leader>gs  :GitGutterStageHunk<CR>
 
 map <leader>mc :make clean<CR>
 

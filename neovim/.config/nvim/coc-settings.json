@@ -1,4 +1,6 @@
 {
+    "coc.preferences.formatOnSaveFiletypes": ["rust"],
+    "yaml.format.enable": true,
     "languageserver": {
         "ccls": {
             "command": "ccls",
@@ -36,5 +38,6 @@
                 "vhdl"
             ]
         }
-    }
+    },
+    "git.addGBlameToVirtualText": true
 }

@@ -13,7 +13,7 @@ floating_modifier $mod
 
 bindsym $sup+s sticky toggle
 # start a terminal
-bindsym $mod+Return exec --no-startup-id termite
+bindsym $mod+Return exec --no-startup-id st
 
 # kill focused window
 bindsym $mod+Shift+q kill

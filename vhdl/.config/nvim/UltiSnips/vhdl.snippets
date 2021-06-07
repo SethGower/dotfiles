@@ -12,7 +12,7 @@ def split_line(text):
 	del snip.buffer[snip_line]
 endglobal
 
-post_jump "if snip.tabstop == 0 : split_line(snip.tabstops[4].current_text)"
+post_jump "if snip.tabstop == 0 : split_line(snip.tabstops[2].current_text)"
 snippet header "File header"
 -------------------------------------------------
 --  File:          `!p snip.rv = fn`
@@ -22,7 +22,7 @@ snippet header "File header"
 --  Author:        ${2:Seth Gower}
 --  Created:       `date +%m/%d/%y`
 --  Modified:      ${3}
---  VHDL'93
+--  VHDL'${5:2008}
 --  Description:   The following is the entity and
 --                 architectural description of a
 --                 ${4:I need a really long default here so I don't have to type so much !}
@@ -52,9 +52,6 @@ snippet lib "library IEEE; | use IEEE.STD_LOGIC_1164.ALL;"
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
-endsnippet
-
-snippet uun "use IEEE.STD_LOGIC_UNSIGNED.ALL;"
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 endsnippet
 
@@ -68,24 +65,13 @@ begin
 end $2;
 endsnippet
 
-snippet l "std_logic"
-std_logic
-endsnippet
-
-snippet lv "std_logic_vector(... downto 0)"
+snippet slv "std_logic_vector(... downto 0)"
 std_logic_vector(${VISUAL}${0} downto 0)
 endsnippet
 
 snippet with "with ... select"
 with ${1} select
 	${2} <=
-endsnippet
-
-snippet com "component"
-component ${VISUAL}${0}
-	Port(
-	);
-end component;
 endsnippet
 
 snippet pm "...: ... port map(...);"
@@ -103,9 +89,9 @@ ${0}
 end process;
 endsnippet
 
-snippet ifup "if rising_edge(clk) then ..."
-if rising_edge(${1:clk}) then
-${VISUAL}${0}
+snippet ifup "if rising_edge(i_clk) then ..."
+if rising_edge(${1:i_clk}) then
+	${VISUAL}${0}
 end if;
 endsnippet
 
@@ -118,10 +104,10 @@ endsnippet
 snippet clock "clk_proccess:process..."
 clk_process:process
 begin
-    ${1} <= '0';
-    wait for ${2}/2;
-    $1 <= '1';
-    wait for $2/2;
+	${1} <= '0';
+	wait for ${2}/2;
+	$1 <= '1';
+	wait for $2/2;
 end process;
 endsnippet
 
