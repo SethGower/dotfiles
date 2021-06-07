@@ -1,4 +1,4 @@
-# Shamelessly stolen from 
+# Shamelessly stolen from
 # https://github.com/zivv/UltiSnips/blob/master/vhdl.snippets
 global !p
 def split_line(text):
@@ -30,6 +30,23 @@ snippet header "File header"
 ${0}
 endsnippet
 
+post_jump "if snip.tabstop == 0 : split_line(snip.tabstops[4].current_text)"
+snippet htl "HTL File header"
+
+--------------------------------------------------------------------------------
+--!\file `!p snip.rv = snip.fn`
+--!\overview
+--!\brief
+-- ${1:I need a really long default here so I don't have to type so much !}
+--!\details
+-- ${2:I need a really long default here so I don't have to type so much !}
+--! TODO
+--------------------------------------------------------------------------------
+-- Copyright (c) 2021 HTL All Rights Reserved
+-- This source is subject to the HTL Source License(s).
+--------------------------------------------------------------------------------
+${0}
+endsnippet
 
 snippet lib "library IEEE; | use IEEE.STD_LOGIC_1164.ALL;"
 library IEEE;
@@ -86,8 +103,8 @@ ${0}
 end process;
 endsnippet
 
-snippet ifup "if (clk'event and clk = '1') then ..."
-if (${1:clk}'event and $1 = '1') then
+snippet ifup "if rising_edge(clk) then ..."
+if rising_edge(${1:clk}) then
 ${VISUAL}${0}
 end if;
 endsnippet
@@ -109,7 +126,7 @@ end process;
 endsnippet
 
 snippet func "function ${1} (${2})..."
-function ${1}(${2}) return ${3} is 
+function ${1}(${2}) return ${3} is
 begin
 ${4}
 end function $1;

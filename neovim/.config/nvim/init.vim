@@ -6,6 +6,7 @@ set visualbell
 set noerrorbells
 set smartindent
 set smartcase
+set ignorecase
 set hlsearch
 set showmatch
 set undolevels=1000

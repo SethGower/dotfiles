@@ -11,15 +11,16 @@ let g:HDL_Author = system("git config --global user.name")
 
 if exists(":Tabularize")
     map <leader>v: :Tabularize /:[^:=]<CR>
+    map <leader>v= :Tabularize /:=<CR>
     map <leader>vs :Tabularize /<=<CR>
     map <leader>vw :Tabularize /=><CR>
+    map <leader>v, :Tabularize /,=<CR>
 endif
-
-let g:ale_vhdl_ghdl_options = "--ieee=synopsys"
 
 setlocal comments=:--
 setlocal commentstring=--%s
 setlocal formatoptions+=cro
+setlocal textwidth=0
 
 " Simple shortcuts from https://github.com/salinasv/vim-vhdl/
 iabbrev <buffer> con constant
