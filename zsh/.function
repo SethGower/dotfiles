@@ -62,6 +62,14 @@ function clock() {
     figlet -f big -W "$(date +%l:%M:%S)" | toilet -f term --gay | perl -pe "s,0;1,01,g"
 }
 
+
+function add_to_path {
+    case ":$PATH:" in
+        *":$1:"*) :;; # already there
+        *) PATH="$PATH:$1";;
+    esac
+}
+
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
 export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink

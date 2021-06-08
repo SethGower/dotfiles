@@ -29,12 +29,12 @@ plugins=(
 )
 ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
+source ~/.function
 source ~/.alias
 source ~/.path
-source ~/.function
 
-if [ -f ~/.local_conf ]; then
-    source ~/.local_conf
+if [ -f ~/.profile ]; then
+    source ~/.profile
 fi
 
 compinit
