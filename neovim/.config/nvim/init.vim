@@ -22,6 +22,8 @@ set clipboard+=unnamedplus
 set cursorline
 set noshowmode
 set textwidth=80
+set mouse=a
+set nowrap
 
 let mapleader="\\"
 
@@ -45,6 +47,7 @@ call plug#begin()
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'tpope/vim-fugitive'
+    Plug 'kshenoy/vim-signature'
     Plug 'neovim/pynvim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'jackguo380/vim-lsp-cxx-highlight'
