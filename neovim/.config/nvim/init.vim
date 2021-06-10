@@ -184,3 +184,6 @@ autocmd vimenter * NERDTree
 autocmd VimEnter * wincmd p
 
 let g:NERDTreeIgnore=['\~$', '\.o[[file]]', '\.fls$','\.log$', '\.pdf$', '\.gz$', '\.aux$', '\.fdb_latexmk$']
+
+tnoremap <Esc> <C-\><C-n>
+command Term :below split term://zsh
