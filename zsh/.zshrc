@@ -11,13 +11,6 @@ else
     sshd|*/sshd) SESSION_TYPE=remote/ssh;;
   esac
 fi
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-if [ -n "$SESSION_TYPE" ]; then
-  ZSH_THEME="robbyrussel"
-else
-  ZSH_THEME="candy"
-fi
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
