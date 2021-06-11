@@ -187,3 +187,5 @@ let g:NERDTreeIgnore=['\~$', '\.o[[file]]', '\.fls$','\.log$', '\.pdf$', '\.gz$'
 
 tnoremap <Esc> <C-\><C-n>
 command Term :below split term://zsh
+
+nnoremap <leader><leader> <C-^>
