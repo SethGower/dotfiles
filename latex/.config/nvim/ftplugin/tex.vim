@@ -10,8 +10,8 @@ augroup MyVimtex
         autocmd BufWinEnter *.tex :VimtexCompile " compiles when a tex file is opened.
 augroup END
 
-if exists(":Tabularize")
-    map <leader>a& :Tabularize /&<CR>
+if exists(":EasyAlign")
+    map <leader>a& :EasyAlign &<CR>
 endif
 
 let g:vimtex_view_general_viewer = 'zathura'

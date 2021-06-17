@@ -7,12 +7,3 @@ setlocal comments=:%
 setlocal commentstring=\%\ %s
 setlocal formatoptions+=cro
 setlocal textwidth=0
-
-
-if exists(":Tabularize")
-    map <leader>v= :Tabularize /=<CR>
-endif
-
-function RunMatlab()
-
-endfunction

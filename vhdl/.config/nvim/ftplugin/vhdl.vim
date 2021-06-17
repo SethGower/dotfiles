@@ -3,18 +3,18 @@ if exists("b:did_ftplugin")
     finish
 endif
 
-let g:UltiSnipsSnippetDir="~/.config/nvim/UltiSnips/"
+let g:UltiSnipsSnippetDir = "~/.config/nvim/UltiSnips/"
 
 let g:vhdl_indent_genportmap = 0 " Keeps Vim from indenting port maps too much
-let g:HDL_Clock_Period = 100
-let g:HDL_Author = system("git config --global user.name")
+let g:HDL_Clock_Period       = 100
+let g:HDL_Author             = system("git config --global user.name")
 
-if exists(":Tabularize")
-    map <leader>v: :Tabularize /:[^:=]<CR>
-    map <leader>v= :Tabularize /:=<CR>
-    map <leader>vs :Tabularize /<=<CR>
-    map <leader>vw :Tabularize /=><CR>
-    map <leader>v, :Tabularize /,=<CR>
+if exists(":EasyAlign")
+    map <leader>v: :EasyAlign :>l1<CR>
+    map <leader>v= :EasyAlign =<CR>
+    map <leader>vs :EasyAlign =<CR>
+    map <leader>vw :EasyAlign =<CR>
+    " map <leader>v, :Tabularize /,=<CR>
 endif
 
 setlocal comments=:--
@@ -24,13 +24,14 @@ setlocal textwidth=0
 
 " Simple shortcuts from https://github.com/salinasv/vim-vhdl/
 iabbrev <buffer> con constant
-iabbrev <buffer> dt downto
+iabbrev <buffer> dt  downto
 iabbrev <buffer> sig signal
 iabbrev <buffer> var variable
 iabbrev <buffer> gen generate
-iabbrev <buffer> ot others
-iabbrev <buffer> sl std_logic
+iabbrev <buffer> ot  others
+iabbrev <buffer> sl  std_logic
 iabbrev <buffer> slv std_logic_vector
+iabbrev <buffer> lv  std_logic_vector
 iabbrev <buffer> uns unsigned
 iabbrev <buffer> toi to_integer
 iabbrev <buffer> tos to_signed

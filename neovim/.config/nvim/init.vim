@@ -40,7 +40,7 @@ call plug#begin()
     Plug 'Shougo/echodoc.vim'
     Plug 'jiangmiao/auto-pairs'
     Plug 'chip/vim-fat-finger'
-    Plug 'godlygeek/tabular'
+    Plug 'junegunn/vim-easy-align'
     Plug 'tpope/vim-commentary'
     Plug 'tmhedberg/SimpylFold', {'for':'python'}
     Plug 'scrooloose/nerdtree'
@@ -189,3 +189,6 @@ tnoremap <Esc> <C-\><C-n>
 command Term :below split term://zsh
 
 nnoremap <leader><leader> <C-^>
+
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
