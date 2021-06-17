@@ -36,7 +36,8 @@
             ],
             "filetypes": [
                 "vhdl"
-            ]
+            ],
+            "rootPatterns": [".hdl_checker.config"]
         }
     },
     "git.addGBlameToVirtualText": true
