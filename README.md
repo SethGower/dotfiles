@@ -12,7 +12,11 @@ $ git clone --recursive https://github.com/SethGower/dotfiles.git $HOME/.dotfile
 $ cd $HOME/.dotfiles
 $ git submodule update --init --recursive --remote # update to the most recent commit on the remote branch of the submodules
 
+# Installs the config files (but doesn't install programs)
 $ stow i3 polybar vim # installs the contents of the i3 polybar and vim directories to the parent dir ($HOME/)
+
+# Installs programs and the config files
+$ ./install.sh i3 polybar vim # see ./install.d/README.md
 ```
 
 Or you can use any of the other package folder in this repo. 
