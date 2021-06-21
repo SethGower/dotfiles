@@ -7,6 +7,10 @@ if [[ -z $@ ]]; then
 fi
 
 export OS=$(cat /etc/os-release | grep -E "\bID\b" | cut -d'=' -f2)
+if [[ $OS == "arch" ]];
+then
+  export AUR_HELPER="paru"
+fi
 
 for package in $@
 do
