@@ -14,6 +14,10 @@ fi
 
 for package in $@
 do
-  ./install.d/${OS}/$package.sh
+  # adds safeguard (not super necessary) to only run install script if it exists
+  if [[ -f ./install.d/${OS}/${package}.sh ]];
+  then
+    ./install.d/${OS}/$package.sh
+  fi
   stow $package
 done
