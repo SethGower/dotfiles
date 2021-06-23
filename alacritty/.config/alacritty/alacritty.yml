@@ -1,4 +1,4 @@
-background_opacity: 0.7
+background_opacity: 0.9
 
 font:
   normal:
@@ -46,7 +46,7 @@ schemes:
 
     # Bright colors
     bright:
-      black:   '#575b70'
+      black:   '#bfbfbf'
       red:     '#ff6e67'
       green:   '#5af78e'
       yellow:  '#f4f99d'
