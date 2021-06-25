@@ -1,5 +1,4 @@
 #!/bin/bash
-unset TERMINAL
 unset services
 
 echo $(compgen -v | grep "POLYBAR")

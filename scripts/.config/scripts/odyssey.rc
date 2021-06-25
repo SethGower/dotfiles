@@ -1,8 +1,6 @@
-export TERMINAL='termite'
-
 export POLYBAR_PRIMARY_TOP_LEFT='i3'
 export POLYBAR_PRIMARY_TOP_CENTER='xwindow'
-export POLYBAR_PRIMARY_TOP_RIGHT='volume volume-headphones date'
+export POLYBAR_PRIMARY_TOP_RIGHT='volume date'
 
 export POLYBAR_PRIMARY=$(xrandr -q | awk '/primary/{print $1}')
 export POLYBAR_SECONDARY="DP-5"
@@ -30,6 +28,8 @@ start_services(){
     printf "    [INFO] Starting caffeine\n"
     caffeine &> /dev/null &
     
+    printf "    [INFO] Starting light-locker\n"
+    light-locker &> /dev/null &
 }
 
 set_wallpaper(){
