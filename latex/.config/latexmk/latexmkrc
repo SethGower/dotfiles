@@ -1,0 +1,2 @@
+$clean_ext = "synctex.gz fls xdv";
+$ENV{'TEXINPUTS'}='~/.config/latexmk/custom_pkgs//:' . $ENV{'TEXINPUTS'};
