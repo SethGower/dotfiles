@@ -1,5 +1,3 @@
-# If wal is installed, use it
-[[ -x $(command -v wal) ]] &&(cat ~/.cache/wal/sequences &)
 # Path to oh-my-zsh installation.
 export ZSH=${HOME}/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.custom_omz
@@ -48,3 +46,6 @@ zstyle ':completion:*:*:nvim:*' file-patterns '^*.(aux|log|pdf|dvi|o):source-fil
 if [[ -x "$(command -v starship)" ]]; then
     eval "$(starship init zsh)"
 fi
+
+# If wal is installed, use it
+[[ -x $(command -v wal) ]] &&(cat ~/.cache/wal/sequences &)
