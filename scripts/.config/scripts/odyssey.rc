@@ -11,25 +11,40 @@ export REDSHIFT_GAMMA=1.0
 export REDSHIFT_DAY_TEMP=6500
 export REDSHIFT_NIGHT_TEMP=5500
 
-services="polybar compton redshift"
+services="polybar compton redshift light-locker caffeine"
 start_services(){
     # Compositor for transparency
-    printf "    [INFO] Starting compton\n"
-    compton &
+    if [[ -x $(which compton) ]];
+    then
+      printf "    [INFO] Starting compton\n"
+      compton &
+    fi
     
-    # Bars
-    printf "    [INFO] Starting polybar\n"
-    $HOME/.config/polybar/launch.sh top top-secondary & 
+    if [[ -x $(which polybar) ]];
+    then
+      # Bars
+      printf "    [INFO] Starting polybar\n"
+      $HOME/.config/polybar/launch.sh top top-secondary & 
+    fi
     
     # MY EYES!!!! Start redshift
-    printf "    [INFO] Starting redshift\n"
-    redshift -c $HOME/.config/redshift/$(hostname).conf &
+    if [[ -x $(which redshift) ]];
+    then
+      printf "    [INFO] Starting redshift\n"
+      redshift -c $HOME/.config/redshift/$(hostname).conf &
+    fi
     
-    printf "    [INFO] Starting caffeine\n"
-    caffeine &> /dev/null &
+    if [[ -x $(which caffeine) ]];
+    then
+      printf "    [INFO] Starting caffeine\n"
+      caffeine &> /dev/null &
+    fi
     
-    printf "    [INFO] Starting light-locker\n"
-    light-locker &> /dev/null &
+    if [[ -x $(which light-locker) ]];
+    then
+      printf "    [INFO] Starting light-locker\n"
+      light-locker &> /dev/null &
+    fi
 }
 
 set_wallpaper(){

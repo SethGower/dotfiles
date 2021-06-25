@@ -1,8 +1,6 @@
 #!/bin/bash
 unset services
 
-echo $(compgen -v | grep "POLYBAR")
-
 if [[ -x "$HOME/.config/scripts/$(hostname).rc" ]]; then
     printf "[INFO] Sourcing ~/.config/scripts/$(hostname).rc\n"
     source $HOME/.config/scripts/$(hostname).rc
