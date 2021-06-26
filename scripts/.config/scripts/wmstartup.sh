@@ -33,18 +33,18 @@ for service in $services; do
     unset i
 done
 
-set_wallpaper
+set_wallpaper &
 
 sleep 2
 
 printf "[INFO] Starting Services...\n"
-start_services
+start_services &
 
 
 # checks if dunst is installed
-if [[ -n $(which dunst) ]];
-then
-    dunst &
-fi
+# if [[ -n $(which dunst) ]];
+# then
+#     dunst &
+# fi
 
 [[ -x /usr/bin/numlockx ]] && numlockx off

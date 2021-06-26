@@ -2,9 +2,6 @@ export POLYBAR_PRIMARY_TOP_LEFT='i3'
 export POLYBAR_PRIMARY_TOP_CENTER='xwindow'
 export POLYBAR_PRIMARY_TOP_RIGHT='volume date'
 
-export POLYBAR_PRIMARY=$(xrandr -q | awk '/primary/{print $1}')
-export POLYBAR_SECONDARY="DP-5"
-
 export NETWORK_INTERFACE='enp3s0'
 
 export REDSHIFT_GAMMA=1.0
@@ -13,6 +10,10 @@ export REDSHIFT_NIGHT_TEMP=5500
 
 services="polybar compton redshift light-locker caffeine"
 start_services(){
+    # at this point in the startup, the displays should be the correct config  
+    export POLYBAR_PRIMARY=$(xrandr -q | awk '/primary/{print $1}')
+    export POLYBAR_SECONDARY=$(xrandr -q | awk '/ connected/' | awk '!/primary/{print $1}' | cut -d' ' -f1)
+
     # Compositor for transparency
     if [[ -x $(which compton) ]];
     then
@@ -48,9 +49,8 @@ start_services(){
 }
 
 set_wallpaper(){
-    wal -Rn
+    [[ -x $(which wal) ]] && wal -Rn
     ~/.config/scripts/fix-monitors.py
-    # feh --bg-fill ~/.wallpapers/big-chair.jpg
 }
 
 # vim:ft=sh

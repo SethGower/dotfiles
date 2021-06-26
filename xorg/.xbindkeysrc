@@ -52,6 +52,9 @@
 
 "/home/sgower/.config/scripts/fix-monitors.py"
   alt + control + D
+
+"i3-nagbar -t warning -m 'Exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
+  Control + Alt + BackSpace
 #"xterm -geom 50x20+20+20"
 #   Shift+Mod2+alt + s
 #
