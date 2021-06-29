@@ -55,6 +55,7 @@ call plug#begin()
     Plug 'igankevich/mesonic'
     Plug 'moll/vim-bbye'
     Plug 'aymericbeaumet/vim-symlink'
+    Plug 'rust-lang/rust.vim'
 call plug#end()
 filetype plugin indent on " for plug
 
