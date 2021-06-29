@@ -44,7 +44,8 @@ call plug#begin()
     Plug 'tpope/vim-commentary'
     Plug 'tmhedberg/SimpylFold', {'for':'python'}
     Plug 'scrooloose/nerdtree'
-    Plug 'ctrlpvim/ctrlp.vim'
+    Plug '~/.fzf'
+    Plug 'airblade/vim-rooter'
     Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'tpope/vim-fugitive'
     Plug 'kshenoy/vim-signature'
@@ -192,3 +193,5 @@ nnoremap <leader><leader> <C-^>
 
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
+
+nmap <C-P> :FZF<CR>

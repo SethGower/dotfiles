@@ -37,8 +37,8 @@ compinit
 # 	[[ "${TERM}" != *"screen"* ]] && exec tmux new-session  #-A -s 0
 # fi
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-if [[ -f ~/.fzf.zsh ]];then
+if [[ -f ~/.fzf.zsh ]];
+then
     source ~/.fzf.zsh
     export FZF_DEFAULT_OPTS="--preview='bat --color=always {}'"
 fi

@@ -17,6 +17,10 @@ if exists(":EasyAlign")
     " map <leader>v, :Tabularize /,=<CR>
 endif
 
+if exists(':Rooter')
+    let g:rooter_patterns = ['.hdl_checker.config']
+endif
+
 setlocal comments=:--
 setlocal commentstring=--%s
 setlocal formatoptions+=cro
