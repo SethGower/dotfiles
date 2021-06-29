@@ -1,44 +1,48 @@
 {
-    "coc.preferences.formatOnSaveFiletypes": ["rust"],
-    "yaml.format.enable": true,
-    "languageserver": {
-        "ccls": {
-            "command": "ccls",
-            "filetypes": [
-                "c",
-                "cpp",
-                "objc",
-                "objcpp",
-                "h",
-                "hpp"
-            ],
-            "rootPatterns": [
-                ".ccls",
-                "compile_commands.json",
-                ".vim/",
-                ".git/",
-                ".hg/"
-            ],
-            "initializationOptions": {
-                "compilationDatabaseDirectory": "build",
-                "cache": {
-                    "directory": "/tmp/ccls"
-                },
-                "highlight": {
-                    "lsRanges": true
-                }
-            }
+  "coc.preferences.formatOnSaveFiletypes": [
+    "rust"
+  ],
+  "yaml.format.enable": true,
+  "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": [
+        "c",
+        "cpp",
+        "objc",
+        "objcpp",
+        "h",
+        "hpp"
+      ],
+      "rootPatterns": [
+        ".ccls",
+        "compile_commands.json",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "initializationOptions": {
+        "compilationDatabaseDirectory": "build",
+        "cache": {
+          "directory": "/tmp/ccls"
         },
-        "hdlChecker": {
-            "command": "hdl_checker",
-            "args": [
-                "--lsp"
-            ],
-            "filetypes": [
-                "vhdl"
-            ],
-            "rootPatterns": [".hdl_checker.config"]
+        "highlight": {
+          "lsRanges": true
         }
+      }
     },
-    "git.addGBlameToVirtualText": true
+    "hdlChecker": {
+      "command": "hdl_checker",
+      "args": [
+        "--lsp"
+      ],
+      "filetypes": [
+        "vhdl"
+      ],
+      "rootPatterns": [
+        ".hdl_checker.config"
+      ]
+    }
+  },
+  "git.addGBlameToVirtualText": true
 }
