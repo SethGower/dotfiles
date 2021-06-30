@@ -2,7 +2,6 @@
 import os
 import json
 import subprocess as sp
-from xdg import BaseDirectory as bd
 
 
 def shell(cmd):
@@ -47,8 +46,7 @@ class Config:
         self.configurations = [Configuration(name, **c) for name, c in
                                params['configurations'].items()]
 
-
-config_file = bd.save_config_path("scripts/") + "displays.json"
+config_file = os.path.dirname(os.path.realpath(__file__)) + "/displays.json"
 config = None
 with open(config_file, "r") as f:
     config = Config(**(json.load(f)))
