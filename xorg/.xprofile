@@ -1,0 +1,3 @@
+[[ -f $HOME/.path ]] && source $HOME/.path
+
+# vim:ft=sh
