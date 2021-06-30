@@ -45,6 +45,7 @@ call plug#begin()
     Plug 'tmhedberg/SimpylFold', {'for':'python'}
     Plug 'preservim/nerdtree'
     Plug '~/.fzf'
+    Plug 'junegunn/fzf.vim'
     Plug 'airblade/vim-rooter'
     Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'tpope/vim-fugitive'
