@@ -213,7 +213,9 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
   \ }
 
 tnoremap <Esc> <C-\><C-n>
-command Term :below split term://zsh
+if ! exists(':Term')
+  command Term :below split term://zsh
+endif
 
 nnoremap <leader><leader> <C-^>
 
