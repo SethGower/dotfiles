@@ -40,11 +40,4 @@ sleep 2
 printf "[INFO] Starting Services...\n"
 start_services &
 
-
-# checks if dunst is installed
-# if [[ -n $(which dunst) ]];
-# then
-#     dunst &
-# fi
-
 [[ -x /usr/bin/numlockx ]] && numlockx off

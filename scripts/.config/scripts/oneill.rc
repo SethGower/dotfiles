@@ -15,23 +15,53 @@ export REDSHIFT_NIGHT_TEMP=5500
 
 services="polybar compton redshift conky caffeine dunst"
 start_services(){
-    echo got here
     # Compositor for transparency
-    printf "    [INFO] Starting compton\n"
-    compton &
-    
-    # Bars
-    printf "    [INFO] Starting polybar\n"
-    $HOME/.config/polybar/launch.sh top
-    
-    # MY EYES!!!! Start redshift
-    printf "    [INFO] Starting redshift\n"
-    redshift -c $HOME/.config/redshift/$(hostname).conf &
-    
-    printf "    [INFO] Starting caffeine\n"
-    caffeine &> /dev/null &
-    
+    if [[ -x $(which compton) ]];
+    then
+      printf "    [INFO] Starting compton\n"
+      compton &
+    fi
 
+    if [[ -x $(which polybar) ]];
+    then
+      # Bars
+      printf "    [INFO] Starting polybar\n"
+      $HOME/.config/polybar/launch.sh top &
+    fi
+
+    # MY EYES!!!! Start redshift
+    if [[ -x $(which redshift) ]];
+    then
+      printf "    [INFO] Starting redshift\n"
+      redshift -c $HOME/.config/redshift/$(hostname).conf &
+    fi
+
+    if [[ -x $(which caffeine) ]];
+    then
+      printf "    [INFO] Starting caffeine\n"
+      caffeine &> /dev/null &
+    fi
+
+    if [[ -x $(which light-locker) ]];
+    then
+      printf "    [INFO] Starting light-locker\n"
+      light-locker &> /dev/null &
+    fi
+
+    if [[ -x $(which dunst) ]];
+    then
+      printf "    [INFO] Starting dunst\n"
+      dunst &> /dev/null &
+    fi
+
+
+
+
+}
+
+set_wallpaper(){
+    [[ -x $(which wal) ]] && wal -Rn
+    ~/.config/scripts/fix-monitors.py
 }
 
 # vim:ft=sh
