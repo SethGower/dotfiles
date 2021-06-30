@@ -43,7 +43,7 @@ call plug#begin()
     Plug 'junegunn/vim-easy-align'
     Plug 'tpope/vim-commentary'
     Plug 'tmhedberg/SimpylFold', {'for':'python'}
-    Plug 'scrooloose/nerdtree'
+    Plug 'preservim/nerdtree'
     Plug '~/.fzf'
     Plug 'airblade/vim-rooter'
     Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -166,26 +166,50 @@ endif
 
 " Nerd Tree Stuff
 map <leader>nt :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
-" If no file is opened when vim is opened, open NERDTree
-" Open NERDTree when vim opens
-autocmd vimenter * NERDTree
-" Refocus on the other window not NERDTree
-autocmd VimEnter * wincmd p
 
+" Exit Vim if NERDTree is the only window left. If it's the last window in a
+" tab, it closes that tab
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+  \ quit | endif
+
+" Open NERDTree when vim opens
+" If a file is open, finds the file in the tree, and goes back to the editor
+" screen. If no file is specified, then it just opens the tree and goes to the
+" editor window
+function! LaunchNTFile()
+  if argc() > 0
+    file | NERDTreeFind
+  else
+    NERDTree
+  endif
+  wincmd p
+endfunction
+
+autocmd VimEnter * :call LaunchNTFile()
+
+" define the file patterns that won't show up in the tree
 let g:NERDTreeIgnore=['\~$', '\.o[[file]]', '\.fls$','\.log$', '\.pdf$', '\.gz$', '\.aux$', '\.fdb_latexmk$']
+
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+  \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+
+" Open the existing NERDTree on each new tab.
+autocmd TabEnter * silent NERDTreeMirror
+
+" NERDTree Git icons
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+  \ "Modified"  : "✹",
+  \ "Staged"    : "✚",
+  \ "Untracked" : "✭",
+  \ "Renamed"   : "➜",
+  \ "Unmerged"  : "═",
+  \ "Deleted"   : "✖",
+  \ "Dirty"     : "✗",
+  \ "Clean"     : "✔︎",
+  \ 'Ignored'   : '☒',
+  \ "Unknown"   : "?"
+  \ }
 
 tnoremap <Esc> <C-\><C-n>
 command Term :below split term://zsh
