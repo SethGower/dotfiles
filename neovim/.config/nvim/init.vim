@@ -66,13 +66,13 @@ syntax on
 let g:dracula_colorterm = 0 " enables correct background color
 colorscheme dracula
 hi Comment ctermfg=Yellow
-""set termguicolors
 
 autocmd FileType latex,tex,markdown,md,text setlocal spell spelllang=en_us
 autocmd FileType make setlocal noexpandtab " prevents vim from placing spaces
                                            " instead of tabs for makefiles (sadly)
 autocmd BufNewFile,BufRead *.h set ft=c
 autocmd BufNewFile,BufRead *.toml set ft=dosini
+autocmd BufNewFile,BufRead *.config set ft=json
 
 " Ultisnips commands.
 let g:UltiSnipsExpandTrigger       = "<C-j>"
@@ -177,16 +177,9 @@ autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTa
 " If a file is open, finds the file in the tree, and goes back to the editor
 " screen. If no file is specified, then it just opens the tree and goes to the
 " editor window
-function! LaunchNTFile()
-  if argc() > 0
-    file | NERDTreeFind
-  else
-    NERDTree
-  endif
-  wincmd p
-endfunction
 
-autocmd VimEnter * :call LaunchNTFile()
+autocmd VimEnter * if argc() > 0 | NERDTreeFind | else | NERDTree | endif | wincmd p
+" autocmd BufEnter * NERDTreeFind
 
 " define the file patterns that won't show up in the tree
 let g:NERDTreeIgnore=['\~$', '\.o[[file]]', '\.fls$','\.log$', '\.pdf$', '\.gz$', '\.aux$', '\.fdb_latexmk$']
