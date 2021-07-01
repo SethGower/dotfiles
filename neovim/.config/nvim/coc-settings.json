@@ -1,19 +1,10 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [
-    "rust"
-  ],
+  "coc.preferences.formatOnSaveFiletypes": ["rust"],
   "yaml.format.enable": true,
   "languageserver": {
     "ccls": {
       "command": "ccls",
-      "filetypes": [
-        "c",
-        "cpp",
-        "objc",
-        "objcpp",
-        "h",
-        "hpp"
-      ],
+      "filetypes": ["c", "cpp", "objc", "objcpp", "h", "hpp"],
       "rootPatterns": [
         ".ccls",
         "compile_commands.json",
@@ -33,15 +24,9 @@
     },
     "hdlChecker": {
       "command": "hdl_checker",
-      "args": [
-        "--lsp"
-      ],
-      "filetypes": [
-        "vhdl"
-      ],
-      "rootPatterns": [
-        ".hdl_checker.config"
-      ]
+      "args": ["--lsp"],
+      "filetypes": ["vhdl"],
+      "rootPatterns": [".hdl_checker.config"]
     }
   },
   "git.addGBlameToVirtualText": true
