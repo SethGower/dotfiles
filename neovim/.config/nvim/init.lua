@@ -110,6 +110,7 @@ require('packer').startup(function()
 
 end)
 
+vim.o.termguicolors = true
 cmd 'colorscheme dracula'
 
 
