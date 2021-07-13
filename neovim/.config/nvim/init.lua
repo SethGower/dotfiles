@@ -43,7 +43,7 @@ opt.wrap = false
 opt.signcolumn = 'yes'
 opt.foldenable = false
 opt.undolevels = 1000
-opt.undodir = '~/.config/nvim/undodir'
+-- opt.undodir = '~/.config/nvim/undodir'
 cmd 'set undofile'
 
 -------------------- PLUGINS -------------------------------
@@ -67,8 +67,8 @@ require('packer').startup(function()
   use 'moll/vim-bbye'                    -- better buffer deletion
   use 'aymericbeaumet/vim-symlink'       -- read symlinks for pwd
   use 'nvim-treesitter/nvim-treesitter'  -- treesitter interface for vim
-  -- use 'deoplete-plugins/deoplete-lsp' -- LSP completion source for deoplete
-  -- use 'neovim/nvim-lspconfig' -- LSP configuration for built in LSP
+  use 'deoplete-plugins/deoplete-lsp' -- LSP completion source for deoplete
+  use 'neovim/nvim-lspconfig' -- LSP configuration for built in LSP
   use {
     'nvim-telescope/telescope.nvim',
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
@@ -83,13 +83,10 @@ require('packer').startup(function()
   }
 
   -- completion using deoplete
-  -- use {
-  --   'Shougo/deoplete.nvim',
-  --   run = fn['remote#host#UpdateRemotePlugins']
-  -- }
   use {
-    'neoclide/coc.nvim',
-    branch = 'release'
+    'Shougo/deoplete.nvim',
+    run = fn['remote#host#UpdateRemotePlugins'],
+    config = "vim.g['deoplete#enable_at_startup'] = 1"
   }
 
   -- VimTeX for better development of LaTeX
@@ -158,18 +155,62 @@ vim.g.UltiSnipsJumpBackwardTrigger = '<C-k>'
 
 ------------------------- LSP -------------------------
 
--- local lsp = require('lspconfig')
--- local lspfuzzy = require('lspfuzzy')
+local lspconfig = require('lspconfig')
+local configs = require('lspconfig/configs')
+local util = require('lspconfig/util')
 
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
--- CoC Stuff
-vim.opt.colorcolumn = '+1'
-vim.opt.backup = false
-vim.opt.writebackup = false
-vim.opt.cmdheight = 2
-vim.opt.updatetime = 300
-vim.opt.shortmess = vim.opt.shortmess + 'c'
-cmd "autocmd CursorHold * silent call CocActionAsync('highlight')"
+  --Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gD',         '<cmd>lua vim.lsp.buf.declaration()<CR>',                  opts)
+  buf_set_keymap('n', 'gd',         '<cmd>lua vim.lsp.buf.definition()<CR>',                   opts)
+  buf_set_keymap('n', 'K',          '<cmd>lua vim.lsp.buf.hover()<CR>',                        opts)
+  buf_set_keymap('n', 'gi',         '<cmd>lua vim.lsp.buf.implementation()<CR>',               opts)
+  buf_set_keymap('n', '<C-k>',      '<cmd>lua vim.lsp.buf.signature_help()<CR>',               opts)
+  buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>',                       opts)
+  buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>',                  opts)
+  buf_set_keymap('n', 'gr',         '<cmd>lua vim.lsp.buf.references()<CR>',                   opts)
+  buf_set_keymap('n', '<space>e',   '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d',         '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',             opts)
+  buf_set_keymap('n', ']d',         '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',             opts)
+  buf_set_keymap("n", "<leader>f",  "<cmd>lua vim.lsp.buf.formatting()<CR>",                   opts)
+
+end
+
+if not lspconfig.hdl_checker then
+  configs.hdl_checker = {
+    default_config = {
+      cmd = {"hdl_checker", "--lsp"};
+      filetypes = { "vhdl" };
+      root_dir = function(fname)
+        return util.root_pattern('.hdl_checker.config')(fname) or util.path.dirname(fname)
+      end;
+      settings = {};
+    };
+  }
+end
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { "ccls", "hdl_checker", "pyls"}
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
+end
 
 ------------------------- NERDTree -------------------------
 vim.g.NERDTreeGitStatusIndicatorMapCustom = {
@@ -220,6 +261,6 @@ require('gitsigns').setup {
     topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
     changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
   },
-  current_line_blame = false,
+  current_line_blame = true,
   current_line_blame_delay = 100
 }
