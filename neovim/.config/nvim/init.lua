@@ -4,6 +4,12 @@ local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g      -- a table to access global variables
 local opt = vim.opt  -- to set options
 
+-- Normalize codes (such as <Tab>) to their terminal codes (<Tab> == ^I)
+local function t(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+
 local function map(mode, lhs, rhs, opts)
   local options = {noremap = true}
   if opts then options = vim.tbl_extend('force', options, opts) end
@@ -38,34 +44,35 @@ opt.signcolumn = 'yes'
 opt.foldenable = false
 opt.undolevels = 1000
 opt.undodir = '~/.config/nvim/undodir'
-opt.undofile = true
+cmd 'set undofile'
 
 -------------------- PLUGINS -------------------------------
 local use = require('packer').use
 require('packer').startup(function()
-  use 'wbthomason/packer.nvim' -- packer manages itself
-  use 'SirVer/ultisnips' -- Snippets from Ultisnips
-  use 'honza/vim-snippets' -- default snippets for Ultisnips
-  use 'vim-airline/vim-airline' -- airline status line
-  use 'Shougo/echodoc.vim' -- docstrings on echo line
-  use 'jiangmiao/auto-pairs' -- auto pairs for certain characters
-  use 'chip/vim-fat-finger' -- quick fixes for certain typos
-  use 'junegunn/vim-easy-align' -- better alignment
-  use 'tpope/vim-commentary' -- comments lines with motions
-  use 'preservim/nerdtree' -- File Tree
-  use 'Xuyuanp/nerdtree-git-plugin' -- provides git stats to NERDTree
-  use 'junegunn/fzf' -- fuzzy searching
-  use 'junegunn/fzf.vim' -- commands for fzf
-  use 'airblade/vim-rooter' -- changes CWD to root of project
-  use 'tpope/vim-fugitive' -- git commands in vim
-  use 'kshenoy/vim-signature' -- adds markers to the sign column
-  use 'jackguo380/vim-lsp-cxx-highlight' -- adds semantic highlighting for Cxx
-  use 'igankevich/mesonic' -- adds make calls to interface with meson
-  use 'moll/vim-bbye' -- better buffer deletion
-  use 'aymericbeaumet/vim-symlink' -- read symlinks for pwd
-  use 'nvim-treesitter/nvim-treesitter' -- treesitter interface for vim
-  use 'deoplete-plugins/deoplete-lsp' -- LSP completion source for deoplete
-  use 'neovim/nvim-lspconfig' -- LSP configuration for built in LSP
+  use 'wbthomason/packer.nvim'           -- packer manages itself
+  use 'SirVer/ultisnips'                 -- Snippets from Ultisnips
+  use 'honza/vim-snippets'               -- default snippets for Ultisnips
+  use 'vim-airline/vim-airline'          -- airline status line
+  use 'Shougo/echodoc.vim'               -- docstrings on echo line
+  use 'jiangmiao/auto-pairs'             -- auto pairs for certain characters
+  use 'chip/vim-fat-finger'              -- quick fixes for certain typos
+  use 'junegunn/vim-easy-align'          -- better alignment
+  use 'tpope/vim-commentary'             -- comments lines with motions
+  use 'preservim/nerdtree'               -- File Tree
+  use 'Xuyuanp/nerdtree-git-plugin'      -- provides git stats to NERDTree
+  use 'airblade/vim-rooter'              -- changes CWD to root of project
+  use 'tpope/vim-fugitive'               -- git commands in vim
+  use 'kshenoy/vim-signature'            -- adds markers to the sign column
+  use 'igankevich/mesonic'               -- adds make calls to interface with meson
+  use 'moll/vim-bbye'                    -- better buffer deletion
+  use 'aymericbeaumet/vim-symlink'       -- read symlinks for pwd
+  use 'nvim-treesitter/nvim-treesitter'  -- treesitter interface for vim
+  -- use 'deoplete-plugins/deoplete-lsp' -- LSP completion source for deoplete
+  -- use 'neovim/nvim-lspconfig' -- LSP configuration for built in LSP
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+  }
 
   -- git interface stuff for nvim. Mainly for git blame
   use {
@@ -74,11 +81,15 @@ require('packer').startup(function()
       'nvim-lua/plenary.nvim'
     }
   }
-  
+
   -- completion using deoplete
+  -- use {
+  --   'Shougo/deoplete.nvim',
+  --   run = fn['remote#host#UpdateRemotePlugins']
+  -- }
   use {
-    'Shougo/deoplete.nvim',
-    run = fn['remote#host#UpdateRemotePlugins']
+    'neoclide/coc.nvim',
+    branch = 'release'
   }
 
   -- VimTeX for better development of LaTeX
@@ -111,25 +122,54 @@ require('packer').startup(function()
 end)
 
 vim.o.termguicolors = true
+vim.g.dracula_colorterm = 0
 cmd 'colorscheme dracula'
+cmd 'highlight Comment ctermfg=Yellow'
 
 
-------------------------- MAPS -------------------------
-map('', 'j', 'gj')
-map('', 'k', 'gk')
-map('', '<leader>wh', '<C-w>h')
-map('', '<leader>wj', '<C-w>j')
-map('', '<leader>wk', '<C-w>k')
-map('', '<leader>wl', '<C-w>l')
-map('n', '<space>', 'za')
-map('n', 'ga', '<Plug>(EasyAlign)')
-map('n', '<C-P>', ':FZF<CR>')
+------------------------ MAPS -------------------------
+map('',  'j',          'gj')
+map('',  'k',          'gk')
+map('',  '<leader>wh', '<C-w>h')
+map('',  '<leader>wj', '<C-w>j')
+map('',  '<leader>wk', '<C-w>k')
+map('',  '<leader>wl', '<C-w>l')
+map('n', '<space>',    'za')
+map('n', 'ga',         '<Plug>(EasyAlign)')
+map('',  'ga',         '<Plug>(EasyAlign)')
+map('n', '<C-P>',      '<cmd>Telescope find_files<CR>')
+map('',  '<leader>nt', ':NERDTreeToggle<CR>')
+-- map('',  '<leader>ws', ':%s/\s\+$//e<CR>')
+
+-- functions to use tab and shift+tab to navigate the completion menu
+function _G.smart_tab()
+    return vim.fn.pumvisible() == 1 and t'<C-n>' or t'<Tab>'
+end
+function _G.smart_back_tab()
+    return vim.fn.pumvisible() == 1 and t'<C-p>' or t'<S-Tab>'
+end
+
+vim.api.nvim_set_keymap('i', '<Tab>', 'v:lua.smart_tab()', {expr = true, noremap = true})
+vim.api.nvim_set_keymap('i', '<S-Tab>', 'v:lua.smart_back_tab()', {expr = true, noremap = true})
+
+vim.g.UltiSnipsExpandTrigger       = '<C-j>'
+vim.g.UltiSnipsJumpForwardTriggeru = '<C-j>'
+vim.g.UltiSnipsJumpBackwardTrigger = '<C-k>'
 
 ------------------------- LSP -------------------------
 
-local lsp = require('lspconfig')
+-- local lsp = require('lspconfig')
 -- local lspfuzzy = require('lspfuzzy')
 
+
+-- CoC Stuff
+vim.opt.colorcolumn = '+1'
+vim.opt.backup = false
+vim.opt.writebackup = false
+vim.opt.cmdheight = 2
+vim.opt.updatetime = 300
+vim.opt.shortmess = vim.opt.shortmess + 'c'
+cmd "autocmd CursorHold * silent call CocActionAsync('highlight')"
 
 ------------------------- NERDTree -------------------------
 vim.g.NERDTreeGitStatusIndicatorMapCustom = {
@@ -175,11 +215,11 @@ ts.setup {
 require('gitsigns').setup {
   signs = {
     add          = {hl = 'GitSignsAdd'   , text = '+', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
-    change       = {hl = 'GitSignsChange', text = '!', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    change       = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
     delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
     topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
     changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
   },
-  current_line_blame = true,
+  current_line_blame = false,
   current_line_blame_delay = 100
 }
