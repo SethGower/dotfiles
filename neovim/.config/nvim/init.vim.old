@@ -216,3 +216,5 @@ nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
 
 nmap <C-P> :FZF<CR>
+
+set foldenable!
