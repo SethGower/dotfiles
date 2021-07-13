@@ -18,57 +18,59 @@ end
 
 --------------------  SETTINGS -------------------------------
 cmd('highlight LineNr ctermfg=grey')
-opt.title = true
-opt.hidden = true
+opt.title       = true
+opt.hidden      = true
 opt.smartindent = true
-opt.smartcase = true
-opt.ignorecase = true
-opt.hlsearch = true
-opt.showmatch = true
-opt.number = true
-opt.autoindent = true
-opt.backspace = {'indent','eol','start'}
-opt.tabstop = 2
-opt.shiftwidth = 2
-opt.expandtab = true
-opt.smarttab = true
+opt.smartcase   = true
+opt.ignorecase  = true
+opt.hlsearch    = true
+opt.showmatch   = true
+opt.number      = true
+opt.autoindent  = true
+opt.backspace   = {'indent','eol','start'}
+opt.tabstop     = 2
+opt.shiftwidth  = 2
+opt.expandtab   = true
+opt.smarttab    = true
 opt.breakindent = true
-opt.inccommand = 'nosplit'
-opt.clipboard = opt.clipboard + 'unnamedplus'
-opt.cursorline = true
-opt.showmode = false
-opt.textwidth=80
-opt.mouse='a'
-opt.wrap = false
-opt.signcolumn = 'yes'
-opt.foldenable = false
-opt.undolevels = 1000
+opt.inccommand  = 'nosplit'
+opt.clipboard   = opt.clipboard + 'unnamedplus'
+opt.cursorline  = true
+opt.showmode    = false
+opt.textwidth   = 80
+opt.mouse       = 'a'
+opt.wrap        = false
+opt.signcolumn  = 'yes'
+opt.foldenable  = false
+opt.undolevels  = 1000
 -- opt.undodir = '~/.config/nvim/undodir'
 cmd 'set undofile'
 
 -------------------- PLUGINS -------------------------------
 local use = require('packer').use
 require('packer').startup(function()
-  use 'wbthomason/packer.nvim'           -- packer manages itself
-  use 'SirVer/ultisnips'                 -- Snippets from Ultisnips
-  use 'honza/vim-snippets'               -- default snippets for Ultisnips
-  use 'vim-airline/vim-airline'          -- airline status line
-  use 'Shougo/echodoc.vim'               -- docstrings on echo line
-  use 'jiangmiao/auto-pairs'             -- auto pairs for certain characters
-  use 'chip/vim-fat-finger'              -- quick fixes for certain typos
-  use 'junegunn/vim-easy-align'          -- better alignment
-  use 'tpope/vim-commentary'             -- comments lines with motions
-  use 'preservim/nerdtree'               -- File Tree
-  use 'Xuyuanp/nerdtree-git-plugin'      -- provides git stats to NERDTree
-  use 'airblade/vim-rooter'              -- changes CWD to root of project
-  use 'tpope/vim-fugitive'               -- git commands in vim
-  use 'kshenoy/vim-signature'            -- adds markers to the sign column
-  use 'igankevich/mesonic'               -- adds make calls to interface with meson
-  use 'moll/vim-bbye'                    -- better buffer deletion
-  use 'aymericbeaumet/vim-symlink'       -- read symlinks for pwd
-  use 'nvim-treesitter/nvim-treesitter'  -- treesitter interface for vim
-  use 'deoplete-plugins/deoplete-lsp' -- LSP completion source for deoplete
-  use 'neovim/nvim-lspconfig' -- LSP configuration for built in LSP
+  use 'wbthomason/packer.nvim'          -- packer manages itself
+  use 'SirVer/ultisnips'                -- Snippets from Ultisnips
+  use 'honza/vim-snippets'              -- default snippets for Ultisnips
+  use 'vim-airline/vim-airline'         -- airline status line
+  use 'Shougo/echodoc.vim'              -- docstrings on echo line
+  use 'jiangmiao/auto-pairs'            -- auto pairs for certain characters
+  use 'chip/vim-fat-finger'             -- quick fixes for certain typos
+  use 'junegunn/vim-easy-align'         -- better alignment
+  use 'tpope/vim-commentary'            -- comments lines with motions
+  use 'preservim/nerdtree'              -- File Tree
+  use 'Xuyuanp/nerdtree-git-plugin'     -- provides git stats to NERDTree
+  use 'airblade/vim-rooter'             -- changes CWD to root of project
+  use 'tpope/vim-fugitive'              -- git commands in vim
+  use 'kshenoy/vim-signature'           -- adds markers to the sign column
+  use 'igankevich/mesonic'              -- adds make calls to interface with meson
+  use 'moll/vim-bbye'                   -- better buffer deletion
+  use 'aymericbeaumet/vim-symlink'      -- read symlinks for pwd
+  use 'nvim-treesitter/nvim-treesitter' -- treesitter interface for vim
+  use 'deoplete-plugins/deoplete-lsp'   -- LSP completion source for deoplete
+  use 'neovim/nvim-lspconfig'           -- LSP configuration for built in LSP
+
+  -- Lua Fuzzy Searcher
   use {
     'nvim-telescope/telescope.nvim',
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
@@ -121,7 +123,6 @@ end)
 vim.o.termguicolors = true
 vim.g.dracula_colorterm = 0
 cmd 'colorscheme dracula'
-cmd 'highlight Comment ctermfg=Yellow'
 
 
 ------------------------ MAPS -------------------------
