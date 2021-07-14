@@ -69,6 +69,7 @@ require('packer').startup(function()
   use 'nvim-treesitter/nvim-treesitter' -- treesitter interface for vim
   use 'deoplete-plugins/deoplete-lsp'   -- LSP completion source for deoplete
   use 'neovim/nvim-lspconfig'           -- LSP configuration for built in LSP
+  use 'kosayoda/nvim-lightbulb'         -- Lightbulb icon for code actions
 
   -- Lua Fuzzy Searcher
   use {
@@ -225,6 +226,17 @@ for _, lsp in ipairs(servers) do
   }
 end
 
+opt.updatetime  = 300
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+	vim.lsp.diagnostic.on_publish_diagnostics, {
+		virtual_text = false,
+		underline = true,
+		signs = true,
+	}
+)
+
+vim.cmd('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()')
+vim.cmd('autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()')
 ------------------------- NERDTree -------------------------
 vim.g.NERDTreeGitStatusIndicatorMapCustom = {
   Modified  = "✹",
