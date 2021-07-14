@@ -41,6 +41,8 @@ opt.textwidth   = 80
 opt.mouse       = 'a'
 opt.wrap        = false
 opt.signcolumn  = 'yes'
+opt.foldmethod  = 'expr'
+opt.foldexpr    = 'nvim_treesitter#foldexpr()'
 opt.foldenable  = false
 opt.undolevels  = 1000
 -- opt.undodir = '~/.config/nvim/undodir'
@@ -71,6 +73,12 @@ require('packer').startup(function()
   use 'neovim/nvim-lspconfig'           -- LSP configuration for built in LSP
   use 'kosayoda/nvim-lightbulb'         -- Lightbulb icon for code actions
 
+  -- Matlab Linting using mlint
+  use {
+    'ibbo/mlint.vim',
+    opt = true,
+    ft ='matlab'
+  }
   -- Lua Fuzzy Searcher
   use {
     'nvim-telescope/telescope.nvim',
@@ -138,7 +146,7 @@ map('n', 'ga',         '<Plug>(EasyAlign)')
 map('',  'ga',         '<Plug>(EasyAlign)')
 map('n', '<C-P>',      '<cmd>Telescope find_files<CR>')
 map('',  '<leader>nt', ':NERDTreeToggle<CR>')
--- map('',  '<leader>ws', ':%s/\s\+$//e<CR>')
+map('',  '<leader>ws', ':%s/\\s\\+$//e<CR>:noh<CR>')
 
 -- functions to use tab and shift+tab to navigate the completion menu
 function _G.smart_tab()
@@ -182,7 +190,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>',                       opts)
   buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>',                  opts)
   buf_set_keymap('n', 'gr',         '<cmd>lua vim.lsp.buf.references()<CR>',                   opts)
-  buf_set_keymap('n', '<space>e',   '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '<leader>e',   '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[d',         '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',             opts)
   buf_set_keymap('n', ']d',         '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',             opts)
   buf_set_keymap("n", "<leader>f",  "<cmd>lua vim.lsp.buf.formatting()<CR>",                   opts)
@@ -216,7 +224,7 @@ if not lspconfig.rust_hdl then
 end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "ccls", "rust_hdl", "hdl_checker", "pyls"}
+local servers = { "ccls", "rust_hdl", "hdl_checker", "pyls", "rls", "texlab"}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,

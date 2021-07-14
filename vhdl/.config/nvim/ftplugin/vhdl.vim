@@ -18,7 +18,7 @@ if exists(":EasyAlign")
 endif
 
 if exists(':Rooter')
-    let g:rooter_patterns = ['.hdl_checker.config']
+    let g:rooter_patterns = ['.hdl_checker.config', 'vhdl_ls.toml']
 endif
 
 setlocal comments=:--
