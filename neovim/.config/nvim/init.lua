@@ -194,16 +194,28 @@ if not lspconfig.hdl_checker then
       cmd = {"hdl_checker", "--lsp"};
       filetypes = { "vhdl" };
       root_dir = function(fname)
-        return util.root_pattern('.hdl_checker.config')(fname) or util.path.dirname(fname)
+        return util.root_pattern('.hdl_checker.config')(fname)
       end;
       settings = {};
     };
   }
 end
 
+if not lspconfig.rust_hdl then
+  configs.rust_hdl = {
+    default_config = {
+      cmd = {"vhdl_ls"};
+      filetypes = { "vhdl" };
+      root_dir = function(fname)
+        return util.root_pattern('vhdl_ls.toml')(fname)
+      end;
+      settings = {};
+    };
+  }
+end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "ccls", "hdl_checker", "pyls"}
+local servers = { "ccls", "rust_hdl", "hdl_checker", "pyls"}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
