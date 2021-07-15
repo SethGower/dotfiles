@@ -164,6 +164,7 @@ map('',  'ga',         '<Plug>(EasyAlign)')
 map('n', '<C-P>',      '<cmd>Telescope find_files<CR>')
 map('',  '<leader>nt', ':NERDTreeToggle<CR>')
 map('',  '<leader>ws', ':%s/\\s\\+$//e<CR>:noh<CR>')
+map('n', '<leader><leader>', '<C-^>')
 
 -- functions to use tab and shift+tab to navigate the completion menu
 function _G.smart_tab()
@@ -241,7 +242,7 @@ if not lspconfig.rust_hdl then
 end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "ccls", "rust_hdl", "hdl_checker", "pyls", "rls", "texlab"}
+local servers = { "ccls", "rust_hdl", "hdl_checker", "pylsp", "rls", "texlab"}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
@@ -260,6 +261,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 	}
 )
 
+vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
 vim.cmd('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()')
 vim.cmd('autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()')
 ------------------------- NERDTree -------------------------
