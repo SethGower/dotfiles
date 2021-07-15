@@ -56,7 +56,7 @@ require('packer').startup(function()
   use 'honza/vim-snippets'              -- default snippets for Ultisnips
   use 'vim-airline/vim-airline'         -- airline status line
   use 'Shougo/echodoc.vim'              -- docstrings on echo line
-  use 'jiangmiao/auto-pairs'            -- auto pairs for certain characters
+  use 'windwp/nvim-autopairs'           -- auto pairs for certain characters
   use 'chip/vim-fat-finger'             -- quick fixes for certain typos
   use 'junegunn/vim-easy-align'         -- better alignment
   use 'tpope/vim-commentary'            -- comments lines with motions
@@ -297,3 +297,9 @@ require('gitsigns').setup {
   current_line_blame = true,
   current_line_blame_delay = 100
 }
+
+require('nvim-autopairs').setup({
+  fast_wrap = {
+      map = '<C-e>',
+  },
+})
