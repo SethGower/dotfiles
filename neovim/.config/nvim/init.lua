@@ -345,9 +345,18 @@ ts.setup {
       goto_node = '<cr>',
       show_help = '?',
     },
-  }
+  },
 }
 
+
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.vhdl = {
+  install_info = {
+    url = "~/.local/share/tree-sitter/tree-sitter-vhdl",
+    files = {"src/parser.c"}
+  },
+  filetype = "vhdl"
+}
 require('gitsigns').setup {
   signs = {
     add          = {hl = 'GitSignsAdd'   , text = '+', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
