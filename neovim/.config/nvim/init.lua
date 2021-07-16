@@ -35,7 +35,7 @@ opt.smarttab    = true
 opt.breakindent = true
 opt.inccommand  = 'nosplit'
 opt.clipboard   = opt.clipboard + 'unnamedplus'
-opt.cursorline  = true
+opt.rnu         = true; -- releative number
 opt.showmode    = false
 opt.textwidth   = 80
 opt.mouse       = 'a'
@@ -72,6 +72,7 @@ require('packer').startup(function()
   use 'deoplete-plugins/deoplete-lsp'   -- LSP completion source for deoplete
   use 'neovim/nvim-lspconfig'           -- LSP configuration for built in LSP
   use 'kosayoda/nvim-lightbulb'         -- Lightbulb icon for code actions
+  use 'gennaro-tedesco/nvim-jqx'
 
   -- Matlab Linting using mlint
   use {
@@ -149,6 +150,12 @@ require('packer').startup(function()
   use {
     'nvim-treesitter/playground',
     requires = {'nvim-treesitter/nvim-treesitter'}
+  }
+
+  -- Glow for markdown previews
+  use {
+    'npxbr/glow.nvim',
+    run = 'GlowInstall'
   }
 end)
 
@@ -352,7 +359,9 @@ require('gitsigns').setup {
   current_line_blame_delay = 100
 }
 
-require('nvim-autopairs').setup({
+local pairs = require('nvim-autopairs')
+
+pairs.setup({
   fast_wrap = {
       map = '<C-e>',
   },
