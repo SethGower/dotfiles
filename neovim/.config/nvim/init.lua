@@ -57,7 +57,6 @@ require('packer').startup(function()
   use 'vim-airline/vim-airline'         -- airline status line
   use 'Shougo/echodoc.vim'              -- docstrings on echo line
   use 'windwp/nvim-autopairs'           -- auto pairs for certain characters
-  use 'chip/vim-fat-finger'             -- quick fixes for certain typos
   use 'junegunn/vim-easy-align'         -- better alignment
   use 'tpope/vim-commentary'            -- comments lines with motions
   use 'preservim/nerdtree'              -- File Tree
@@ -65,7 +64,6 @@ require('packer').startup(function()
   use 'airblade/vim-rooter'             -- changes CWD to root of project
   use 'tpope/vim-fugitive'              -- git commands in vim
   use 'kshenoy/vim-signature'           -- adds markers to the sign column
-  use 'igankevich/mesonic'              -- adds make calls to interface with meson
   use 'moll/vim-bbye'                   -- better buffer deletion
   use 'aymericbeaumet/vim-symlink'      -- read symlinks for pwd
   use 'nvim-treesitter/nvim-treesitter' -- treesitter interface for vim
@@ -77,7 +75,8 @@ require('packer').startup(function()
   use {
     'ibbo/mlint.vim',
     opt = true,
-    ft ='matlab'
+    ft ='matlab',
+    after = 'nerdtree'
   }
   -- Lua Fuzzy Searcher
   use {
@@ -149,9 +148,16 @@ require('packer').startup(function()
   }
 
   use {
+    'igankevich/mesonic',
+    ft = {'meson', 'c', 'cpp'},
+    opt = true
+  }              -- adds make calls to interface with meson
 
   use {
+    'tweekmonster/startuptime.vim',
+    cmd = 'StartupTime'
   }
+
 end)
 
 vim.o.termguicolors = true
