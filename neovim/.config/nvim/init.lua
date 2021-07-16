@@ -69,7 +69,6 @@ require('packer').startup(function()
   use 'moll/vim-bbye'                   -- better buffer deletion
   use 'aymericbeaumet/vim-symlink'      -- read symlinks for pwd
   use 'nvim-treesitter/nvim-treesitter' -- treesitter interface for vim
-  use 'deoplete-plugins/deoplete-lsp'   -- LSP completion source for deoplete
   use 'neovim/nvim-lspconfig'           -- LSP configuration for built in LSP
   use 'kosayoda/nvim-lightbulb'         -- Lightbulb icon for code actions
   use 'gennaro-tedesco/nvim-jqx'
@@ -97,8 +96,14 @@ require('packer').startup(function()
   -- completion using deoplete
   use {
     'Shougo/deoplete.nvim',
-    run = fn['remote#host#UpdateRemotePlugins'],
-    config = "vim.g['deoplete#enable_at_startup'] = 1"
+    run = function() vim.cmd('UpdateRemotePlugins') end,
+    config = function() vim.g['deoplete#enable_at_startup'] = 1 end
+  }
+
+  -- -- LSP completion source for deoplete
+  use {
+    'deoplete-plugins/deoplete-lsp',
+    requires = {'Shougo/deoplete.nvim'}
   }
 
   -- VimTeX for better development of LaTeX
@@ -128,27 +133,12 @@ require('packer').startup(function()
     opt=true
   }
 
-  -- Adds rainbow parentheses based on tree sitter
   use {
-    'p00f/nvim-ts-rainbow',
-    requires = {'nvim-treesitter/nvim-treesitter'}
-  }
+    'p00f/nvim-ts-rainbow',           -- Adds rainbow parentheses based on tree sitter
+    'windwp/nvim-ts-autotag',         -- Auto close tags with tree sitter
+    'romgrk/nvim-treesitter-context', -- Provide context from tree-sitter
+    'nvim-treesitter/playground',     -- Playground for tree-sitter
 
-  -- Auto close tags with tree sitter
-  use {
-    'windwp/nvim-ts-autotag',
-    requires = {'nvim-treesitter/nvim-treesitter'}
-  }
-
-  -- Provide context from tree-sitter
-  use {
-    'romgrk/nvim-treesitter-context',
-    requires = {'nvim-treesitter/nvim-treesitter'}
-  }
-
-  -- Playground for tree-sitter
-  use {
-    'nvim-treesitter/playground',
     requires = {'nvim-treesitter/nvim-treesitter'}
   }
 
@@ -156,6 +146,11 @@ require('packer').startup(function()
   use {
     'npxbr/glow.nvim',
     run = 'GlowInstall'
+  }
+
+  use {
+
+  use {
   }
 end)
 
