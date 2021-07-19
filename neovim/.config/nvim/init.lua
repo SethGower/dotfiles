@@ -70,6 +70,7 @@ require('packer').startup(function()
   use 'neovim/nvim-lspconfig'           -- LSP configuration for built in LSP
   use 'kosayoda/nvim-lightbulb'         -- Lightbulb icon for code actions
   use 'gennaro-tedesco/nvim-jqx'
+  use 'ray-x/lsp_signature.nvim'
 
   -- Matlab Linting using mlint
   use {
@@ -227,11 +228,23 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']d',         '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',             opts)
   buf_set_keymap("n", "<leader>f",  "<cmd>lua vim.lsp.buf.formatting()<CR>",                   opts)
 
+  -- require "lsp_signature".on_attach()  -- Note: add in lsp client on-attach
 end
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
 
 if not lspconfig.hdl_checker then
   configs.hdl_checker = {
     default_config = {
+      autostart = false,
       cmd = {"hdl_checker", "--lsp"};
       filetypes = { "vhdl" };
       root_dir = function(fname)
@@ -256,10 +269,11 @@ if not lspconfig.rust_hdl then
 end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "ccls", "rust_hdl", "hdl_checker", "pylsp", "rls", "texlab"}
+local servers = { "ccls", "rust_hdl", "hdl_checker", "pylsp", "rust_analyzer", "texlab"}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
+    capabilities = capabilities,
     flags = {
       debounce_text_changes = 150,
     }
@@ -275,6 +289,9 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
+require('lsp_signature').setup()
+
+-- Lightbulb stuff
 vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
 vim.cmd('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()')
 vim.cmd('autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()')
@@ -291,16 +308,7 @@ vim.g.NERDTreeGitStatusIndicatorMapCustom = {
   Ignored   = '☒',
   Unknown   = "?"
 }
--- vim.g.NERDTreeIgnore={
---   '\~$',
---   '\.o[[file]]',
---   '\.fls$',
---   '\.log$',
---   '\.pdf$',
---   '\.gz$',
---   '\.aux$',
---   '\.fdb_latexmk$'
--- }
+
 
 vim.cmd('autocmd BufEnter * if winnr(\'$\') == 1 && exists(\'b:NERDTree\') && b:NERDTree.isTabTree() | quit | endif')
 vim.cmd('autocmd VimEnter * if argc() > 0 | NERDTreeFind | else | NERDTree | endif | wincmd p')
