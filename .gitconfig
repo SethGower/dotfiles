@@ -1,5 +1,5 @@
 [include]
-    path= ~/.personalgitconfig
+    path= .gitconfig.local
 [alias]
     stash-all = stash save --include-untracked
     showtool = "!f() { git difftool $1^ $1; }; f"
