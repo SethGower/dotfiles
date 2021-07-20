@@ -82,3 +82,5 @@ schemes:
       white:   '#ffffff'
 
 colors: *dracula
+
+# vim:ft=yaml
