@@ -1,33 +1,33 @@
 global !p
 def split_line(text):
-	import textwrap
-	lines = textwrap.wrap(text, 50 - 19)
-	output = list()
-	for line in lines:
-		output.append('-'*2 + ' '*17 + line)
-	snip_line = snip.tabstops[4].end[0]
-	snip.buffer.append(output, snip_line + 1)
-	del snip.buffer[snip_line]
+  import textwrap
+  lines = textwrap.wrap(text, 50 - 19)
+  output = list()
+  for line in lines:
+    output.append('-'*2 + ' '*17 + line)
+  snip_line = snip.tabstops[4].end[0]
+  snip.buffer.append(output, snip_line + 1)
+  del snip.buffer[snip_line]
 endglobal
 
 post_jump "if snip.tabstop == 0 : split_line(snip.tabstops[4].current_text)"
 snippet sub "subroutine"
-${1}					PROC{}
+${1}          PROC{}
 ;===============================================
-;  	Description:   The following is the entity and
-;  	               architectural description of a
-;  	               ${2:I need a really long default here so I don't have to type so much !}
-;  	Author:        ${3:Seth Gower}
-;  	Created:       `date +%m/%d/%y`
-;  	Modified:      ${4}
-;	 	Input:
-;			- ${5}
-;		Output:
-;			- ${6}
+;    Description:   The following is the entity and
+;                   architectural description of a
+;                   ${2:I need a really long default here so I don't have to type so much !}
+;    Author:        ${3:Seth Gower}
+;    Created:       `date +%m/%d/%y`
+;    Modified:      ${4}
+;     Input:
+;      - ${5}
+;    Output:
+;      - ${6}
 ;===============================================
 
-						PUSH 	{ ${7:LR} }
+            PUSH   { ${7:LR} }
 
-						POP 	{ ${8:PC} }
-						ENDP
+            POP   { ${8:PC} }
+            ENDP
 endsnippet

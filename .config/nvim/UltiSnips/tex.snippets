@@ -1,33 +1,33 @@
 snippet pic "\begin{figure}..."
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=${1}]{${2}}
-	\caption{${3}}
-	\label{fig:${4}}
+  \centering
+  \includegraphics[width=${1}]{${2}}
+  \caption{${3}}
+  \label{fig:${4}}
 \end{figure}
 endsnippet
 
 snippet tab "\begin{table}..."
 \begin{table}[H]
-	\centering
-	\caption{${VISUAL}${1:Table Caption}}
-	\label{tab:${2:label}}
-	\vspace{.1cm}
-	\begin{tabular}{${3}}
-		${4}
-	\end{tabular}
+  \centering
+  \caption{${VISUAL}${1:Table Caption}}
+  \label{tab:${2:label}}
+  \vspace{.1cm}
+  \begin{tabular}{${3}}
+    ${4}
+  \end{tabular}
 \end{table}
 endsnippet
 
 snippet eq "\begin{align*}..."
 \begin{align*}
-	${1}
+  ${1}
 \end{align*}
 endsnippet
 
 snippet begin "\begin{$VISUAL}..."
 \begin{${VISUAL}${1:ENV}}
-	$0
+  $0
 \end{$1}
 endsnippet
 

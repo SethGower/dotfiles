@@ -37,9 +37,9 @@ fi
 [[ "${SHELL}" == "/usr/bin/zsh" ]] && compdef dot=git
 
 tkl(){
-	for session; {
-		tmux kill-session -t $session
-	}
+  for session; {
+    tmux kill-session -t $session
+  }
 }
 
 open(){
