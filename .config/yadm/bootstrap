@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+export OS=$(cat /etc/os-release | grep -E "\bID\b" | cut -d'=' -f2)
+if [[ $OS == "arch" ]];
+then
+  export AUR_HELPER="paru"
+fi
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+if [[ -x $SCRIPT_DIR/$OS.sh ]]
+then 
+  source $SCRIPT_DIR/${OS}.sh
+fi
