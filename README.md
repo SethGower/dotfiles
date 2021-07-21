@@ -15,6 +15,15 @@ $ yadm submodule init
 $ yadm submodule update
 ```
 
+[Bootstrapping](https://yadm.io/docs/bootstrap) is available for Arch Based
+distributions. Requires `pacman` and an [AUR Helper](https://wiki.archlinux.org/title/AUR_helpers), I use
+[`paru`](https://aur.archlinux.org/packages/paru/), as set in `~/.config/yadm/bootstrap` with the environment variable
+`AUR_HELPER`. To run the bootstrapping process, either pass `--bootstrap` to the `clone` call above or run the following
+command after `yadm` is cloned
+```sh
+$ yadm bootstrap
+```
+
 #### Note on Stow
 If you are looking for when I used [GNU Stow](https://www.gnu.org/software/stow/) checkout [v1.0](https://github.com/SethGower/dotfiles/releases/tag/v1.0)
 
