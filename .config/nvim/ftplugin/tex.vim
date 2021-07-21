@@ -14,9 +14,12 @@ if exists(":EasyAlign")
     map <leader>a& :EasyAlign &<CR>
 endif
 
-let g:vimtex_view_general_viewer = 'zathura'
+# If I am on ubuntu I am probably just using gnome, and gonna use evince
+if substitute(system('lsb_release -is'), '\n', '', '') == 'Ubuntu'
+  let g:vimtex_view_general_viewer = 'evince'
+else
+  let g:vimtex_view_general_viewer = 'zathura'
+endif
 let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor='latex'
 let g:vimtex_quickfix_open_on_warning = 0
-
-let g:AutoPairs['$']='$'
