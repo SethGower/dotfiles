@@ -1,31 +1,31 @@
 [include]
-    path= .gitconfig.local
+  path= .gitconfig.local
 [alias]
-    stash-all = stash save --include-untracked
-    showtool = "!f() { git difftool $1^ $1; }; f"
-    added = difftool --cached
-    update-subs = submodule update --init --recursive --remote
+  stash-all = stash save --include-untracked
+  showtool = "!f() { git difftool $1^ $1; }; f"
+  added = difftool --cached
+  update-subs = submodule update --init --recursive --remote
 [diff]
-    tool = icdiff
+  tool = icdiff
 [difftool]
-    prompt = false
+  prompt = false
 [difftool "icdiff"]
-    cmd = /usr/bin/icdiff --line-numbers $LOCAL $REMOTE
+  cmd = /usr/bin/icdiff --line-numbers $LOCAL $REMOTE
 [pager]
-    difftool = true   
+  difftool = true
 # Clone git repos with URLs like "gh:alexpearce/dotfiles"
 [url "https://github.com/"]
-    insteadOf = "gh:"
+  insteadOf = "gh:"
 [url "git@github.com:"]
-    pushInsteadOf = "gh:"
+  pushInsteadOf = "gh:"
 # Clone Arch User Repository repos with URLs like "aur:neomutt"
 [url "https://aur.archlinux.org/"]
-    insteadOf = "aur:"
+  insteadOf = "aur:"
+[gpg]
+  program = gpg
+[core]
+  excludesfile = /home/sgower/.gitignore_global
+[pull]
+  rebase = true
 
 # vim: ft=dosini
-[gpg]
-	program = gpg
-[core]
-	excludesfile = /home/sgower/.gitignore_global
-[pull]
-	rebase = false
