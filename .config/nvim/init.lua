@@ -1,3 +1,22 @@
+-- Copyright (c) 2021 Gower, Seth <sethzerish@gmail.com>
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of
+-- this software and associated documentation files (the "Software"), to deal in
+-- the Software without restriction, including without limitation the rights to
+-- use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so,
+-- subject to the following conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all
+-- copies or substantial portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+-- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+-- FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+-- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+-- IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+-- CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 -------------------- HELPERS -------------------------------
 local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
@@ -45,6 +64,8 @@ opt.foldmethod  = 'expr'
 opt.foldexpr    = 'nvim_treesitter#foldexpr()'
 opt.foldenable  = false
 opt.undolevels  = 1000
+opt.wildmode    = {"longest","list","full"}
+opt.wildmenu    = true
 -- opt.undodir = '~/.config/nvim/undodir'
 cmd 'set undofile'
 
@@ -72,11 +93,26 @@ require('packer').startup(function()
   use 'gennaro-tedesco/nvim-jqx'
   use 'ray-x/lsp_signature.nvim'
 
+  -- Markdown Preview for live preview
+  use {
+    'iamcco/markdown-preview.nvim',
+    run = "call mkdp#util#install()",
+    ft = 'markdown'
+  }
+
+  -- Automatically add licenses to the top of file
+  use {
+    'antoyo/vim-licenses',
+    config = function()
+      vim.g.licenses_copyright_holders_name = 'Gower, Seth <sethzerish@gmail.com>'
+    end
+  }
+
   -- Matlab Linting using mlint
   use {
     'ibbo/mlint.vim',
     opt = true,
-    ft ='matlab',
+    -- ft ='matlab',
     after = 'nerdtree'
   }
   -- Lua Fuzzy Searcher
@@ -246,9 +282,9 @@ if not lspconfig.hdl_checker then
     default_config = {
       autostart = false,
       cmd = {"hdl_checker", "--lsp"};
-      filetypes = { "vhdl" };
+      filetypes = {"vhdl", "verilog", "systemverilog"};
       root_dir = function(fname)
-        return util.root_pattern('.hdl_checker.config')(fname)
+        return util.root_pattern('.hdl_checker.config')(fname) or util.path.dirname(fname)
       end;
       settings = {};
     };
@@ -302,6 +338,10 @@ table.insert(runtime_path, "lua/?/init.lua")
 require'lspconfig'.sumneko_lua.setup {
   cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
   on_attach = on_attach,
+  capabilities = capabilities,
+  flags = {
+    debounce_text_changes = 150,
+  },
   settings = {
     Lua = {
       runtime = {

@@ -9,3 +9,5 @@ setlocal formatoptions+=cro
 setlocal textwidth=0
 
 hi MLint guifg=Yellow
+
+command -nargs=0 Testbench :0r ~/.config/nvim/skeleton/testbench.m

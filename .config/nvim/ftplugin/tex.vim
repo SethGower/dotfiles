@@ -14,7 +14,7 @@ if exists(":EasyAlign")
     map <leader>a& :EasyAlign &<CR>
 endif
 
-# If I am on ubuntu I am probably just using gnome, and gonna use evince
+" If I am on ubuntu I am probably just using gnome, and gonna use evince
 if substitute(system('lsb_release -is'), '\n', '', '') == 'Ubuntu'
   let g:vimtex_view_general_viewer = 'evince'
 else
