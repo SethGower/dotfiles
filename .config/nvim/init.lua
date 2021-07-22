@@ -1,3 +1,4 @@
+---@diagnostic disable: unused-local
 -- Copyright (c) 2021 Gower, Seth <sethzerish@gmail.com>
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -262,7 +263,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gd',         '<cmd>lua vim.lsp.buf.definition()<CR>',                   opts)
   buf_set_keymap('n', 'K',          '<cmd>lua vim.lsp.buf.hover()<CR>',                        opts)
   buf_set_keymap('n', 'gi',         '<cmd>lua vim.lsp.buf.implementation()<CR>',               opts)
-  buf_set_keymap('n', '<C-k>',      '<cmd>lua vim.lsp.buf.signature_help()<CR>',               opts)
+  -- buf_set_keymap('n', '<C-k>',      '<cmd>lua vim.lsp.buf.signature_help()<CR>',               opts)
+  buf_set_keymap('n', '<C-k>',      '<cmd>lua vim.lsp.buf.hover()<CR>',                        opts)
   buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>',                       opts)
   buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>',                  opts)
   buf_set_keymap('n', 'gr',         '<cmd>lua vim.lsp.buf.references()<CR>',                   opts)
@@ -385,9 +387,18 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 require('lsp_signature').setup()
 
 -- sets up highlighting for lsp items
-vim.cmd [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
-vim.cmd [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
-vim.cmd [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
+
+
+-- adds a check to see if any of the active clients have the capability
+-- textDocument/documentHighlight. without the check it was causing constant
+-- errors when servers didn't have that capability
+for _,client in ipairs(vim.lsp.get_active_clients()) do
+  if client.resolved_capabilities.document_highlight then
+    vim.cmd [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
+    vim.cmd [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
+    vim.cmd [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
+  end
+end
 
 -- Lightbulb stuff
 vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
