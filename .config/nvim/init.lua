@@ -30,8 +30,13 @@ end
 
 
 local function map(mode, lhs, rhs, opts)
-  local options = {noremap = true}
-  if opts then options = vim.tbl_extend('force', options, opts) end
+  local options = {noremap = false}
+  if opts then
+    options = vim.tbl_extend('force', options, opts)
+    if opts['noremap'] then
+      options['noremap'] = true
+    end
+  end
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
@@ -213,9 +218,11 @@ map('n', '<space>',    'za')
 map('n', 'ga',         '<Plug>(EasyAlign)')
 map('',  'ga',         '<Plug>(EasyAlign)')
 map('n', '<C-P>',      '<cmd>Telescope find_files<CR>')
-map('',  '<leader>nt', ':NERDTreeToggle<CR>')
 map('',  '<leader>ws', ':%s/\\s\\+$//e<CR>:noh<CR>')
 map('n', '<leader><leader>', '<C-^>')
+map('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
+map('n', 'ga', '<Plug>(EasyAlign)')
+map('x', 'ga', '<Plug>(EasyAlign)')
 
 -- functions to use tab and shift+tab to navigate the completion menu
 function _G.smart_tab()
@@ -377,6 +384,11 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 require('lsp_signature').setup()
 
+-- sets up highlighting for lsp items
+vim.cmd [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
+vim.cmd [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
+vim.cmd [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
+
 -- Lightbulb stuff
 vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
 vim.cmd('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()')
@@ -395,6 +407,7 @@ vim.g.NERDTreeGitStatusIndicatorMapCustom = {
   Unknown   = "?"
 }
 
+map('',  '<leader>nt', ':NERDTreeToggle<CR>')
 
 vim.cmd('autocmd BufEnter * if winnr(\'$\') == 1 && exists(\'b:NERDTree\') && b:NERDTree.isTabTree() | quit | endif')
 vim.cmd('autocmd VimEnter * if argc() > 0 | NERDTreeFind | else | NERDTree | endif | wincmd p')
@@ -470,3 +483,11 @@ pairs.setup({
       map = '<C-e>',
   },
 })
+
+
+------------------------- AUTO COMMANDS -------------------------
+vim.cmd [[autocmd FileType latex,tex,markdown,md,text setlocal spell spelllang=en_us]]
+vim.cmd [[autocmd FileType make setlocal noexpandtab]]
+vim.cmd [[autocmd FileType gitconfig set ft=dosini]]
+vim.cmd [[autocmd BufNewFile,BufRead *.h set ft=c]]
+vim.cmd [[autocmd BufNewFile,BufRead *.config set ft=json]]
