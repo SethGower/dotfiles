@@ -25,7 +25,5 @@
   program = gpg
 [core]
   excludesfile = /home/sgower/.gitignore_global
-[pull]
-  rebase = true
 
 # vim: ft=dosini

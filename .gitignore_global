@@ -2,3 +2,5 @@
 *.project
 compile_commands.json
 openocd.pid
+
+.hdl_checker*
