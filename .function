@@ -1,3 +1,5 @@
+#! /usr/bin/env bash
+
 # Helpful functions
 #
 
@@ -63,6 +65,8 @@ function clock() {
 }
 
 
+# Add a directory to the $PATH environment variable. If it's already in the
+# PATH, it is skipped
 function add_to_path {
     case ":$PATH:" in
         *":$1:"*) :;; # already there

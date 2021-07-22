@@ -31,11 +31,6 @@ else
   alias vi="vim"
 fi
 
-
-
-# Use git completions for "dot" alias when using zsh
-[[ "${SHELL}" == "/usr/bin/zsh" ]] && compdef dot=git
-
 tkl(){
   for session; {
     tmux kill-session -t $session

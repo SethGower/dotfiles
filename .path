@@ -1,9 +1,9 @@
 #!/bin/bash
-export VISUAL=nvim
-export EDITOR="$VISUAL"
-export PATH=~/.local/bin:$PATH
-export PATH=/snap/bin:$PATH
-export PATH=$PATH:~/.yarn/bin
-export PATH=$PATH:/usr/local/go/bin/
-export PATH=$PATH:~/.local/bin/pycharm-community-2019.1.3/bin
-export PATH=$PATH:~/.cargo/bin
+source $HOME/.function
+
+add_to_path ~/.local/bin
+add_to_path /snap/bin
+add_to_path ~/.yarn/bin
+add_to_path /usr/local/go/bin/
+add_to_path ~/.local/share/rust_hdl/target/release
+add_to_path ~/.cargo/bin
