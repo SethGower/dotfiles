@@ -36,10 +36,9 @@ if [[ -x "$(command -v starship)" ]]; then
 fi
 
 # sets the EDITOR env variable. Used for git commits and the like
-if [[ -z $(which nvim) ]]
-then
+if [[ -n $(which nvim) ]]; then
   export EDITOR=nvim
-elif [[ -z $(which vim) ]]; then
+elif [[ -n $(which vim) ]]; then
   export EDITOR=vim
 fi
 export VISUAL="$EDITOR"
