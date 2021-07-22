@@ -9,6 +9,12 @@ fi
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 if [[ -x $SCRIPT_DIR/$OS.sh ]]
-then 
+then
   source $SCRIPT_DIR/${OS}.sh
 fi
+
+if [[ -z $(which rustup) ]]
+then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+fi
+
