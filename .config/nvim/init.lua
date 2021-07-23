@@ -115,6 +115,10 @@ require('packer').startup(function()
     end
   }
 
+  use {
+    'tpope/vim-dispatch',
+    cmd = {'Make', 'Dispatch', 'Start'}
+  }
   -- Markdown Preview for live preview
   use {
     'iamcco/markdown-preview.nvim',
