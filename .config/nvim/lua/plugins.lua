@@ -103,13 +103,6 @@ return require('packer').startup(function()
     as='dracula'
   }
 
-  -- adds folding definitions for python
-  use {
-    'tmhedberg/SimpylFold',
-    ft='python',
-    opt=true
-  }
-
   -- Tree Sitter extensions
   use {
     'p00f/nvim-ts-rainbow',           -- Adds rainbow parentheses based on tree sitter
