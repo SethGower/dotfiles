@@ -106,6 +106,15 @@ require('packer').startup(function()
     end
   }
 
+    'dense-analysis/ale',
+    ft = {'matlab'},
+    config = function()
+      vim.g.ale_linters = {matlab = {'mlint'}}
+      vim.g.ale_linters_explicit = true
+      vim.cmd[[ALEEnable]]
+    end
+  }
+
   -- Markdown Preview for live preview
   use {
     'iamcco/markdown-preview.nvim',
@@ -121,13 +130,6 @@ require('packer').startup(function()
     end
   }
 
-  -- Matlab Linting using mlint
-  use {
-    'ibbo/mlint.vim',
-    opt = true,
-    -- ft ='matlab',
-    after = 'nerdtree'
-  }
   -- Lua Fuzzy Searcher
   use {
     'nvim-telescope/telescope.nvim',
