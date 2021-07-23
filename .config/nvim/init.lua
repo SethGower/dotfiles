@@ -1,4 +1,3 @@
----@diagnostic disable: unused-local
 -- Copyright (c) 2021 Gower, Seth <sethzerish@gmail.com>
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -19,6 +18,7 @@
 -- CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 -------------------- HELPERS -------------------------------
+---@diagnostic disable: unused-local
 local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g      -- a table to access global variables
@@ -216,21 +216,22 @@ cmd 'colorscheme dracula'
 
 
 ------------------------ MAPS -------------------------
-map('',  'j',          'gj')
-map('',  'k',          'gk')
-map('',  '<leader>wh', '<C-w>h')
-map('',  '<leader>wj', '<C-w>j')
-map('',  '<leader>wk', '<C-w>k')
-map('',  '<leader>wl', '<C-w>l')
-map('n', '<space>',    'za')
-map('n', 'ga',         '<Plug>(EasyAlign)')
-map('',  'ga',         '<Plug>(EasyAlign)')
-map('n', '<C-P>',      '<cmd>Telescope find_files<CR>')
-map('',  '<leader>ws', ':%s/\\s\\+$//e<CR>:noh<CR>')
+map('',  'j',                'gj')
+map('',  'k',                'gk')
+map('',  '<leader>wh',       '<C-w>h')
+map('',  '<leader>wj',       '<C-w>j')
+map('',  '<leader>wk',       '<C-w>k')
+map('',  '<leader>wl',       '<C-w>l')
+map('n', '<space>',          'za')
+map('n', 'ga',               '<Plug>(EasyAlign)')
+map('',  'ga',               '<Plug>(EasyAlign)')
+map('n', '<C-P>',            '<cmd>Telescope find_files<CR>')
+map('n', '<C-B>',            '<cmd>Telescope buffers<CR>')
+map('',  '<leader>ws',       ':%s/\\s\\+$//e<CR>:noh<CR>')
 map('n', '<leader><leader>', '<C-^>')
-map('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
-map('n', 'ga', '<Plug>(EasyAlign)')
-map('x', 'ga', '<Plug>(EasyAlign)')
+map('t', '<Esc>',            '<C-\\><C-n>', {noremap = true})
+map('n', 'ga',               '<Plug>(EasyAlign)')
+map('x', 'ga',               '<Plug>(EasyAlign)')
 
 -- functions to use tab and shift+tab to navigate the completion menu
 function _G.smart_tab()
