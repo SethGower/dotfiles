@@ -99,6 +99,13 @@ require('packer').startup(function()
   use 'gennaro-tedesco/nvim-jqx'
   use 'ray-x/lsp_signature.nvim'
 
+  use {
+    'andymass/vim-matchup',
+    config = function()
+      vim.g.matchup_matchparen_offscreen = {} -- disables the showing match offscreen. This was annoying
+    end
+  }
+
   -- Markdown Preview for live preview
   use {
     'iamcco/markdown-preview.nvim',
@@ -445,6 +452,9 @@ ts.setup {
     enable = true,
   },
   context = { -- added by romgrk/nvim-treesitter-context
+    enable = true,
+  },
+  matchup = {
     enable = true,
   },
   playground = {
