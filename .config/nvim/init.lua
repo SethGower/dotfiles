@@ -106,6 +106,7 @@ require('packer').startup(function()
     end
   }
 
+  use {
     'dense-analysis/ale',
     ft = {'matlab'},
     config = function()
