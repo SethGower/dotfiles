@@ -4,12 +4,9 @@ return require('packer').startup(function()
   use 'SirVer/ultisnips'                -- Snippets from Ultisnips
   use 'honza/vim-snippets'              -- default snippets for Ultisnips
   use 'vim-airline/vim-airline'         -- airline status line
-  use 'Shougo/echodoc.vim'              -- docstrings on echo line
   use 'windwp/nvim-autopairs'           -- auto pairs for certain characters
   use 'junegunn/vim-easy-align'         -- better alignment
   use 'tpope/vim-commentary'            -- comments lines with motions
-  use 'preservim/nerdtree'              -- File Tree
-  use 'Xuyuanp/nerdtree-git-plugin'     -- provides git stats to NERDTree
   use 'airblade/vim-rooter'             -- changes CWD to root of project
   use 'tpope/vim-fugitive'              -- git commands in vim
   use 'kshenoy/vim-signature'           -- adds markers to the sign column

@@ -281,26 +281,6 @@ end
 vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
 vim.cmd('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()')
 vim.cmd('autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()')
-------------------------- NERDTree -------------------------
-vim.g.NERDTreeGitStatusIndicatorMapCustom = {
-  Modified  = "✹",
-  Staged    = "✚",
-  Untracked = "✭",
-  Renamed   = "➜",
-  Unmerged  = "═",
-  Deleted   = "✖",
-  Dirty     = "✗",
-  Clean     = "✔︎",
-  Ignored   = '☒',
-  Unknown   = "?"
-}
-
-map('',  '<leader>nt', ':NERDTreeToggle<CR>')
-
-vim.cmd('autocmd BufEnter * if winnr(\'$\') == 1 && exists(\'b:NERDTree\') && b:NERDTree.isTabTree() | quit | endif')
-vim.cmd('autocmd VimEnter * if argc() > 0 | NERDTreeFind | else | NERDTree | endif | wincmd p')
-vim.cmd('autocmd TabEnter * silent NERDTreeMirror')
--- vim.cmd("autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 | let buf=bufnr() | buffer# | execute 'normal! \<C-W>w' | execute 'buffer'.buf | endif")
 
 ------------------------- TREE-SITTER -------------------------
 local ts = require('nvim-treesitter.configs')
