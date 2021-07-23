@@ -204,12 +204,6 @@ require('packer').startup(function()
   }
 
   use {
-    'igankevich/mesonic',
-    ft = {'meson', 'c', 'cpp'},
-    opt = true
-  }              -- adds make calls to interface with meson
-
-  use {
     'tweekmonster/startuptime.vim',
     cmd = 'StartupTime'
   }
