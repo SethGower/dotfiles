@@ -1,7 +1,7 @@
 [user]
 	name = Seth Gower
 	email = sethzerish@gmail.com
-    signingkey = 23AF21BED46D7926
+  signingkey = 23AF21BED46D7926
 
 [commit]
     gpgsign = true
