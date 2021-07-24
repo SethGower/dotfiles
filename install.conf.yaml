@@ -15,14 +15,13 @@
         create: true
         path: config/**
         exclude: [ config/alacritty/* ]
+    ~/.config/alacritty/alacritty.yml:
+        path: config/alacritty/alacritty.yml
+        create: true
     ~/:
         glob: true
         path: home/*
         prefix: '.'
-        exclude: [ home/gitconfig.local* ]
-    ~/.gitconfig.local:
-        path: home/gitconfig.local##default
-        if: '[ `hostname` = odyssey ]'
 
 - shell:
     - 
