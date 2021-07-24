@@ -1,0 +1,26 @@
+- defaults:
+    link:
+        relink: true
+
+- clean: ['~']
+- clean:
+    ~/.config:
+        recursive: true
+
+- create:
+    - ~/test
+
+# - link:
+- link:
+    ~/.config:
+        glob: true
+        relink: true
+        create: true
+        path: config/**
+        exclude: [ config/alacritty/* ]
+    ~/:
+        glob: true
+        path: home/*
+        prefix: '.'
+        exclude: [ home/gitconfig.local* ]
+# vim:et sw=4 ts=4

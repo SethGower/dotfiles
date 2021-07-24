@@ -1,7 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Type=Application
-Terminal=false
-Exec=/opt/Xilinx/Vivado/2019.1/bin/vivado -nolog -nojournal
-Name=Xilinx Vivado 2019
-Comment=Vivado Hlx FPGA IDE

@@ -1,7 +1,0 @@
-[Desktop Entry]
-name=Spotify
-Type=Application
-Terminal=true
-Exec=spotifyd && spt
-
-
