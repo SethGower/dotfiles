@@ -1,16 +1,13 @@
-- defaults:
-    link:
-        relink: true
-
 - clean: ['~']
 - clean:
     ~/.config:
         recursive: true
 
 - create:
-    - ~/test
+    ~/.ssh:
+        mode: 0700
+    ~/Documents/Development:
 
-# - link:
 - link:
     ~/.config:
         glob: true
@@ -23,4 +20,14 @@
         path: home/*
         prefix: '.'
         exclude: [ home/gitconfig.local* ]
+    ~/.gitconfig.local:
+        path: home/gitconfig.local##default
+        if: '[ `hostname` = odyssey ]'
+
+- shell:
+    - 
+        command: ./bootstrap/bootstrap
+        stdout: true
+        stderr: true
+        stdin: true
 # vim:et sw=4 ts=4

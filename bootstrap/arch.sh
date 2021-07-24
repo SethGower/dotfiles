@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+cd $SCRIPT_DIR
 source ./arch-functions.sh
 
 install_pkg polybar neovim-nightly-bin alacritty compton-tryone-git dunst git \
