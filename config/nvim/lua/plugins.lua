@@ -12,12 +12,17 @@ return require('packer').startup(function()
   use 'kshenoy/vim-signature'           -- adds markers to the sign column
   use 'moll/vim-bbye'                   -- better buffer deletion
   use 'aymericbeaumet/vim-symlink'      -- read symlinks for pwd
-  use 'nvim-treesitter/nvim-treesitter' -- treesitter interface for vim
   use 'neovim/nvim-lspconfig'           -- LSP configuration for built in LSP
   use 'kosayoda/nvim-lightbulb'         -- Lightbulb icon for code actions
   use 'gennaro-tedesco/nvim-jqx'        -- Easily navigate json trees
   use 'ray-x/lsp_signature.nvim'        -- Adds signature help in a popup for functions with info from LSP
 
+  -- treesitter interface for vim
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    branch = '0.5-compat',
+    run = ':TSUpdate'
+  }
   -- Better matchit. Matching beginning and ends of branched statements (if,
   -- for, etc)
   use {

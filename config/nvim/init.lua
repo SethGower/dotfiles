@@ -190,7 +190,7 @@ if not lspconfig.rust_hdl then
 end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "ccls", "rust_hdl", "hdl_checker", "pylsp", "rust_analyzer", "texlab"}
+local servers = { "ccls", "rust_hdl", "hdl_checker", "pylsp", "rust_analyzer", "texlab", "yamlls"}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
@@ -287,7 +287,8 @@ local ts = require('nvim-treesitter.configs')
 ts.setup {
   ensure_installed = 'all',
   highlight = { -- built in
-    enable = true
+    enable = true,
+    disable = {'html'}
   },
   indent = { -- built in
     enable = true
