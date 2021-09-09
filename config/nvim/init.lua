@@ -190,7 +190,7 @@ if not lspconfig.rust_hdl then
 end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "ccls", "rust_hdl", "hdl_checker", "pylsp", "rust_analyzer", "texlab", "yamlls"}
+local servers = {"rust_hdl", "hdl_checker", "pylsp", "rust_analyzer", "texlab", "yamlls"}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
@@ -198,6 +198,22 @@ for _, lsp in ipairs(servers) do
     flags = {
       debounce_text_changes = 150,
     }
+  }
+end
+
+if not lspconfig.ccls then
+  lspconfig["ccls"].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = {"c", "cpp", "cu"},
+    flags = {
+      debounce_text_changes = 150,
+    },
+    init_options = {
+      cache = {
+        directory = "~/.cache/ccls"
+      }
+    };
   }
 end
 
