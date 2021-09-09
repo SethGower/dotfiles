@@ -27,3 +27,5 @@
   excludesfile = /home/sgower/.gitignore_global
 
 # vim: ft=dosini
+[init]
+	defaultBranch = main
