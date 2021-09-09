@@ -201,21 +201,14 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-if not lspconfig.ccls then
-  lspconfig["ccls"].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    filetypes = {"c", "cpp", "cu"},
-    flags = {
-      debounce_text_changes = 150,
-    },
-    init_options = {
-      cache = {
-        directory = "~/.cache/ccls"
-      }
-    };
+lspconfig["ccls"].setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = {"c", "cpp", "cuda"},
+  flags = {
+    debounce_text_changes = 150,
   }
-end
+}
 
 local system_name
 if vim.fn.has("mac") == 1 then
