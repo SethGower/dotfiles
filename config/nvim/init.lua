@@ -162,35 +162,35 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   }
 }
 
-if not lspconfig.hdl_checker then
-  configs.hdl_checker = {
-    default_config = {
-      autostart = false,
-      cmd = {"hdl_checker", "--lsp"};
-      filetypes = {"vhdl", "verilog", "systemverilog"};
-      root_dir = function(fname)
-        return util.root_pattern('.hdl_checker.config')(fname) or util.path.dirname(fname)
-      end;
-      settings = {};
-    };
-  }
-end
+-- if not lspconfig.hdl_checker then
+--   configs.hdl_checker = {
+--     default_config = {
+--       autostart = false,
+--       cmd = {"hdl_checker", "--lsp"};
+--       filetypes = {"vhdl", "verilog", "systemverilog"};
+--       root_dir = function(fname)
+--         return util.root_pattern('.hdl_checker.config')(fname) or util.path.dirname(fname)
+--       end;
+--       settings = {};
+--     };
+--   }
+-- end
 
-if not lspconfig.rust_hdl then
-  configs.rust_hdl = {
-    default_config = {
-      cmd = {"vhdl_ls"};
-      filetypes = { "vhdl" };
-      root_dir = function(fname)
-        return util.root_pattern('vhdl_ls.toml')(fname)
-      end;
-      settings = {};
-    };
-  }
-end
+-- if not lspconfig.rust_hdl then
+--   configs.rust_hdl = {
+--     default_config = {
+--       cmd = {"vhdl_ls"};
+--       filetypes = { "vhdl" };
+--       root_dir = function(fname)
+--         return util.root_pattern('vhdl_ls.toml')(fname)
+--       end;
+--       settings = {};
+--     };
+--   }
+-- end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = {"rust_hdl", "hdl_checker", "pylsp", "rust_analyzer", "texlab", "yamlls"}
+local servers = {"pylsp", "rust_analyzer", "texlab", "yamlls"}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
@@ -223,7 +223,7 @@ end
 
 -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
-local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
+local sumneko_binary = sumneko_root_path.."/bin/lua-language-server"
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
