@@ -93,43 +93,6 @@ bindsym $mod+Shift+0 move container to workspace 10
 bindsym $mod+Shift+m move container to workspace $music
 
 
-# set $music 8:
-# set $ws1 "1"
-# set $ws2 "2"
-# set $ws3 "3"
-# set $ws4 "4"
-# set $ws5 "5"
-# set $ws6 "6"
-# set $ws7 "7"
-# set $ws8 "8"
-# set $ws9 "9"
-# set $ws10 "10"
-
-# # switch to workspace
-# bindsym $mod+1 workspace $ws1
-# bindsym $mod+2 workspace $ws2
-# bindsym $mod+3 workspace $ws3
-# bindsym $mod+4 workspace $ws4
-# bindsym $mod+5 workspace $ws5
-# bindsym $mod+6 workspace $ws6
-# bindsym $mod+7 workspace $ws7
-# bindsym $mod+8 workspace $music
-# bindsym $mod+9 workspace $ws9
-# bindsym $mod+0 workspace $ws10 
-# bindsym $mod+Left workspace prev
-# bindsym $mod+Right workspace next
-
-# # move focused container to workspace
-# bindsym $mod+Shift+1 move container to workspace $ws1
-# bindsym $mod+Shift+2 move container to workspace $ws2
-# bindsym $mod+Shift+3 move container to workspace $ws3
-# bindsym $mod+Shift+4 move container to workspace $ws4
-# bindsym $mod+Shift+5 move container to workspace $ws5
-# bindsym $mod+Shift+6 move container to workspace $ws6
-# bindsym $mod+Shift+7 move container to workspace $ws7
-# bindsym $mod+Shift+8 move container to workspace $ws8
-# bindsym $mod+Shift+9 move container to workspace $ws9
-# bindsym $mod+Shift+0 move container to workspace $ws10
 
 for_window [class="Spotify"] move to workspace 8
 for_window [class="net-ftb-main-Main"] floating enable
@@ -140,6 +103,19 @@ for_window [title="Friends List"] floating enable
 for_window [title="Steam - News"] floating enable
 for_window [instance="origin.exe"] floating enable
 
+for_window [title="Desktop — Plasma"] kill, floating enable, border none
+for_window [class="plasmashell"] floating enable
+for_window [class="Plasma"] floating enable, border none
+for_window [title="plasma-desktop"] floating enable, border none
+for_window [title="win7"] floating enable, border none
+for_window [class="krunner"] floating enable, border none
+for_window [class="Kmix"] floating enable, border none
+for_window [class="Klipper"] floating enable, border none
+for_window [class="Plasmoidviewer"] floating enable, border none
+for_window [class="(?i)*nextcloud*"] floating disable
+for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 700px, move down 450px
+no_focus [class="plasmashell" window_type="notification"] 
+
 assign [class="Thunderbird"] 9
 assign [class="Franz"] 10
 # reload the configuration file
@@ -149,7 +125,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec --no-startup-id "qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout -1 -1 -1"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -185,7 +162,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bindsym $sup+l exec --no-startup-id ~/.config/i3/lock.sh
-
+bindcode 133 --release exec --no-startup-id "qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.activateLauncherMenu"
 bindsym $mod+shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 bindsym $mod+equal floating toggle
@@ -220,14 +197,5 @@ exec_always --no-startup-id ~/.config/scripts/wmstartup.sh
 bindsym --release Print exec --no-startup-id "maim -u -s -n -l -c 0.157,0.333,0.466,0.4 | xclip -selection clipboard -t image/png" 
 bindsym --release Shift+Print exec "maim -u -s -n -l -c 0.157,0.333,0.466,0.4 ~/Pictures/Screenshots/$(date -Iseconds | cut -d'+' -f1).png"
 
-bindsym $mod+Shift+p exec --no-startup-id "urxvt -geometry 100x30 -e ranger $HOME/Documents/PDFs"
-bindsym $mod+Shift+s exec --no-startup-id "urxvt -geometry 100x30 -e ranger $HOME/Pictures/Screenshots"
-bindsym $mod+Shift+f exec --no-startup-id "urxvt -geometry 100x30 -e ranger $HOME/"
 bindsym $mod+Shift+w exec --no-startup-id "urxvt -geometry 100x30 -e ranger $HOME/.wallpapers/"
 
-#exec --no-startup-id blueman-applet
-exec --no-startup-id nohup mons -a > /dev/null 2>&1 &
-
-# exec --no-startup-id spotify & 
-
-workspace 1 output primary
