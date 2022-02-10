@@ -62,9 +62,9 @@ opt.inccommand  = 'nosplit'
 opt.clipboard   = opt.clipboard + 'unnamedplus'
 opt.rnu         = true; -- releative number
 opt.showmode    = false
-opt.textwidth   = 80
+opt.textwidth   = 0
 opt.mouse       = 'a'
-opt.wrap        = false
+opt.wrap        = true
 opt.signcolumn  = 'yes'
 opt.foldmethod  = 'expr'
 opt.foldexpr    = 'nvim_treesitter#foldexpr()'
@@ -205,6 +205,11 @@ lspconfig["ccls"].setup {
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = {"c", "cpp", "cuda"},
+  init_options = {
+    cache = {
+      directory = "/home/sgower/.cache/ccls";
+    }
+  },
   flags = {
     debounce_text_changes = 150,
   }
@@ -316,9 +321,9 @@ ts.setup {
   autopairs = {
     enable = false,
   },
-  matchup = {
-    enable = true,
-  },
+  -- matchup = {
+  --   enable =false,
+  -- },
   playground = {
     enable = true,
     disable = {},
@@ -357,7 +362,7 @@ require('gitsigns').setup {
     changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
   },
   current_line_blame = true,
-  current_line_blame_delay = 100
+  -- current_line_blame_delay = 100
 }
 
 local npairs = require('nvim-autopairs')

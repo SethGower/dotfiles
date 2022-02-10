@@ -25,12 +25,12 @@ return require('packer').startup(function()
   }
   -- Better matchit. Matching beginning and ends of branched statements (if,
   -- for, etc)
-  use {
-    'andymass/vim-matchup',
-    config = function()
-      vim.g.matchup_matchparen_offscreen = {} -- disables the showing match offscreen. This was annoying
-    end
-  }
+  -- use {
+  --   'andymass/vim-matchup',
+  --   config = function()
+  --     vim.g.matchup_matchparen_offscreen = {} -- disables the showing match offscreen. This was annoying
+  --   end
+  -- }
 
   -- Using ALE specifically for Matlab and mlint, since the mlint plugin was
   -- buggy
