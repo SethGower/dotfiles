@@ -7,7 +7,7 @@ endif
 augroup MyVimtex
       autocmd!
         autocmd User VimtexEventQuit call system('latexmk -c') " Makes vimtex clean all log files and such when exiting vim, doesn't delete output files (pdfs)
-        autocmd BufWinEnter *.tex :VimtexCompile " compiles when a tex file is opened.
+        " autocmd BufWinEnter *.tex :VimtexCompile " compiles when a tex file is opened.
 augroup END
 
 if exists(":EasyAlign")
