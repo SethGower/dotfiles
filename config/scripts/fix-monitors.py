@@ -62,7 +62,7 @@ for c in config.configurations:
         print("Using configuration: {}".format(c.name))
         if c.transition_output:
             cmd = "xrandr --output {} --auto".format(c.transition_output)
-            for o in state.outputs:
+            for o in state.connected:
                 if not o == c.transition_output:
                     cmd += " --output {} --off".format(o)
             print("Transition output:\n {}".format(cmd))
