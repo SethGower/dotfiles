@@ -75,14 +75,14 @@ opt.wildmenu    = true
 -- opt.undodir = '~/.config/nvim/undodir'
 cmd 'set undofile'
 
-vim.o.termguicolors = true
-vim.g.dracula_colorterm = 0
-cmd 'colorscheme dracula'
 -------------------- PLUGINS -------------------------------
 require('plugins') -- all of the plugin definitions are in lua/plugins.lua
 -- recompile packer whenever saving the lua/plugins.lua file
 vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 
+vim.o.termguicolors = true
+vim.g.dracula_colorterm = 0
+cmd 'colorscheme dracula'
 ------------------------ MAPS -------------------------
 map('',  'j',                'gj')
 map('',  'k',                'gk')
@@ -190,7 +190,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 -- end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = {"pylsp", "rust_analyzer", "texlab","ltex", "yamlls"}
+local servers = {"pylsp", "rust_analyzer", "texlab","ltex", "yamlls", "hdl_checker"}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,

@@ -1,3 +1,9 @@
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+end
+
 local use = require('packer').use
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'          -- packer manages itself
@@ -16,7 +22,14 @@ return require('packer').startup(function()
   use 'kosayoda/nvim-lightbulb'         -- Lightbulb icon for code actions
   use 'gennaro-tedesco/nvim-jqx'        -- Easily navigate json trees
   use 'ray-x/lsp_signature.nvim'        -- Adds signature help in a popup for functions with info from LSP
+  use 'github/copilot.vim'              -- Github Copilot
 
+
+  -- GDB Integration
+  use {
+    'sakhnik/nvim-gdb' ,
+    run = ':!./install.sh'
+  }
   -- treesitter interface for vim
   use {
     'nvim-treesitter/nvim-treesitter',
@@ -134,4 +147,7 @@ return require('packer').startup(function()
     cmd = 'StartupTime'
   }
 
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end)
