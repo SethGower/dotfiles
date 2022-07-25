@@ -7,12 +7,14 @@
     ~/.ssh:
         mode: 0700
     ~/Documents/Development:
+    ~/Documents/Projects:
 
 - link:
     ~/.config:
         glob: true
         relink: true
         create: true
+        force: true
         path: config/**
         exclude: [ config/alacritty/* ]
     ~/.config/alacritty/alacritty.yml:
