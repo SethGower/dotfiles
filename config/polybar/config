@@ -45,8 +45,8 @@ inherit = bar/base
 enable-ipc = true
 
 
-tray-position = right
-tray-padding = 2
+; tray-position = right
+; tray-padding = 2
 
 modules-left = ${env:POLYBAR_PRIMARY_TOP_LEFT} 
 modules-center = ${env:POLYBAR_PRIMARY_TOP_CENTER}
