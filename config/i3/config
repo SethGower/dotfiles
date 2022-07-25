@@ -192,22 +192,10 @@ bindsym $mod+equal floating toggle
 
 bindsym $mod+w exec --no-startup-id "rofi -show window -modi window -theme sidebar"
 #sets up gaps
-gaps outer 30
+gaps outer 5
 gaps inner 15
+gaps top 30
 
-# Bind Media Buttons
-bindsym XF86MonBrightnessUp exec --no-startup-id  xbacklight -inc 10 # increase screen brightness
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10 # decrease screen brightness
-
-bindsym shift+XF86MonBrightnessUp exec --no-startup-id  xbacklight -inc 1 # increase screen brightness
-bindsym shift+XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 1 # decrease screen brightness
-
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
-# Launch Firefox
-bindsym $mod+Shift+Return exec --no-startup-id firefox
 
 # Removes window title bar
 default_border pixel 1
@@ -215,19 +203,10 @@ default_floating_border pixel 1
 
 # launches initial config
 exec_always --no-startup-id ~/.config/scripts/wmstartup.sh
-# Sets resolution 
-# screenshot entire screen and store it in ~/Pictures/Screenshots/MonthD-Hour(24):Min:Seconds.png
-bindsym --release Print exec --no-startup-id "maim -u -s -n -l -c 0.157,0.333,0.466,0.4 | xclip -selection clipboard -t image/png" 
-bindsym --release Shift+Print exec "maim -u -s -n -l -c 0.157,0.333,0.466,0.4 ~/Pictures/Screenshots/$(date -Iseconds | cut -d'+' -f1).png"
 
 bindsym $mod+Shift+p exec --no-startup-id "urxvt -geometry 100x30 -e ranger $HOME/Documents/PDFs"
 bindsym $mod+Shift+s exec --no-startup-id "urxvt -geometry 100x30 -e ranger $HOME/Pictures/Screenshots"
 bindsym $mod+Shift+f exec --no-startup-id "urxvt -geometry 100x30 -e ranger $HOME/"
 bindsym $mod+Shift+w exec --no-startup-id "urxvt -geometry 100x30 -e ranger $HOME/.wallpapers/"
-
-#exec --no-startup-id blueman-applet
-exec --no-startup-id nohup mons -a > /dev/null 2>&1 &
-
-# exec --no-startup-id spotify & 
 
 workspace 1 output primary
