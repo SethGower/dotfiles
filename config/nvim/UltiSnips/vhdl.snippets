@@ -31,19 +31,14 @@ ${0}
 endsnippet
 
 post_jump "if snip.tabstop == 0 : split_line(snip.tabstops[4].current_text)"
-snippet htl "HTL File header"
+snippet doxy_header "Doxygen style file header"
 
 --------------------------------------------------------------------------------
 --!\file `!p snip.rv = snip.fn`
 --!\overview
---!\brief
--- ${1:I need a really long default here so I don't have to type so much !}
---!\details
--- ${2:I need a really long default here so I don't have to type so much !}
+--!\brief ${1:I need a really long default here so I don't have to type so much !}
+--!\details ${2:I need a really long default here so I don't have to type so much !}
 --! TODO
---------------------------------------------------------------------------------
--- Copyright (c) 2021 HTL All Rights Reserved
--- This source is subject to the HTL Source License(s).
 --------------------------------------------------------------------------------
 ${0}
 endsnippet
