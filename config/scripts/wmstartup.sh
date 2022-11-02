@@ -1,11 +1,14 @@
 #!/bin/bash
 unset services
 
-if [[ -x "$HOME/.config/scripts/$(hostname).rc" ]]; then
-    printf "[INFO] Sourcing ~/.config/scripts/$(hostname).rc\n"
-    source $HOME/.config/scripts/$(hostname).rc
+~/.config/scripts/fix-monitors.py
+
+hostname=$(uname -n)
+if [[ -x "$HOME/.config/scripts/$hostname.rc" ]]; then
+    printf "[INFO] Sourcing ~/.config/scripts/$hostname.rc\n"
+    source $HOME/.config/scripts/$hostname.rc
 else
-    printf "[ERROR] Unable to execute $(hotname).rc, this will prevent certain
+    printf "[ERROR] Unable to execute $hostname.rc, this will prevent certain
     things like polybar and services being started"
 fi
 
@@ -32,8 +35,6 @@ for service in $services; do
     done
     unset i
 done
-
-set_wallpaper &
 
 sleep 2
 

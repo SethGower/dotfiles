@@ -1,0 +1,40 @@
+export POLYBAR_PRIMARY_TOP_LEFT='i3'
+export POLYBAR_PRIMARY_TOP_CENTER='xwindow'
+export POLYBAR_PRIMARY_TOP_RIGHT=' '
+
+export INTERNAL_DISPLAY=$(xrandr -q | grep -i "edp" | cut -d' ' -f1)
+export POLYBAR_PRIMARY=$(xrandr -q | grep " connected" | grep "primary" | cut -d' ' -f1)
+export POLYBAR_SECONDARY="DP-5"
+
+export NETWORK_INTERFACE='wlp170s0'
+
+export REDSHIFT_GAMMA=1.0
+export REDSHIFT_DAY_TEMP=6500
+export REDSHIFT_NIGHT_TEMP=5500
+
+# services="polybar compton redshift caffeine dunst nm-applet"
+services="compton polybar"
+start_services(){
+    # Compositor for transparency
+    if [[ -x $(which compton) ]];
+    then
+      printf "    [INFO] Starting compton\n"
+      compton &
+    fi
+
+    if [[ -x $(which polybar) ]];
+    then
+      # Bars
+      printf "    [INFO] Starting polybar\n"
+      $HOME/.config/polybar/launch.sh top &
+      $HOME/.config/polybar/launch.sh top-secondary &
+    fi
+}
+
+set_wallpaper(){
+    [[ -x $(which wal) ]] && wal -Rn
+    # ~/.config/scripts/fix-monitors.py
+    feh --bg-fill ~/.wallpapers/bully_hill.jpg
+}
+
+# vim:ft=sh
