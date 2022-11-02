@@ -120,6 +120,9 @@ vim.g.UltiSnipsExpandTrigger       = '<C-j>'
 vim.g.UltiSnipsJumpForwardTriggeru = '<C-j>'
 vim.g.UltiSnipsJumpBackwardTrigger = '<C-k>'
 
+--------------------- Local Config --------------------
+require('local_config')
+
 ------------------------- LSP -------------------------
 
 local lspconfig = require('lspconfig')
@@ -380,8 +383,6 @@ ts.setup {
     },
 }
 
-------------------------- GIT SIGNS -------------------------
-
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.vhdl = {
     install_info = {
@@ -390,6 +391,8 @@ parser_config.vhdl = {
     },
     filetype = "vhdl"
 }
+
+------------------------- GIT SIGNS -------------------------
 require('gitsigns').setup {
     signs = {
         add          = { hl = 'GitSignsAdd',    text = '+', numhl = 'GitSignsAddNr',    linehl = 'GitSignsAddLn' },
