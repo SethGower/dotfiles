@@ -23,6 +23,7 @@ local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g      -- a table to access global variables
 local opt = vim.opt  -- to set options
+local o = vim.o
 
 -- Normalize codes (such as <Tab>) to their terminal codes (<Tab> == ^I)
 local function t(str)
@@ -53,8 +54,8 @@ opt.showmatch   = true
 opt.number      = true
 opt.autoindent  = true
 opt.backspace   = {'indent','eol','start'}
-opt.tabstop     = 2
-opt.shiftwidth  = 2
+opt.tabstop     = 4
+opt.shiftwidth  = 4
 opt.expandtab   = true
 opt.smarttab    = true
 opt.breakindent = true
@@ -72,7 +73,8 @@ opt.foldenable  = false
 opt.undolevels  = 1000
 opt.wildmode    = {"longest","list","full"}
 opt.wildmenu    = true
--- opt.undodir = '~/.config/nvim/undodir'
+opt.listchars   = {eol="¬",tab=">·",trail="~",extends=">",precedes="<",space="␣"}
+o.sessionoptions= "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
 cmd 'set undofile'
 
 -------------------- PLUGINS -------------------------------
@@ -119,8 +121,8 @@ vim.g.UltiSnipsJumpBackwardTrigger = '<C-k>'
 ------------------------- LSP -------------------------
 
 local lspconfig = require('lspconfig')
-local configs = require('lspconfig/configs')
-local util = require('lspconfig/util')
+local configs = require('lspconfig.configs')
+local util = require('lspconfig.util')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -149,6 +151,15 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']d',         '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',             opts)
   buf_set_keymap("n", "<leader>f",  "<cmd>lua vim.lsp.buf.formatting()<CR>",                   opts)
 
+
+--   opt.updatetime  = 300
+--   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+--     vim.lsp.diagnostic.on_publish_diagnostics, {
+--       virtual_text = false,
+--       underline = true,
+--       signs = true,
+--     }
+--   )
   -- require "lsp_signature".on_attach()  -- Note: add in lsp client on-attach
 end
 
@@ -176,21 +187,21 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 --   }
 -- end
 
--- if not lspconfig.rust_hdl then
---   configs.rust_hdl = {
---     default_config = {
---       cmd = {"vhdl_ls"};
---       filetypes = { "vhdl" };
---       root_dir = function(fname)
---         return util.root_pattern('vhdl_ls.toml')(fname)
---       end;
---       settings = {};
---     };
---   }
--- end
+if not configs.rust_hdl then
+  configs.rust_hdl = {
+    default_config = {
+      cmd = {"vhdl_ls"};
+      filetypes = { "vhdl" };
+      root_dir = function(fname)
+        return util.root_pattern('vhdl_ls.toml')(fname)
+      end;
+      settings = {};
+    };
+  }
+end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = {"pylsp", "rust_analyzer", "texlab","ltex", "yamlls", "hdl_checker"}
+local servers = {"pylsp", "rust_analyzer", "texlab","ltex", "yamlls", "svls", "svlangserver", "rust_hdl", "bashls"}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
@@ -200,6 +211,23 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+
+-- disable the diagnostics for verilog files (as well as sv files) since they
+-- were really annoying when editing verilog files, because of differences
+-- between sv and v. But I still wanted go to definition stuff
+-- servers = {"svls", "svlangserver"}
+-- for _, lsp in ipairs(servers) do
+--   lspconfig[lsp].setup {
+--     on_attach = function(client, bufnr)
+--       on_attach(client, bufnr)
+--         vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+--       end,
+--     capabilities = capabilities,
+--     flags = {
+--       debounce_text_changes = 150,
+--     }
+--   }
+-- end
 
 lspconfig["ccls"].setup {
   on_attach = on_attach,
@@ -235,7 +263,7 @@ table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 require'lspconfig'.sumneko_lua.setup {
-  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+  cmd = {'lua-language-server'};
   on_attach = on_attach,
   capabilities = capabilities,
   flags = {
@@ -283,7 +311,7 @@ require('lsp_signature').setup()
 -- textDocument/documentHighlight. without the check it was causing constant
 -- errors when servers didn't have that capability
 for _,client in ipairs(vim.lsp.get_active_clients()) do
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.document_highlight then
     vim.cmd [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
     vim.cmd [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
     vim.cmd [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
