@@ -98,6 +98,7 @@ map('n', '<C-P>',            '<cmd>Telescope find_files<CR>')
 map('n', '<C-B>',            '<cmd>Telescope buffers<CR>')
 map('n', '<C-H>',            '<cmd>Telescope harpoon marks<CR>')
 map('n', '<C-E>',            '<cmd>Telescope gitmoji<CR>')
+map('n', '<C-S>',            '<cmd>Telescope session-lens search_session<CR>')
 map('',  '<leader>ws',       ':%s/\\s\\+$//e<CR>:noh<CR>')
 map('n', '<leader><leader>', '<C-^>')
 map('t', '<Esc>',            '<C-\\><C-n>', {noremap = true})
@@ -420,6 +421,49 @@ MUtils.completion_confirm=function()
 end
 
 map('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
+
+------------------------- AUTO SESSIONS -------------------------
+
+-- function to close floating windows. When they are open when a session is
+-- saved, it causes the command window on the bottom to take up the whole
+-- buffer https://github.com/rmagatti/auto-session/wiki/Troubleshooting#issue-cmdheight-after-restore-is-incorrect
+function _G.close_all_floating_wins()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local config = vim.api.nvim_win_get_config(win)
+    if config.relative ~= '' then
+      vim.api.nvim_win_close(win, false)
+    end
+  end
+end
+
+require("telescope").load_extension("session-lens")
+require('auto-session').setup({
+  pre_save_cmds = {_G.close_all_floating_wins},
+  log_level = "error",
+  auto_session_suppress_dirs = { "~/", "~/Downloads", "/"},
+})
+
+require('session-lens').setup({
+  path_display = {'shorten'},
+  previewer = true
+})
+
+------------------------- TOGGLE TERM -------------------------
+require('toggleterm').setup{
+  size = 15,
+  open_mapping = [[<c-\>]],
+}
+function _G.set_terminal_keymaps()
+  local opts = {buffer = 0}
+  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', '<C-H>', [[<Cmd>wincmd h<CR>]], opts)
+  vim.keymap.set('t', '<C-J>', [[<Cmd>wincmd j<CR>]], opts)
+  vim.keymap.set('t', '<C-K>', [[<Cmd>wincmd k<CR>]], opts)
+  vim.keymap.set('t', '<C-L>', [[<Cmd>wincmd l<CR>]], opts)
+end
+
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 ------------------------- AUTO COMMANDS -------------------------
 vim.cmd [[autocmd FileType latex,tex,markdown,md,text setlocal spell spelllang=en_us]]
 vim.cmd [[autocmd FileType make setlocal noexpandtab]]

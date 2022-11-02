@@ -23,9 +23,17 @@ return require('packer').startup(function()
   use 'gennaro-tedesco/nvim-jqx'        -- Easily navigate json trees
   use 'ray-x/lsp_signature.nvim'        -- Adds signature help in a popup for functions with info from LSP
   use 'github/copilot.vim'              -- Github Copilot
+  use 'rmagatti/auto-session'
   use 'fhill2/telescope-ultisnips.nvim'
   use 'adoyle-h/lsp-toggle.nvim'
 
+  use {
+    "akinsho/toggleterm.nvim",
+    tag = '*',
+    config = function()
+      require("toggleterm").setup()
+    end
+  }
   -- GDB Integration
   use {
     'sakhnik/nvim-gdb' ,
@@ -92,6 +100,17 @@ return require('packer').startup(function()
     config = function() require('telescope').load_extension('gitmoji') end
   }
 
+  -- Session Lens for session and telescope cooperation
+  use {
+    'rmagatti/session-lens',
+    requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
+    config = function()
+      require('session-lens').setup({
+        path_display = {'shorten'},
+        previewer = true
+      })
+    end
+  }
   -- git interface stuff for nvim. Mainly for git blame
   use {
     'lewis6991/gitsigns.nvim',
