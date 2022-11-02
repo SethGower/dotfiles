@@ -23,7 +23,8 @@ return require('packer').startup(function()
   use 'gennaro-tedesco/nvim-jqx'        -- Easily navigate json trees
   use 'ray-x/lsp_signature.nvim'        -- Adds signature help in a popup for functions with info from LSP
   use 'github/copilot.vim'              -- Github Copilot
-
+  use 'fhill2/telescope-ultisnips.nvim'
+  use 'adoyle-h/lsp-toggle.nvim'
 
   -- GDB Integration
   use {
@@ -75,6 +76,20 @@ return require('packer').startup(function()
   use {
     'nvim-telescope/telescope.nvim',
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+  }
+
+  -- Harpoon
+  use {
+    'ThePrimeagen/harpoon',
+    requires = {{'nvim-lua/plenary.nvim'}},
+    config = function() require('telescope').load_extension('harpoon') end
+  }
+
+  -- Gitmoji
+
+  use {
+    'olacin/telescope-gitmoji.nvim',
+    config = function() require('telescope').load_extension('gitmoji') end
   }
 
   -- git interface stuff for nvim. Mainly for git blame

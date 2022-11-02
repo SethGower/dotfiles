@@ -74,7 +74,6 @@ opt.undolevels  = 1000
 opt.wildmode    = {"longest","list","full"}
 opt.wildmenu    = true
 opt.listchars   = {eol="¬",tab=">·",trail="~",extends=">",precedes="<",space="␣"}
-o.sessionoptions= "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
 cmd 'set undofile'
 
 -------------------- PLUGINS -------------------------------
@@ -97,6 +96,8 @@ map('n', 'ga',               '<Plug>(EasyAlign)')
 map('',  'ga',               '<Plug>(EasyAlign)')
 map('n', '<C-P>',            '<cmd>Telescope find_files<CR>')
 map('n', '<C-B>',            '<cmd>Telescope buffers<CR>')
+map('n', '<C-H>',            '<cmd>Telescope harpoon marks<CR>')
+map('n', '<C-E>',            '<cmd>Telescope gitmoji<CR>')
 map('',  '<leader>ws',       ':%s/\\s\\+$//e<CR>:noh<CR>')
 map('n', '<leader><leader>', '<C-^>')
 map('t', '<Esc>',            '<C-\\><C-n>', {noremap = true})
@@ -150,6 +151,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d',         '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',             opts)
   buf_set_keymap('n', ']d',         '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',             opts)
   buf_set_keymap("n", "<leader>f",  "<cmd>lua vim.lsp.buf.formatting()<CR>",                   opts)
+  buf_set_keymap("n", "<leader>d",  "<cmd>lua require'telescope.builtin'.diagnostics({bufnr=0})<CR>",                   opts)
 
 
 --   opt.updatetime  = 300
@@ -324,6 +326,10 @@ vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_li
 vim.cmd('autocmd CursorHold * lua vim.diagnostic.open_float()')
 vim.cmd('autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()')
 
+require('lsp-toggle').setup {
+  create_cmds = true, -- Whether to create user commands
+  telescope = true, -- Whether to load telescope extensions
+}
 ------------------------- TREE-SITTER -------------------------
 local ts = require('nvim-treesitter.configs')
 ts.setup {
