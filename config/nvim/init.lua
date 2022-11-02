@@ -301,7 +301,7 @@ local ts = require('nvim-treesitter.configs')
 ts.setup {
   ensure_installed = 'all',
   highlight = { -- built in
-    enable = true,
+    enable = false,
     disable = {'html'}
   },
   indent = { -- built in
