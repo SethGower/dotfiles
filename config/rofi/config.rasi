@@ -10,12 +10,12 @@ configuration {
     background-color: #00000065;
     border-color: #00000000;
     text-color: #EFEFEF;
-    font: "Roboto 16";
+    font: "Iosevka 16";
 }
  
 #window {
     border: 0;
-    border-radius: 4px;
+    border-radius: 20px;
     padding: 40;
     width: 30%;
     height: 50%;
