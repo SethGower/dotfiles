@@ -27,19 +27,18 @@ local o = vim.o
 
 -- Normalize codes (such as <Tab>) to their terminal codes (<Tab> == ^I)
 local function t(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-
 local function map(mode, lhs, rhs, opts)
-  local options = {noremap = false}
-  if opts then
-    options = vim.tbl_extend('force', options, opts)
-    if opts['noremap'] then
-      options['noremap'] = true
+    local options = { noremap = false }
+    if opts then
+        options = vim.tbl_extend('force', options, opts)
+        if opts['noremap'] then
+            options['noremap'] = true
+        end
     end
-  end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 --------------------  SETTINGS -------------------------------
@@ -53,7 +52,7 @@ opt.hlsearch    = true
 opt.showmatch   = true
 opt.number      = true
 opt.autoindent  = true
-opt.backspace   = {'indent','eol','start'}
+opt.backspace   = { 'indent', 'eol', 'start' }
 opt.tabstop     = 4
 opt.shiftwidth  = 4
 opt.expandtab   = true
@@ -61,7 +60,7 @@ opt.smarttab    = true
 opt.breakindent = true
 opt.inccommand  = 'nosplit'
 opt.clipboard   = opt.clipboard + 'unnamedplus'
-opt.rnu         = true; -- releative number
+opt.rnu         = true;  -- releative number
 opt.showmode    = false
 opt.textwidth   = 0
 opt.mouse       = 'a'
@@ -71,9 +70,9 @@ opt.foldmethod  = 'expr'
 opt.foldexpr    = 'nvim_treesitter#foldexpr()'
 opt.foldenable  = false
 opt.undolevels  = 1000
-opt.wildmode    = {"longest","list","full"}
+opt.wildmode    = { "longest", "list", "full" }
 opt.wildmenu    = true
-opt.listchars   = {eol="¬",tab=">·",trail="~",extends=">",precedes="<",space="␣"}
+opt.listchars   = { eol = "¬", tab = ">·", trail = "~", extends = ">", precedes = "<", space = "␣" }
 cmd 'set undofile'
 
 -------------------- PLUGINS -------------------------------
@@ -107,14 +106,15 @@ map('x', 'ga',               '<Plug>(EasyAlign)')
 
 -- functions to use tab and shift+tab to navigate the completion menu
 function _G.smart_tab()
-    return vim.fn.pumvisible() == 1 and t'<C-n>' or t'<Tab>'
-end
-function _G.smart_back_tab()
-    return vim.fn.pumvisible() == 1 and t'<C-p>' or t'<S-Tab>'
+    return vim.fn.pumvisible() == 1 and t '<C-n>' or t '<Tab>'
 end
 
-vim.api.nvim_set_keymap('i', '<Tab>', 'v:lua.smart_tab()', {expr = true, noremap = true})
-vim.api.nvim_set_keymap('i', '<S-Tab>', 'v:lua.smart_back_tab()', {expr = true, noremap = true})
+function _G.smart_back_tab()
+    return vim.fn.pumvisible() == 1 and t '<C-p>' or t '<S-Tab>'
+end
+
+vim.api.nvim_set_keymap('i', '<Tab>', 'v:lua.smart_tab()', { expr = true, noremap = true })
+vim.api.nvim_set_keymap('i', '<S-Tab>', 'v:lua.smart_back_tab()', { expr = true, noremap = true })
 
 vim.g.UltiSnipsExpandTrigger       = '<C-j>'
 vim.g.UltiSnipsJumpForwardTriggeru = '<C-j>'
@@ -129,51 +129,52 @@ local util = require('lspconfig.util')
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
-  --Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
+    --Enable completion triggered by <c-x><c-o>
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD',         '<cmd>lua vim.lsp.buf.declaration()<CR>',                  opts)
-  buf_set_keymap('n', 'gd',         '<cmd>lua vim.lsp.buf.definition()<CR>',                   opts)
-  -- buf_set_keymap('n', 'K',          '<cmd>lua vim.lsp.buf.hover()<CR>',                        opts)
-  buf_set_keymap('n', 'gi',         '<cmd>lua vim.lsp.buf.implementation()<CR>',               opts)
-  -- buf_set_keymap('n', '<C-k>',      '<cmd>lua vim.lsp.buf.signature_help()<CR>',               opts)
-  buf_set_keymap('n', '<C-k>',      '<cmd>lua vim.lsp.buf.hover()<CR>',                        opts)
-  buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>',                       opts)
-  buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>',                  opts)
-  buf_set_keymap('n', 'gr',         '<cmd>lua vim.lsp.buf.references()<CR>',                   opts)
-  buf_set_keymap('n', '<leader>e',  '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  buf_set_keymap('n', '[d',         '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',             opts)
-  buf_set_keymap('n', ']d',         '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',             opts)
-  buf_set_keymap("n", "<leader>f",  "<cmd>lua vim.lsp.buf.formatting()<CR>",                   opts)
-  buf_set_keymap("n", "<leader>d",  "<cmd>lua require'telescope.builtin'.diagnostics({bufnr=0})<CR>",                   opts)
+    -- Mappings.
+    local opts = { noremap = true, silent = true }
 
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    buf_set_keymap('n', 'gD',         '<cmd>lua vim.lsp.buf.declaration()<CR>',                         opts)
+    buf_set_keymap('n', 'gd',         '<cmd>lua vim.lsp.buf.definition()<CR>',                          opts)
+    buf_set_keymap('n', 'gi',         '<cmd>lua vim.lsp.buf.implementation()<CR>',                      opts)
+    buf_set_keymap('n', '<C-k>',      '<cmd>lua vim.lsp.buf.hover()<CR>',                               opts)
+    buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>',                              opts)
+    buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>',                         opts)
+    buf_set_keymap('n', 'gr',         '<cmd>lua vim.lsp.buf.references()<CR>',                          opts)
+    buf_set_keymap('n', '<leader>e',  '<cmd>lua vim.diagnostic.open_float()<CR>',                       opts)
+    buf_set_keymap('n', '[d',         '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',                    opts)
+    buf_set_keymap('n', ']d',         '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',                    opts)
+    buf_set_keymap("n", "<leader>f",  "<cmd>lua vim.lsp.buf.formatting()<CR>",                          opts)
+    buf_set_keymap("n", "<leader>d",  "<cmd>lua require'telescope.builtin'.diagnostics({bufnr=0})<CR>", opts)
 
---   opt.updatetime  = 300
---   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
---     vim.lsp.diagnostic.on_publish_diagnostics, {
---       virtual_text = false,
---       underline = true,
---       signs = true,
---     }
---   )
-  -- require "lsp_signature".on_attach()  -- Note: add in lsp client on-attach
+    -- buf_set_keymap('n', 'K',          '<cmd>lua vim.lsp.buf.hover()<CR>',                        opts)
+    -- buf_set_keymap('n', '<C-k>',      '<cmd>lua vim.lsp.buf.signature_help()<CR>',               opts)
+
+    --   opt.updatetime  = 300
+    --   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    --     vim.lsp.diagnostic.on_publish_diagnostics, {
+    --       virtual_text = false,
+    --       underline = true,
+    --       signs = true,
+    --     }
+    --   )
+    -- require "lsp_signature".on_attach()  -- Note: add in lsp client on-attach
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
-  }
+    properties = {
+        'documentation',
+        'detail',
+        'additionalTextEdits',
+    }
 }
 
 -- if not lspconfig.hdl_checker then
@@ -191,28 +192,28 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 -- end
 
 if not configs.rust_hdl then
-  configs.rust_hdl = {
-    default_config = {
-      cmd = {"vhdl_ls"};
-      filetypes = { "vhdl" };
-      root_dir = function(fname)
-        return util.root_pattern('vhdl_ls.toml')(fname)
-      end;
-      settings = {};
-    };
-  }
+    configs.rust_hdl = {
+        default_config = {
+            cmd = { "vhdl_ls" };
+            filetypes = { "vhdl" };
+            root_dir = function(fname)
+                return util.root_pattern('vhdl_ls.toml')(fname)
+            end;
+            settings = {};
+        };
+    }
 end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = {"pylsp", "rust_analyzer", "texlab","ltex", "yamlls", "svls", "svlangserver", "rust_hdl", "bashls"}
+local servers = { "pylsp", "rust_analyzer", "texlab", "ltex", "yamlls", "svls", "svlangserver", "rust_hdl", "bashls" }
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = {
-      debounce_text_changes = 150,
+    lspconfig[lsp].setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        flags = {
+            debounce_text_changes = 150,
+        }
     }
-  }
 end
 
 -- disable the diagnostics for verilog files (as well as sv files) since they
@@ -233,76 +234,76 @@ end
 -- end
 
 lspconfig["ccls"].setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  filetypes = {"c", "cpp", "cuda"},
-  init_options = {
-    cache = {
-      directory = "/home/sgower/.cache/ccls";
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "c", "cpp", "cuda" },
+    init_options = {
+        cache = {
+            directory = "/home/sgower/.cache/ccls";
+        }
+    },
+    flags = {
+        debounce_text_changes = 150,
     }
-  },
-  flags = {
-    debounce_text_changes = 150,
-  }
 }
 
 local system_name
 if vim.fn.has("mac") == 1 then
-  system_name = "macOS"
+    system_name = "macOS"
 elseif vim.fn.has("unix") == 1 then
-  system_name = "Linux"
+    system_name = "Linux"
 elseif vim.fn.has('win32') == 1 then
-  system_name = "Windows"
+    system_name = "Windows"
 else
-  print("Unsupported system for sumneko")
+    print("Unsupported system for sumneko")
 end
 
 -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
-local sumneko_binary = sumneko_root_path.."/bin/lua-language-server"
+local sumneko_root_path = vim.fn.stdpath('cache') .. '/lspconfig/sumneko_lua/lua-language-server'
+local sumneko_binary = sumneko_root_path .. "/bin/lua-language-server"
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-require'lspconfig'.sumneko_lua.setup {
-  cmd = {'lua-language-server'};
-  on_attach = on_attach,
-  capabilities = capabilities,
-  flags = {
-    debounce_text_changes = 150,
-  },
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-        -- Setup your lua path
-        path = runtime_path,
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
+require 'lspconfig'.sumneko_lua.setup {
+    cmd = { 'lua-language-server' };
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = {
+        debounce_text_changes = 150,
     },
-  },
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+                -- Setup your lua path
+                path = runtime_path,
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { 'vim' },
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false,
+            },
+        },
+    },
 }
 
-opt.updatetime  = 300
+opt.updatetime                                      = 300
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
+    vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = false,
     underline = true,
     signs = true,
-  }
+}
 )
 
 require('lsp_signature').setup()
@@ -313,13 +314,13 @@ require('lsp_signature').setup()
 -- adds a check to see if any of the active clients have the capability
 -- textDocument/documentHighlight. without the check it was causing constant
 -- errors when servers didn't have that capability
-for _,client in ipairs(vim.lsp.get_active_clients()) do
-  if client.server_capabilities.document_highlight then
-    vim.cmd [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
-    vim.cmd [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
-    vim.cmd [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
-    break -- only add the autocmds once
-  end
+for _, client in ipairs(vim.lsp.get_active_clients()) do
+    if client.server_capabilities.document_highlight then
+        vim.cmd [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
+        vim.cmd [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
+        vim.cmd [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
+        break -- only add the autocmds once
+    end
 end
 
 -- Lightbulb stuff
@@ -328,77 +329,77 @@ vim.cmd('autocmd CursorHold * lua vim.diagnostic.open_float()')
 vim.cmd('autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()')
 
 require('lsp-toggle').setup {
-  create_cmds = true, -- Whether to create user commands
-  telescope = true, -- Whether to load telescope extensions
+    create_cmds = true, -- Whether to create user commands
+    telescope = true, -- Whether to load telescope extensions
 }
 ------------------------- TREE-SITTER -------------------------
 local ts = require('nvim-treesitter.configs')
 ts.setup {
-  ensure_installed = 'all',
-  highlight = { -- built in
-    enable = false,
-    disable = {'html'}
-  },
-  indent = { -- built in
-    enable = true
-  },
-  rainbow = { -- added by p00f/nvim-ts-rainbow
-    enable = true,
-    extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
-    max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
-  },
-  autotag = { -- added by windwp/nvim-ts-autotag
-    enable = true,
-  },
-  context = { -- added by romgrk/nvim-treesitter-context
-    enable = true,
-  },
-  autopairs = {
-    enable = false,
-  },
-  -- matchup = {
-  --   enable =false,
-  -- },
-  playground = {
-    enable = true,
-    disable = {},
-    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-    persist_queries = false, -- Whether the query persists across vim sessions
-    keybindings = {
-      toggle_query_editor = 'o',
-      toggle_hl_groups = 'i',
-      toggle_injected_languages = 't',
-      toggle_anonymous_nodes = 'a',
-      toggle_language_display = 'I',
-      focus_language = 'f',
-      unfocus_language = 'F',
-      update = 'R',
-      goto_node = '<cr>',
-      show_help = '?',
+    ensure_installed = 'all',
+    highlight = { -- built in
+        enable = false,
+        disable = { 'html' }
     },
-  },
+    indent = { -- built in
+        enable = true
+    },
+    rainbow = { -- added by p00f/nvim-ts-rainbow
+        enable = true,
+        extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
+        max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
+    },
+    autotag = { -- added by windwp/nvim-ts-autotag
+        enable = true,
+    },
+    context = { -- added by romgrk/nvim-treesitter-context
+        enable = true,
+    },
+    autopairs = {
+        enable = false,
+    },
+    -- matchup = {
+    --   enable =false,
+    -- },
+    playground = {
+        enable = true,
+        disable = {},
+        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+        persist_queries = false, -- Whether the query persists across vim sessions
+        keybindings = {
+            toggle_query_editor = 'o',
+            toggle_hl_groups = 'i',
+            toggle_injected_languages = 't',
+            toggle_anonymous_nodes = 'a',
+            toggle_language_display = 'I',
+            focus_language = 'f',
+            unfocus_language = 'F',
+            update = 'R',
+            goto_node = '<cr>',
+            show_help = '?',
+        },
+    },
 }
 
 ------------------------- GIT SIGNS -------------------------
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.vhdl = {
-  install_info = {
-    url = "~/.local/share/tree-sitter/tree-sitter-vhdl",
-    files = {"src/parser.c"}
-  },
-  filetype = "vhdl"
+    install_info = {
+        url = "~/.local/share/tree-sitter/tree-sitter-vhdl",
+        files = { "src/parser.c" }
+    },
+    filetype = "vhdl"
 }
 require('gitsigns').setup {
-  signs = {
-    add          = {hl = 'GitSignsAdd'   , text = '+', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
-    change       = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-    delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-  },
-  current_line_blame = true,
-  -- current_line_blame_delay = 100
+    signs = {
+        add          = { hl = 'GitSignsAdd',    text = '+', numhl = 'GitSignsAddNr',    linehl = 'GitSignsAddLn' },
+        change       = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+        delete       = { hl = 'GitSignsDelete', text = '_', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
+        topdelete    = { hl = 'GitSignsDelete', text = '‾', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
+        changedelete = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+    },
+    current_line_blame = true,
+    -- current_line_blame_delay = 100
 }
 
 
@@ -406,25 +407,25 @@ require('gitsigns').setup {
 
 local npairs = require('nvim-autopairs')
 npairs.setup({
-  check_ts = true,
-  fast_wrap = {
-      map = '<C-e>',
-  },
-  enable_check_bracket_line = false
+    check_ts = true,
+    fast_wrap = {
+        map = '<C-e>',
+    },
+    enable_check_bracket_line = false
 })
 
 -- skip it, if you use another global object
-_G.MUtils= {}
+_G.MUtils = {}
 
-MUtils.completion_confirm=function()
-  if vim.fn.pumvisible() ~= 0  then
-    return npairs.esc("<cr>") -- simply the plugins wrapper for termcode replacement
-  else
-    return npairs.autopairs_cr()
-  end
+MUtils.completion_confirm = function()
+    if vim.fn.pumvisible() ~= 0 then
+        return npairs.esc("<cr>") -- simply the plugins wrapper for termcode replacement
+    else
+        return npairs.autopairs_cr()
+    end
 end
 
-map('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
+map('i', '<CR>', 'v:lua.MUtils.completion_confirm()', { expr = true, noremap = true })
 
 ------------------------- AUTO SESSIONS -------------------------
 
@@ -432,39 +433,39 @@ map('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = t
 -- saved, it causes the command window on the bottom to take up the whole
 -- buffer https://github.com/rmagatti/auto-session/wiki/Troubleshooting#issue-cmdheight-after-restore-is-incorrect
 function _G.close_all_floating_wins()
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    local config = vim.api.nvim_win_get_config(win)
-    if config.relative ~= '' then
-      vim.api.nvim_win_close(win, false)
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local config = vim.api.nvim_win_get_config(win)
+        if config.relative ~= '' then
+            vim.api.nvim_win_close(win, false)
+        end
     end
-  end
 end
 
 require("telescope").load_extension("session-lens")
 require('auto-session').setup({
-  pre_save_cmds = {_G.close_all_floating_wins},
-  log_level = "error",
-  auto_session_suppress_dirs = { "~/", "~/Downloads", "/"},
+    pre_save_cmds = { _G.close_all_floating_wins },
+    log_level = "error",
+    auto_session_suppress_dirs = { "~/", "~/Downloads", "/" },
 })
 
 require('session-lens').setup({
-  path_display = {'shorten'},
-  previewer = true
+    path_display = { 'shorten' },
+    previewer = true
 })
 
 ------------------------- TOGGLE TERM -------------------------
-require('toggleterm').setup{
-  size = 15,
-  open_mapping = [[<c-\>]],
+require('toggleterm').setup {
+    size = 15,
+    open_mapping = [[<c-\>]],
 }
 function _G.set_terminal_keymaps()
-  local opts = {buffer = 0}
-  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
-  vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
-  vim.keymap.set('t', '<C-H>', [[<Cmd>wincmd h<CR>]], opts)
-  vim.keymap.set('t', '<C-J>', [[<Cmd>wincmd j<CR>]], opts)
-  vim.keymap.set('t', '<C-K>', [[<Cmd>wincmd k<CR>]], opts)
-  vim.keymap.set('t', '<C-L>', [[<Cmd>wincmd l<CR>]], opts)
+    local opts = { buffer = 0 }
+    vim.keymap.set('t', '<esc>', [[<C-\><C-n>]],        opts)
+    vim.keymap.set('t', 'jk',    [[<C-\><C-n>]],        opts)
+    vim.keymap.set('t', '<C-H>', [[<Cmd>wincmd h<CR>]], opts)
+    vim.keymap.set('t', '<C-J>', [[<Cmd>wincmd j<CR>]], opts)
+    vim.keymap.set('t', '<C-K>', [[<Cmd>wincmd k<CR>]], opts)
+    vim.keymap.set('t', '<C-L>', [[<Cmd>wincmd l<CR>]], opts)
 end
 
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
@@ -474,4 +475,4 @@ vim.cmd [[autocmd FileType make setlocal noexpandtab]]
 vim.cmd [[autocmd FileType gitconfig set ft=dosini]]
 vim.cmd [[autocmd BufNewFile,BufRead *.h set ft=c]]
 vim.cmd [[autocmd BufNewFile,BufRead *.config set ft=json]]
-vim.cmd ("autocmd BufEnter "..fn.stdpath('config').."/*.lua set kp=:help") -- sets the keywordprg to :help for init.lua, that way I can do 'K' on a word and look it up quick
+vim.cmd("autocmd BufEnter " .. fn.stdpath('config') .. "/*.lua set kp=:help") -- sets the keywordprg to :help for init.lua, that way I can do 'K' on a word and look it up quick
