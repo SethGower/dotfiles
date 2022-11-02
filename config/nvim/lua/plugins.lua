@@ -22,7 +22,8 @@ return require('packer').startup(function()
   use 'kosayoda/nvim-lightbulb'         -- Lightbulb icon for code actions
   use 'gennaro-tedesco/nvim-jqx'        -- Easily navigate json trees
   use 'ray-x/lsp_signature.nvim'        -- Adds signature help in a popup for functions with info from LSP
-  use 'github/copilot.vim'              -- Github Copilot
+  -- use 'github/copilot.vim'              -- Github Copilot
+  use 'Numkil/ag.nvim'                  -- Silver Searcher
   use 'rmagatti/auto-session'
   use 'fhill2/telescope-ultisnips.nvim'
   use 'adoyle-h/lsp-toggle.nvim'
