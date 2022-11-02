@@ -14,8 +14,8 @@ return require('packer').startup(function()
     use 'windwp/nvim-autopairs'           -- auto pairs for certain characters
     use 'junegunn/vim-easy-align'         -- better alignment
     use 'tpope/vim-commentary'            -- comments lines with motions
-    use 'airblade/vim-rooter'             -- changes CWD to root of project
     use 'tpope/vim-fugitive'              -- git commands in vim
+    use 'shumphrey/fugitive-gitlab.vim'   -- gitlab provider for :GBrowse for fugitive
     use 'kshenoy/vim-signature'           -- adds markers to the sign column
     use 'moll/vim-bbye'                   -- better buffer deletion
     use 'aymericbeaumet/vim-symlink'      -- read symlinks for pwd
@@ -29,6 +29,16 @@ return require('packer').startup(function()
     use 'fhill2/telescope-ultisnips.nvim' -- Ultisnips extension for Telescope
     use 'adoyle-h/lsp-toggle.nvim'        -- Toggle specific LSP's
 
+    -- project management for neovim
+    use {
+        "ahmedkhalf/project.nvim",
+        config = function()
+            require("project_nvim").setup {
+                patterns = {"^Makefile"},
+                ignore_lsp = {"sumneko_lua"}
+            }
+        end
+    }
     use {
         "akinsho/toggleterm.nvim",
         tag = '*',
