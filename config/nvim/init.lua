@@ -379,6 +379,7 @@ ts.setup {
   },
 }
 
+------------------------- GIT SIGNS -------------------------
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.vhdl = {
@@ -399,6 +400,9 @@ require('gitsigns').setup {
   current_line_blame = true,
   -- current_line_blame_delay = 100
 }
+
+
+------------------------- AUTO PAIRS -------------------------
 
 local npairs = require('nvim-autopairs')
 npairs.setup({
