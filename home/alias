@@ -56,3 +56,7 @@ if [[ -x $(command -v thefuck) ]]; then
 fi
 
 alias please="sudo"
+
+# if [[ -x $(which rustup) ]]; then
+#     alias rust-analyzer="rustup run nightly rust-analyzer"
+# fi

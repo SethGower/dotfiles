@@ -9,7 +9,6 @@ plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
   sudo
-  zsh-autopair
 )
 ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
@@ -17,16 +16,17 @@ source ~/.function
 source ~/.alias
 source ~/.path
 
-if [ -f ~/.profile ]; then
-    source ~/.profile
+if [ -f ~/.localconfig ]; then
+  source ~/.localconfig
 fi
+
+fpath+=$ZSH_CUSTOM/completions
 
 compinit
 
 if [[ -f ~/.fzf.zsh ]];
 then
     source ~/.fzf.zsh
-    export FZF_DEFAULT_OPTS="--preview='bat --color=always {}'"
 fi
 
 zstyle ':completion:*:*:nvim:*' file-patterns '^*.(aux|pdf|dvi|o):source-files' '*:all-files'
