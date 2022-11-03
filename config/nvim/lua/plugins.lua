@@ -50,7 +50,8 @@ return require('packer').startup(function()
     -- GDB Integration
     use {
         'sakhnik/nvim-gdb',
-        run = ':!./install.sh'
+        run = ':!./install.sh',
+        cmd = {'GdbStart', 'GdbStartLLDB'},
     }
     -- treesitter interface for vim
     use {
