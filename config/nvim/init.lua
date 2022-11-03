@@ -449,6 +449,7 @@ require('auto-session').setup({
     pre_save_cmds = { _G.close_all_floating_wins },
     log_level = "error",
     auto_session_suppress_dirs = { "~/", "~/Downloads", "/" },
+    auto_save_enabled = true,
 })
 
 require('session-lens').setup({
