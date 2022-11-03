@@ -16,6 +16,7 @@ return require('packer').startup(function()
     use 'tpope/vim-commentary'            -- comments lines with motions
     use 'tpope/vim-fugitive'              -- git commands in vim
     use 'shumphrey/fugitive-gitlab.vim'   -- gitlab provider for :GBrowse for fugitive
+    use 'tpope/vim-rhubarb'               -- github provider for :GBrowse for fugitive
     use 'kshenoy/vim-signature'           -- adds markers to the sign column
     use 'moll/vim-bbye'                   -- better buffer deletion
     use 'aymericbeaumet/vim-symlink'      -- read symlinks for pwd
