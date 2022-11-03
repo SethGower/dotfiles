@@ -31,13 +31,20 @@ return require('packer').startup(function()
     use 'adoyle-h/lsp-toggle.nvim'        -- Toggle specific LSP's
 
     -- project management for neovim
+    -- use {
+    --     "ahmedkhalf/project.nvim",
+    --     config = function()
+    --         require("project_nvim").setup {
+    --             patterns = {"^Makefile"},
+    --             ignore_lsp = {"sumneko_lua"}
+    --         }
+    --     end
+    -- }
     use {
-        "ahmedkhalf/project.nvim",
+        'ygm2/rooter.nvim',
         config = function()
-            require("project_nvim").setup {
-                patterns = {"^Makefile"},
-                ignore_lsp = {"sumneko_lua"}
-            }
+            vim.g.rooter_pattern = {'.git', 'Makefile', '_darcs', '.hg', '.bzr', '.svn', 'node_modules', 'CMakeLists.txt'}
+            vim.g.outermost_root = true
         end
     }
     use {
