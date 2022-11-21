@@ -3,4 +3,5 @@
 compile_commands.json
 openocd.pid
 
+.nvim
 .hdl_checker*
