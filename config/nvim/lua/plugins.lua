@@ -29,6 +29,7 @@ return require('packer').startup(function()
     use 'rmagatti/auto-session'           -- Session management
     use 'fhill2/telescope-ultisnips.nvim' -- Ultisnips extension for Telescope
     use 'adoyle-h/lsp-toggle.nvim'        -- Toggle specific LSP's
+    use 'amal-khailtash/vim-xdc-syntax'   -- Syntax highlighting for XDC files
 
     -- project management for neovim
     -- use {
