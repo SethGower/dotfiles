@@ -80,7 +80,32 @@ schemes:
       magenta: '#c061cb'
       cyan:    '#33c7de'
       white:   '#ffffff'
+  oxocarbon-dark: &carbon
+    primary:
+      background: '#161616'
+      foreground: '#dde1e6'
+    # Normal colors
+    normal:
+      black:   '#000000'
+      red:     '#ff5555'
+      green:   '#50fa7b'
+      yellow:  '#f1fa8c'
+      blue:    '#caa9fa'
+      magenta: '#ff79c6'
+      cyan:    '#8be9fd'
+      white:   '#bfbfbf'
 
-colors: *dracula
+    # Bright colors
+    bright:
+      black:   '#bfbfbf'
+      red:     '#ff6e67'
+      green:   '#5af78e'
+      yellow:  '#f4f99d'
+      blue:    '#caa9fa'
+      magenta: '#ff92d0'
+      cyan:    '#9aedfe'
+      white:   '#e6e6e6'
+
+colors: *carbon
 
 # vim:ft=yaml
