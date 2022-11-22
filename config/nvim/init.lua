@@ -155,6 +155,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', ']d',         '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',                    opts)
     buf_set_keymap("n", "<leader>f",  "<cmd>lua vim.lsp.buf.formatting()<CR>",                          opts)
     buf_set_keymap("n", "<leader>d",  "<cmd>lua require'telescope.builtin'.diagnostics({bufnr=0})<CR>", opts)
+    buf_set_keymap("n", "<leader>nt", "<cmd>NvimTreeFindFile<CR>",                                      opts)
 
     -- buf_set_keymap('n', 'K',          '<cmd>lua vim.lsp.buf.hover()<CR>',                        opts)
     -- buf_set_keymap('n', '<C-k>',      '<cmd>lua vim.lsp.buf.signature_help()<CR>',               opts)
@@ -494,3 +495,7 @@ vim.cmd [[autocmd FileType gitconfig set ft=dosini]]
 vim.cmd [[autocmd BufNewFile,BufRead *.h set ft=c]]
 vim.cmd [[autocmd BufNewFile,BufRead *.config set ft=json]]
 vim.cmd("autocmd BufEnter " .. fn.stdpath('config') .. "/*.lua set kp=:help") -- sets the keywordprg to :help for init.lua, that way I can do 'K' on a word and look it up quick
+
+
+
+require("nvim-tree").setup()
