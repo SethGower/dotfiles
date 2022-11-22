@@ -77,9 +77,20 @@ return require('packer').startup(function()
     -- treesitter interface for vim
     use {
         'nvim-treesitter/nvim-treesitter',
-        branch = '0.5-compat',
+        branch = 'v0.8.0',
         run = ':TSUpdate'
     }
+
+    -- Tree Sitter extensions
+    use {
+        'p00f/nvim-ts-rainbow', -- Adds rainbow parentheses based on tree sitter
+        'windwp/nvim-ts-autotag', -- Auto close tags with tree sitter
+        'romgrk/nvim-treesitter-context', -- Provide context from tree-sitter
+        'nvim-treesitter/playground', -- Playground for tree-sitter
+
+        requires = { 'nvim-treesitter/nvim-treesitter' }
+    }
+
     -- Better matchit. Matching beginning and ends of branched statements (if,
     -- for, etc)
     -- use {
@@ -187,15 +198,6 @@ return require('packer').startup(function()
         as = 'dracula'
     }
 
-    -- Tree Sitter extensions
-    use {
-        'p00f/nvim-ts-rainbow', -- Adds rainbow parentheses based on tree sitter
-        'windwp/nvim-ts-autotag', -- Auto close tags with tree sitter
-        'romgrk/nvim-treesitter-context', -- Provide context from tree-sitter
-        'nvim-treesitter/playground', -- Playground for tree-sitter
-
-        requires = { 'nvim-treesitter/nvim-treesitter' }
-    }
 
     -- Glow for markdown previews
     use {
