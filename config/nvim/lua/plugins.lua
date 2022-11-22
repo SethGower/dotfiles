@@ -31,6 +31,11 @@ return require('packer').startup(function()
     use 'adoyle-h/lsp-toggle.nvim'        -- Toggle specific LSP's
     use 'amal-khailtash/vim-xdc-syntax'   -- Syntax highlighting for XDC files
 
+
+    use {
+        'shaunsingh/oxocarbon.nvim',
+        run = './install.sh'
+    }
     -- project management for neovim
     -- use {
     --     "ahmedkhalf/project.nvim",
