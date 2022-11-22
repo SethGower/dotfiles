@@ -29,7 +29,21 @@ return require('packer').startup(function()
     use 'rmagatti/auto-session'           -- Session management
     use 'fhill2/telescope-ultisnips.nvim' -- Ultisnips extension for Telescope
     use 'adoyle-h/lsp-toggle.nvim'        -- Toggle specific LSP's
+    use 'amal-khailtash/vim-xdc-syntax'   -- Syntax highlighting for XDC files
 
+
+    use {
+        'shaunsingh/oxocarbon.nvim',
+        run = './install.sh'
+    }
+
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        },
+        tag = 'nightly' -- optional, updated every week. (see issue #1193)
+    }
     -- project management for neovim
     -- use {
     --     "ahmedkhalf/project.nvim",
@@ -43,7 +57,8 @@ return require('packer').startup(function()
     use {
         'ygm2/rooter.nvim',
         config = function()
-            vim.g.rooter_pattern = {'.git', 'Makefile', '_darcs', '.hg', '.bzr', '.svn', 'node_modules', 'CMakeLists.txt'}
+            vim.g.rooter_pattern = { '.git', 'Makefile', '_darcs', '.hg', '.bzr', '.svn', 'node_modules',
+                'CMakeLists.txt' }
             vim.g.outermost_root = true
         end
     }
@@ -58,14 +73,25 @@ return require('packer').startup(function()
     use {
         'sakhnik/nvim-gdb',
         run = ':!./install.sh',
-        cmd = {'GdbStart', 'GdbStartLLDB'},
+        cmd = { 'GdbStart', 'GdbStartLLDB' },
     }
     -- treesitter interface for vim
     use {
         'nvim-treesitter/nvim-treesitter',
-        branch = '0.5-compat',
+        branch = 'v0.8.0',
         run = ':TSUpdate'
     }
+
+    -- Tree Sitter extensions
+    use {
+        'p00f/nvim-ts-rainbow', -- Adds rainbow parentheses based on tree sitter
+        'windwp/nvim-ts-autotag', -- Auto close tags with tree sitter
+        'romgrk/nvim-treesitter-context', -- Provide context from tree-sitter
+        'nvim-treesitter/playground', -- Playground for tree-sitter
+
+        requires = { 'nvim-treesitter/nvim-treesitter' }
+    }
+
     -- Better matchit. Matching beginning and ends of branched statements (if,
     -- for, etc)
     -- use {
@@ -173,15 +199,6 @@ return require('packer').startup(function()
         as = 'dracula'
     }
 
-    -- Tree Sitter extensions
-    use {
-        'p00f/nvim-ts-rainbow', -- Adds rainbow parentheses based on tree sitter
-        'windwp/nvim-ts-autotag', -- Auto close tags with tree sitter
-        'romgrk/nvim-treesitter-context', -- Provide context from tree-sitter
-        'nvim-treesitter/playground', -- Playground for tree-sitter
-
-        requires = { 'nvim-treesitter/nvim-treesitter' }
-    }
 
     -- Glow for markdown previews
     use {

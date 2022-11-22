@@ -155,6 +155,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', ']d',         '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',                    opts)
     buf_set_keymap("n", "<leader>f",  "<cmd>lua vim.lsp.buf.formatting()<CR>",                          opts)
     buf_set_keymap("n", "<leader>d",  "<cmd>lua require'telescope.builtin'.diagnostics({bufnr=0})<CR>", opts)
+    buf_set_keymap("n", "<leader>nt", "<cmd>NvimTreeFindFile<CR>",                                      opts)
 
     -- buf_set_keymap('n', 'K',          '<cmd>lua vim.lsp.buf.hover()<CR>',                        opts)
     -- buf_set_keymap('n', '<C-k>',      '<cmd>lua vim.lsp.buf.signature_help()<CR>',               opts)
@@ -180,19 +181,33 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     }
 }
 
--- if not lspconfig.hdl_checker then
---   configs.hdl_checker = {
---     default_config = {
---       autostart = false,
---       cmd = {"hdl_checker", "--lsp"};
---       filetypes = {"vhdl", "verilog", "systemverilog"};
---       root_dir = function(fname)
---         return util.root_pattern('.hdl_checker.config')(fname) or util.path.dirname(fname)
---       end;
---       settings = {};
---     };
---   }
--- end
+
+if not require 'lspconfig.configs'.hdl_checker then
+    require 'lspconfig.configs'.hdl_checker = {
+        default_config = {
+            cmd = { "hdl_checker", "--lsp", };
+            filetypes = { "vhdl", "verilog", "systemverilog" };
+            root_dir = function(fname)
+                -- will look for the .hdl_checker.config file in parent directory, a
+                -- .git directory, or else use the current directory, in that order.
+                return util.root_pattern('.hdl_checker.config')(fname) or util.find_git_ancestor(fname) or
+                    util.path.dirname(fname)
+            end;
+            settings = {};
+        };
+    }
+end
+
+-- lspconfig["hdl_checker"].setup {
+--     on_attach = function(client, bufnr)
+--         client.resolved_capabilities.hover = false
+--         on_attach(client, bufnr)
+--     end,
+--     capabilities = capabilities,
+--     flags = {
+--         debounce_text_changes = 150,
+--     }
+-- }
 
 if not configs.rust_hdl then
     configs.rust_hdl = {
@@ -480,3 +495,7 @@ vim.cmd [[autocmd FileType gitconfig set ft=dosini]]
 vim.cmd [[autocmd BufNewFile,BufRead *.h set ft=c]]
 vim.cmd [[autocmd BufNewFile,BufRead *.config set ft=json]]
 vim.cmd("autocmd BufEnter " .. fn.stdpath('config') .. "/*.lua set kp=:help") -- sets the keywordprg to :help for init.lua, that way I can do 'K' on a word and look it up quick
+
+
+
+require("nvim-tree").setup()
