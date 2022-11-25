@@ -41,4 +41,4 @@ iabbrev <buffer> toi to_integer
 iabbrev <buffer> tos to_signed
 iabbrev <buffer> tou to_unsigned
 
-map <F9> :setl autoread<CR>:let b:current_file = @%<CR>:w!<CR>:execute '!vsg -f ' . b:current_file ' --fix --configuration /mnt/share/smbshare/usershare/SethG/Content/style_guide/config.yaml'<CR><CR>:edit<CR>:setl noautoread<CR>
+map <F9> :setl autoread<CR>:let b:current_file = @%<CR>:w!<CR>:execute '!vsg -f ' . b:current_file ' --fix --configuration ./vsg_config.yaml'<CR><CR>:edit<CR>:setl noautoread<CR>
