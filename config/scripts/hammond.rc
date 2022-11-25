@@ -2,9 +2,9 @@ export POLYBAR_PRIMARY_TOP_LEFT='i3'
 export POLYBAR_PRIMARY_TOP_CENTER='xwindow'
 export POLYBAR_PRIMARY_TOP_RIGHT=' '
 
-export INTERNAL_DISPLAY=$(xrandr -q | grep -i "edp" | cut -d' ' -f1)
-export POLYBAR_PRIMARY=$(xrandr -q | grep " connected" | grep "primary" | cut -d' ' -f1)
-export POLYBAR_SECONDARY="DP-5"
+export INTERNAL_DISPLAY=$(xrandr -q | grep --color=never -i "edp" | cut -d' ' -f1)
+export POLYBAR_PRIMARY=$(xrandr -q | grep --color=never " connected" | grep --color=never "primary" | cut -d' ' -f1)
+export POLYBAR_SECONDARY=$(xrandr -q | grep --color=never " connected" | grep --color=never -v $INTERNAL_DISPLAY | grep --color=never -v $POLYBAR_PRIMARY | cut -d' ' -f1)
 
 export NETWORK_INTERFACE='wlp170s0'
 
@@ -27,7 +27,9 @@ start_services(){
       # Bars
       printf "    [INFO] Starting polybar\n"
       $HOME/.config/polybar/launch.sh top &
-      $HOME/.config/polybar/launch.sh top-secondary &
+      if [[ -n $POLYBAR_SECONDARY ]]; then
+        $HOME/.config/polybar/launch.sh top-secondary &
+      fi
     fi
 }
 
