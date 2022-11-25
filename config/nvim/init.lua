@@ -153,7 +153,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<leader>e',  '<cmd>lua vim.diagnostic.open_float()<CR>',                       opts)
     buf_set_keymap('n', '[d',         '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',                    opts)
     buf_set_keymap('n', ']d',         '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',                    opts)
-    buf_set_keymap("n", "<leader>f",  "<cmd>lua vim.lsp.buf.formatting()<CR>",                          opts)
+    buf_set_keymap("n", "<leader>f",  "<cmd>lua vim.lsp.buf.format()<CR>",                              opts)
     buf_set_keymap("n", "<leader>d",  "<cmd>lua require'telescope.builtin'.diagnostics({bufnr=0})<CR>", opts)
     buf_set_keymap("n", "<leader>nt", "<cmd>NvimTreeFindFile<CR>",                                      opts)
 
@@ -223,7 +223,8 @@ if not configs.rust_hdl then
 end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pylsp", "rust_analyzer", "texlab", "ltex", "yamlls", "svls", "svlangserver", "rust_hdl", "bashls" }
+local servers = { "pylsp", "rust_analyzer", "texlab", "ltex", "yamlls", "svls", "svlangserver", "rust_hdl", "bashls",
+    "jsonls" }
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
         on_attach = on_attach,
@@ -285,7 +286,7 @@ table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 require 'lspconfig'.sumneko_lua.setup {
-    cmd = { 'lua-language-server' };
+    cmd = { sumneko_binary };
     on_attach = on_attach,
     capabilities = capabilities,
     flags = {
