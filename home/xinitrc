@@ -2,4 +2,4 @@
 [[ -f ~/.xprofile ]] && source ~/.xprofile
 [[ -x $(which wal) ]] && wal -R
 [[ -x $(which xbindkeys) ]] && xbindkeys &
-exec i3
+exec startxfce4
