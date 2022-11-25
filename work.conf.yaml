@@ -1,0 +1,6 @@
+- link:
+    ~/.xsession:
+        relink: true
+        force: true
+        path: home/xsession-work
+        prefix: '.'

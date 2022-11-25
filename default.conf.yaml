@@ -16,12 +16,11 @@
         create: true
         force: true
         path: config/**
-        exclude: [ config/alacritty/* ]
-    ~/.config/alacritty/alacritty.yml:
-        path: config/alacritty/alacritty.yml
-        create: true
     ~/:
         glob: true
+        relink: true
+        create: true
+        force: true
         path: home/*
         prefix: '.'
 
