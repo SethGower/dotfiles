@@ -13,13 +13,13 @@ export REDSHIFT_DAY_TEMP=6500
 export REDSHIFT_NIGHT_TEMP=5500
 
 # services="polybar compton redshift caffeine dunst nm-applet"
-services="compton polybar"
+services="picom polybar"
 start_services(){
     # Compositor for transparency
-    if [[ -x $(which compton) ]];
+    if [[ -x $(which picom) ]];
     then
-      printf "    [INFO] Starting compton\n"
-      compton &
+      printf "    [INFO] Starting picom\n"
+      picom &
     fi
 
     if [[ -x $(which polybar) ]];
