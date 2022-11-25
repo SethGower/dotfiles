@@ -15,6 +15,9 @@ bindsym $sup+s sticky toggle
 # start a terminal
 bindsym $mod+Return exec --no-startup-id alacritty
 
+# start firefox
+bindsym $mod+Shift+Return exec --no-startup-id firefox
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
