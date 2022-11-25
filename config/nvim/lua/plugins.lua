@@ -82,9 +82,10 @@ return require('packer').startup(function()
         run = ':TSUpdate'
     }
 
-    -- Tree Sitter extensions
     use {
-        'p00f/nvim-ts-rainbow', -- Adds rainbow parentheses based on tree sitter
+        {'SethGower/nvim-ts-rainbow',
+            branch = "adding-vhdl",
+        }, -- Adds rainbow parentheses based on tree sitter
         'windwp/nvim-ts-autotag', -- Auto close tags with tree sitter
         'romgrk/nvim-treesitter-context', -- Provide context from tree-sitter
         'nvim-treesitter/playground', -- Playground for tree-sitter

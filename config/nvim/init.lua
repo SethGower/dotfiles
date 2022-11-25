@@ -356,7 +356,7 @@ local ts = require('nvim-treesitter.configs')
 ts.setup {
     ensure_installed = 'all',
     highlight = { -- built in
-        enable = false,
+        enable = true,
         disable = { 'html' }
     },
     indent = { -- built in
@@ -398,6 +398,9 @@ ts.setup {
         },
     },
 }
+
+map('n', '<leader>tp', ':TSPlaygroundToggle<CR>')
+map('n', '<leader>th', ':TSHighlightCapturesUnderCursor<CR>')
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.vhdl = {
