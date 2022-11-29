@@ -12,6 +12,21 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "${BASEDIR}"
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
+EXCEPT=""
+while [[ $1 == --* ]]; do
+    if [[ $1 == "--except" ]]; then
+        shift
+        EXCEPT+=" $1"
+    fi
+    shift
+done
+
+EXCEPT_FINAL=""
+if [[ -n $EXCEPT ]]; then
+    EXCEPT_FINAL="--except $EXCEPT"
+fi
+echo $EXCEPT_FINAL
+
 for conf in ${DEFAULT_CONFIG_PREFIX} ${@}; do
-    "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${conf}${CONFIG_SUFFIX}"
+    "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${conf}${CONFIG_SUFFIX}" $EXCEPT_FINAL
 done
