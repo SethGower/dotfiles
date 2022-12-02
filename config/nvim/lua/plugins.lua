@@ -107,9 +107,9 @@ return require('packer').startup(function()
     -- buggy
     use {
         'dense-analysis/ale',
-        ft = { 'matlab' },
+        ft = { 'matlab', 'vhdl' },
         config = function()
-            vim.g.ale_linters = { matlab = { 'mlint' } }
+            vim.g.ale_linters = { matlab = { 'mlint' }, vhdl = { 'vsg_ale' } }
             vim.g.ale_linters_explicit = true
             vim.cmd [[ALEEnable]]
         end
