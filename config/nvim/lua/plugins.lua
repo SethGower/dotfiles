@@ -30,6 +30,7 @@ return require('packer').startup(function()
     use 'fhill2/telescope-ultisnips.nvim' -- Ultisnips extension for Telescope
     use 'adoyle-h/lsp-toggle.nvim'        -- Toggle specific LSP's
     use 'amal-khailtash/vim-xdc-syntax'   -- Syntax highlighting for XDC files
+    use 'mfussenegger/nvim-lint'
 
 
     use {
