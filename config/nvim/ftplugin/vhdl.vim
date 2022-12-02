@@ -42,3 +42,5 @@ iabbrev <buffer> tos to_signed
 iabbrev <buffer> tou to_unsigned
 
 map <F9> :setl autoread<CR>:let b:current_file = @%<CR>:w!<CR>:execute '!vsg -f ' . b:current_file ' --fix --configuration ./vsg_config.yaml'<CR><CR>:edit<CR>:setl noautoread<CR>
+
+set foldmethod=indent
