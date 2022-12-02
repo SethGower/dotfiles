@@ -7,7 +7,7 @@
   added = difftool --cached
   update-subs = submodule update --init --recursive --remote
 [diff]
-  tool = icdiff
+	tool = meld
 [difftool]
   prompt = false
 [difftool "icdiff"]
