@@ -500,6 +500,10 @@ vim.cmd [[autocmd BufNewFile,BufRead *.h set ft=c]]
 vim.cmd [[autocmd BufNewFile,BufRead *.config set ft=json]]
 vim.cmd("autocmd BufEnter " .. fn.stdpath('config') .. "/*.lua set kp=:help") -- sets the keywordprg to :help for init.lua, that way I can do 'K' on a word and look it up quick
 
-
-
+------------------------- NVIM TREE -------------------------
 require("nvim-tree").setup()
+
+------------------------- NVIM REMOTE -------------------------
+if vim.fn.executable('nvr') then
+    vim.cmd [[ let $GIT_EDITOR = 'nvr' ]]
+end
