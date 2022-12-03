@@ -31,7 +31,7 @@ return require('packer').startup(function()
     use 'adoyle-h/lsp-toggle.nvim'        -- Toggle specific LSP's
     use 'amal-khailtash/vim-xdc-syntax'   -- Syntax highlighting for XDC files
     use 'gpanders/editorconfig.nvim'      -- EditorConfig support
-
+    use 'mfussenegger/nvim-lint'          -- Working on adding more linting stuff
 
     use {
         'shaunsingh/oxocarbon.nvim',
@@ -107,9 +107,9 @@ return require('packer').startup(function()
     -- buggy
     use {
         'dense-analysis/ale',
-        ft = { 'matlab' },
+        ft = { 'matlab', 'vhdl' },
         config = function()
-            vim.g.ale_linters = { matlab = { 'mlint' } }
+            vim.g.ale_linters = { matlab = { 'mlint' }, vhdl = { 'vsg_ale' } }
             vim.g.ale_linters_explicit = true
             vim.cmd [[ALEEnable]]
         end
