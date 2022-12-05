@@ -103,6 +103,7 @@ map('n', '<leader><leader>', '<C-^>')
 map('t', '<Esc>',            '<C-\\><C-n>', {noremap = true})
 map('n', 'ga',               '<Plug>(EasyAlign)')
 map('x', 'ga',               '<Plug>(EasyAlign)')
+map('n', '<leader>ad',       '<cmd>ALEDetail<CR>')
 
 -- functions to use tab and shift+tab to navigate the completion menu
 function _G.smart_tab()

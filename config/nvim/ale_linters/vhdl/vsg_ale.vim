@@ -3,17 +3,14 @@ function! ale_linters#vhdl#vsg_ale#GetCommand(buffer)
 endfunction
 
 function! ale_linters#vhdl#vsg_ale#Handle(buffer, lines)
-    let l:pattern = '^(\w*):\s+(.+)\((\d+)\)(.+)\s+--\s+(.+)$'
-    " let l:pattern = '^\(\w*\):\s+\(.+\)(\(\d+\))\(.+\)\s+--\s+\(.+\)$'
+    let l:pattern = '^\(\w\{-}\):\s\+\(.*\)(\(\d\+\))\(\w\+\)\s\+--\s\+\(.*\)$'
     let l:output = []
 
     for l:match in ale#util#GetMatches(a:lines, l:pattern)
-        echo "fuck"
-        echo 
         call add(l:output, {
-        \   'lnum': l:match[2] - 1,
+        \   'lnum': l:match[3],
         \   'col': 0,
-        \   'text': l:match[1] + ": " + l:match[3] + " - Solution: " + l:match[4],
+        \   'text': l:match[2] . ": " . l:match[4] . " - Solution: " . l:match[5],
         \})
     endfor
     return l:output
