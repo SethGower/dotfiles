@@ -2,14 +2,14 @@
 # https://github.com/zivv/UltiSnips/blob/master/vhdl.snippets
 global !p
 def split_line(text):
-  import textwrap
-  lines = textwrap.wrap(text, 50 - 19)
-  output = list()
-  for line in lines:
-    output.append('-'*2 + ' '*17 + line)
-  snip_line = snip.tabstops[4].end[0]
-  snip.buffer.append(output, snip_line + 1)
-  del snip.buffer[snip_line]
+  	import textwrap
+  	lines = textwrap.wrap(text, 50 - 19)
+  	output = list()
+  	for line in lines:
+  	  	output.append('-'*2 + ' '*17 + line)
+  	snip_line = snip.tabstops[4].end[0]
+  	snip.buffer.append(output, snip_line + 1)
+  	del snip.buffer[snip_line]
 endglobal
 
 post_jump "if snip.tabstop == 0 : split_line(snip.tabstops[2].current_text)"
@@ -52,8 +52,8 @@ endsnippet
 
 snippet ent "entity ... ; | architecture ...;"
 entity ${1:} is
-  port(
-  );
+  	port(
+  	);
 end entity $1;
 architecture ${2:Behavioral} of $1 is
 begin
@@ -66,7 +66,7 @@ endsnippet
 
 snippet with "with ... select"
 with ${1} select
-  ${2} <=
+  	${2} <=
 endsnippet
 
 snippet pm "...: ... port map(...);"
@@ -86,23 +86,23 @@ endsnippet
 
 snippet ifup "if rising_edge(i_clk) then ..."
 if rising_edge(${1:i_clk}) then
-  ${VISUAL}${0}
+  	${VISUAL}${0}
 end if;
 endsnippet
 
 snippet case "case ... is ..."
 case ${VISUAL}${0} is
-  when OTHERS => '0';
+  	when OTHERS => '0';
 end case;
 endsnippet
 
 snippet clock "clk_proccess:process..."
 clk_process:process
 begin
-  ${1} <= '0';
-  wait for ${2}/2;
-  $1 <= '1';
-  wait for $2/2;
+  	${1} <= '0';
+  	wait for ${2}/2;
+  	$1 <= '1';
+  	wait for $2/2;
 end process;
 endsnippet
 
@@ -113,3 +113,6 @@ ${4}
 end function $1;
 endsnippet
 
+snippet att_sig "attribute ${1} of ${2} ..."
+attribute ${1} of ${2} : signal is ${3};
+endsnippet

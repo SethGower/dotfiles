@@ -103,6 +103,7 @@ map('n', '<leader><leader>', '<C-^>')
 map('t', '<Esc>',            '<C-\\><C-n>', {noremap = true})
 map('n', 'ga',               '<Plug>(EasyAlign)')
 map('x', 'ga',               '<Plug>(EasyAlign)')
+map('n', '<leader>ad',       '<cmd>ALEDetail<CR>')
 
 -- functions to use tab and shift+tab to navigate the completion menu
 function _G.smart_tab()
@@ -507,17 +508,38 @@ if vim.fn.executable('nvr') then
     vim.cmd [[ let $GIT_EDITOR = 'nvr' ]]
 end
 
-require('lint').linters.vsg = {
-  cmd = 'vsg',
-  stdin = false, -- or false if it doesn't support content input via stdin. In that case the filename is automatically added to the arguments.
-  append_fname = true, -- Automatically append the file name to `args` if `stdin = false` (default: true)
-  args = {"--config ./vsg_config.yaml -of syntastic -f "}, -- list of arguments. Can contain functions with zero arguments that will be evaluated once the linter is used.
-  stream = 'stdout', -- ('stdout' | 'stderr' | 'both') configure the stream to which the linter outputs the linting result.
-  ignore_exitcode = true, -- set this to true if the linter exits with a code != 0 and that's considered normal.
-  env = nil, -- custom environment table to use with the external process. Note that this replaces the *entire* environment, it is not additive.
-  parser = require('lint.parser').from_errorformat('ERROR: %f(%l)%m')
-}
+local pattern = [[(%w+).*%((%d+)%)(.*)%s+%-%-%s+(.*)]]
+local groups = { 'severity', 'row', 'code', 'message' }
+local overrides = {
+    severities = {
+    ["ERROR"] = 1,
+    ["WARNING"] = 2,
+    ["INFORMATION"] = 3,
+    ["HINT"] = 4,
+}}
+local null_ls = require('null-ls')
+local helpers = require('null-ls.helpers')
+local vsg = {}
+vsg.method = null_ls.methods.DIAGNOSTICS;
+vsg.filetypes = {"vhdl"}
+vsg.generator = helpers.generator_factory({
+    command = "vsg",
+    args = {"-c$ROOT/vsg_config.yaml", "-f$FILENAME", "-of=syntastic"},
+    cwd = nil,
+    check_exit_code = {0, 1},
+    from_stderr = false,
+    to_temp_file = true,
+    to_stdin = false,
+    format = "line",
+    multiple_files = false,
+    on_output = helpers.diagnostics.from_pattern(
+        pattern,
+        groups, 
+        overrides
+    ),
+})
 
-require('lint').linters_by_ft = {
-    vhdl = {'vsg',}
-}
+null_ls.setup({
+    sources = vsg
+})
+
