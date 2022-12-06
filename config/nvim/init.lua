@@ -497,6 +497,7 @@ vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 vim.cmd [[autocmd FileType latex,tex,markdown,md,text setlocal spell spelllang=en_us]]
 vim.cmd [[autocmd FileType make setlocal noexpandtab]]
 vim.cmd [[autocmd FileType gitconfig set ft=dosini]]
+vim.cmd [[autocmd FileType zsh set ft=sh]]
 vim.cmd [[autocmd BufNewFile,BufRead *.h set ft=c]]
 vim.cmd [[autocmd BufNewFile,BufRead *.config set ft=json]]
 vim.cmd("autocmd BufEnter " .. fn.stdpath('config') .. "/*.lua set kp=:help") -- sets the keywordprg to :help for init.lua, that way I can do 'K' on a word and look it up quick
@@ -505,38 +506,40 @@ vim.cmd("autocmd BufEnter " .. fn.stdpath('config') .. "/*.lua set kp=:help") --
 
 require("nvim-tree").setup()
 
-local pattern = [[(%w+).*%((%d+)%)(.*)%s+%-%-%s+(.*)]]
-local groups = { 'severity', 'row', 'code', 'message' }
-local overrides = {
-    severities = {
-    ["ERROR"] = 1,
-    ["WARNING"] = 2,
-    ["INFORMATION"] = 3,
-    ["HINT"] = 4,
-}}
 local null_ls = require('null-ls')
 local helpers = require('null-ls.helpers')
-local vsg = {}
-vsg.method = null_ls.methods.DIAGNOSTICS;
-vsg.filetypes = {"vhdl"}
-vsg.generator = helpers.generator_factory({
-    command = "vsg",
-    args = {"-c$ROOT/vsg_config.yaml", "-f$FILENAME", "-of=syntastic"},
-    cwd = nil,
-    check_exit_code = {0, 1},
-    from_stderr = false,
-    to_temp_file = true,
-    to_stdin = false,
-    format = "line",
-    multiple_files = false,
-    on_output = helpers.diagnostics.from_pattern(
-        pattern,
-        groups, 
-        overrides
-    ),
-})
+local vsg_lint = {
+    name = "VSG",
+    method = null_ls.methods.DIAGNOSTICS,
+    filetypes = { "vhdl" },
+    generator = helpers.generator_factory({
+        command = "vsg",
+        args = { "-c$ROOT/vsg_config.yaml", "-f=$FILENAME", "-of=syntastic", "-p=1" },
+        cwd = nil,
+        check_exit_code = { 0, 1 },
+        from_stderr = false,
+        to_temp_file = true,
+        to_stdin = false,
+        format = "line",
+        multiple_files = false,
+        on_output = helpers.diagnostics.from_patterns({
+            {
+                pattern = [[(%w+).*%((%d+)%)(.*)%s+%-%-%s+(.*)]],
+                groups = { 'severity', 'row', 'code', 'message' },
+                overrides = {
+                    severities = {
+                        ["ERROR"] = 1,
+                        ["WARNING"] = 2,
+                        ["INFORMATION"] = 3,
+                        ["HINT"] = 4,
+                    }
+                }
+            }
+        }),
+    })
+}
 
 null_ls.setup({
-    sources = vsg
+    diagnostics_format = "[#{c}] #{m} (#{s})",
+    sources = vsg_lint
 })
-
