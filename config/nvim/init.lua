@@ -514,12 +514,11 @@ local vsg_lint = {
     filetypes = { "vhdl" },
     generator = helpers.generator_factory({
         command = "vsg",
-        args = { "-c$ROOT/vsg_config.yaml", "-f=$FILENAME", "-of=syntastic", "-p=1" },
+        args = { "-c$ROOT/vsg_config.yaml", "--stdin", "-of=syntastic", "-p=1" },
         cwd = nil,
         check_exit_code = { 0, 1 },
         from_stderr = false,
-        to_temp_file = true,
-        to_stdin = false,
+        to_stdin = true,
         format = "line",
         multiple_files = false,
         on_output = helpers.diagnostics.from_patterns({
