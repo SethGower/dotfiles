@@ -30,7 +30,7 @@ return require('packer').startup(function()
     use {
         'shumphrey/fugitive-gitlab.vim', -- gitlab provider for :GBrowse for fugitive
         after = 'vim-fugitive',
-        cmd = "GBrowse"
+        cmd = { "GBrowse", "GBrowse!" }
     }
 
     use {
@@ -88,7 +88,6 @@ return require('packer').startup(function()
         config = function()
             require('plugins.null-ls')
         end,
-        requires = 'neovim/nvim-lspconfig',
         after = 'nvim-lspconfig'
     } -- Null LS provides linting for linters that don't support LSP, adding for VSG, can use for others
 
@@ -168,12 +167,12 @@ return require('packer').startup(function()
 
     -- Better matchit. Matching beginning and ends of branched statements (if,
     -- for, etc)
-    -- use {
-    --   'andymass/vim-matchup',
-    --   config = function()
-    --     vim.g.matchup_matchparen_offscreen = {} -- disables the showing match offscreen. This was annoying
-    --   end
-    -- }
+    use {
+        'andymass/vim-matchup',
+        config = function()
+            vim.g.matchup_matchparen_offscreen = {} -- disables the showing match offscreen. This was annoying
+        end
+    }
 
     -- Dispatch adds better background compilation than :make
     use {
@@ -199,7 +198,7 @@ return require('packer').startup(function()
         config = function()
             require 'plugins.telescope'
         end,
-        cmd = "Telescope"
+        cmd = "Telescope",
 
     }
     use {
