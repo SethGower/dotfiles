@@ -1,18 +1,9 @@
 ------------------------- TREE-SITTER -------------------------
 
-local function map(mode, lhs, rhs, opts)
-    local options = { noremap = false }
-    if opts then
-        options = vim.tbl_extend('force', options, opts)
-        if opts['noremap'] then
-            options['noremap'] = true
-        end
-    end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
 local ts = require('nvim-treesitter.configs')
+
 ts.setup {
-    ensure_installed = 'all',
+    -- ensure_installed = 'all',
     highlight = { -- built in
         enable = true,
         disable = { 'html' }
@@ -66,4 +57,3 @@ parser_config.vhdl = {
     },
     filetype = "vhdl"
 }
-
