@@ -104,7 +104,7 @@ return require('packer').startup(function()
             'nvim-tree/nvim-web-devicons', -- optional, for file icons
         },
         tag = 'nightly', -- optional, updated every week. (see issue #1193)
-        config = function() 
+        config = function()
             require("nvim-tree").setup()
         end
     }
@@ -205,7 +205,7 @@ return require('packer').startup(function()
     use {
         'fhill2/telescope-ultisnips.nvim', -- Ultisnips extension for Telescope
         requires = 'nvim-telescope/telescope.nvim',
-        after = {'telescope.nvim', 'ultisnips'}
+        after = { 'telescope.nvim', 'ultisnips' }
     }
 
     use {
@@ -234,7 +234,7 @@ return require('packer').startup(function()
     use {
         'rmagatti/session-lens',
         after = 'telescope.nvim',
-        config = function ()
+        config = function()
             require 'plugins.others'.session_lens()
         end
     }

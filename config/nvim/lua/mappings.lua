@@ -58,4 +58,3 @@ vim.api.nvim_set_keymap('i', '<S-Tab>', 'v:lua.smart_back_tab()', { expr = true,
 vim.g.UltiSnipsExpandTrigger       = '<C-j>'
 vim.g.UltiSnipsJumpForwardTriggeru = '<C-j>'
 vim.g.UltiSnipsJumpBackwardTrigger = '<C-k>'
-
