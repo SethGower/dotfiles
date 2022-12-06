@@ -12,15 +12,9 @@ function _G.close_all_floating_wins()
     end
 end
 
-require("telescope").load_extension("session-lens")
 require('auto-session').setup({
     pre_save_cmds = { _G.close_all_floating_wins },
     log_level = "error",
     auto_session_suppress_dirs = { "~/", "~/Downloads", "/" },
     auto_save_enabled = true,
-})
-
-require('session-lens').setup({
-    path_display = { 'shorten' },
-    previewer = true
 })

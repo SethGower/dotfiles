@@ -1,5 +1,4 @@
 ------------------------- AUTO PAIRS -------------------------
-
 local npairs = require('nvim-autopairs')
 npairs.setup({
     check_ts = true,
@@ -19,5 +18,3 @@ MUtils.completion_confirm = function()
         return npairs.autopairs_cr()
     end
 end
-
-map('i', '<CR>', 'v:lua.MUtils.completion_confirm()', { expr = true, noremap = true })

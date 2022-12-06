@@ -210,8 +210,3 @@ end
 vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
 vim.cmd('autocmd CursorHold * lua vim.diagnostic.open_float()')
 vim.cmd('autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()')
-
-require('lsp-toggle').setup {
-    create_cmds = true, -- Whether to create user commands
-    telescope = true, -- Whether to load telescope extensions
-}

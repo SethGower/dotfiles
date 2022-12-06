@@ -7,23 +7,60 @@ end
 
 local use = require('packer').use
 return require('packer').startup(function()
-    use 'wbthomason/packer.nvim' -- packer manages itself
-    use 'SirVer/ultisnips' -- Snippets from Ultisnips
-    use 'honza/vim-snippets' -- default snippets for Ultisnips
-    use 'vim-airline/vim-airline' -- airline status line
-    use 'windwp/nvim-autopairs' -- auto pairs for certain characters
-    use 'junegunn/vim-easy-align' -- better alignment
-    use 'tpope/vim-commentary' -- comments lines with motions
-    use 'tpope/vim-fugitive' -- git commands in vim
-    use 'shumphrey/fugitive-gitlab.vim' -- gitlab provider for :GBrowse for fugitive
-    use 'tpope/vim-rhubarb' -- github provider for :GBrowse for fugitive
-    use 'kshenoy/vim-signature' -- adds markers to the sign column
-    use 'moll/vim-bbye' -- better buffer deletion
+    use 'wbthomason/packer.nvim'     -- packer manages itself
+    use 'moll/vim-bbye'              -- better buffer deletion
     use 'aymericbeaumet/vim-symlink' -- read symlinks for pwd
-    use 'gennaro-tedesco/nvim-jqx' -- Easily navigate json trees
-    -- use 'github/copilot.vim'              -- Github Copilot
-    use 'Numkil/ag.nvim' -- Silver Searcher
-    use 'amal-khailtash/vim-xdc-syntax' -- Syntax highlighting for XDC files
+    use 'SirVer/ultisnips'           -- Snippets from Ultisnips
+    -- use 'honza/vim-snippets'         -- default snippets for Ultisnips
+    -- use 'vim-airline/vim-airline'    -- airline status line
+    use 'kshenoy/vim-signature' -- adds markers to the sign column
+
+    use {
+        'junegunn/vim-easy-align',
+        cmd = "EasyAlign"
+    }
+    use 'tpope/vim-commentary' -- comments lines with motions
+
+    use {
+        'tpope/vim-fugitive',
+        cmd = { "G", "Gvdiffsplit", "Gvdiffsplit!" }
+    }
+
+    use {
+        'shumphrey/fugitive-gitlab.vim', -- gitlab provider for :GBrowse for fugitive
+        after = 'vim-fugitive',
+        cmd = "GBrowse"
+    }
+
+    use {
+        'tpope/vim-rhubarb', -- github provider for :GBrowse for fugitive
+        after = 'vim-fugitive',
+        cmd = "GBrowse"
+    }
+
+    -- Easily navigate json trees
+    use {
+        'gennaro-tedesco/nvim-jqx',
+        ft = "json"
+    }
+
+    -- Silver Searcher
+    use {
+        'Numkil/ag.nvim',
+        cmd = 'Ag'
+    }
+
+    -- auto pairs for certain characters
+    use {
+        'windwp/nvim-autopairs',
+        config = function()
+            require 'plugins.auto-pairs'
+        end
+    } -- auto pairs for certain characters
+    use {
+        'amal-khailtash/vim-xdc-syntax',
+        ft = 'xdc'
+    } -- Syntax highlighting for XDC files
 
     -- LSP configuration for built in LSP
     use {
@@ -34,12 +71,16 @@ return require('packer').startup(function()
     }
 
     use {
-        'adoyle-h/lsp-toggle.nvim', -- Toggle specific LSPs
         'ray-x/lsp_signature.nvim', -- Adds signature help in a popup for functions with info from LSP
         'kosayoda/nvim-lightbulb', -- Lightbulb icon for code actions
-        requires = 'neovim/nvim-lspconfig'
+        after = 'nvim-lspconfig'
     }
 
+    -- use {
+    --     'adoyle-h/lsp-toggle.nvim', -- Toggle specific LSPs
+    --     after = { 'nvim-lspconfig', 'telescope.nvim' },
+    --     config = function () require 'plugins.others'.lsp_toggle() end
+    -- }
 
     use {
         'jose-elias-alvarez/null-ls.nvim',
@@ -50,10 +91,10 @@ return require('packer').startup(function()
     } -- Null LS provides linting for linters that don't support LSP, adding for VSG, can use for others
 
 
-    use {
-        'shaunsingh/oxocarbon.nvim',
-        run = './install.sh'
-    }
+    -- use {
+    --     'shaunsingh/oxocarbon.nvim',
+    --     run = './install.sh'
+    -- }
 
     use {
         'nvim-tree/nvim-tree.lua',
@@ -85,7 +126,9 @@ return require('packer').startup(function()
         tag = '*',
         config = function()
             require("plugins.toggle-term")
-        end
+        end,
+        cmd = "ToggleTerm",
+        keys = { 'n', '<c-\\>' }
     }
     -- GDB Integration
     use {
@@ -109,9 +152,13 @@ return require('packer').startup(function()
         }, -- Adds rainbow parentheses based on tree sitter
         'windwp/nvim-ts-autotag', -- Auto close tags with tree sitter
         'romgrk/nvim-treesitter-context', -- Provide context from tree-sitter
-        'nvim-treesitter/playground', -- Playground for tree-sitter
 
-        requires = { 'nvim-treesitter/nvim-treesitter' }
+        after = { 'nvim-treesitter' }
+    }
+    use {
+        'nvim-treesitter/playground', -- Playground for tree-sitter
+        cmd = "TSPlaygroundToggle"
+
     }
 
     -- Better matchit. Matching beginning and ends of branched statements (if,
@@ -143,36 +190,47 @@ return require('packer').startup(function()
         requires = {
             'nvim-lua/popup.nvim',
             'nvim-lua/plenary.nvim'
-        }
+        },
+        config = function()
+            require 'plugins.telescope'
+        end,
+        cmd = "Telescope"
+
     }
     use {
         'fhill2/telescope-ultisnips.nvim', -- Ultisnips extension for Telescope
+        requires = 'nvim-telescope/telescope.nvim',
+        after = {'telescope.nvim', 'ultisnips'}
+    }
+
+    use {
         'olacin/telescope-gitmoji.nvim',
-        requires = 'nvim-telescope/telescope.nvim'
+        requires = 'nvim-telescope/telescope.nvim',
+        after = 'telescope.nvim'
     }
 
     -- Harpoon
     use {
         'ThePrimeagen/harpoon',
         requires = { { 'nvim-lua/plenary.nvim' } },
+        after = 'telescope.nvim',
         config = function() require('telescope').load_extension('harpoon') end
     }
 
 
     use {
         'rmagatti/auto-session', -- Session management
-        config = function() require 'plugins.auto-session' end
+        config = function()
+            require 'plugins.auto-session'
+        end,
 
     }
     -- Session Lens for session and telescope cooperation
     use {
         'rmagatti/session-lens',
-        requires = { 'rmagatti/auto-session', 'nvim-telescope/telescope.nvim' },
-        config = function()
-            require('session-lens').setup({
-                path_display = { 'shorten' },
-                previewer = true
-            })
+        after = 'telescope.nvim',
+        config = function ()
+            require 'plugins.others'.session_lens()
         end
     }
     -- git interface stuff for nvim. Mainly for git blame
@@ -203,14 +261,12 @@ return require('packer').startup(function()
     use {
         'lervag/vimtex',
         ft = 'tex',
-        opt = true
     }
 
     -- VHDL plugin for copying and pasting entities and such
     use {
         'JPR75/vip',
-        ft = 'vhdl',
-        opt = true
+        cmd = { "Viy", "Vii", "Vic" },
     }
 
     -- Dracula colorscheme https://draculatheme.com/
@@ -223,7 +279,8 @@ return require('packer').startup(function()
     -- Glow for markdown previews
     use {
         'npxbr/glow.nvim',
-        run = 'GlowInstall'
+        run = 'GlowInstall',
+        ft = "markdown"
     }
 
     -- Markdown Preview for live preview
