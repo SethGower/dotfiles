@@ -24,7 +24,7 @@ return require('packer').startup(function()
 
     use {
         'tpope/vim-fugitive',
-        cmd = { "G", "Gvdiffsplit", "Gvdiffsplit!" }
+        cmd = { "G", "Gvdiffsplit", "Gvdiffsplit!", "GBrowse", "GBrowse!" }
     }
 
     use {
@@ -36,7 +36,7 @@ return require('packer').startup(function()
     use {
         'tpope/vim-rhubarb', -- github provider for :GBrowse for fugitive
         after = 'vim-fugitive',
-        cmd = "GBrowse"
+        cmd = { "GBrowse", "GBrowse!" }
     }
 
     -- Easily navigate json trees
