@@ -527,8 +527,8 @@ local vsg_lint = {
                 groups = { 'severity', 'row', 'code', 'message' },
                 overrides = {
                     severities = {
-                        ["ERROR"] = 1,
-                        ["WARNING"] = 2,
+                        ["ERROR"] = 2,
+                        ["WARNING"] = 3,
                         ["INFORMATION"] = 3,
                         ["HINT"] = 4,
                     }
