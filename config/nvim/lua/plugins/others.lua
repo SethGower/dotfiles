@@ -14,4 +14,5 @@ M.lsp_toggle = function()
         telescope = true, -- Whether to load telescope extensions
     }
 end
+
 return M

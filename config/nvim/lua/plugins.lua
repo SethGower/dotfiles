@@ -5,6 +5,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
         install_path })
 end
 
+vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 local use = require('packer').use
 return require('packer').startup(function()
     use 'wbthomason/packer.nvim'     -- packer manages itself
@@ -87,7 +88,8 @@ return require('packer').startup(function()
         config = function()
             require('plugins.null-ls')
         end,
-        requires = 'neovim/nvim-lspconfig'
+        requires = 'neovim/nvim-lspconfig',
+        after = 'nvim-lspconfig'
     } -- Null LS provides linting for linters that don't support LSP, adding for VSG, can use for others
 
 
@@ -101,7 +103,10 @@ return require('packer').startup(function()
         requires = {
             'nvim-tree/nvim-web-devicons', -- optional, for file icons
         },
-        tag = 'nightly' -- optional, updated every week. (see issue #1193)
+        tag = 'nightly', -- optional, updated every week. (see issue #1193)
+        config = function() 
+            require("nvim-tree").setup()
+        end
     }
     -- project management for neovim
     -- use {
