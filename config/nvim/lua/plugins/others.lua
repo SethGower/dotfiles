@@ -15,4 +15,10 @@ M.lsp_toggle = function()
     }
 end
 
+M.ultisnips = function()
+    vim.g.UltiSnipsExpandTrigger       = '<C-j>'
+    vim.g.UltiSnipsJumpForwardTriggeru = '<C-j>'
+    vim.g.UltiSnipsJumpBackwardTrigger = '<C-k>'
+end
+
 return M

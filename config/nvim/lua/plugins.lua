@@ -11,9 +11,12 @@ return require('packer').startup(function()
     use 'wbthomason/packer.nvim'     -- packer manages itself
     use 'moll/vim-bbye'              -- better buffer deletion
     use 'aymericbeaumet/vim-symlink' -- read symlinks for pwd
-    use 'SirVer/ultisnips'           -- Snippets from Ultisnips
-    -- use 'honza/vim-snippets'         -- default snippets for Ultisnips
-    -- use 'vim-airline/vim-airline'    -- airline status line
+    use {
+        'SirVer/ultisnips',
+        config = function() require 'plugins.others'.ultisnips() end
+    }           -- Snippets from Ultisnips
+    use 'honza/vim-snippets'         -- default snippets for Ultisnips
+    use 'vim-airline/vim-airline'    -- airline status line
     use 'kshenoy/vim-signature' -- adds markers to the sign column
 
     use {
