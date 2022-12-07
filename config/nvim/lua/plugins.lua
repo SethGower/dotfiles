@@ -19,8 +19,7 @@ return require('packer').startup(function()
     }
 
     use 'honza/vim-snippets'         -- default snippets for Ultisnips
-    use 'vim-airline/vim-airline'    -- airline status line
-    use 'kshenoy/vim-signature' -- adds markers to the sign column
+    use 'kshenoy/vim-signature'      -- adds markers to the sign column
 
     use {
         'junegunn/vim-easy-align',
@@ -287,6 +286,12 @@ return require('packer').startup(function()
     use {
         'tweekmonster/startuptime.vim',
         cmd = 'StartupTime'
+    }
+
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+        config = [[require'plugins.lualine']]
     }
 
     if packer_bootstrap then
