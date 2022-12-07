@@ -11,10 +11,13 @@ return require('packer').startup(function()
     use 'wbthomason/packer.nvim'     -- packer manages itself
     use 'moll/vim-bbye'              -- better buffer deletion
     use 'aymericbeaumet/vim-symlink' -- read symlinks for pwd
+
+    -- Snippets from Ultisnips
     use {
         'SirVer/ultisnips',
-        config = function() require 'plugins.others'.ultisnips() end
-    }           -- Snippets from Ultisnips
+        config = [[require 'plugins.others'.ultisnips()]]
+    }
+
     use 'honza/vim-snippets'         -- default snippets for Ultisnips
     use 'vim-airline/vim-airline'    -- airline status line
     use 'kshenoy/vim-signature' -- adds markers to the sign column
@@ -57,9 +60,7 @@ return require('packer').startup(function()
     -- auto pairs for certain characters
     use {
         'windwp/nvim-autopairs',
-        config = function()
-            require 'plugins.auto-pairs'
-        end
+        config = [[require 'plugins.auto-pairs']]
     } -- auto pairs for certain characters
     use {
         'amal-khailtash/vim-xdc-syntax',
@@ -69,9 +70,7 @@ return require('packer').startup(function()
     -- LSP configuration for built in LSP
     use {
         'neovim/nvim-lspconfig',
-        config = function()
-            require('plugins.lsp')
-        end
+        config = [[require('plugins.lsp')]]
     }
 
     use {
@@ -88,9 +87,7 @@ return require('packer').startup(function()
 
     use {
         'jose-elias-alvarez/null-ls.nvim',
-        config = function()
-            require('plugins.null-ls')
-        end,
+        config = [[require('plugins.null-ls')]],
         after = 'nvim-lspconfig'
     } -- Null LS provides linting for linters that don't support LSP, adding for VSG, can use for others
 
@@ -106,9 +103,8 @@ return require('packer').startup(function()
             'nvim-tree/nvim-web-devicons', -- optional, for file icons
         },
         tag = 'nightly', -- optional, updated every week. (see issue #1193)
-        config = function()
-            require("nvim-tree").setup()
-        end
+        config = [[require("nvim-tree").setup()]],
+        cmd = 'NvimTree*'
     }
     -- project management for neovim
     -- use {
@@ -131,9 +127,7 @@ return require('packer').startup(function()
     use {
         "akinsho/toggleterm.nvim",
         tag = '*',
-        config = function()
-            require("plugins.toggle-term")
-        end,
+        config = [[require("plugins.toggle-term")]],
         cmd = "ToggleTerm",
         keys = { 'n', '<c-\\>' }
     }
@@ -148,9 +142,8 @@ return require('packer').startup(function()
         'nvim-treesitter/nvim-treesitter',
         branch = 'v0.8.0',
         run = ':TSUpdate',
-        config = function()
-            require 'plugins.tree-sitter'
-        end
+        config = [[require 'plugins.tree-sitter']]
+
     }
 
     use {
@@ -172,9 +165,7 @@ return require('packer').startup(function()
     -- for, etc)
     use {
         'andymass/vim-matchup',
-        config = function()
-            vim.g.matchup_matchparen_offscreen = {} -- disables the showing match offscreen. This was annoying
-        end
+        config = [[require'plugins.others'.matchup()]]
     }
 
     -- Dispatch adds better background compilation than :make
@@ -198,10 +189,9 @@ return require('packer').startup(function()
             'nvim-lua/popup.nvim',
             'nvim-lua/plenary.nvim'
         },
-        config = function()
-            require 'plugins.telescope'
-        end,
+        config = [[require 'plugins.telescope']],
         cmd = "Telescope",
+        module = "telescope"
 
     }
     use {
@@ -221,7 +211,7 @@ return require('packer').startup(function()
         'ThePrimeagen/harpoon',
         requires = { { 'nvim-lua/plenary.nvim' } },
         after = 'telescope.nvim',
-        config = function() require('telescope').load_extension('harpoon') end
+        config = [[require 'plugins.others'.harpoon()]],
     }
 
 
@@ -236,9 +226,7 @@ return require('packer').startup(function()
     use {
         'rmagatti/session-lens',
         after = 'telescope.nvim',
-        config = function()
-            require 'plugins.others'.session_lens()
-        end
+        config = [[require 'plugins.others'.session_lens()]]
     }
     -- git interface stuff for nvim. Mainly for git blame
     use {
@@ -246,16 +234,14 @@ return require('packer').startup(function()
         requires = {
             'nvim-lua/plenary.nvim'
         },
-        config = function()
-            require('plugins.git-signs')
-        end
+        config = [[require('plugins.git-signs')]]
     }
 
     -- completion using deoplete
     use {
         'Shougo/deoplete.nvim',
-        run = function() vim.cmd('UpdateRemotePlugins') end,
-        config = function() vim.g['deoplete#enable_at_startup'] = 1 end
+        run = [[vim.cmd('UpdateRemotePlugins')]],
+        config = [[vim.g['deoplete#enable_at_startup'] = 1]]
     }
 
     -- -- LSP completion source for deoplete

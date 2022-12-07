@@ -21,4 +21,11 @@ M.ultisnips = function()
     vim.g.UltiSnipsJumpBackwardTrigger = '<C-k>'
 end
 
+M.matchup = function()
+    vim.g.matchup_matchparen_offscreen = {} -- disables the showing match offscreen. This was annoying
+end
+
+M.harpoon = function()
+    require('telescope').load_extension('harpoon')
+end
 return M
