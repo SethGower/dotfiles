@@ -12,6 +12,10 @@ return require('packer').startup(function()
     use 'moll/vim-bbye'              -- better buffer deletion
     use 'aymericbeaumet/vim-symlink' -- read symlinks for pwd
 
+    use {
+        'lukas-reineke/indent-blankline.nvim',
+        config = [[require'plugins.others'.indentline()]]
+    }
     -- Snippets from Ultisnips
     use {
         'SirVer/ultisnips',

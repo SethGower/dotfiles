@@ -28,4 +28,16 @@ end
 M.harpoon = function()
     require('telescope').load_extension('harpoon')
 end
+
+M.indentline = function()
+    vim.opt.list = true
+    vim.opt.listchars:append "space:⋅"
+    vim.opt.listchars:append "eol:↴"
+
+    require("indent_blankline").setup {
+        space_char_blankline = " ",
+        show_current_context = true,
+        show_current_context_start = true,
+    }
+end
 return M
