@@ -6,7 +6,17 @@ local vsg_lint = {
     filetypes = { "vhdl" },
     generator = helpers.generator_factory({
         command = "vsg",
-        args = { "-c$ROOT/vsg_config.yaml", "--stdin", "-of=syntastic", "-p=1" },
+        args = function(params)
+            local rv = {}
+            -- check if there is a config file in the root directory, if so
+            -- insert the -c argument with it
+            if vim.fn.filereadable(params.root .. '/vsg_config.yaml') == 1 then
+                table.insert(rv, '-c=' .. params.root .. '/vsg_config.yaml')
+            end
+            table.insert(rv, '--stdin')
+            table.insert(rv, '-of=syntastic')
+            return rv
+        end,
         cwd = nil,
         check_exit_code = function() return true end,
         from_stderr = false,
