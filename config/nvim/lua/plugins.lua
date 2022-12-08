@@ -11,6 +11,7 @@ return require('packer').startup(function()
     use 'wbthomason/packer.nvim'     -- packer manages itself
     use 'moll/vim-bbye'              -- better buffer deletion
     use 'aymericbeaumet/vim-symlink' -- read symlinks for pwd
+    use 'tpope/vim-sleuth'           -- handles tab expansion based on current file indentation
 
     use {
         'lukas-reineke/indent-blankline.nvim',
