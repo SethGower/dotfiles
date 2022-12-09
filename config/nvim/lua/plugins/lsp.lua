@@ -31,17 +31,14 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "<leader>d",  "<cmd>Trouble document_diagnostics<CR>",       opts)
     buf_set_keymap("n", "<leader>D",  "<cmd>Trouble workspace_diagnostics<CR>",      opts)
 
-    -- buf_set_keymap('n', 'K',          '<cmd>lua vim.lsp.buf.hover()<CR>',                        opts)
-    -- buf_set_keymap('n', '<C-k>',      '<cmd>lua vim.lsp.buf.signature_help()<CR>',               opts)
-
-    --   opt.updatetime  = 300
-    --   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    --     vim.lsp.diagnostic.on_publish_diagnostics, {
-    --       virtual_text = false,
-    --       underline = true,
-    --       signs = true,
-    --     }
-    --   )
+      vim.opt.updatetime  = 300
+      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+        vim.lsp.diagnostic.on_publish_diagnostics, {
+          virtual_text = true,
+          underline = true,
+          signs = true,
+        }
+      )
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
