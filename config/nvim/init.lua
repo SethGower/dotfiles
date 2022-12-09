@@ -17,6 +17,8 @@
 -- IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 -- CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 require 'options'
+require 'autocommands'
+
 local async
 async =
 vim.loop.new_async(
@@ -25,13 +27,11 @@ vim.loop.new_async(
             require 'local_config'
             require 'plugins'
             require 'mappings'
-            require 'autocommands'
             async:close()
         end
     )
 )
 async:send()
--- recompile packer whenever saving the lua/plugins.lua file
 
 vim.o.termguicolors = true
 vim.g.dracula_colorterm = 0
