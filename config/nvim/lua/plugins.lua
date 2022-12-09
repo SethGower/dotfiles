@@ -95,6 +95,12 @@ return require('packer').startup(function()
         after = 'nvim-lspconfig'
     } -- Null LS provides linting for linters that don't support LSP, adding for VSG, can use for others
 
+    use {
+        "folke/trouble.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+        after = 'nvim-lspconfig',
+        config = [[require'plugins.others'.trouble()]],
+    }
 
     -- use {
     --     'shaunsingh/oxocarbon.nvim',
