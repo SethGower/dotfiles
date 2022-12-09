@@ -4,6 +4,11 @@ local ts = require('nvim-treesitter.configs')
 
 ts.setup {
     -- ensure_installed = 'all',
+    query_linter = {
+        enabled = true,
+        use_virtual_text = true,
+        lint_events = { "BufWrite", "CursorHold" },
+    },
     highlight = { -- built in
         enable = true,
         disable = { 'html' }

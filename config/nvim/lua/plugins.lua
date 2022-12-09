@@ -167,7 +167,7 @@ return require('packer').startup(function()
     }
     use {
         'nvim-treesitter/playground', -- Playground for tree-sitter
-        cmd = "TSPlaygroundToggle"
+        cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" }
 
     }
 
