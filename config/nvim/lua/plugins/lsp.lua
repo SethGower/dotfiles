@@ -27,7 +27,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<leader>e',  '<cmd>lua vim.diagnostic.open_float()<CR>',    opts)
     buf_set_keymap('n', '[d',         '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', ']d',         '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap("n", "<leader>f",  "<cmd>lua vim.lsp.buf.formatting()<CR>",       opts)
+    buf_set_keymap("n", "<leader>f",  "<cmd>lua vim.lsp.buf.format{async = true}<CR>",       opts)
     buf_set_keymap("n", "<leader>d",  "<cmd>Trouble document_diagnostics<CR>",       opts)
     buf_set_keymap("n", "<leader>D",  "<cmd>Trouble workspace_diagnostics<CR>",      opts)
 
@@ -42,7 +42,6 @@ local on_attach = function(client, bufnr)
     --       signs = true,
     --     }
     --   )
-    -- require "lsp_signature".on_attach()  -- Note: add in lsp client on-attach
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -189,8 +188,6 @@ local setup = function()
     }
     )
 
-    require('lsp_signature').setup()
-
     -- sets up highlighting for lsp items
 
 
@@ -207,9 +204,9 @@ local setup = function()
     end
 
     -- Lightbulb stuff
-    vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
-    vim.cmd('autocmd CursorHold * lua vim.diagnostic.open_float()')
-    vim.cmd('autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()')
+    -- vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
+    -- vim.cmd('autocmd CursorHold * lua vim.diagnostic.open_float()')
+    -- vim.cmd('autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()')
 end
 
 return {

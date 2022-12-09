@@ -76,11 +76,11 @@ return require('packer').startup(function()
         config = [[require('plugins.lsp').setup()]]
     }
 
-    use {
-        'ray-x/lsp_signature.nvim', -- Adds signature help in a popup for functions with info from LSP
-        'kosayoda/nvim-lightbulb', -- Lightbulb icon for code actions
-        after = 'nvim-lspconfig'
-    }
+    -- use {
+    --     'ray-x/lsp_signature.nvim', -- Adds signature help in a popup for functions with info from LSP
+    --     'kosayoda/nvim-lightbulb', -- Lightbulb icon for code actions
+    --     after = 'nvim-lspconfig'
+    -- }
 
     use {
         'jose-elias-alvarez/null-ls.nvim',
