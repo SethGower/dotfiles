@@ -12,6 +12,8 @@ return require('packer').startup(function()
     use 'moll/vim-bbye'              -- better buffer deletion
     use 'aymericbeaumet/vim-symlink' -- read symlinks for pwd
     use 'tpope/vim-sleuth'           -- handles tab expansion based on current file indentation
+    use 'honza/vim-snippets'         -- default snippets for Ultisnips
+    use 'kshenoy/vim-signature'      -- adds markers to the sign column
 
     use {
         'lukas-reineke/indent-blankline.nvim',
@@ -22,9 +24,6 @@ return require('packer').startup(function()
         'SirVer/ultisnips',
         config = [[require 'plugins.others'.ultisnips()]]
     }
-
-    use 'honza/vim-snippets'         -- default snippets for Ultisnips
-    use 'kshenoy/vim-signature'      -- adds markers to the sign column
 
     use {
         'junegunn/vim-easy-align',
@@ -133,22 +132,21 @@ return require('packer').startup(function()
         branch = 'v0.8.0',
         run = ':TSUpdate',
         config = [[require 'plugins.tree-sitter']]
-
     }
 
     use {
-        { 'SethGower/nvim-ts-rainbow',
-            branch = "adding-vhdl",
-        }, -- Adds rainbow parentheses based on tree sitter
         'windwp/nvim-ts-autotag', -- Auto close tags with tree sitter
         'romgrk/nvim-treesitter-context', -- Provide context from tree-sitter
-
-        after = { 'nvim-treesitter' }
-    }
-    use {
-        'nvim-treesitter/playground', -- Playground for tree-sitter
-        cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" }
-
+        {
+            'SethGower/nvim-ts-rainbow',
+            branch = "adding-vhdl",
+        }, -- Adds rainbow parentheses based on tree sitter
+        {
+            'nvim-treesitter/playground', -- Playground for tree-sitter
+            cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" }
+        },
+        after = { 'nvim-treesitter' },
+        requires = { 'nvim-treesitter/nvim-treesitter' }
     }
 
     -- Better matchit. Matching beginning and ends of branched statements (if,
