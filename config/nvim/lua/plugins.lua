@@ -83,12 +83,6 @@ return require('packer').startup(function()
         after = 'nvim-lspconfig'
     }
 
-    -- use {
-    --     'adoyle-h/lsp-toggle.nvim', -- Toggle specific LSPs
-    --     after = { 'nvim-lspconfig', 'telescope.nvim' },
-    --     config = function () require 'plugins.others'.lsp_toggle() end
-    -- }
-
     use {
         'jose-elias-alvarez/null-ls.nvim',
         config = [[require('plugins.null-ls')]],
@@ -102,11 +96,6 @@ return require('packer').startup(function()
         config = [[require'plugins.others'.trouble()]],
     }
 
-    -- use {
-    --     'shaunsingh/oxocarbon.nvim',
-    --     run = './install.sh'
-    -- }
-
     use {
         'nvim-tree/nvim-tree.lua',
         requires = {
@@ -116,16 +105,7 @@ return require('packer').startup(function()
         config = [[require("nvim-tree").setup()]],
         cmd = 'NvimTree*'
     }
-    -- project management for neovim
-    -- use {
-    --     "ahmedkhalf/project.nvim",
-    --     config = function()
-    --         require("project_nvim").setup {
-    --             patterns = {"^Makefile"},
-    --             ignore_lsp = {"sumneko_lua"}
-    --         }
-    --     end
-    -- }
+
     use {
         'ygm2/rooter.nvim',
         config = function()
