@@ -59,6 +59,7 @@ local vsg_format = {
 }
 
 null_ls.setup({
+    on_attach = require('plugins.lsp').on_attach,
     diagnostics_format = "[#{c}] #{m} (#{s})",
     sources = { vsg_lint, vsg_format }
 })
