@@ -10,6 +10,7 @@ ts.setup {
         lint_events = { "BufWrite", "CursorHold" },
     },
     highlight = { -- built in
+        additional_vim_regex_highlighting = false,
         enable = true,
         disable = { 'html' }
     },
