@@ -89,7 +89,6 @@ return require('packer').startup(function()
     use {
         'jose-elias-alvarez/null-ls.nvim',
         config = [[require('plugins.null-ls')]],
-        after = 'nvim-lspconfig'
     } -- Null LS provides linting for linters that don't support LSP, adding for VSG, can use for others
 
     use {
