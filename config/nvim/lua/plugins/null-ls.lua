@@ -61,5 +61,10 @@ local vsg_format = {
 null_ls.setup({
     on_attach = require('plugins.lsp').on_attach,
     diagnostics_format = "[#{c}] #{m} (#{s})",
-    sources = { vsg_lint, vsg_format, null_ls.builtins.code_actions.gitsigns }
+    sources = {
+        vsg_lint,
+        vsg_format,
+        null_ls.builtins.code_actions.gitsigns,
+        null_ls.builtins.formatting.verible_verilog_format
+    }
 })
