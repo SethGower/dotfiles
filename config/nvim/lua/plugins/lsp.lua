@@ -19,7 +19,7 @@ local on_attach = function(client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     buf_set_keymap('n', 'gD',         '<cmd>lua vim.lsp.buf.declaration()<CR>',      opts)
     buf_set_keymap('n', 'gi',         '<cmd>Trouble lsp_implementations<CR>',        opts)
-    buf_set_keymap('n', 'gd',         '<cmd>Trouble lsp_definitions<CR>',            opts)
+    buf_set_keymap('n', 'gd',         '<cmd>lua vim.lsp.buf.definition()<CR>',       opts)
     buf_set_keymap('n', 'gr',         '<cmd>Trouble lsp_references<CR>',             opts)
     buf_set_keymap('n', '<C-k>',      '<cmd>lua vim.lsp.buf.hover()<CR>',            opts)
     buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>',           opts)
