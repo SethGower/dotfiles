@@ -3,9 +3,11 @@ local lspconfig = require('lspconfig')
 local configs = require('lspconfig.configs')
 local util = require('lspconfig.util')
 
+local M = {}
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(_, bufnr)
+M.on_attach = function(_, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -52,7 +54,8 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 
-local setup = function()
+M.setup = function()
+    local on_attach = M.on_attach
     require('mason').setup()
     require('mason-lspconfig').setup{
         ensure_installed = { "sumneko_lua" }
@@ -172,7 +175,4 @@ local setup = function()
     -- vim.cmd('autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()')
 end
 
-return {
-    setup = setup,
-    on_attach = on_attach
-}
+return M
