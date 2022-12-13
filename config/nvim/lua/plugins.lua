@@ -16,6 +16,19 @@ return require('packer').startup(function()
     use 'kshenoy/vim-signature'      -- adds markers to the sign column
     use 'tpope/vim-commentary'       -- comments lines with motions
 
+    use {
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-cmdline',
+        'saadparwaiz1/cmp_luasnip',
+        requires = 'hrsh7th/nvim-cmp'
+    }
+    use {
+        'hrsh7th/nvim-cmp',
+        config = [[require'plugins.completions']]
+    }
+
     -- Snippets Engine that's written in Lua so it's faster
     use {
         'L3MON4D3/LuaSnip',
@@ -233,18 +246,18 @@ return require('packer').startup(function()
         config = [[require('plugins.git-signs')]]
     }
 
-    -- completion using deoplete
-    use {
-        'Shougo/deoplete.nvim',
-        run = [[vim.cmd('UpdateRemotePlugins')]],
-        config = [[vim.g['deoplete#enable_at_startup'] = 1]]
-    }
+    -- -- completion using deoplete
+    -- use {
+    --     'Shougo/deoplete.nvim',
+    --     run = [[vim.cmd('UpdateRemotePlugins')]],
+    --     config = [[vim.g['deoplete#enable_at_startup'] = 1]]
+    -- }
 
-    -- -- LSP completion source for deoplete
-    use {
-        'deoplete-plugins/deoplete-lsp',
-        requires = { 'Shougo/deoplete.nvim' }
-    }
+    -- -- -- LSP completion source for deoplete
+    -- use {
+    --     'deoplete-plugins/deoplete-lsp',
+    --     requires = { 'Shougo/deoplete.nvim' }
+    -- }
 
     -- VimTeX for better development of LaTeX
     use {

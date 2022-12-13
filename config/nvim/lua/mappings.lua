@@ -1,10 +1,3 @@
------------------------- MAPS -------------------------
-
-local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
-local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
-local g = vim.g      -- a table to access global variables
-local opt = vim.opt  -- to set options
-local o = vim.o
 -- Normalize codes (such as <Tab>) to their terminal codes (<Tab> == ^I)
 local function t(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
