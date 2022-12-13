@@ -1,5 +1,5 @@
 local cmp = require 'cmp'
-local select_opts = {behavior = cmp.SelectBehavior.Select}
+local _ = { behavior = cmp.SelectBehavior.Select }
 
 cmp.setup {
     snippet = {
@@ -14,8 +14,7 @@ cmp.setup {
         { name = 'path' }
     },
     mappings = {
-        ['<Tab>'] = cmp.mapping.select_prev_item(select_opts),
-        ['<S-Tab>'] = cmp.mapping.select_next_item(select_opts),
+        ['<C-p>'] = cmp.mapping.select_prev_item(nil),
+        ['<C-n>'] = cmp.mapping.select_next_item(nil),
     }
 }
-
