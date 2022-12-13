@@ -1,0 +1,51 @@
+
+# Shamelessly stolen from
+# https://github.com/zivv/UltiSnips/blob/master/vhdl.snippets
+
+snippet lib "library IEEE; | use IEEE.STD_LOGIC_1164.ALL;"
+	library ieee;
+		use ieee.std_logic_1164.all;
+		use ieee.numeric_std.all;
+		use ieee.std_logic_unsigned.all;
+
+snippet slv "std_logic_vector(... downto 0)"
+	std_logic_vector(${1} downto 0);
+
+snippet with "with ... select"
+	with ${1} select
+	${2} <=
+
+snippet pm "...: ... port map(...);"
+	${1}: ${2} port map(${3});
+
+snippet type "type ... is (...);"
+	type ${1} is (${2});
+
+snippet ifup "if rising_edge(i_clk) then ..."
+	if rising_edge(${1:i_clk}) then
+		${VISUAL}${0}
+	end if;
+
+snippet case "case ... is ..."
+	case ${VISUAL}${0} is
+		when ${1} => null;
+		when OTHERS => '0';
+	end case;
+
+snippet clock "clk_proccess:process..."
+	clk_process:process
+	begin
+		${1} <= '0';
+		wait for ${2}/2;
+		$1 <= '1';
+		wait for $2/2;
+	end process;
+
+snippet func "function ${1} (${2})..."
+	function ${1}(${2}) return ${3} is
+	begin
+		${4}
+	end function $1;
+
+snippet att_sig "attribute ${1} of ${2} ..."
+	attribute ${1} of ${2} : signal is ${3};

@@ -12,19 +12,19 @@ return require('packer').startup(function()
     use 'moll/vim-bbye'              -- better buffer deletion
     use 'aymericbeaumet/vim-symlink' -- read symlinks for pwd
     use 'tpope/vim-sleuth'           -- handles tab expansion based on current file indentation
-    use 'honza/vim-snippets'         -- default snippets for Ultisnips
+    use 'honza/vim-snippets'         -- default snippets snipmate style
     use 'kshenoy/vim-signature'      -- adds markers to the sign column
     use 'tpope/vim-commentary'       -- comments lines with motions
 
+    -- Snippets Engine that's written in Lua so it's faster
+    use {
+        'L3MON4D3/LuaSnip',
+        config = [[require'plugins.others'.snippets()]]
+    }
     -- Adds virtual text for indentation levels and shows whitespace
     use {
         'lukas-reineke/indent-blankline.nvim',
         config = [[require'plugins.others'.indentline()]]
-    }
-    -- Snippets from Ultisnips
-    use {
-        'SirVer/ultisnips',
-        config = [[require 'plugins.others'.ultisnips()]]
     }
 
     use {
@@ -195,12 +195,6 @@ return require('packer').startup(function()
         cmd = "Telescope",
         module = "telescope"
 
-    }
-
-    use {
-        'fhill2/telescope-ultisnips.nvim', -- Ultisnips extension for Telescope
-        requires = 'nvim-telescope/telescope.nvim',
-        after = { 'telescope.nvim', 'ultisnips' }
     }
 
     use {

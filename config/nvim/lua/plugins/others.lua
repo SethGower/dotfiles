@@ -15,12 +15,6 @@ M.lsp_toggle = function()
     }
 end
 
-M.ultisnips = function()
-    vim.g.UltiSnipsExpandTrigger       = '<C-j>'
-    vim.g.UltiSnipsJumpForwardTriggeru = '<C-j>'
-    vim.g.UltiSnipsJumpBackwardTrigger = '<C-k>'
-end
-
 M.matchup = function()
     vim.g.matchup_matchparen_offscreen = {} -- disables the showing match offscreen. This was annoying
 end
@@ -89,5 +83,14 @@ M.trouble = function()
         },
         use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
     }
+end
+
+M.snippets = function()
+    require("luasnip.loaders.from_snipmate").lazy_load()
+
+    vim.cmd([[imap <silent><expr> <C-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-j>' ]])
+    vim.cmd([[inoremap <silent> <C-k> <cmd>lua require'luasnip'.jump(-1)<Cr>]])
+    vim.cmd([[snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(1)<Cr>]])
+    vim.cmd([[snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>]])
 end
 return M
