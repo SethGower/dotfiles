@@ -84,8 +84,8 @@ local setup = function()
     --     }
     -- }
 
-    if not configs.rust_hdl then
-        configs.rust_hdl = {
+    if not configs.vhdl_ls then
+        configs.vhdl_ls = {
             default_config = {
                 cmd = { "vhdl_ls" };
                 filetypes = { "vhdl" };
@@ -98,7 +98,7 @@ local setup = function()
     end
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
-    local servers = { "pylsp", "rust_analyzer", "texlab", "ltex", "yamlls", "svls", "svlangserver", "rust_hdl", "bashls",
+    local servers = { "pylsp", "rust_analyzer", "texlab", "ltex", "yamlls", "svls", "svlangserver", "vhdl_ls", "bashls",
         "jsonls", "sumneko_lua", "vimls" }
     for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {
