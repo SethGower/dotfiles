@@ -33,7 +33,7 @@ return require('packer').startup(function()
 
     use {
         'tpope/vim-fugitive',
-        cmd = { "G", "Gvdiffsplit", "Gvdiffsplit!", "GBrowse", "GBrowse!" }
+        cmd = { "G", "Gvdiffsplit", "Gvdiffsplit!", "GBrowse", "GBrowse!", "Gread", "Gwrite" }
     }
 
     use {
