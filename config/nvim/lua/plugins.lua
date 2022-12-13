@@ -14,7 +14,9 @@ return require('packer').startup(function()
     use 'tpope/vim-sleuth'           -- handles tab expansion based on current file indentation
     use 'honza/vim-snippets'         -- default snippets for Ultisnips
     use 'kshenoy/vim-signature'      -- adds markers to the sign column
+    use 'tpope/vim-commentary'       -- comments lines with motions
 
+    -- Adds virtual text for indentation levels and shows whitespace
     use {
         'lukas-reineke/indent-blankline.nvim',
         config = [[require'plugins.others'.indentline()]]
@@ -29,21 +31,23 @@ return require('packer').startup(function()
         'junegunn/vim-easy-align',
         cmd = "EasyAlign"
     }
-    use 'tpope/vim-commentary' -- comments lines with motions
 
+    -- Git interface, so good it should be illegal
     use {
         'tpope/vim-fugitive',
         cmd = { "G", "Gvdiffsplit", "Gvdiffsplit!", "GBrowse", "GBrowse!", "Gread", "Gwrite" }
     }
 
+    -- gitlab provider for :GBrowse for fugitive
     use {
-        'shumphrey/fugitive-gitlab.vim', -- gitlab provider for :GBrowse for fugitive
+        'shumphrey/fugitive-gitlab.vim',
         after = 'vim-fugitive',
         cmd = { "GBrowse", "GBrowse!" }
     }
 
+    -- github provider for :GBrowse for fugitive
     use {
-        'tpope/vim-rhubarb', -- github provider for :GBrowse for fugitive
+        'tpope/vim-rhubarb',
         after = 'vim-fugitive',
         cmd = { "GBrowse", "GBrowse!" }
     }
@@ -64,33 +68,33 @@ return require('packer').startup(function()
     use {
         'windwp/nvim-autopairs',
         config = [[require 'plugins.auto-pairs']]
-    } -- auto pairs for certain characters
+    }
+
+    -- Syntax highlighting for XDC files
     use {
         'amal-khailtash/vim-xdc-syntax',
         ft = 'xdc'
-    } -- Syntax highlighting for XDC files
+    }
 
-    -- LSP configuration for built in LSP
+    -- Mason handles installation of LSP servers, DAP servers, linters, and
+    -- formatters
     use {
         'williamboman/mason-lspconfig.nvim',
         requires = 'williamboman/mason.nvim',
     }
+
+    -- LSP configuration for built in LSP
     use {
         'neovim/nvim-lspconfig',
         config = [[require('plugins.lsp').setup()]]
     }
-
-    -- use {
-    --     'ray-x/lsp_signature.nvim', -- Adds signature help in a popup for functions with info from LSP
-    --     'kosayoda/nvim-lightbulb', -- Lightbulb icon for code actions
-    --     after = 'nvim-lspconfig'
-    -- }
 
     use {
         'jose-elias-alvarez/null-ls.nvim',
         config = [[require('plugins.null-ls')]],
     } -- Null LS provides linting for linters that don't support LSP, adding for VSG, can use for others
 
+    -- Better looking LSP referneces, diagnostics, and such
     use {
         "folke/trouble.nvim",
         requires = "kyazdani42/nvim-web-devicons",
@@ -98,6 +102,7 @@ return require('packer').startup(function()
         config = [[require'plugins.others'.trouble()]],
     }
 
+    -- File tree for Neovim. Similar to the vim NerdTree
     use {
         'nvim-tree/nvim-tree.lua',
         requires = {
@@ -108,6 +113,7 @@ return require('packer').startup(function()
         cmd = 'NvimTree*'
     }
 
+    -- Sets the current working directory based on certain patterns
     use {
         'ygm2/rooter.nvim',
         config = function()
@@ -116,6 +122,8 @@ return require('packer').startup(function()
             vim.g.outermost_root = true
         end
     }
+
+    -- Adds easier to use terminal that can be accessed within nvim
     use {
         "akinsho/toggleterm.nvim",
         tag = '*',
@@ -123,12 +131,14 @@ return require('packer').startup(function()
         cmd = "ToggleTerm",
         keys = { 'n', '<c-\\>' }
     }
+
     -- GDB Integration
     use {
         'sakhnik/nvim-gdb',
         run = ':!./install.sh',
         cmd = { 'GdbStart', 'GdbStartLLDB' },
     }
+
     -- treesitter interface for vim
     use {
         'nvim-treesitter/nvim-treesitter',
@@ -137,6 +147,7 @@ return require('packer').startup(function()
         config = [[require 'plugins.tree-sitter']]
     }
 
+    -- Various Treesitter modules
     use {
         'windwp/nvim-ts-autotag', -- Auto close tags with tree sitter
         'romgrk/nvim-treesitter-context', -- Provide context from tree-sitter
@@ -185,6 +196,7 @@ return require('packer').startup(function()
         module = "telescope"
 
     }
+
     use {
         'fhill2/telescope-ultisnips.nvim', -- Ultisnips extension for Telescope
         requires = 'nvim-telescope/telescope.nvim',
@@ -208,11 +220,10 @@ return require('packer').startup(function()
 
     use {
         'rmagatti/auto-session', -- Session management
-        config = function()
-            require 'plugins.auto-session'
-        end,
+        config = [[require 'plugins.auto-session']]
 
     }
+
     -- Session Lens for session and telescope cooperation
     use {
         'rmagatti/session-lens',
@@ -280,6 +291,7 @@ return require('packer').startup(function()
         cmd = 'StartupTime'
     }
 
+    -- statusline plugin
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true },
