@@ -57,8 +57,8 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 M.setup = function()
     local on_attach = M.on_attach
     require('mason').setup()
-    require('mason-lspconfig').setup{
-        ensure_installed = { "sumneko_lua" }
+    require('mason-lspconfig').setup {
+        automatic_installation = true
     }
     if not require 'lspconfig.configs'.hdl_checker then
         require 'lspconfig.configs'.hdl_checker = {
