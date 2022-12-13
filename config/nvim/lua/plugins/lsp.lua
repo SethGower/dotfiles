@@ -33,14 +33,14 @@ M.on_attach = function(_, bufnr)
     buf_set_keymap("n", "<leader>d",  "<cmd>Trouble document_diagnostics<CR>",         opts)
     buf_set_keymap("n", "<leader>D",  "<cmd>Trouble workspace_diagnostics<CR>",        opts)
 
-      vim.opt.updatetime  = 300
-      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.opt.updatetime                                  = 300
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, {
-          virtual_text = true,
-          underline = true,
-          signs = true,
-        }
-      )
+        virtual_text = true,
+        underline = true,
+        signs = true,
+    }
+    )
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -60,32 +60,6 @@ M.setup = function()
     require('mason-lspconfig').setup {
         automatic_installation = true
     }
-    if not require 'lspconfig.configs'.hdl_checker then
-        require 'lspconfig.configs'.hdl_checker = {
-            default_config = {
-                cmd = { "hdl_checker", "--lsp", };
-                filetypes = { "vhdl", "verilog", "systemverilog" };
-                root_dir = function(fname)
-                    -- will look for the .hdl_checker.config file in parent directory, a
-                    -- .git directory, or else use the current directory, in that order.
-                    return util.root_pattern('.hdl_checker.config')(fname) or util.find_git_ancestor(fname) or
-                        util.path.dirname(fname)
-                end;
-                settings = {};
-            };
-        }
-    end
-
-    -- lspconfig["hdl_checker"].setup {
-    --     on_attach = function(client, bufnr)
-    --         client.resolved_capabilities.hover = false
-    --         on_attach(client, bufnr)
-    --     end,
-    --     capabilities = capabilities,
-    --     flags = {
-    --         debounce_text_changes = 150,
-    --     }
-    -- }
 
     if not configs.vhdl_ls then
         configs.vhdl_ls = {
@@ -113,23 +87,6 @@ M.setup = function()
         }
     end
 
-    -- disable the diagnostics for verilog files (as well as sv files) since they
-    -- were really annoying when editing verilog files, because of differences
-    -- between sv and v. But I still wanted go to definition stuff
-    -- servers = {"svls", "svlangserver"}
-    -- for _, lsp in ipairs(servers) do
-    --   lspconfig[lsp].setup {
-    --     on_attach = function(client, bufnr)
-    --       on_attach(client, bufnr)
-    --         vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
-    --       end,
-    --     capabilities = capabilities,
-    --     flags = {
-    --       debounce_text_changes = 150,
-    --     }
-    --   }
-    -- end
-
     lspconfig["ccls"].setup {
         on_attach = on_attach,
         capabilities = capabilities,
@@ -145,18 +102,6 @@ M.setup = function()
     }
 
 
-    vim.opt.updatetime                                      = 300
-    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false,
-        underline = true,
-        signs = true,
-    }
-    )
-
-    -- sets up highlighting for lsp items
-
-
     -- adds a check to see if any of the active clients have the capability
     -- textDocument/documentHighlight. without the check it was causing constant
     -- errors when servers didn't have that capability
@@ -168,11 +113,6 @@ M.setup = function()
             break -- only add the autocmds once
         end
     end
-
-    -- Lightbulb stuff
-    -- vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
-    -- vim.cmd('autocmd CursorHold * lua vim.diagnostic.open_float()')
-    -- vim.cmd('autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()')
 end
 
 return M
