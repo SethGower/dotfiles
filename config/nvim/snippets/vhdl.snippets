@@ -2,11 +2,12 @@
 # Shamelessly stolen from
 # https://github.com/zivv/UltiSnips/blob/master/vhdl.snippets
 
-snippet lib "library IEEE; | use IEEE.STD_LOGIC_1164.ALL;"
+snippet ieee "library IEEE; | use IEEE.STD_LOGIC_1164.ALL;"
 	library ieee;
 		use ieee.std_logic_1164.all;
 		use ieee.numeric_std.all;
 		use ieee.std_logic_unsigned.all;
+	${1}
 
 snippet slv "std_logic_vector(... downto 0)"
 	std_logic_vector(${1} downto 0);
