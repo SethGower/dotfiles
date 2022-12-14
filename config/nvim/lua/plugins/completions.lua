@@ -13,7 +13,7 @@ cmp.setup {
         { name = 'luasnip' },
         { name = 'path' }
     },
-    mappings = {
+    mapping = {
         ['<C-p>'] = cmp.mapping.select_prev_item(nil),
         ['<C-n>'] = cmp.mapping.select_next_item(nil),
     }
