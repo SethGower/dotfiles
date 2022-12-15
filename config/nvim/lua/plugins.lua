@@ -246,19 +246,6 @@ return require('packer').startup(function()
         config = [[require('plugins.git-signs')]]
     }
 
-    -- -- completion using deoplete
-    -- use {
-    --     'Shougo/deoplete.nvim',
-    --     run = [[vim.cmd('UpdateRemotePlugins')]],
-    --     config = [[vim.g['deoplete#enable_at_startup'] = 1]]
-    -- }
-
-    -- -- -- LSP completion source for deoplete
-    -- use {
-    --     'deoplete-plugins/deoplete-lsp',
-    --     requires = { 'Shougo/deoplete.nvim' }
-    -- }
-
     -- VimTeX for better development of LaTeX
     use {
         'lervag/vimtex',
