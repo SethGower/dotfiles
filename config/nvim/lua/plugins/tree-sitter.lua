@@ -3,7 +3,7 @@
 local ts = require('nvim-treesitter.configs')
 
 ts.setup {
-    -- ensure_installed = 'all',
+    ensure_installed = 'all',
     query_linter = {
         enabled = true,
         use_virtual_text = true,

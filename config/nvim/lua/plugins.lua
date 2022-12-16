@@ -155,7 +155,6 @@ return require('packer').startup(function()
     -- treesitter interface for vim
     use {
         'nvim-treesitter/nvim-treesitter',
-        branch = 'v0.8.0',
         run = ':TSUpdate',
         config = [[require 'plugins.tree-sitter']]
     }
@@ -173,7 +172,6 @@ return require('packer').startup(function()
             cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" }
         },
         after = { 'nvim-treesitter' },
-        requires = { 'nvim-treesitter/nvim-treesitter' }
     }
 
     -- Better matchit. Matching beginning and ends of branched statements (if,
