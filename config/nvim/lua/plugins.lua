@@ -48,21 +48,16 @@ return require('packer').startup(function()
     -- Git interface, so good it should be illegal
     use {
         'tpope/vim-fugitive',
-        cmd = { "G", "Gvdiffsplit", "Gvdiffsplit!", "GBrowse", "GBrowse!", "Gread", "Gwrite" }
     }
 
     -- gitlab provider for :GBrowse for fugitive
     use {
         'shumphrey/fugitive-gitlab.vim',
-        after = 'vim-fugitive',
-        cmd = { "GBrowse", "GBrowse!" }
     }
 
     -- github provider for :GBrowse for fugitive
     use {
         'tpope/vim-rhubarb',
-        after = 'vim-fugitive',
-        cmd = { "GBrowse", "GBrowse!" }
     }
 
     -- Easily navigate json trees
