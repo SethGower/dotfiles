@@ -66,5 +66,6 @@ null_ls.setup({
         vsg_format,
         null_ls.builtins.code_actions.gitsigns,
         null_ls.builtins.formatting.verible_verilog_format
-    }
+    },
+    temp_dir = "/tmp"
 })
