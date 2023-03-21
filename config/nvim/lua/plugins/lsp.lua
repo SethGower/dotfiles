@@ -34,13 +34,6 @@ M.on_attach = function(_, bufnr)
     buf_set_keymap("n", "<leader>D",  "<cmd>Trouble workspace_diagnostics<CR>",        opts)
 
     vim.opt.updatetime                                  = 300
-    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = true,
-        underline = true,
-        signs = true,
-    }
-    )
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -79,7 +72,16 @@ M.setup = function()
         "jsonls", "vimls" }
     for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {
-            on_attach = on_attach,
+            on_attach = function(client, bufnr)
+                on_attach(client, bufnr)
+                vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+                    vim.lsp.diagnostic.on_publish_diagnostics, {
+                    virtual_text = true,
+                    underline = true,
+                    signs = true,
+                }
+                )
+            end,
             capabilities = capabilities,
             flags = {
                 debounce_text_changes = 150,
