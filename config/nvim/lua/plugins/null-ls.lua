@@ -69,3 +69,5 @@ null_ls.setup({
     },
     temp_dir = "/tmp"
 })
+
+vim.cmd("command! ToggleVSG lua require('null-ls.sources').toggle('VSG')")
