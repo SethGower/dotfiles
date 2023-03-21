@@ -68,8 +68,7 @@ M.setup = function()
     end
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
-    local servers = { "pylsp", "rust_analyzer", "texlab", "ltex", "yamlls", "svls", "svlangserver", "vhdl_ls", "bashls",
-        "jsonls", "vimls" }
+    local servers = { "pylsp", "rust_analyzer", "texlab", "ltex", "yamlls", "vhdl_ls", "bashls", "vimls" }
     for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {
             on_attach = function(client, bufnr)
@@ -89,6 +88,22 @@ M.setup = function()
         }
     end
 
+    -- disable the diagnostics for verilog files (as well as sv files) since they
+    -- were really annoying when editing verilog files, because of differences
+    -- between sv and v. But I still wanted go to definition stuff
+    servers = { "svls", "svlangserver" }
+    for _, lsp in ipairs(servers) do
+        lspconfig[lsp].setup {
+            on_attach = function(client, bufnr)
+                on_attach(client, bufnr)
+                vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+            end,
+            capabilities = capabilities,
+            flags = {
+                debounce_text_changes = 150,
+            }
+        }
+    end
     lspconfig["ccls"].setup {
         on_attach = on_attach,
         capabilities = capabilities,
