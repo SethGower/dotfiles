@@ -54,21 +54,9 @@ M.setup = function()
         automatic_installation = true
     }
 
-    if not configs.vhdl_ls then
-        configs.vhdl_ls = {
-            default_config = {
-                cmd = { "vhdl_ls" };
-                filetypes = { "vhdl" };
-                root_dir = function(fname)
-                    return util.root_pattern('vhdl_ls.toml')(fname)
-                end;
-                settings = {};
-            };
-        }
-    end
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
-    local servers = { "pylsp", "rust_analyzer", "texlab", "ltex", "yamlls", "vhdl_ls", "bashls", "vimls" }
+    local servers = { "pylsp", "rust_analyzer", "texlab", "ltex", "yamlls", "bashls", "vimls" }
     for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {
             on_attach = function(client, bufnr)
@@ -116,6 +104,26 @@ M.setup = function()
         flags = {
             debounce_text_changes = 150,
         }
+    }
+
+    lspconfig["vhdl_ls"].setup{
+        on_attach = function(client, bufnr)
+            on_attach(client, bufnr)
+            vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+                vim.lsp.diagnostic.on_publish_diagnostics, {
+                virtual_text = true,
+                underline = true,
+                signs = true,
+            }
+            )
+        end,
+        capabilities = capabilities,
+        flags = {
+            debounce_text_changes = 150,
+        },
+        root_dir = function(fname)
+            return util.root_pattern('vhdl_ls.toml')(fname)
+        end
     }
 
     local runtime_path = vim.split(package.path, ";")
