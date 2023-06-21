@@ -193,6 +193,7 @@ return require('packer').startup(function()
     -- Lua Fuzzy Searcher
     use {
         'nvim-telescope/telescope.nvim',
+        tag = '0.1.1',
         requires = {
             'nvim-lua/popup.nvim',
             'nvim-lua/plenary.nvim'
