@@ -7,6 +7,7 @@ add_to_path ~/.yarn/bin
 add_to_path /usr/local/go/bin/
 add_to_path ~/.local/share/rust_hdl/target/release
 add_to_path ~/.cargo/bin
+add_to_path ~/go/bin
 add_to_path ~/.local/share/flatpak/exports/bin
 
 

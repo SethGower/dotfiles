@@ -14,12 +14,12 @@ ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
 source ~/.function
 
+source ~/.alias
+source ~/.path
+
 if [ -f ~/.localconfig ]; then
   source ~/.localconfig
 fi
-
-source ~/.alias
-source ~/.path
 
 fpath+=$ZSH_CUSTOM/completions
 
