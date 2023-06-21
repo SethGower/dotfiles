@@ -8,15 +8,15 @@ end
 vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 local use = require('packer').use
 return require('packer').startup(function()
-    use 'wbthomason/packer.nvim'     -- packer manages itself
-    use 'moll/vim-bbye'              -- better buffer deletion
-    use 'aymericbeaumet/vim-symlink' -- read symlinks for pwd
-    use 'tpope/vim-sleuth'           -- handles tab expansion based on current file indentation
-    use 'honza/vim-snippets'         -- default snippets snipmate style
-    use 'kshenoy/vim-signature'      -- adds markers to the sign column
-    use 'tpope/vim-commentary'       -- comments lines with motions
+    use 'wbthomason/packer.nvim'        -- packer manages itself
+    use 'moll/vim-bbye'                 -- better buffer deletion
+    use 'aymericbeaumet/vim-symlink'    -- read symlinks for pwd
+    use 'tpope/vim-sleuth'              -- handles tab expansion based on current file indentation
+    use 'honza/vim-snippets'            -- default snippets snipmate style
+    use 'kshenoy/vim-signature'         -- adds markers to the sign column
+    use 'tpope/vim-commentary'          -- comments lines with motions
     use 'editorconfig/editorconfig-vim' -- To have nvim use the settings in .editorconfig files
-    use 'tamago324/nlsp-settings.nvim' -- A plugin I am trying for json based local config of lsp servers
+    use 'tamago324/nlsp-settings.nvim'  -- A plugin I am trying for json based local config of lsp servers
 
     use {
         'hrsh7th/cmp-nvim-lsp',
@@ -118,7 +118,7 @@ return require('packer').startup(function()
         requires = {
             'nvim-tree/nvim-web-devicons', -- optional, for file icons
         },
-        tag = 'nightly', -- optional, updated every week. (see issue #1193)
+        tag = 'nightly',                   -- optional, updated every week. (see issue #1193)
         config = [[require("nvim-tree").setup()]],
         cmd = 'NvimTree*'
     }
@@ -158,12 +158,12 @@ return require('packer').startup(function()
 
     -- Various Treesitter modules
     use {
-        'windwp/nvim-ts-autotag', -- Auto close tags with tree sitter
+        'windwp/nvim-ts-autotag',         -- Auto close tags with tree sitter
         'romgrk/nvim-treesitter-context', -- Provide context from tree-sitter
         {
             'SethGower/nvim-ts-rainbow',
             branch = "adding-vhdl",
-        }, -- Adds rainbow parentheses based on tree sitter
+        },                                -- Adds rainbow parentheses based on tree sitter
         {
             'nvim-treesitter/playground', -- Playground for tree-sitter
             cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" }
