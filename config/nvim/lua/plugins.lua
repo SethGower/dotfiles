@@ -15,6 +15,8 @@ return require('packer').startup(function()
     use 'honza/vim-snippets'         -- default snippets snipmate style
     use 'kshenoy/vim-signature'      -- adds markers to the sign column
     use 'tpope/vim-commentary'       -- comments lines with motions
+    use 'editorconfig/editorconfig-vim' -- To have nvim use the settings in .editorconfig files
+    use 'tamago324/nlsp-settings.nvim' -- A plugin I am trying for json based local config of lsp servers
 
     use {
         'hrsh7th/cmp-nvim-lsp',
