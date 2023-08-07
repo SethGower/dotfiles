@@ -63,10 +63,10 @@ M.setup = function()
                 on_attach(client, bufnr)
                 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
                     vim.lsp.diagnostic.on_publish_diagnostics, {
-                    virtual_text = true,
-                    underline = true,
-                    signs = true,
-                }
+                        virtual_text = true,
+                        underline = true,
+                        signs = true,
+                    }
                 )
             end,
             capabilities = capabilities,
@@ -111,10 +111,10 @@ M.setup = function()
             on_attach(client, bufnr)
             vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
                 vim.lsp.diagnostic.on_publish_diagnostics, {
-                virtual_text = true,
-                underline = true,
-                signs = true,
-            }
+                    virtual_text = true,
+                    underline = true,
+                    signs = true,
+                }
             )
         end,
         capabilities = capabilities,
