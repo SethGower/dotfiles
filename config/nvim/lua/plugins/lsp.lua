@@ -7,7 +7,7 @@ local M = {}
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-M.on_attach = function(_, bufnr)
+M.on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -34,6 +34,8 @@ M.on_attach = function(_, bufnr)
     buf_set_keymap("n", "<leader>D",  "<cmd>Trouble workspace_diagnostics<CR>",        opts)
 
     vim.opt.updatetime                                  = 300
+
+    require('nlspsettings').update_settings(client.name)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -49,14 +51,34 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 
 M.setup = function()
     local on_attach = M.on_attach
+
     require('mason').setup()
     require('mason-lspconfig').setup {
         automatic_installation = true
     }
 
+    local nlspsettings = require("nlspsettings")
+
+    nlspsettings.setup({
+        config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
+        local_settings_dir = ".nlsp-settings",
+        local_settings_root_markers_fallback = { '.git' },
+        append_default_schemas = true,
+        loader = 'json',
+        ignored_servers = {},
+        nvim_notify = {
+            enable = true,
+            timeout = 5000
+        },
+        open_strictly = false
+    })
+
+    lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
+        capabilities = capabilities,
+    })
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
-    local servers = { "pylsp", "rust_analyzer", "texlab", "ltex", "yamlls", "bashls", "vimls" }
+    local servers = { "pylsp", "rust_analyzer", "texlab", "ltex", "yamlls", "bashls", "vimls", "jsonls" }
     for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {
             on_attach = function(client, bufnr)
@@ -76,29 +98,35 @@ M.setup = function()
         }
     end
 
+
     -- disable the diagnostics for verilog files (as well as sv files) since they
     -- were really annoying when editing verilog files, because of differences
     -- between sv and v. But I still wanted go to definition stuff
-    servers = { "svls", "svlangserver" }
-    for _, lsp in ipairs(servers) do
-        lspconfig[lsp].setup {
-            on_attach = function(client, bufnr)
-                on_attach(client, bufnr)
-                vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
-            end,
-            capabilities = capabilities,
-            flags = {
-                debounce_text_changes = 150,
-            }
-        }
-    end
+    -- servers = { "svls" }
+    -- for _, lsp in ipairs(servers) do
+    --     lspconfig[lsp].setup {
+    --         on_attach = function(client, bufnr)
+    --             on_attach(client, bufnr)
+    --             vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+    --         end,
+    --         capabilities = capabilities,
+    --         flags = {
+    --             debounce_text_changes = 150,
+    --         }
+    --     }
+    -- end
+
+
     lspconfig["ccls"].setup {
         on_attach = on_attach,
         capabilities = capabilities,
         filetypes = { "c", "cpp", "cuda" },
         init_options = {
             cache = {
-                directory = "/home/sgower/.cache/ccls";
+                directory = "/home/sgower/.cache/ccls",
+            },
+            request = {
+                timeout = 100000
             }
         },
         flags = {
@@ -106,7 +134,46 @@ M.setup = function()
         }
     }
 
-    lspconfig["vhdl_ls"].setup{
+    lspconfig['svlangserver'].setup {
+        on_attach = function(client, bufnr)
+            on_attach(client, bufnr)
+            require('nlspsettings').update_settings(client.name)
+        end,
+        root_dir = function(fname)
+            -- I am only going to be using system verilog in projects that also
+            -- have VHDL, since the verilog might be in a submodule, go to the
+            -- actual root of the directory which will be denoted with the
+            -- vhdl_ls.toml file
+            return util.root_pattern('vhdl_ls.toml')(fname)
+        end,
+    }
+
+    lspconfig["verible"].setup {
+        on_attach = function(client, bufnr)
+            on_attach(client, bufnr)
+            vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+                vim.lsp.diagnostic.on_publish_diagnostics, {
+                    virtual_text = true,
+                    underline = true,
+                    signs = true,
+                }
+            )
+        end,
+        capabilities = capabilities,
+        flags = {
+            debounce_text_changes = 150,
+        },
+        cmd = { "verible-verilog-ls", "--indentation_spaces", "4" },
+        root_dir = function(fname)
+            -- I am only going to be using system verilog in projects that also
+            -- have VHDL, since the verilog might be in a submodule, go to the
+            -- actual root of the directory which will be denoted with the
+            -- vhdl_ls.toml file
+            return util.root_pattern('vhdl_ls.toml')(fname)
+        end,
+    }
+
+    lspconfig["vhdl_ls"].setup {
         on_attach = function(client, bufnr)
             on_attach(client, bufnr)
             vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(

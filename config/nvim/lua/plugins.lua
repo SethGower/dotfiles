@@ -19,6 +19,11 @@ return require('packer').startup(function()
     use 'tamago324/nlsp-settings.nvim'  -- A plugin I am trying for json based local config of lsp servers
 
     use {
+        'rcarriga/nvim-notify',
+        config = [[require'plugins.others'.notify()]]
+    }
+
+    use {
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',

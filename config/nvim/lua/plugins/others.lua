@@ -93,4 +93,10 @@ M.snippets = function()
     vim.cmd([[snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(1)<Cr>]])
     vim.cmd([[snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>]])
 end
+
+M.notify = function()
+    require("notify").setup({
+        background_colour = "#000000"
+    })
+end
 return M
