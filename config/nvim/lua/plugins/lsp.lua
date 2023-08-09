@@ -81,16 +81,7 @@ M.setup = function ()
     local servers = { "pylsp", "rust_analyzer", "texlab", "ltex", "yamlls", "bashls", "vimls", "jsonls" }
     for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {
-            on_attach = function (client, bufnr)
-                on_attach(client, bufnr)
-                vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-                    vim.lsp.diagnostic.on_publish_diagnostics, {
-                        virtual_text = true,
-                        underline = true,
-                        signs = true,
-                    }
-                )
-            end,
+            on_attach = on_attach,
             capabilities = capabilities,
             flags = {
                 debounce_text_changes = 150,
@@ -139,58 +130,32 @@ M.setup = function ()
             on_attach(client, bufnr)
             require('nlspsettings').update_settings(client.name)
         end,
-        root_dir = function (fname)
-            -- I am only going to be using system verilog in projects that also
-            -- have VHDL, since the verilog might be in a submodule, go to the
-            -- actual root of the directory which will be denoted with the
-            -- vhdl_ls.toml file
-            return util.root_pattern('vhdl_ls.toml')(fname)
+        root_dir = function (_)
+            return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
         end,
     }
 
     lspconfig["verible"].setup {
-        on_attach = function (client, bufnr)
-            on_attach(client, bufnr)
-            vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-                vim.lsp.diagnostic.on_publish_diagnostics, {
-                    virtual_text = true,
-                    underline = true,
-                    signs = true,
-                }
-            )
-        end,
+        on_attach = on_attach,
         capabilities = capabilities,
         flags = {
             debounce_text_changes = 150,
         },
         cmd = { "verible-verilog-ls", "--indentation_spaces", "4" },
-        root_dir = function (fname)
-            -- I am only going to be using system verilog in projects that also
-            -- have VHDL, since the verilog might be in a submodule, go to the
-            -- actual root of the directory which will be denoted with the
-            -- vhdl_ls.toml file
-            return util.root_pattern('vhdl_ls.toml')(fname)
+        root_dir = function (_)
+            return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
         end,
     }
 
     lspconfig["vhdl_ls"].setup {
-        on_attach = function (client, bufnr)
-            on_attach(client, bufnr)
-            vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-                vim.lsp.diagnostic.on_publish_diagnostics, {
-                    virtual_text = true,
-                    underline = true,
-                    signs = true,
-                }
-            )
-        end,
+        on_attach = on_attach,
         capabilities = capabilities,
         flags = {
             debounce_text_changes = 150,
         },
-        root_dir = function (fname)
-            return util.root_pattern('vhdl_ls.toml')(fname)
-        end
+        root_dir = function (_)
+            return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
+        end,
     }
 
     local runtime_path = vim.split(package.path, ";")
