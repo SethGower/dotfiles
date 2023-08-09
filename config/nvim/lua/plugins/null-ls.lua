@@ -66,6 +66,9 @@ null_ls.setup({
         vsg_format,
         null_ls.builtins.code_actions.gitsigns,
     },
+    root_dir = function (_)
+        return vim.fs.dirname(vim.fs.find({ '.git', 'vsg_config.yaml', '.null-ls-root' }, { upward = true })[1]);
+    end,
     temp_dir = "/tmp"
 })
 
