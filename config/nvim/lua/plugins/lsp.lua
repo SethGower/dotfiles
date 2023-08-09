@@ -7,7 +7,7 @@ local M = {}
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-M.on_attach = function(client, bufnr)
+M.on_attach = function (client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -33,7 +33,7 @@ M.on_attach = function(client, bufnr)
     buf_set_keymap("n", "<leader>d",  "<cmd>Trouble document_diagnostics<CR>",         opts)
     buf_set_keymap("n", "<leader>D",  "<cmd>Trouble workspace_diagnostics<CR>",        opts)
 
-    vim.opt.updatetime                                  = 300
+    vim.opt.updatetime = 300
 
     require('nlspsettings').update_settings(client.name)
 end
@@ -49,7 +49,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 
-M.setup = function()
+M.setup = function ()
     local on_attach = M.on_attach
 
     require('mason').setup()
@@ -81,7 +81,7 @@ M.setup = function()
     local servers = { "pylsp", "rust_analyzer", "texlab", "ltex", "yamlls", "bashls", "vimls", "jsonls" }
     for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {
-            on_attach = function(client, bufnr)
+            on_attach = function (client, bufnr)
                 on_attach(client, bufnr)
                 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
                     vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -135,11 +135,11 @@ M.setup = function()
     }
 
     lspconfig['svlangserver'].setup {
-        on_attach = function(client, bufnr)
+        on_attach = function (client, bufnr)
             on_attach(client, bufnr)
             require('nlspsettings').update_settings(client.name)
         end,
-        root_dir = function(fname)
+        root_dir = function (fname)
             -- I am only going to be using system verilog in projects that also
             -- have VHDL, since the verilog might be in a submodule, go to the
             -- actual root of the directory which will be denoted with the
@@ -149,7 +149,7 @@ M.setup = function()
     }
 
     lspconfig["verible"].setup {
-        on_attach = function(client, bufnr)
+        on_attach = function (client, bufnr)
             on_attach(client, bufnr)
             vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
                 vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -164,7 +164,7 @@ M.setup = function()
             debounce_text_changes = 150,
         },
         cmd = { "verible-verilog-ls", "--indentation_spaces", "4" },
-        root_dir = function(fname)
+        root_dir = function (fname)
             -- I am only going to be using system verilog in projects that also
             -- have VHDL, since the verilog might be in a submodule, go to the
             -- actual root of the directory which will be denoted with the
@@ -174,7 +174,7 @@ M.setup = function()
     }
 
     lspconfig["vhdl_ls"].setup {
-        on_attach = function(client, bufnr)
+        on_attach = function (client, bufnr)
             on_attach(client, bufnr)
             vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
                 vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -188,7 +188,7 @@ M.setup = function()
         flags = {
             debounce_text_changes = 150,
         },
-        root_dir = function(fname)
+        root_dir = function (fname)
             return util.root_pattern('vhdl_ls.toml')(fname)
         end
     }
