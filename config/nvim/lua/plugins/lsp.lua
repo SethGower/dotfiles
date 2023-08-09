@@ -208,6 +208,7 @@ M.setup = function ()
                 diagnostics = {
                     -- Get the language server to recognize the `vim` global
                     globals = { "vim" },
+                    disable = { "missing-fields" }
                 },
                 workspace = {
                     -- Make the server aware of Neovim runtime files
