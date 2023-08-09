@@ -83,9 +83,6 @@ M.setup = function ()
         lspconfig[lsp].setup {
             on_attach = on_attach,
             capabilities = capabilities,
-            flags = {
-                debounce_text_changes = 150,
-            }
         }
     end
 
@@ -95,23 +92,17 @@ M.setup = function ()
         filetypes = { "c", "cpp", "cuda" },
         init_options = {
             cache = {
-                directory = "/home/sgower/.cache/ccls",
+                directory = vim.fn.expand("~/.cache/ccls"),
             },
             request = {
                 timeout = 100000
             }
         },
-        flags = {
-            debounce_text_changes = 150,
-        }
     }
 
     lspconfig["svls"].setup {
         on_attach = on_attach,
         capabilities = capabilities,
-        flags = {
-            debounce_text_changes = 150,
-        },
         root_dir = function (_)
             return vim.fs.dirname(vim.fs.find({ '.git', '.svls.toml', 'vhdl_ls.toml' }, { upward = true })[1]);
         end,
@@ -130,9 +121,6 @@ M.setup = function ()
     lspconfig["verible"].setup {
         on_attach = on_attach,
         capabilities = capabilities,
-        flags = {
-            debounce_text_changes = 150,
-        },
         cmd = { "verible-verilog-ls", "--indentation_spaces", "4" },
         root_dir = function (_)
             return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
@@ -142,9 +130,6 @@ M.setup = function ()
     lspconfig["vhdl_ls"].setup {
         on_attach = on_attach,
         capabilities = capabilities,
-        flags = {
-            debounce_text_changes = 150,
-        },
         root_dir = function (_)
             return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
         end,
