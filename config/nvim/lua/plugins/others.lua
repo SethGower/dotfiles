@@ -1,6 +1,6 @@
 local M = {}
 
-M.session_lens = function()
+M.session_lens = function ()
     require("telescope").load_extension("session-lens")
     require('session-lens').setup({
         path_display = { 'shorten' },
@@ -8,22 +8,22 @@ M.session_lens = function()
     })
 end
 
-M.lsp_toggle = function()
+M.lsp_toggle = function ()
     require('lsp-toggle').setup {
         create_cmds = true, -- Whether to create user commands
-        telescope = true, -- Whether to load telescope extensions
+        telescope = true,   -- Whether to load telescope extensions
     }
 end
 
-M.matchup = function()
+M.matchup = function ()
     vim.g.matchup_matchparen_offscreen = {} -- disables the showing match offscreen. This was annoying
 end
 
-M.harpoon = function()
+M.harpoon = function ()
     require('telescope').load_extension('harpoon')
 end
 
-M.indentline = function()
+M.indentline = function ()
     vim.opt.list = true
     vim.opt.listchars:append "space:⋅"
     vim.opt.listchars:append "eol:↴"
@@ -35,7 +35,7 @@ M.indentline = function()
     }
 end
 
-M.trouble = function()
+M.trouble = function ()
     require("trouble").setup {
         position = "bottom", -- position of the list can be: bottom, top, left, right
         height = 10, -- height of the trouble list when position is top or bottom
@@ -47,8 +47,6 @@ M.trouble = function()
         group = true, -- group results by file
         padding = true, -- add an extra new line on top of the list
         action_keys = { -- key mappings for actions in the trouble list
-            -- map to {} to remove a mapping, for example:
-            -- close = {},
             close = { "q", "<leader>d" }, -- close the list
             cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
             refresh = "r", -- manually refresh
@@ -85,7 +83,7 @@ M.trouble = function()
     }
 end
 
-M.snippets = function()
+M.snippets = function ()
     require("luasnip.loaders.from_snipmate").lazy_load()
 
     vim.cmd([[imap <silent><expr> <C-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-j>' ]])
@@ -94,7 +92,7 @@ M.snippets = function()
     vim.cmd([[snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>]])
 end
 
-M.notify = function()
+M.notify = function ()
     require("notify").setup({
         background_colour = "#000000"
     })

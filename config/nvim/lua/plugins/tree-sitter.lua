@@ -17,12 +17,12 @@ ts.setup {
     indent = { -- built in
         enable = true
     },
-    rainbow = { -- added by p00f/nvim-ts-rainbow
+    rainbow = {                -- added by p00f/nvim-ts-rainbow
         enable = true,
-        extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
+        extended_mode = true,  -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
         max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
     },
-    autotag = { -- added by windwp/nvim-ts-autotag
+    autotag = {                -- added by windwp/nvim-ts-autotag
         enable = true,
     },
     context = { -- added by romgrk/nvim-treesitter-context
@@ -37,7 +37,7 @@ ts.setup {
     playground = {
         enable = true,
         disable = {},
-        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+        updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
         persist_queries = false, -- Whether the query persists across vim sessions
         keybindings = {
             toggle_query_editor = 'o',

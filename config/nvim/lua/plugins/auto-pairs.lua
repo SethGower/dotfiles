@@ -11,7 +11,7 @@ npairs.setup({
 -- skip it, if you use another global object
 _G.MUtils = {}
 
-MUtils.completion_confirm = function()
+MUtils.completion_confirm = function ()
     if vim.fn.pumvisible() ~= 0 then
         return npairs.esc("<cr>") -- simply the plugins wrapper for termcode replacement
     else

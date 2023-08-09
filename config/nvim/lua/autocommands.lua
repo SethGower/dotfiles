@@ -10,6 +10,6 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('BufEnter', {
-    pattern = {"/home/sgower/.config/nvim/*.lua", "/home/sgower/.dotfiles/config/nvim/*.lua"},
+    pattern = { "/home/sgower/.config/nvim/*.lua", "/home/sgower/.dotfiles/config/nvim/*.lua" },
     command = "set kp=:help"
 })

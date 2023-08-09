@@ -7,7 +7,7 @@ end
 
 vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 local use = require('packer').use
-return require('packer').startup(function()
+return require('packer').startup(function ()
     use 'wbthomason/packer.nvim'        -- packer manages itself
     use 'moll/vim-bbye'                 -- better buffer deletion
     use 'aymericbeaumet/vim-symlink'    -- read symlinks for pwd
@@ -131,7 +131,7 @@ return require('packer').startup(function()
     -- Sets the current working directory based on certain patterns
     use {
         'ygm2/rooter.nvim',
-        config = function()
+        config = function ()
             vim.g.rooter_pattern = { '.git', 'Makefile', '_darcs', '.hg', '.bzr', '.svn', 'node_modules',
                 'CMakeLists.txt' }
             vim.g.outermost_root = true
@@ -192,7 +192,7 @@ return require('packer').startup(function()
     -- Automatically add licenses to the top of file
     use {
         'antoyo/vim-licenses',
-        config = function()
+        config = function ()
             vim.g.licenses_copyright_holders_name = 'Gower, Seth <sethzerish@gmail.com>'
         end
     }

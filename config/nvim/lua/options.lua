@@ -1,8 +1,8 @@
 ---@diagnostic disable: unused-local
-local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
-local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
-local g = vim.g      -- a table to access global variables
-local opt = vim.opt  -- to set options
+local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
+local fn = vim.fn   -- to call Vim functions e.g. fn.bufnr()
+local g = vim.g     -- a table to access global variables
+local opt = vim.opt -- to set options
 local o = vim.o
 
 --------------------  SETTINGS -------------------------------
@@ -24,7 +24,7 @@ opt.smarttab    = true
 opt.breakindent = true
 opt.inccommand  = 'nosplit'
 opt.clipboard   = opt.clipboard + 'unnamedplus'
-opt.rnu         = true;  -- releative number
+opt.rnu         = true; -- releative number
 opt.showmode    = false
 opt.textwidth   = 0
 opt.mouse       = 'a'

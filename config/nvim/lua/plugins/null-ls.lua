@@ -6,7 +6,7 @@ local vsg_lint = {
     filetypes = { "vhdl" },
     generator = helpers.generator_factory({
         command = "vsg",
-        args = function(params)
+        args = function (params)
             local rv = {}
             -- check if there is a config file in the root directory, if so
             -- insert the -c argument with it
@@ -18,7 +18,7 @@ local vsg_lint = {
             return rv
         end,
         cwd = nil,
-        check_exit_code = function() return true end,
+        check_exit_code = function () return true end,
         from_stderr = false,
         ignore_stderr = true,
         to_stdin = true,
