@@ -5,3 +5,4 @@ openocd.pid
 
 .nvim
 .hdl_checker*
+.nlsp-settings
