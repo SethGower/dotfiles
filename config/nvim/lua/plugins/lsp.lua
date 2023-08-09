@@ -89,25 +89,6 @@ M.setup = function ()
         }
     end
 
-
-    -- disable the diagnostics for verilog files (as well as sv files) since they
-    -- were really annoying when editing verilog files, because of differences
-    -- between sv and v. But I still wanted go to definition stuff
-    -- servers = { "svls" }
-    -- for _, lsp in ipairs(servers) do
-    --     lspconfig[lsp].setup {
-    --         on_attach = function(client, bufnr)
-    --             on_attach(client, bufnr)
-    --             vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
-    --         end,
-    --         capabilities = capabilities,
-    --         flags = {
-    --             debounce_text_changes = 150,
-    --         }
-    --     }
-    -- end
-
-
     lspconfig["ccls"].setup {
         on_attach = on_attach,
         capabilities = capabilities,
@@ -123,6 +104,17 @@ M.setup = function ()
         flags = {
             debounce_text_changes = 150,
         }
+    }
+
+    lspconfig["svls"].setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        flags = {
+            debounce_text_changes = 150,
+        },
+        root_dir = function (_)
+            return vim.fs.dirname(vim.fs.find({ '.git', '.svls.toml', 'vhdl_ls.toml' }, { upward = true })[1]);
+        end,
     }
 
     lspconfig['svlangserver'].setup {
