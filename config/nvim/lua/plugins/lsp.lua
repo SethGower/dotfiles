@@ -78,7 +78,7 @@ M.setup = function ()
     })
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
-    local servers = { "pylsp", "rust_analyzer", "texlab", "ltex", "yamlls", "bashls", "vimls", "jsonls" }
+    local servers = { "pylsp", "rust_analyzer", "texlab", "ltex", "yamlls", "bashls", "vimls", "jsonls", "cmake" }
     for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {
             on_attach = on_attach,
@@ -88,6 +88,7 @@ M.setup = function ()
 
     lspconfig["ccls"].setup {
         on_attach = on_attach,
+        autostart = false,
         capabilities = capabilities,
         filetypes = { "c", "cpp", "cuda" },
         init_options = {
@@ -109,12 +110,21 @@ M.setup = function ()
     }
 
     lspconfig['svlangserver'].setup {
+        capabilities = capabilities,
         on_attach = function (client, bufnr)
             on_attach(client, bufnr)
             require('nlspsettings').update_settings(client.name)
         end,
         root_dir = function (_)
             return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
+        end,
+    }
+
+    lspconfig['clangd'].setup {
+        capabilities = capabilities,
+        on_attach = function (client, bufnr)
+            on_attach(client, bufnr)
+            require('nlspsettings').update_settings(client.name)
         end,
     }
 
@@ -176,6 +186,8 @@ M.setup = function ()
             break -- only add the autocmds once
         end
     end
+
+    -- vim.lsp.set_log_level("debug")
 end
 
 return M
