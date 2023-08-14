@@ -13,6 +13,42 @@ local function map(mode, lhs, rhs, opts)
     end
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
+
+local function create_noops(keys)
+    for _, v in ipairs(keys) do
+        vim.keymap.set(v[1], v[2], '')
+    end
+end
+
+create_noops({
+    { 'n',          '[d' },
+    { 'n',          ']d' },
+    { 'n',          '<leader>e' },
+    { 'n',          '<leader>d' },
+    { 'n',          '<leader>D' },
+    { 'n',          '<C-k>' },
+    { 'n',          'gD' },
+    { 'n',          'gd' },
+    { 'n',          'gr' },
+    { 'n',          'gi' },
+    { 'n',          '<leader>rn' },
+    { 'n',          '<leader>ca' },
+    { 'n',          '<leader>f' },
+    { 'n',          '<F5>' },
+    { 'n',          '<F10>' },
+    { 'n',          '<F11>' },
+    { 'n',          '<F12>' },
+    { 'n',          '<Leader>b' },
+    { 'n',          '<Leader>B' },
+    { 'n',          '<Leader>lp' },
+    { 'n',          '<Leader>dr' },
+    { 'n',          '<Leader>dl' },
+    { 'n',          '<Leader>df' },
+    { 'n',          '<Leader>ds' },
+    { { 'n', 'v' }, '<Leader>dh' },
+    { { 'n', 'v' }, '<Leader>dp' },
+})
+
 map('',  'j',                'gj')
 map('',  'k',                'gk')
 map('',  '<leader>wh',       '<C-w>h')
