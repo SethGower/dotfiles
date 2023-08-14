@@ -17,6 +17,16 @@ return require('packer').startup(function ()
     use 'tpope/vim-commentary'          -- comments lines with motions
     use 'editorconfig/editorconfig-vim' -- To have nvim use the settings in .editorconfig files
     use 'tamago324/nlsp-settings.nvim'  -- A plugin I am trying for json based local config of lsp servers
+    use 'theHamsta/nvim-dap-virtual-text'
+
+    use {
+        'mfussenegger/nvim-dap',
+        config = [[require'plugins.dap'.setup()]]
+    }
+    use {
+        'mfussenegger/nvim-dap-python',
+        config = [[require'plugins.dap'.setup_python()]]
+    }
 
     use {
         'rcarriga/nvim-notify',
