@@ -17,22 +17,24 @@
 -- IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 -- CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 require 'options'
+require 'plugins'
 require 'autocommands'
+require 'mappings'
+require 'local_config'
 
-local async
-async =
-vim.loop.new_async(
-    vim.schedule_wrap(
-        function()
-            require 'local_config'
-            require 'plugins'
-            require 'mappings'
-            async:close()
-        end
-    )
-)
-async:send()
+--local async
+--async =
+--vim.loop.new_async(
+--    vim.schedule_wrap(
+--        function()
+--            --require 'local_config'
+--            require 'plugins'
+--            --require 'mappings'
+--            async:close()
+--        end
+--    )
+--)
+--async:send()
 
-vim.o.termguicolors = true
 vim.g.dracula_colorterm = 0
 vim.cmd 'colorscheme dracula'

@@ -35,7 +35,7 @@ M.on_attach = function (client, bufnr)
 
     vim.opt.updatetime = 300
 
-    require('nlspsettings').update_settings(client.name)
+    -- require('nlspsettings').update_settings(client.name)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -57,21 +57,21 @@ M.setup = function ()
         automatic_installation = true
     }
 
-    local nlspsettings = require("nlspsettings")
+    -- local nlspsettings = require("nlspsettings")
 
-    nlspsettings.setup({
-        config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
-        local_settings_dir = ".nlsp-settings",
-        local_settings_root_markers_fallback = { '.git' },
-        append_default_schemas = true,
-        loader = 'json',
-        ignored_servers = {},
-        nvim_notify = {
-            enable = true,
-            timeout = 5000
-        },
-        open_strictly = false
-    })
+    -- nlspsettings.setup({
+    --     config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
+    --     local_settings_dir = ".nlsp-settings",
+    --     local_settings_root_markers_fallback = { '.git' },
+    --     append_default_schemas = true,
+    --     loader = 'json',
+    --     ignored_servers = {},
+    --     nvim_notify = {
+    --         enable = true,
+    --         timeout = 5000
+    --     },
+    --     open_strictly = false
+    -- })
 
     lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
         capabilities = capabilities,
@@ -109,24 +109,24 @@ M.setup = function ()
         end,
     }
 
-    lspconfig['svlangserver'].setup {
-        capabilities = capabilities,
-        on_attach = function (client, bufnr)
-            on_attach(client, bufnr)
-            require('nlspsettings').update_settings(client.name)
-        end,
-        root_dir = function (_)
-            return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
-        end,
-    }
+    -- lspconfig['svlangserver'].setup {
+    --     capabilities = capabilities,
+    --     on_attach = function (client, bufnr)
+    --         on_attach(client, bufnr)
+    --         require('nlspsettings').update_settings(client.name)
+    --     end,
+    --     root_dir = function (_)
+    --         return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
+    --     end,
+    -- }
 
-    lspconfig['clangd'].setup {
-        capabilities = capabilities,
-        on_attach = function (client, bufnr)
-            on_attach(client, bufnr)
-            require('nlspsettings').update_settings(client.name)
-        end,
-    }
+    -- lspconfig['clangd'].setup {
+    --     capabilities = capabilities,
+    --     on_attach = function (client, bufnr)
+    --         on_attach(client, bufnr)
+    --         require('nlspsettings').update_settings(client.name)
+    --     end,
+    -- }
 
     lspconfig["verible"].setup {
         on_attach = on_attach,
@@ -165,6 +165,7 @@ M.setup = function ()
                 workspace = {
                     -- Make the server aware of Neovim runtime files
                     library = vim.api.nvim_get_runtime_file("", true),
+                    checkThirdParty = false,
                 },
                 -- Do not send telemetry data containing a randomized but unique identifier
                 telemetry = {
