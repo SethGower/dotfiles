@@ -170,12 +170,15 @@ return require('lazy').setup({
             "williamboman/mason-lspconfig.nvim"
         }
     },
-    -- { -- Null LS provides linting for linters that don't support LSP, adding for VSG, can use for others
-    --     'jose-elias-alvarez/null-ls.nvim',
-    --     config = function ()
-    --         require('plugins.null-ls')
-    --     end
-    -- },
+    { -- Null LS provides linting for linters that don't support LSP, adding for VSG, can use for others
+        'jose-elias-alvarez/null-ls.nvim',
+        config = function ()
+            require('plugins.lsp').null_ls()
+        end,
+        dependencies = {
+            { "neovim/nvim-lspconfig" },
+        }
+    },
     { -- Images inside neovim LSP completion menu
         "onsails/lspkind-nvim",
         event = Events.InsertMode,
