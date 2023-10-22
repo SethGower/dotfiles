@@ -27,15 +27,15 @@ local Events = {
     Modified = { "TextChanged", "TextChangedI" }
 }
 return require('lazy').setup({
-    -- 'yumkil/ag.nvim',
-    'moll/vim-bbye',                -- better buffer deletion
-    'aymericbeaumet/vim-symlink',   -- read symlinks for pwd
-    --'tpope/vim-sleuth',              -- handles tab expansion based on current file indentation
-    'honza/vim-snippets',           -- default snippets snipmate style
-    'kshenoy/vim-signature',        -- adds markers to the sign column
-    'tpope/vim-commentary',         -- comments lines with motions
-    -- 'editorconfig/editorconfig-vim', -- To have nvim use the settings in .editorconfig files
-    'tamago324/nlsp-settings.nvim', -- A plugin I am trying for json based local config of lsp servers
+    'Numkil/ag.nvim',
+    'moll/vim-bbye',                 -- better buffer deletion
+    'aymericbeaumet/vim-symlink',    -- read symlinks for pwd
+    'tpope/vim-sleuth',              -- handles tab expansion based on current file indentation
+    'honza/vim-snippets',            -- default snippets snipmate style
+    'kshenoy/vim-signature',         -- adds markers to the sign column
+    'tpope/vim-commentary',          -- comments lines with motions
+    'editorconfig/editorconfig-vim', -- To have nvim use the settings in .editorconfig files
+    'tamago324/nlsp-settings.nvim',  -- A plugin I am trying for json based local config of lsp servers
     'junegunn/vim-easy-align',
     {
         "dracula/vim",
