@@ -1,5 +1,3 @@
-local fn = vim.fn
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -17,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 --  Plugin Config  --
 ---------------------
 -- BufEnter is kinda not lazy
-local lazy_events = { "BufRead", "BufWinEnter", "BufNewFile" }
+-- local lazy_events = { "BufRead", "BufWinEnter", "BufNewFile" }
 
 local Events = {
     OpenFile = { "BufReadPost", "BufNewFile" },
@@ -27,16 +25,11 @@ local Events = {
     Modified = { "TextChanged", "TextChangedI" }
 }
 return require('lazy').setup({
-    'Numkil/ag.nvim',
-    'moll/vim-bbye',                 -- better buffer deletion
-    'aymericbeaumet/vim-symlink',    -- read symlinks for pwd
-    'tpope/vim-sleuth',              -- handles tab expansion based on current file indentation
-    'honza/vim-snippets',            -- default snippets snipmate style
-    'kshenoy/vim-signature',         -- adds markers to the sign column
-    'tpope/vim-commentary',          -- comments lines with motions
-    'editorconfig/editorconfig-vim', -- To have nvim use the settings in .editorconfig files
-    'tamago324/nlsp-settings.nvim',  -- A plugin I am trying for json based local config of lsp servers
-    'junegunn/vim-easy-align',
+
+    ----------------------------
+    -- Colors and Appearance
+    ----------------------------
+    'kshenoy/vim-signature', -- adds markers to the sign column
     {
         "dracula/vim",
         name = "dracula",
@@ -44,16 +37,28 @@ return require('lazy').setup({
         priority = 1000,
     },
 
-    { -- Syntax highlighting for XDC files
-        'amal-khailtash/vim-xdc-syntax',
-        ft = 'xdc'
-    },
-    {
-        'rcarriga/nvim-notify',
+    { -- Adds virtual text for indentation levels and shows whitespace
+        'lukas-reineke/indent-blankline.nvim',
+        main = "ibl",
+        opts = {},
         config = function ()
-            require 'plugins.others'.notify()
+            require("plugins.others").indentline()
         end
     },
+
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = {
+            { 'kyazdani42/nvim-web-devicons' }
+        },
+        config = function ()
+            require 'plugins.lualine'
+        end,
+    },
+
+    ----------------------------
+    -- Completion Engine
+    ----------------------------
     {
         'L3MON4D3/LuaSnip',
         config = function ()
@@ -94,15 +99,78 @@ return require('lazy').setup({
         dependencies = "nvim-cmp",
         event = Events.InsertMode,
     },
-
-    { -- Adds virtual text for indentation levels and shows whitespace
-        'lukas-reineke/indent-blankline.nvim',
-        main = "ibl",
-        opts = {},
+    ----------------------------
+    -- Utilities
+    ----------------------------
+    'editorconfig/editorconfig-vim', -- To have nvim use the settings in .editorconfig files
+    'tpope/vim-sleuth',              -- handles tab expansion based on current file indentation
+    'junegunn/vim-easy-align',       -- Aligning tool to align on delimeters
+    'tpope/vim-commentary',          -- comments lines with motions
+    'moll/vim-bbye',                 -- better buffer deletion
+    'aymericbeaumet/vim-symlink',    -- read symlinks for pwd
+    {
+        'rcarriga/nvim-notify',
         config = function ()
-            require("plugins.others").indentline()
+            require 'plugins.others'.notify()
         end
     },
+    { -- auto pairs for certain characters
+        'windwp/nvim-autopairs',
+        config = function ()
+            require 'plugins.auto-pairs'
+        end
+    },
+    {
+        'rmagatti/auto-session', -- Session management
+        config = function ()
+            require 'plugins.auto-session'
+        end,
+    },
+    {
+        'nvim-tree/nvim-tree.lua',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        },
+        config = function ()
+            require("nvim-tree").setup()
+        end,
+    },
+
+    { -- Sets the current working directory based on certain patterns
+        'ygm2/rooter.nvim',
+        config = function ()
+            vim.g.rooter_pattern = { '.git', 'Makefile', '_darcs', '.hg', '.bzr', '.svn', 'node_modules',
+                'CMakeLists.txt' }
+            vim.g.outermost_root = true
+        end
+    },
+
+    { -- Adds easier to use terminal that can be accessed within nvim
+        "akinsho/toggleterm.nvim",
+        config = function ()
+            require("plugins.toggle-term")
+        end,
+        cmd = "ToggleTerm",
+        keys = {
+            { '<c-\\>', "<cmd>ToggleTerm<cr>", desc = "Toggle Term" },
+        }
+    },
+    { -- GDB Integration
+        'sakhnik/nvim-gdb',
+        build = ':!./install.sh',
+        cmd = { 'GdbStart', 'GdbStartLLDB' },
+    },
+    {
+        'tpope/vim-dispatch',
+        cmd = { 'Make', 'Dispatch', 'Start' }
+    },
+    {
+        'tweekmonster/startuptime.vim',
+        cmd = 'StartupTime'
+    },
+    ----------------------------
+    -- Git stuff
+    ----------------------------
     { -- Git commands within Neovim
         "tpope/vim-fugitive",
         "tpope/vim-rhubarb",
@@ -114,16 +182,6 @@ return require('lazy').setup({
         event = Events.OpenFile,
         config = function ()
             require('plugins.git-signs')
-        end
-    },
-    {
-        'gennaro-tedesco/nvim-jqx',
-        ft = "json"
-    },
-    { -- auto pairs for certain characters
-        'windwp/nvim-autopairs',
-        config = function ()
-            require 'plugins.auto-pairs'
         end
     },
     { -- Treesitter front end
@@ -159,7 +217,12 @@ return require('lazy').setup({
             require("plugins.others").matchup()
         end,
     },
-    { -- Neovim Language Server
+    ----------------------------
+    -- Language Server
+    ----------------------------
+    'tamago324/nlsp-settings.nvim', -- A plugin I am trying for json based local config of lsp servers
+
+    {                               -- Neovim Language Server
         "neovim/nvim-lspconfig",
         event = Events.OpenFile,
         config = function ()
@@ -206,6 +269,10 @@ return require('lazy').setup({
             require 'plugins.others'.trouble()
         end
     },
+    ----------------------------
+    -- Searching
+    ----------------------------
+    'Numkil/ag.nvim',
     { -- Fuzzy search
         "nvim-telescope/telescope.nvim",
         dependencies = {
@@ -236,50 +303,9 @@ return require('lazy').setup({
         { "olacin/telescope-gitmoji.nvim" },
         lazy = true,
     },
-    {
-        'rmagatti/auto-session', -- Session management
-        config = function ()
-            require 'plugins.auto-session'
-        end,
-    },
-    {
-        'nvim-tree/nvim-tree.lua',
-        dependencies = {
-            'nvim-tree/nvim-web-devicons', -- optional, for file icons
-        },
-        config = function ()
-            require("nvim-tree").setup()
-        end,
-    },
-
-    { -- Sets the current working directory based on certain patterns
-        'ygm2/rooter.nvim',
-        config = function ()
-            vim.g.rooter_pattern = { '.git', 'Makefile', '_darcs', '.hg', '.bzr', '.svn', 'node_modules',
-                'CMakeLists.txt' }
-            vim.g.outermost_root = true
-        end
-    },
-
-    { -- Adds easier to use terminal that can be accessed within nvim
-        "akinsho/toggleterm.nvim",
-        config = function ()
-            require("plugins.toggle-term")
-        end,
-        cmd = "ToggleTerm",
-        keys = {
-            { '<c-\\>', "<cmd>ToggleTerm<cr>", desc = "Toggle Term" },
-        }
-    },
-    { -- GDB Integration
-        'sakhnik/nvim-gdb',
-        build = ':!./install.sh',
-        cmd = { 'GdbStart', 'GdbStartLLDB' },
-    },
-    {
-        'tpope/vim-dispatch',
-        cmd = { 'Make', 'Dispatch', 'Start' }
-    },
+    ----------------------------
+    -- Filetype Specific
+    ----------------------------
     { -- VimTeX for better development of LaTeX
         'lervag/vimtex',
         ft = 'tex',
@@ -294,17 +320,13 @@ return require('lazy').setup({
         build = function () vim.fn['mkdp#util#install']() end,
         ft = { 'markdown' },
     },
-    {
-        'nvim-lualine/lualine.nvim',
-        dependencies = {
-            { 'kyazdani42/nvim-web-devicons' }
-        },
-        config = function ()
-            require 'plugins.lualine'
-        end,
+    { -- Syntax highlighting for XDC files
+        'amal-khailtash/vim-xdc-syntax',
+        ft = 'xdc'
     },
     {
-        'tweekmonster/startuptime.vim',
-        cmd = 'StartupTime'
-    }
+        'gennaro-tedesco/nvim-jqx',
+        ft = "json"
+    },
+
 })
