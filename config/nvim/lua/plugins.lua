@@ -102,12 +102,29 @@ return require('lazy').setup({
     ----------------------------
     -- Utilities
     ----------------------------
-    'editorconfig/editorconfig-vim', -- To have nvim use the settings in .editorconfig files
-    'tpope/vim-sleuth',              -- handles tab expansion based on current file indentation
-    'junegunn/vim-easy-align',       -- Aligning tool to align on delimeters
-    'tpope/vim-commentary',          -- comments lines with motions
-    'moll/vim-bbye',                 -- better buffer deletion
-    'aymericbeaumet/vim-symlink',    -- read symlinks for pwd
+    'editorconfig/editorconfig-vim',       -- To have nvim use the settings in .editorconfig files
+    'tpope/vim-sleuth',                    -- handles tab expansion based on current file indentation
+    'junegunn/vim-easy-align',             -- Aligning tool to align on delimeters
+    'tpope/vim-commentary',                -- comments lines with motions
+    'moll/vim-bbye',                       -- better buffer deletion
+    'aymericbeaumet/vim-symlink',          -- read symlinks for pwd
+    {
+        'alexghergh/nvim-tmux-navigation', -- Tmux Navigation
+        config = function ()
+            local nvim_tmux_nav = require('nvim-tmux-navigation')
+
+            nvim_tmux_nav.setup {
+                disable_when_zoomed = true -- defaults to false
+            }
+
+            vim.keymap.set('n', "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft)
+            vim.keymap.set('n', "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
+            vim.keymap.set('n', "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
+            vim.keymap.set('n', "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
+            -- vim.keymap.set('n', "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive)
+            vim.keymap.set('n', "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext)
+        end
+    },
     {
         'rcarriga/nvim-notify',
         config = function ()
