@@ -71,7 +71,7 @@ map('x', 'ga',               '<Plug>(EasyAlign)')
 map('n', '<leader>ad',       '<cmd>ALEDetail<CR>')
 map('n', '<leader>tp',       ':TSPlaygroundToggle<CR>')
 map('n', '<leader>th',       ':TSHighlightCapturesUnderCursor<CR>')
-map('i', '<CR>',             'v:lua.MUtils.completion_confirm()', { expr = true, noremap = true })
+-- map('i', '<CR>',             'v:lua.MUtils.completion_confirm()', { expr = true, noremap = true })
 map("n", "<leader>nt",        "<cmd>NvimTreeFindFile<CR>")
 -- functions to use tab and shift+tab to navigate the completion menu
 function _G.smart_tab()

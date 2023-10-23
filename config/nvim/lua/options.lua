@@ -37,4 +37,7 @@ opt.undolevels  = 1000
 opt.wildmode    = { "longest", "list", "full" }
 opt.wildmenu    = true
 opt.listchars   = { eol = "¬", tab = ">·", trail = "~", extends = ">", precedes = "<", space = "␣" }
+
+o.termguicolors = true
 cmd 'set undofile'
+cmd 'set nowrap'

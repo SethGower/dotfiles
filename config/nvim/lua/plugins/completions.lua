@@ -1,27 +1,63 @@
-local cmp = require 'cmp'
-local luasnip = require('luasnip')
-local _ = { behavior = cmp.SelectBehavior.Select }
+local M = {}
 
-local has_words_before = function ()
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
 
-cmp.setup {
-    snippet = {
-        expand = function (args)
-            require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-        end,
-    },
-    sources = {
-        { name = 'buffer' },
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' },
-        { name = 'path' }
-    },
-    mapping = {
-        ["<Tab>"] = cmp.mapping(
-            function (fallback)
+M.config = function()
+    local cmp_present, cmp = pcall(require, "cmp")
+    local lua_present, luasnip = pcall(require, "luasnip")
+
+    if not cmp_present then
+        vim.notify("cmp.config(): nvim_cmp is not present!", vim.log.levels.ERROR)
+        return
+    end
+
+    if not lua_present then
+        vim.notify("cmp.config(): luasnip is not present!", vim.log.levels.ERROR)
+        return
+    end
+
+    vim.opt.completeopt = "menu,menuone,noselect"
+
+    local has_words_before = function()
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+    end
+
+    -- nvim-cmp setup
+    cmp.setup {
+        snippet = {
+            expand = function(args)
+                luasnip.lsp_expand(args.body)
+            end,
+        },
+        formatting = {
+            format = function(entry, vim_item) -- load lspkind icons
+                vim_item.kind = string.format(
+                    "%s %s",
+                    require("plugins.lspkind_icons").icons[vim_item.kind],
+                    vim_item.kind
+                )
+
+                vim_item.menu = ({
+                    nvim_lsp = "[LSP]",
+                    nvim_lua = "[Lua]",
+                    buffer = "[BUF]",
+                })[entry.source.name]
+
+                return vim_item
+            end,
+        },
+        mapping = {
+            ["<C-p>"] = cmp.mapping.select_prev_item(),
+            ["<C-n>"] = cmp.mapping.select_next_item(),
+            ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+            ["<C-f>"] = cmp.mapping.scroll_docs(4),
+            ["<C-Space>"] = cmp.mapping.complete(),
+            ["<C-e>"] = cmp.mapping.close(),
+            ["<CR>"] = cmp.mapping.confirm {
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = false,
+            },
+            ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item()
                 elseif luasnip.expand_or_jumpable() then
@@ -33,8 +69,7 @@ cmp.setup {
                 end
             end, { "i", "s" }),
 
-        ["<S-Tab>"] = cmp.mapping(
-            function (fallback)
+            ["<S-Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_prev_item()
                 elseif luasnip.jumpable(-1) then
@@ -43,5 +78,53 @@ cmp.setup {
                     fallback()
                 end
             end, { "i", "s" }),
+        },
+        sources = cmp.config.sources {
+            { name = "nvim_lsp" },
+            { name = "luasnip" },
+            { name = "buffer" },
+            { name = "nvim_lua" },
+            { name = "path" },
+        },
+    } -- cmp.setup
+
+    cmp.setup.cmdline ({'/', '?'}, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+            {name = 'buffer'},
+            {name = 'path'}
+        }
+    })
+
+    cmp.setup.cmdline (':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+            {name = 'path'},
+            {name = 'cmdline'}
+        })
+    })
+
+end
+
+M.luasnip = function()
+    local lua_present, luasnip = pcall(require, "luasnip")
+
+    if not lua_present then
+        vim.notify("cmp.luasnip(): luasnip is not present!", vim.log.levels.ERROR)
+        return
+    end
+
+    luasnip.config.set_config {
+        history = true,
+        updateevents = "TextChanged,TextChangedI",
     }
-}
+
+    -- Extend honza/vim-snippets "all" to LuaSnip all
+    luasnip.filetype_extend("all", { "_" })
+
+    require('luasnip.loaders.from_vscode').lazy_load()
+    require('luasnip.loaders.from_snipmate').lazy_load()
+    require('luasnip.loaders.from_lua').lazy_load()
+end
+
+return M

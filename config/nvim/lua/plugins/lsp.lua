@@ -43,7 +43,7 @@ M.on_attach = function (client, bufnr)
 
     vim.opt.updatetime = 300
 
-    require('nlspsettings').update_settings(client.name)
+    -- require('nlspsettings').update_settings(client.name)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -65,21 +65,21 @@ M.setup = function ()
         automatic_installation = true
     }
 
-    local nlspsettings = require("nlspsettings")
+    -- local nlspsettings = require("nlspsettings")
 
-    nlspsettings.setup({
-        config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
-        local_settings_dir = ".nlsp-settings",
-        local_settings_root_markers_fallback = { '.git' },
-        append_default_schemas = true,
-        loader = 'json',
-        ignored_servers = {},
-        nvim_notify = {
-            enable = true,
-            timeout = 5000
-        },
-        open_strictly = false
-    })
+    -- nlspsettings.setup({
+    --     config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
+    --     local_settings_dir = ".nlsp-settings",
+    --     local_settings_root_markers_fallback = { '.git' },
+    --     append_default_schemas = true,
+    --     loader = 'json',
+    --     ignored_servers = {},
+    --     nvim_notify = {
+    --         enable = true,
+    --         timeout = 5000
+    --     },
+    --     open_strictly = false
+    -- })
 
     lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
         capabilities = capabilities,
@@ -117,24 +117,24 @@ M.setup = function ()
         end,
     }
 
-    lspconfig['svlangserver'].setup {
-        capabilities = capabilities,
-        on_attach = function (client, bufnr)
-            on_attach(client, bufnr)
-            require('nlspsettings').update_settings(client.name)
-        end,
-        root_dir = function (_)
-            return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
-        end,
-    }
+    -- lspconfig['svlangserver'].setup {
+    --     capabilities = capabilities,
+    --     on_attach = function (client, bufnr)
+    --         on_attach(client, bufnr)
+    --         require('nlspsettings').update_settings(client.name)
+    --     end,
+    --     root_dir = function (_)
+    --         return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
+    --     end,
+    -- }
 
-    lspconfig['clangd'].setup {
-        capabilities = capabilities,
-        on_attach = function (client, bufnr)
-            on_attach(client, bufnr)
-            require('nlspsettings').update_settings(client.name)
-        end,
-    }
+    -- lspconfig['clangd'].setup {
+    --     capabilities = capabilities,
+    --     on_attach = function (client, bufnr)
+    --         on_attach(client, bufnr)
+    --         require('nlspsettings').update_settings(client.name)
+    --     end,
+    -- }
 
     lspconfig["verible"].setup {
         on_attach = on_attach,
@@ -173,6 +173,7 @@ M.setup = function ()
                 workspace = {
                     -- Make the server aware of Neovim runtime files
                     library = vim.api.nvim_get_runtime_file("", true),
+                    checkThirdParty = false,
                 },
                 -- Do not send telemetry data containing a randomized but unique identifier
                 telemetry = {
@@ -196,6 +197,85 @@ M.setup = function ()
     end
 
     -- vim.lsp.set_log_level("debug")
+end
+
+M.null_ls = function()
+    local null_ls = require('null-ls')
+    local helpers = require('null-ls.helpers')
+    local vsg_lint = {
+        name = "VSG",
+        method = null_ls.methods.DIAGNOSTICS,
+        filetypes = { "vhdl" },
+        generator = helpers.generator_factory({
+            command = "vsg",
+            args = function (params)
+                local rv = {}
+                -- check if there is a config file in the root directory, if so
+                -- insert the -c argument with it
+                if vim.fn.filereadable(params.root .. '/vsg_config.yaml') == 1 then
+                    table.insert(rv, '-c=' .. params.root .. '/vsg_config.yaml')
+                end
+                table.insert(rv, '--stdin')
+                table.insert(rv, '-of=syntastic')
+                return rv
+            end,
+            cwd = nil,
+            check_exit_code = function () return true end,
+            from_stderr = false,
+            ignore_stderr = true,
+            to_stdin = true,
+            format = "line",
+            multiple_files = false,
+            on_output = helpers.diagnostics.from_patterns({
+                {
+                    pattern = [[(%w+).*%((%d+)%)(.*)%s+%-%-%s+(.*)]],
+                    groups = { 'severity', 'row', 'code', 'message' },
+                    overrides = {
+                        severities = {
+                            ["ERROR"] = 2,
+                            ["WARNING"] = 3,
+                            ["INFORMATION"] = 3,
+                            ["HINT"] = 4,
+                        }
+                    }
+                }
+            }),
+        })
+    }
+    
+    local vsg_format = {
+        name = "VSG Formatting",
+        method = null_ls.methods.FORMATTING,
+        filetypes = { "vhdl" },
+        generator = helpers.formatter_factory({
+            command = "vsg",
+            args = { "-c$ROOT/vsg_config.yaml", "-f=$FILENAME", "-of=syntastic", "--fix" },
+            cwd = nil,
+            check_exit_code = { 0, 1 },
+            ignore_stderr = true,
+            to_temp_file = true,
+            from_temp_file = true,
+            to_stdin = false,
+            multiple_files = false,
+        })
+    }
+    
+    null_ls.setup({
+        on_attach = require('plugins.lsp').on_attach,
+        diagnostics_format = "[#{c}] #{m} (#{s})",
+        sources = {
+            vsg_lint,
+            vsg_format,
+            null_ls.builtins.code_actions.gitsigns,
+        },
+        root_dir = function (_)
+            return vim.fs.dirname(vim.fs.find({ '.git', 'vsg_config.yaml', '.null-ls-root' }, { upward = true })[1]);
+        end,
+        temp_dir = "/tmp"
+    })
+    
+    vim.cmd("command! ToggleVSG lua require('null-ls.sources').toggle('VSG')")
+
 end
 
 return M

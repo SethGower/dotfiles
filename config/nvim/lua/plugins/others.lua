@@ -16,7 +16,14 @@ M.lsp_toggle = function ()
 end
 
 M.matchup = function ()
-    vim.g.matchup_matchparen_offscreen = {} -- disables the showing match offscreen. This was annoying
+    require('nvim-treesitter.configs').setup {
+        matchup = {
+            enable = true,
+        }
+    }
+
+    vim.g.matchup_matchparen_deferred = 0
+    vim.g.matchup_matchparen_offscreen = {} --{ method = 'popup' }
 end
 
 M.harpoon = function ()
@@ -24,15 +31,89 @@ M.harpoon = function ()
 end
 
 M.indentline = function ()
+    -- vim.opt.list = true
+    -- vim.opt.listchars:append "space:⋅"
+    -- vim.opt.listchars:append "eol:↴"
+
+    local ibl = require("ibl")
+    -- local hooks = require("ibl.hooks")
+    -- local indent_chars = {
+    --     "▏",
+    --     "▎",
+    --     "▍",
+    --     "▌",
+    --     "▋",
+    --     "▊",
+    --     "▉",
+    --     "█",
+    --     "│",
+    --     "┃",
+    --     "┆",
+    --     "┇",
+    --     "┊",
+    --     "┋",
+    -- }
+
+    -- hooks.register(hooks.type.HIGHLIGHT_SETUP, function ()
+    --     -- Indent line colors
+    --     -- Indent scope colors
+    --     local colorutils = require("utils.colors")
+    --     local sc_hl = vim.api.nvim_get_hl(0, { name = "Normal" })
+    --     local sc_hl_bg = colorutils.hl_to_hex(sc_hl.bg or 0x000000)
+    --     local sc_hl_fg = colorutils.hl_to_hex(sc_hl.fg or 0xFFFFFF)
+
+    --     local gray = colorutils.blend(sc_hl_fg, sc_hl_bg, 0.50)
+    --     local spaces = colorutils.blend(sc_hl_fg, sc_hl_bg, 0.10)
+
+    --     vim.api.nvim_set_hl(0, "IblScope", { fg = gray })
+    --     vim.api.nvim_set_hl(0, "IblWhitespace", { fg = spaces })
+    -- end)
+    -- local blank_line_opts = {
+    --     indent = {
+    --         char = indent_chars[9],
+    --         smart_indent_cap = true,
+    --         highlight = "IblIndent",
+    --     },
+    --     whitespace = {
+    --         highlight = "IblWhitespace",
+    --     },
+    --     exclude = {
+    --         filetypes = {
+    --             "help", "terminal", "NvimTree",
+    --             "TelescopePrompt", "TelescopeResults"
+    --         },
+    --         buftypes = {
+    --             "terminal"
+    --         },
+    --     },
+    --     scope = {
+    --         enabled = true,
+    --         char = indent_chars[10],
+    --         show_start = false,
+    --         show_end = false,
+    --         highlight = "IblScope",
+    --     },
+    -- }
+
     vim.opt.list = true
     vim.opt.listchars:append "space:⋅"
     vim.opt.listchars:append "eol:↴"
 
-    require("indent_blankline").setup {
-        space_char_blankline = " ",
-        -- show_current_context = true,
-        -- show_current_context_start = true,
-    }
+    -- Enabled these for endline
+    -- vim.opt.list = true
+    -- vim.opt.listchars = {
+    --     -- eol = "" -- Option 1
+    --     -- eol = "↴" -- Option 2
+    --     tab = "   ",
+    --     lead = "∙",
+    --     -- leadmultispace = "⋅˙",
+    -- }
+
+    ibl.setup({
+        scope = {
+            enabled = true
+        }
+    })
 end
 
 M.trouble = function ()
@@ -93,6 +174,7 @@ M.snippets = function ()
 end
 
 M.notify = function ()
+    -- vim.o.termguicolors = true
     require("notify").setup({
         background_colour = "#000000"
     })
