@@ -201,6 +201,9 @@ return require('lazy').setup({
             require('plugins.git-signs')
         end
     },
+    ----------------------------
+    -- Treesitter
+    ----------------------------
     { -- Treesitter front end
         "nvim-treesitter/nvim-treesitter",
         build = ':TSUpdate',
@@ -209,22 +212,15 @@ return require('lazy').setup({
             require("plugins.tree-sitter")
         end
     },
-    { -- Automatically close HTML/XML tags
+    {                                     -- Automatically close HTML/XML tags
         "windwp/nvim-ts-autotag",
+        'romgrk/nvim-treesitter-context', -- Provide context from tree-sitter
         {
             'nvim-treesitter/playground', -- Playground for tree-sitter
             cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" }
         },
         dependencies = "nvim-treesitter",
         event = Events.InsertMode,
-    },
-    {
-        {
-            'nvim-treesitter/playground', -- Playground for tree-sitter
-            cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" }
-        },
-        'romgrk/nvim-treesitter-context', -- Provide context from tree-sitter
-        dependencies = "nvim-treesitter",
     },
     { -- Easy navigation between pairs
         "andymass/vim-matchup",
