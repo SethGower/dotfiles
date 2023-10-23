@@ -164,15 +164,6 @@ M.trouble = function ()
     }
 end
 
-M.snippets = function ()
-    require("luasnip.loaders.from_snipmate").lazy_load()
-
-    vim.cmd([[imap <silent><expr> <C-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-j>' ]])
-    vim.cmd([[inoremap <silent> <C-k> <cmd>lua require'luasnip'.jump(-1)<Cr>]])
-    vim.cmd([[snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(1)<Cr>]])
-    vim.cmd([[snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>]])
-end
-
 M.notify = function ()
     -- vim.o.termguicolors = true
     require("notify").setup({

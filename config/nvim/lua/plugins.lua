@@ -59,12 +59,6 @@ return require('lazy').setup({
     ----------------------------
     -- Completion Engine
     ----------------------------
-    {
-        'L3MON4D3/LuaSnip',
-        config = function ()
-            require 'plugins.others'.snippets()
-        end
-    },
     { -- Snippet sources
         "honza/vim-snippets",
         "rafamadriz/friendly-snippets",

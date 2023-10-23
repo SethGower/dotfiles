@@ -125,6 +125,11 @@ M.luasnip = function()
     require('luasnip.loaders.from_vscode').lazy_load()
     require('luasnip.loaders.from_snipmate').lazy_load()
     require('luasnip.loaders.from_lua').lazy_load()
+
+    vim.cmd([[imap <silent><expr> <C-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-j>' ]])
+    vim.cmd([[inoremap <silent> <C-k> <cmd>lua require'luasnip'.jump(-1)<Cr>]])
+    vim.cmd([[snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(1)<Cr>]])
+    vim.cmd([[snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>]])
 end
 
 return M
