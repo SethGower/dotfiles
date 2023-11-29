@@ -320,7 +320,7 @@ return require('lazy').setup({
 
     { -- VHDL plugin for copying and pasting entities and such
         'JPR75/vip',
-        cmd = { "Viy", "Vii", "Vic" },
+        -- cmd = { "Viy", "Vii", "Vic" },
     },
     { -- Preview markdown
         "iamcco/markdown-preview.nvim",
