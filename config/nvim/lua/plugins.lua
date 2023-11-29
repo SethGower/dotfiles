@@ -206,11 +206,12 @@ return require('lazy').setup({
             require("plugins.tree-sitter")
         end
     },
-    {                                     -- Automatically close HTML/XML tags
+    {                                                  -- Automatically close HTML/XML tags
         "windwp/nvim-ts-autotag",
-        'romgrk/nvim-treesitter-context', -- Provide context from tree-sitter
+        'romgrk/nvim-treesitter-context',              -- Provide context from tree-sitter
+        'JoosepAlviste/nvim-ts-context-commentstring', -- Set the commentstring based on location in file
         {
-            'nvim-treesitter/playground', -- Playground for tree-sitter
+            'nvim-treesitter/playground',              -- Playground for tree-sitter
             cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" }
         },
         dependencies = "nvim-treesitter",

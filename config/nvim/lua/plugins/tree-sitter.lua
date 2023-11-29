@@ -52,6 +52,9 @@ ts.setup {
             show_help = '?',
         },
     },
+    context_commentstring = {
+        enable = true,
+    },
 }
 
 
