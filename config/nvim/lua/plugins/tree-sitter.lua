@@ -52,11 +52,11 @@ ts.setup {
             show_help = '?',
         },
     },
-    context_commentstring = {
-        enable = true,
-    },
 }
 
+require('ts_context_commentstring').setup {
+  enable_autocmd = false,
+}
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.vhdl = {
