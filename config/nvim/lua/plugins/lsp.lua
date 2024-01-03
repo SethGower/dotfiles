@@ -109,13 +109,13 @@ M.setup = function ()
         },
     }
 
-    lspconfig["svls"].setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        root_dir = function (_)
-            return vim.fs.dirname(vim.fs.find({ '.git', '.svls.toml', 'vhdl_ls.toml' }, { upward = true })[1]);
-        end,
-    }
+    -- lspconfig["svls"].setup {
+    --     on_attach = on_attach,
+    --     capabilities = capabilities,
+    --     root_dir = function (_)
+    --         return vim.fs.dirname(vim.fs.find({ '.git', '.svls.toml', 'vhdl_ls.toml' }, { upward = true })[1]);
+    --     end,
+    -- }
 
     -- lspconfig['svlangserver'].setup {
     --     capabilities = capabilities,
@@ -136,14 +136,14 @@ M.setup = function ()
     --     end,
     -- }
 
-    lspconfig["verible"].setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        cmd = { "verible-verilog-ls", "--indentation_spaces", "4" },
-        root_dir = function (_)
-            return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
-        end,
-    }
+    -- lspconfig["verible"].setup {
+    --     on_attach = on_attach,
+    --     capabilities = capabilities,
+    --     cmd = { "verible-verilog-ls", "--indentation_spaces", "4" },
+    --     root_dir = function (_)
+    --         return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
+    --     end,
+    -- }
 
     lspconfig["vhdl_ls"].setup {
         on_attach = on_attach,
