@@ -21,7 +21,7 @@ if exists(':Rooter')
     let g:rooter_patterns = ['.hdl_checker.config', 'vhdl_ls.toml']
 endif
 
-setlocal comments=:--
+setlocal comments=:--!,:--
 setlocal commentstring=--%s
 setlocal formatoptions+=cro
 setlocal textwidth=0
