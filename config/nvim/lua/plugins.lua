@@ -102,6 +102,7 @@ return require('lazy').setup({
     'tpope/vim-commentary',                -- comments lines with motions
     'moll/vim-bbye',                       -- better buffer deletion
     'aymericbeaumet/vim-symlink',          -- read symlinks for pwd
+    'dstein64/nvim-scrollview',
     {
         'alexghergh/nvim-tmux-navigation', -- Tmux Navigation
         config = function ()
