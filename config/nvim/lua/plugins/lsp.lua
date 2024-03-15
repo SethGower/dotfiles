@@ -242,7 +242,39 @@ M.null_ls = function()
             }),
         })
     }
-    
+
+    local tcllint = {
+        name = "tclint",
+        method = null_ls.methods.DIAGNOSTICS,
+        filetypes = { "tcl" },
+        generator = helpers.generator_factory({
+            command = "tclint",
+            args = {"$FILENAME"},
+            cwd = nil,
+            check_exit_code = function () return true end,
+            from_stderr = false,
+            ignore_stderr = true,
+            to_stdin = false,
+            to_temp_file = true,
+            format = "line",
+            multiple_files = false,
+            on_output = helpers.diagnostics.from_patterns({
+                {
+                    pattern = [[.*:(%d+):(%d+):%s+(.*)%[(.*)%]$]],
+                    groups = { 'row', 'col', 'message', 'code' },
+                    overrides = {
+                        severities = {
+                            ["ERROR"] = 3,
+                            ["WARNING"] = 3,
+                            ["INFORMATION"] = 3,
+                            ["HINT"] = 4,
+                        }
+                    }
+                }
+            }),
+        })
+    }
+
     local vsg_format = {
         name = "VSG Formatting",
         method = null_ls.methods.FORMATTING,
@@ -259,21 +291,23 @@ M.null_ls = function()
             multiple_files = false,
         })
     }
-    
+
     null_ls.setup({
         on_attach = require('plugins.lsp').on_attach,
         diagnostics_format = "[#{c}] #{m} (#{s})",
         sources = {
             vsg_lint,
             vsg_format,
+            tcllint,
             null_ls.builtins.code_actions.gitsigns,
         },
         root_dir = function (_)
             return vim.fs.dirname(vim.fs.find({ '.git', 'vsg_config.yaml', '.null-ls-root' }, { upward = true })[1]);
         end,
-        temp_dir = "/tmp"
+        temp_dir = "/tmp",
+        debug = true
     })
-    
+
     vim.cmd("command! ToggleVSG lua require('null-ls.sources').toggle('VSG')")
 
 end
