@@ -309,6 +309,7 @@ M.null_ls = function()
     })
 
     vim.cmd("command! ToggleVSG lua require('null-ls.sources').toggle('VSG')")
+    vim.cmd("command! ToggleTCL lua require('null-ls.sources').toggle('tclint')")
 
 end
 
