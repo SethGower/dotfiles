@@ -199,7 +199,7 @@ M.setup = function ()
     -- vim.lsp.set_log_level("debug")
 end
 
-M.null_ls = function()
+M.null_ls = function ()
     local null_ls = require('null-ls')
     local helpers = require('null-ls.helpers')
     local vsg_lint = {
@@ -249,7 +249,16 @@ M.null_ls = function()
         filetypes = { "tcl" },
         generator = helpers.generator_factory({
             command = "tclint",
-            args = {"$FILENAME"},
+            args = function (params)
+                local rv = {}
+                -- check if there is a config file in the root directory, if so
+                -- insert the -c argument with it
+                if vim.fn.filereadable(vim.fn.expand("~/.tcllint.toml")) == 1 then
+                    table.insert(rv, '-c=' .. vim.fn.expand("~/.tcllint.toml"))
+                end
+                table.insert(rv, "$FILENAME")
+                return rv
+            end,
             cwd = nil,
             check_exit_code = function () return true end,
             from_stderr = false,
@@ -258,6 +267,9 @@ M.null_ls = function()
             to_temp_file = true,
             format = "line",
             multiple_files = false,
+            -- TODO: Probably want to rework this so that I can generate actual severity levels for the different types
+            -- of errors/warnings from the output, since it doesn't print "warning" or anything. That might also be
+            -- something to create as a feature request on tclint instead
             on_output = helpers.diagnostics.from_patterns({
                 {
                     pattern = [[.*:(%d+):(%d+):%s+(.*)%[(.*)%]$]],
@@ -268,6 +280,10 @@ M.null_ls = function()
                             ["WARNING"] = 3,
                             ["INFORMATION"] = 3,
                             ["HINT"] = 4,
+                        },
+                        diagnostic = {
+                            -- I don't want red everywhere when using this for style checks. Those should be warnings
+                            severity = vim.diagnostic.severity.WARN
                         }
                     }
                 }
@@ -310,7 +326,6 @@ M.null_ls = function()
 
     vim.cmd("command! ToggleVSG lua require('null-ls.sources').toggle('VSG')")
     vim.cmd("command! ToggleTCL lua require('null-ls.sources').toggle('tclint')")
-
 end
 
 return M
