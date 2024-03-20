@@ -1,0 +1,7 @@
+[[language]]
+name = "toml"
+formatter = { command = "taplo", args = ["fmt", "-"] }
+
+[[grammar]]
+name = "vhdl"
+source = { git = "https://github.com/SethGower/tree-sitter-vhdl.git", rev = "b6cb098d275299f93d84b465573050a83af45ed5" }
