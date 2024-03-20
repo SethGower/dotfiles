@@ -253,8 +253,8 @@ M.null_ls = function ()
             check_exit_code = function () return true end,
             from_stderr = false,
             ignore_stderr = true,
-            to_stdin = false,
-            to_temp_file = true,
+            to_stdin = true,
+            to_temp_file = false,
             format = "line",
             multiple_files = false,
             -- TODO: Probably want to rework this so that I can generate actual severity levels for the different types
@@ -316,6 +316,7 @@ M.null_ls = function ()
 
     vim.cmd("command! ToggleVSG lua require('null-ls.sources').toggle('VSG')")
     vim.cmd("command! ToggleTCL lua require('null-ls.sources').toggle('tclint')")
+
 end
 
 return M
