@@ -146,6 +146,7 @@ return require('lazy').setup({
         config = function ()
             require("nvim-tree").setup()
         end,
+        cmd = "NvimTreeFindFile"
     },
 
     { -- Sets the current working directory based on certain patterns
@@ -321,7 +322,6 @@ return require('lazy').setup({
 
     { -- VHDL plugin for copying and pasting entities and such
         'JPR75/vip',
-        -- cmd = { "Viy", "Vii", "Vic" },
     },
     { -- Preview markdown
         "iamcco/markdown-preview.nvim",
