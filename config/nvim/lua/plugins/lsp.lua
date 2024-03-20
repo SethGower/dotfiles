@@ -94,21 +94,6 @@ M.setup = function ()
         }
     end
 
-    lspconfig["ccls"].setup {
-        on_attach = on_attach,
-        autostart = false,
-        capabilities = capabilities,
-        filetypes = { "c", "cpp", "cuda" },
-        init_options = {
-            cache = {
-                directory = vim.fn.expand("~/.cache/ccls"),
-            },
-            request = {
-                timeout = 100000
-            }
-        },
-    }
-
     lspconfig["ltex"].setup {
         on_attach = on_attach,
         capabilities = capabilities,
@@ -133,13 +118,13 @@ M.setup = function ()
     --     end,
     -- }
 
-    -- lspconfig['clangd'].setup {
-    --     capabilities = capabilities,
-    --     on_attach = function (client, bufnr)
-    --         on_attach(client, bufnr)
-    --         require('nlspsettings').update_settings(client.name)
-    --     end,
-    -- }
+    lspconfig['clangd'].setup {
+        capabilities = capabilities,
+        on_attach = function (client, bufnr)
+            on_attach(client, bufnr)
+            require('nlspsettings').update_settings(client.name)
+        end,
+    }
 
     -- lspconfig["verible"].setup {
     --     on_attach = on_attach,
