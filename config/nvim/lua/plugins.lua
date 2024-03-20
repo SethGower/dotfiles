@@ -146,6 +146,7 @@ return require('lazy').setup({
         config = function ()
             require("nvim-tree").setup()
         end,
+        cmd = "NvimTreeFindFile"
     },
 
     { -- Sets the current working directory based on certain patterns
@@ -226,6 +227,7 @@ return require('lazy').setup({
     -- Language Server
     ----------------------------
     'tamago324/nlsp-settings.nvim', -- A plugin I am trying for json based local config of lsp servers
+    'jmbuhr/otter.nvim',            -- Otter allows having embedded LSP on other language snippets (like when code is embedded in a markdown)
 
     {                               -- Neovim Language Server
         "neovim/nvim-lspconfig",
@@ -293,12 +295,12 @@ return require('lazy').setup({
     },
 
     { -- Telescope plugins
-        {
-            "ThePrimeagen/harpoon",
-            config = function ()
-                require("plugins.others").harpoon()
-            end,
-        },
+        -- {
+        --     "ThePrimeagen/harpoon",
+        --     config = function ()
+        --         require("plugins.others").harpoon()
+        --     end,
+        -- },
         {
             'rmagatti/session-lens',
             config = function ()
@@ -320,7 +322,6 @@ return require('lazy').setup({
 
     { -- VHDL plugin for copying and pasting entities and such
         'JPR75/vip',
-        -- cmd = { "Viy", "Vii", "Vic" },
     },
     { -- Preview markdown
         "iamcco/markdown-preview.nvim",

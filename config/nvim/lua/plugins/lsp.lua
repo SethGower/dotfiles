@@ -86,7 +86,7 @@ M.setup = function ()
     })
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
-    local servers = { "pylsp", "rust_analyzer", "texlab", "ltex", "yamlls", "bashls", "vimls", "jsonls", "cmake" }
+    local servers = { "pylsp", "rust_analyzer", "texlab", "yamlls", "bashls", "vimls", "jsonls", "cmake", "marksman" }
     for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {
             on_attach = on_attach,
@@ -94,21 +94,11 @@ M.setup = function ()
         }
     end
 
-    lspconfig["ccls"].setup {
+    lspconfig["ltex"].setup {
         on_attach = on_attach,
-        autostart = false,
         capabilities = capabilities,
-        filetypes = { "c", "cpp", "cuda" },
-        init_options = {
-            cache = {
-                directory = vim.fn.expand("~/.cache/ccls"),
-            },
-            request = {
-                timeout = 100000
-            }
-        },
+        filetypes = { "tex" },
     }
-
     -- lspconfig["svls"].setup {
     --     on_attach = on_attach,
     --     capabilities = capabilities,
@@ -128,13 +118,13 @@ M.setup = function ()
     --     end,
     -- }
 
-    -- lspconfig['clangd'].setup {
-    --     capabilities = capabilities,
-    --     on_attach = function (client, bufnr)
-    --         on_attach(client, bufnr)
-    --         require('nlspsettings').update_settings(client.name)
-    --     end,
-    -- }
+    lspconfig['clangd'].setup {
+        capabilities = capabilities,
+        on_attach = function (client, bufnr)
+            on_attach(client, bufnr)
+            require('nlspsettings').update_settings(client.name)
+        end,
+    }
 
     -- lspconfig["verible"].setup {
     --     on_attach = on_attach,
@@ -265,8 +255,8 @@ M.null_ls = function ()
             check_exit_code = function () return true end,
             from_stderr = false,
             ignore_stderr = true,
-            to_stdin = false,
-            to_temp_file = true,
+            to_stdin = true,
+            to_temp_file = false,
             format = "line",
             multiple_files = false,
             -- TODO: Probably want to rework this so that I can generate actual severity levels for the different types
@@ -328,6 +318,7 @@ M.null_ls = function ()
 
     vim.cmd("command! ToggleVSG lua require('null-ls.sources').toggle('VSG')")
     vim.cmd("command! ToggleTCL lua require('null-ls.sources').toggle('tclint')")
+
 end
 
 return M
