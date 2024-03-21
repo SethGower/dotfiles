@@ -80,13 +80,25 @@ M.setup = function ()
     --     },
     --     open_strictly = false
     -- })
-
+    --
+    if not configs.ginko_ls then
+        configs.ginko_ls = {
+            default_config = {
+                cmd = { "ginko_ls" };
+                filetypes = { "dts" };
+                root_dir = function (_)
+                    return vim.fs.dirname(vim.fs.find({ '.git' }, { upward = true })[1]);
+                end,
+                settings = {};
+            };
+        }
+    end
     lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
         capabilities = capabilities,
     })
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
-    local servers = { "pylsp", "rust_analyzer", "texlab", "yamlls", "bashls", "vimls", "jsonls", "cmake", "marksman" }
+    local servers = { "pylsp", "rust_analyzer", "texlab", "yamlls", "bashls", "vimls", "jsonls", "cmake", "marksman", "ginko_ls" }
     for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {
             on_attach = on_attach,
