@@ -101,7 +101,7 @@ M.setup = function ()
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
     local servers = { "pylsp", "rust_analyzer", "texlab", "yamlls", "bashls", "vimls", "jsonls", "cmake", "marksman",
-        "ginko_ls" }
+        "ginko_ls", "vhdl_ls" }
     for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup()
     end
@@ -146,14 +146,6 @@ M.setup = function ()
     --         return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
     --     end,
     -- }
-
-    lspconfig["vhdl_ls"].setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        root_dir = function (_)
-            return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
-        end,
-    }
 
     local runtime_path = vim.split(package.path, ";")
     lspconfig["lua_ls"].setup {
