@@ -103,7 +103,7 @@ M.setup = function ()
     local servers = { "pylsp", "rust_analyzer", "texlab", "yamlls", "bashls", "vimls", "jsonls", "cmake", "marksman",
         "ginko_ls", "vhdl_ls" }
     for _, lsp in ipairs(servers) do
-        lspconfig[lsp].setup()
+        lspconfig[lsp].setup {}
     end
 
     lspconfig["ltex"].setup {
