@@ -93,17 +93,17 @@ M.setup = function ()
             };
         }
     end
+    -- Sets the defaults for the server configurations. This way I don't have to specify these for every single one
     lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
         capabilities = capabilities,
+        on_attach = on_attach,
     })
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
-    local servers = { "pylsp", "rust_analyzer", "texlab", "yamlls", "bashls", "vimls", "jsonls", "cmake", "marksman", "ginko_ls" }
+    local servers = { "pylsp", "rust_analyzer", "texlab", "yamlls", "bashls", "vimls", "jsonls", "cmake", "marksman",
+        "ginko_ls" }
     for _, lsp in ipairs(servers) do
-        lspconfig[lsp].setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-        }
+        lspconfig[lsp].setup()
     end
 
     lspconfig["ltex"].setup {
