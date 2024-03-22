@@ -81,18 +81,6 @@ M.setup = function ()
     --     open_strictly = false
     -- })
     --
-    if not configs.ginko_ls then
-        configs.ginko_ls = {
-            default_config = {
-                cmd = { "ginko_ls" };
-                filetypes = { "dts" };
-                root_dir = function (_)
-                    return vim.fs.dirname(vim.fs.find({ '.git' }, { upward = true })[1]);
-                end,
-                settings = {};
-            };
-        }
-    end
     -- Sets the defaults for the server configurations. This way I don't have to specify these for every single one
     lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
         capabilities = capabilities,
