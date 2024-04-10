@@ -1,0 +1,136 @@
+#"window.opacity" = 0.95
+
+[colors.bright]
+black = "#bfbfbf"
+blue = "#caa9fa"
+cyan = "#9aedfe"
+green = "#5af78e"
+magenta = "#ff92d0"
+red = "#ff6e67"
+white = "#e6e6e6"
+yellow = "#f4f99d"
+
+[colors.normal]
+black = "#000000"
+blue = "#caa9fa"
+cyan = "#8be9fd"
+green = "#50fa7b"
+magenta = "#ff79c6"
+red = "#ff5555"
+white = "#bfbfbf"
+yellow = "#f1fa8c"
+
+[colors.primary]
+background = "#161616"
+foreground = "#dde1e6"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 10
+
+[font.bold]
+family = "Iosevka"
+style = "Bold"
+
+[font.bold_italic]
+family = "Iosevka"
+style = "Bold Italic"
+
+[font.italic]
+family = "Iosevka"
+style = "Italic"
+
+[font.normal]
+family = "Iosevka"
+style = "Regular"
+
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "Return"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mode = "~Vi"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Control|Shift"
+
+# [schemes.dracula.bright]
+# black = "#bfbfbf"
+# blue = "#caa9fa"
+# cyan = "#9aedfe"
+# green = "#5af78e"
+# magenta = "#ff92d0"
+# red = "#ff6e67"
+# white = "#e6e6e6"
+# yellow = "#f4f99d"
+
+# [schemes.dracula.normal]
+# black = "#000000"
+# blue = "#caa9fa"
+# cyan = "#8be9fd"
+# green = "#50fa7b"
+# magenta = "#ff79c6"
+# red = "#ff5555"
+# white = "#bfbfbf"
+# yellow = "#f1fa8c"
+
+# [schemes.dracula.primary]
+# background = "#282a36"
+# foreground = "#f8f8f2"
+
+# [schemes.gnome-dark.bright]
+# black = "#5e5c64"
+# blue = "#2a7bde"
+# cyan = "#33c7de"
+# green = "#33d17a"
+# magenta = "#c061cb"
+# red = "#f66151"
+# white = "#ffffff"
+# yellow = "#e9ad0c"
+
+# [schemes.gnome-dark.normal]
+# black = "#171421"
+# blue = "#12488b"
+# cyan = "#2aa1b3"
+# green = "#26a269"
+# magenta = "#a347ba"
+# red = "#c01c28"
+# white = "#d0cfcc"
+# yellow = "#a2734c"
+
+# [schemes.gnome-dark.primary]
+# background = "#171421"
+# bright_foreground = "#ffffff"
+# foreground = "#d0cfcc"
+
+# [schemes.oxocarbon-dark.bright]
+# black = "#bfbfbf"
+# blue = "#caa9fa"
+# cyan = "#9aedfe"
+# green = "#5af78e"
+# magenta = "#ff92d0"
+# red = "#ff6e67"
+# white = "#e6e6e6"
+# yellow = "#f4f99d"
+
+# [schemes.oxocarbon-dark.normal]
+# black = "#000000"
+# blue = "#caa9fa"
+# cyan = "#8be9fd"
+# green = "#50fa7b"
+# magenta = "#ff79c6"
+# red = "#ff5555"
+# white = "#bfbfbf"
+# yellow = "#f1fa8c"
+
+# [schemes.oxocarbon-dark.primary]
+# background = "#161616"
+# foreground = "#dde1e6"
