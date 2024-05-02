@@ -44,7 +44,7 @@ M.on_attach = function (client, bufnr)
 
     vim.opt.updatetime = 300
 
-    -- require('nlspsettings').update_settings(client.name)
+    require('nlspsettings').update_settings(client.name)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -66,22 +66,8 @@ M.setup = function ()
         automatic_installation = true
     }
 
-    -- local nlspsettings = require("nlspsettings")
+    local nlspsettings = require("nlspsettings")
 
-    -- nlspsettings.setup({
-    --     config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
-    --     local_settings_dir = ".nlsp-settings",
-    --     local_settings_root_markers_fallback = { '.git' },
-    --     append_default_schemas = true,
-    --     loader = 'json',
-    --     ignored_servers = {},
-    --     nvim_notify = {
-    --         enable = true,
-    --         timeout = 5000
-    --     },
-    --     open_strictly = false
-    -- })
-    --
     -- Sets the defaults for the server configurations. This way I don't have to specify these for every single one
     lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
         capabilities = capabilities,
@@ -177,6 +163,21 @@ M.setup = function ()
             break -- only add the autocmds once
         end
     end
+
+    nlspsettings.setup({
+        config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
+        local_settings_dir = ".nlsp-settings",
+        local_settings_root_markers_fallback = { '.git' },
+        append_default_schemas = true,
+        loader = 'json',
+        ignored_servers = {},
+        nvim_notify = {
+            enable = true,
+            timeout = 5000
+        },
+        open_strictly = false
+    })
+
 
     -- vim.lsp.set_log_level("debug")
 end
