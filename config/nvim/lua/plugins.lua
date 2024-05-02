@@ -188,7 +188,7 @@ return require('lazy').setup({
         "tpope/vim-fugitive",
         "tpope/vim-rhubarb",
         'shumphrey/fugitive-gitlab.vim',
-        evend = Events.EnterWindow
+        event = Events.EnterWindow
     },
     { -- Git modification signs
         "lewis6991/gitsigns.nvim",
