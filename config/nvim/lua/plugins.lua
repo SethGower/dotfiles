@@ -99,7 +99,6 @@ return require('lazy').setup({
     'editorconfig/editorconfig-vim', -- To have nvim use the settings in .editorconfig files
     'tpope/vim-sleuth',              -- handles tab expansion based on current file indentation
     'junegunn/vim-easy-align',       -- Aligning tool to align on delimeters
-    'tpope/vim-commentary',          -- comments lines with motions
     'moll/vim-bbye',                 -- better buffer deletion
     'aymericbeaumet/vim-symlink',    -- read symlinks for pwd
     'dstein64/nvim-scrollview',
@@ -180,6 +179,13 @@ return require('lazy').setup({
     {
         'tweekmonster/startuptime.vim',
         cmd = 'StartupTime'
+    },
+    { -- Updated comment plugin, compared to tpope/commentary.vim
+        'numToStr/Comment.nvim',
+        opts = {
+            -- add any options here
+        },
+        lazy = false,
     },
     ----------------------------
     -- Git stuff
