@@ -304,6 +304,9 @@ M.null_ls = function ()
 
     null_ls.setup({
         on_attach = require('plugins.lsp').on_attach,
+        on_init = function (new_client, _)
+            new_client.offset_encoding = 'utf-32'
+        end,
         diagnostics_format = "[#{c}] #{m} (#{s})",
         sources = {
             vsg_lint,
@@ -317,9 +320,17 @@ M.null_ls = function ()
         temp_dir = "/tmp",
         debug = true
     })
-
     vim.cmd("command! ToggleVSG lua require('null-ls.sources').toggle('VSG')")
     vim.cmd("command! ToggleTCL lua require('null-ls.sources').toggle('tclint')")
+
+    local notify = vim.notify
+    vim.notify = function (msg, ...)
+        if msg:match("warning: multiple different client offset_encodings") then
+            return
+        end
+
+        notify(msg, ...)
+    end
 end
 
 return M
