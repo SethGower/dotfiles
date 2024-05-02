@@ -75,7 +75,7 @@ M.setup = function ()
     })
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
-    local servers = { "pylsp", "rust_analyzer", "texlab", "yamlls", "bashls", "vimls", "jsonls", "cmake", "marksman",
+    local servers = { "pylsp", "rust_analyzer", "texlab", "bashls", "vimls", "jsonls", "cmake", "marksman",
         "ginko_ls", "vhdl_ls" }
     for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {}
@@ -85,6 +85,17 @@ M.setup = function ()
         on_attach = on_attach,
         capabilities = capabilities,
         filetypes = { "tex" },
+    }
+
+    lspconfig["yamlls"].setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        settings = {
+            yaml = {
+                format = { enable = true },
+                validate = true,
+            },
+        },
     }
     -- lspconfig["svls"].setup {
     --     on_attach = on_attach,
