@@ -180,6 +180,11 @@ return require('lazy').setup({
         'tweekmonster/startuptime.vim',
         cmd = 'StartupTime'
     },
+    {
+        'stevearc/conform.nvim',
+        opts = {},
+        config = require('plugins.others').conform
+    },
     { -- Updated comment plugin, compared to tpope/commentary.vim
         'numToStr/Comment.nvim',
         opts = {

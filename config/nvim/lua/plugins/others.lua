@@ -170,4 +170,28 @@ M.notify = function ()
         background_colour = "#000000"
     })
 end
+
+M.conform = function ()
+    require("conform").setup({
+        formatters_by_ft = {
+            -- lua = { "stylua" },
+            python = { "isort", "black", "autopep8" },
+            javascript = { { "prettierd", "prettier" } },
+            yaml = { { "prettierd", "prettier" } },
+            vhdl = { "vsg" }
+        },
+        formatters = {
+            vsg = {
+                command = "vsg",
+                args = { "-c=vsg_config.yaml", "-f=$FILENAME", "-of=syntastic", "--fix" },
+                range_args = nil,
+                stdin = false,
+                -- cwd = require("conform.util").root_file({ ".editorconfig", ".git", "vsg_config.yaml" }),
+                require_cwd = true,
+                tmpfile_format = ".conform.$RANDOM.$FILENAME",
+                exit_codes = { 0, 1 },
+            },
+        },
+    })
+end
 return M

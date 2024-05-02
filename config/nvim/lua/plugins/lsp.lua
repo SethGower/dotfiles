@@ -40,6 +40,7 @@ M.on_attach = function (client, bufnr)
     lsp_keymap('renameProvider', 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     lsp_keymap('codeActionProvider', 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     lsp_keymap('documentFormattingProvider', "n", "<leader>f", "<cmd>lua vim.lsp.buf.format{async = true}<CR>", opts)
+    lsp_keymap('documentFormattingProvider', "n", "<leader>F", "<cmd>lua require('conform').format()<CR>", opts)
 
     vim.opt.updatetime = 300
 
