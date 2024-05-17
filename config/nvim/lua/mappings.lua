@@ -21,12 +21,9 @@ local function create_noops(keys)
 end
 
 create_noops({
-    { 'n',          '[d' },
-    { 'n',          ']d' },
     { 'n',          '<leader>e' },
     { 'n',          '<leader>d' },
     { 'n',          '<leader>D' },
-    { 'n',          '<C-k>' },
     { 'n',          'gD' },
     { 'n',          'gd' },
     { 'n',          'gr' },
