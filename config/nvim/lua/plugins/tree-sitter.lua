@@ -1,5 +1,19 @@
 ------------------------- TREE-SITTER -------------------------
 
+
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+
+parser_config.vhdl = {
+    install_info = {
+        url = "https://github.com/jpt13653903/tree-sitter-vhdl.git",
+        files = { 'src/parser.c', 'src/scanner.c' },
+        branch = 'new_parser',
+        generate_requires_npm = false,
+        requires_generate_from_grammar = true,
+    },
+    filetype = 'vhdl',
+}
+
 local ts = require('nvim-treesitter.configs')
 
 ts.setup {
@@ -55,14 +69,5 @@ ts.setup {
 }
 
 require('ts_context_commentstring').setup {
-  enable_autocmd = false,
-}
-
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.vhdl = {
-    install_info = {
-        url = "~/.local/share/tree-sitter/tree-sitter-vhdl",
-        files = { "src/parser.c" }
-    },
-    filetype = "vhdl"
+    enable_autocmd = false,
 }
