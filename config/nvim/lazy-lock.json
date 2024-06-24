@@ -54,6 +54,7 @@
   "telescope-media-files.nvim": { "branch": "master", "commit": "0826c7a730bc4d36068f7c85cf4c5b3fd9fb570a" },
   "telescope.nvim": { "branch": "master", "commit": "33f04c3a8620024f1dffd0357e37fe701edbf737" },
   "toggleterm.nvim": { "branch": "main", "commit": "066cccf48a43553a80a210eb3be89a15d789d6e6" },
+  "tokyonight.nvim": { "branch": "main", "commit": "0fae425aaab04a5f97666bd431b96f2f19c36935" },
   "trouble.nvim": { "branch": "main", "commit": "b9cf677f20bb2faa2dacfa870b084e568dca9572" },
   "vim-bbye": { "branch": "master", "commit": "25ef93ac5a87526111f43e5110675032dbcacf56" },
   "vim-dispatch": { "branch": "master", "commit": "4c695bc052cad2ae6b980aebbe48d046466e27ae" },
