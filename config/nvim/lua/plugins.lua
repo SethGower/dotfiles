@@ -152,8 +152,9 @@ return require('lazy').setup({
         },
         config = function ()
             require("nvim-tree").setup()
+            require("plugins.nvim-tree-config").setup()
         end,
-        cmd = "NvimTreeFindFile"
+        -- cmd = "NvimTreeFindFile"
     },
 
     { -- Sets the current working directory based on certain patterns
