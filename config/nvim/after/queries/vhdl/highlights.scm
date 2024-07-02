@@ -1,297 +1,343 @@
-; 3.2 Entity declaration {{{
-(type_mark) @type
-(comment) @comment @spell
-(mode) @type.qualifier
+;-------------------------------------------------------------------------------
+;
+; ## Capture Reference
+;
+; https://neovim.io/doc/user/treesitter.html#treesitter-highlight-groups
+;
+; @variable                    various variable names
+; @variable.builtin            built-in variable names (e.g. this, self)
+; @variable.parameter          parameters of a function
+; @variable.parameter.builtin  special parameters (e.g. _, it)
+; @variable.member             object and struct fields
+;
+; @constant                    constant identifiers
+; @constant.builtin            built-in constant values
+; @constant.macro              constants defined by the preprocessor
+;
+; @module                      modules or namespaces
+; @module.builtin              built-in modules or namespaces
+; @label                       GOTO and other labels (e.g. label: in C), including heredoc labels
+;
+; @string                      string literals
+; @string.documentation        string documenting code (e.g. Python docstrings)
+; @string.regexp               regular expressions
+; @string.escape               escape sequences
+; @string.special              other special strings (e.g. dates)
+; @string.special.symbol       symbols or atoms
+; @string.special.path         filenames
+; @string.special.url          URIs (e.g. hyperlinks)
+;
+; @character                   character literals
+; @character.special           special characters (e.g. wildcards)
+;
+; @boolean                     boolean literals
+; @number                      numeric literals
+; @number.float                floating-point number literals
+;
+; @type                        type or class definitions and annotations
+; @type.builtin                built-in types
+; @type.definition             identifiers in type definitions (e.g. typedef <type> <identifier> in C)
+;
+; @attribute                   attribute annotations (e.g. Python decorators, Rust lifetimes)
+; @attribute.builtin           builtin annotations (e.g. @property in Python)
+; @property                    the key in key/value pairs
+;
+; @function                    function definitions
+; @function.builtin            built-in functions
+; @function.call               function calls
+; @function.macro              preprocessor macros
+;
+; @function.method             method definitions
+; @function.method.call        method calls
+;
+; @constructor                 constructor calls and definitions
+; @operator                    symbolic operators (e.g. +, *)
+;
+; @keyword                     keywords not fitting into specific categories
+; @keyword.coroutine           keywords related to coroutines (e.g. go in Go, async/await in Python)
+; @keyword.function            keywords that define a function (e.g. func in Go, def in Python)
+; @keyword.operator            operators that are English words (e.g. and, or)
+; @keyword.import              keywords for including modules (e.g. import, from in Python)
+; @keyword.type                keywords defining composite types (e.g. struct, enum)
+; @keyword.modifier            keywords defining type modifiers (e.g. const, static, public)
+; @keyword.repeat              keywords related to loops (e.g. for, while)
+; @keyword.return              keywords like return and yield
+; @keyword.debug               keywords related to debugging
+; @keyword.exception           keywords related to exceptions (e.g. throw, catch)
+;
+; @keyword.conditional         keywords related to conditionals (e.g. if, else)
+; @keyword.conditional.ternary ternary operator (e.g. ?, :)
+;
+; @keyword.directive           various preprocessor directives and shebangs
+; @keyword.directive.define    preprocessor definition directives
+;
+; @punctuation.delimiter       delimiters (e.g. ;, ., ,)
+; @punctuation.bracket         brackets (e.g. (), {}, [])
+; @punctuation.special         special symbols (e.g. {} in string interpolation)
+;
+; @comment                     line and block comments
+; @comment.documentation       comments documenting code
+;
+; @comment.error               error-type comments (e.g. ERROR, FIXME, DEPRECATED)
+; @comment.warning             warning-type comments (e.g. WARNING, FIX, HACK)
+; @comment.todo                todo-type comments (e.g. TODO, WIP)
+; @comment.note                note-type comments (e.g. NOTE, INFO, XXX)
+;
+; @markup.strong               bold text
+; @markup.italic               italic text
+; @markup.strikethrough        struck-through text
+; @markup.underline            underlined text (only for literal underline markup!)
+;
+; @markup.heading              headings, titles (including markers)
+; @markup.heading.1            top-level heading
+; @markup.heading.2            section heading
+; @markup.heading.3            subsection heading
+; @markup.heading.4            and so on
+; @markup.heading.5            and so forth
+; @markup.heading.6            six levels ought to be enough for anybody
+;
+; @markup.quote                block quotes
+; @markup.math                 math environments (e.g. $ ... $ in LaTeX)
+;
+; @markup.link                 text references, footnotes, citations, etc.
+; @markup.link.label           link, reference descriptions
+; @markup.link.url             URL-style links
+;
+; @markup.raw                  literal or verbatim text (e.g. inline code)
+; @markup.raw.block            literal or verbatim text as a stand-alone block
+;
+; @markup.list                 list markers
+; @markup.list.checked         checked todo-style list markers
+; @markup.list.unchecked       unchecked todo-style list markers
+;
+; @diff.plus                   added text (for diff files)
+; @diff.minus                  deleted text (for diff files)
+; @diff.delta                  changed text (for diff files)
+;
+; @tag                         XML-style tag names (e.g. in XML, HTML, etc.)
+; @tag.builtin                 XML-style tag names (e.g. HTML5 tags)
+; @tag.attribute               XML-style tag attributes
+; @tag.delimiter               XML-style tag delimiters
+; ------------------------------------------------------------------------------
 
-(wait_statement) @keyword.coroutine
+(line_comment)  @comment @spell
+(block_comment) @comment @spell
 
-[ "assert" "report" "severity" ] @debug
-(severity_expression
-    (simple_name) @constant.builtin (#any-of? @constant.builtin
-        "note" "warning" "error" "failure"))
+(identifier) @variable
 
 [
-    "alias"
-    "package"
-    "entity"
-    "architecture"
-    "type"
-    "to"
-    "downto"
-    "signal"
-    "variable"
-    "record"
-    "array"
-    "others"
-    "process"
-    "component"
-    "constant"
-    "port"
-    "generic"
-    "generate"
-    "function"
-    "return"
-    "range"
-    "map"
+    (ACCESS) (AFTER) (ALIAS) (ARCHITECTURE) (ARRAY) (ASSUME)
+    (ATTRIBUTE) (BLOCK) (BODY) (COMPONENT)
+    (CONFIGURATION) (CONTEXT) (COVER) (DISCONNECT)
+    (ENTITY) (FAIRNESS) (FILE)
+    (FORCE) (GENERATE) (GENERIC) (GROUP)
+    (LABEL) (LITERAL)
+    (MAP) (NEW) (PACKAGE)
+    (PARAMETER) (PORT) (PROPERTY)
+    (RANGE) (REJECT)
+    (RELEASE) (RESTRICT) (SEQUENCE)
+    (TRANSPORT)
+    (UNAFFECTED) (VIEW) (VPKG) (VMODE)
+    (VPROP) (VUNIT)
 ] @keyword
 
-(named_association_element
-    actual_part: (open) @variable.builtin)
+[ (ALL) (OTHERS) (box) (DEFAULT) (OPEN) ] @constant.builtin
 
-[ "pure" "impure" ] @type.qualifier
+[ (IS) (BEGIN) (END) ] @keyword
+(parameter_specification (IN) @keyword)
 
-[ "is" "begin" "end" ] @keyword.special
+[ (PROCESS) (WAIT) (ON) (UNTIL) ] @keyword.coroutine
+(timeout_clause (FOR) @keyword.coroutine)
 
-[ "of" "in" "out" "inout" ] @keyword.operator
+[ (FUNCTION) (PROCEDURE) ] @keyword.function
 
-[ "for" "loop" "while" ] @repeat
+[ (TO) (DOWNTO) (OF) ] @keyword.operator
 
-[ "if" "elsif" "else" "case" "then" "when" ] @conditional
-
-(function_body
-    designator: (identifier) @function)
-(function_body
-    at_end: (simple_name) @function)
-
-(procedure_call_statement
-    procedure: (simple_name) @function)
-
-[ "library" "use" ] @include
-
-[ "(" ")" "[" "]" ] @punctuation.bracket
-
-[ "." ";" "," ":" ] @punctuation.delimeter
+[ (LIBRARY) (USE) ] @keyword.import
 
 [
-    "=>" "<=" "+" ":=" "=" "/=" "<" ">" "-" "*" "/"
-    "not" "xor" "and" "nand" "or" "nor"
-    (attribute_name "'")
-    (index_subtype_definition (any))
+    (SUBTYPE) (TYPE) (RECORD) (UNITS)
+    (CONSTANT) (SIGNAL) (VARIABLE)
+] @keyword.type
+
+[
+    (PROTECTED) (PRIVATE)
+    (PURE) (IMPURE)
+    (INERTIAL) (POSTPONED) (STRONG) (GUARDED)
+    (OUT) (INOUT) (LINKAGE) (BUFFER)
+    (REGISTER) (BUS)
+    (SHARED)
+] @keyword.modifier
+(mode (IN) @keyword.modifier)
+(force_mode (IN) @keyword.modifier)
+
+[ (WHILE) (LOOP) (NEXT) (EXIT) ] @keyword.repeat
+(for_loop (FOR) @keyword.repeat)
+
+(block_configuration         (FOR) @keyword)
+(configuration_specification (FOR) @keyword)
+(component_configuration     (FOR) @keyword)
+(end_for                     (FOR) @keyword)
+
+[ (RETURN) ] @keyword.return
+
+[ (ASSERT) (REPORT) (SEVERITY) ] @keyword.debug
+
+[ (IF) (THEN) (ELSIF) (CASE) ] @keyword.conditional
+(when_element              (WHEN) @keyword.conditional)
+(case_generate_alternative (WHEN) @keyword.conditional)
+(else_statements           (ELSE) @keyword.conditional)
+(else_generate             (ELSE) @keyword.conditional)
+
+[ (WITH) (SELECT) ] @keyword.conditional.ternary
+(when_expression               (WHEN) @keyword.conditional.ternary)
+(else_expression               (ELSE) @keyword.conditional.ternary)
+(else_waveform                 (ELSE) @keyword.conditional.ternary)
+(else_expression_or_unaffected (ELSE) @keyword.conditional.ternary)
+
+[ (NULL) ] @constant.builtin
+
+(user_directive)    @keyword.directive
+(protect_directive) @keyword.directive
+(warning_directive) @keyword.directive
+(error_directive)   @keyword.directive
+
+(if_conditional_analysis    (IF)    @keyword.directive)
+(if_conditional_analysis    (THEN)  @keyword.directive)
+(elsif_conditional_analysis (ELSIF) @keyword.directive)
+(else_conditional_analysis  (ELSE)  @keyword.directive)
+(end_conditional_analysis   (END)   @keyword.directive)
+(end_conditional_analysis   (IF)    @keyword.directive)
+
+(directive_body)             @keyword.directive
+(directive_constant_builtin) @constant.macro
+(directive_error)            @comment.error
+(directive_protect)          @keyword.directive
+(directive_warning)          @comment.warning
+
+[
+    (condition_conversion)
+    (unary_operator)
+    (logical_operator)
+    (relational_operator)
+    (shift_operator)
+    (sign)
+    (adding_operator)
+    (multiplying_operator)
+    (exponentiate)
+    (variable_assignment)
+    (signal_assignment)
 ] @operator
 
+[ "'" "," "." ";" ] @punctuation.delimiters
+
+[ "("  ")" "["  "]" "<<" ">>" ] @punctuation.bracket
+
+[ ":" "@" "=>" ] @punctuation.special
+
+[ (decimal_integer) (string_literal_std_logic) ] @number
+(decimal_float) @number.float
+
+(bit_string_length) @property
+(bit_string_base)   @type.builtin
+(bit_string_value)  @number
+
+(based_literal
+  (based_base)     @type.builtin
+  (based_integer)  @number)
+
+(based_literal
+  (based_base)     @type.builtin
+  (based_float)    @number.float)
+
+(string_literal) @string @spell
+(character_literal) @character
+(library_constant_std_logic) @constant.builtin
+
 [
-    ((character_literal))
-    (integer_decimal)
-    (real_decimal)
-] @number
+    (attribute_function)
+    (attribute_impure_function)
+    (attribute_mode_view)
+    (attribute_pure_function)
+    (attribute_range)
+    (attribute_signal)
+    (attribute_subtype)
+    (attribute_type)
+    (attribute_value)
+    (library_attribute)
+] @attribute.builtin
 
-(string_literal) @string
-(bit_string_literal) @string
+(library_constant)           @constant.builtin
+(library_function)           @function.builtin
+(library_type)               @type.builtin
+(library_constant_boolean)   @boolean
+(library_constant_character) @character
+(library_constant_debug)     @keyword.debug
 
-(assertion_statement
-    (string_expression
-        (string_literal) @string @spell))
-(report_statement
-    (string_expression
-        (string_literal) @string @spell))
+(unit)                       @keyword.modifier
+(library_constant_unit)      @keyword.modifier
 
-(physical_literal
-    unit: (simple_name) @attribute)
+(label) @label
 
 (generic_map_aspect
-    (association_list
-        (named_association_element
-            formal_part: (simple_name) @parameter)))
+    (GENERIC) @constructor
+    (MAP)     @constructor )
 
 (port_map_aspect
-    (association_list
-        (named_association_element
-            formal_part: (simple_name) @property)))
+    (PORT) @constructor
+    (MAP)  @constructor )
 
-(sensitivity_list (_) @variable)
+(subtype_indication
+  (name
+    (identifier))) @type
 
-(default_expression (simple_name) @variable)
+(selection
+  (identifier) @variable.member )
 
-; TODO: this capture also captures indexing signals as if they're functions.
-; Don't know if there's anyway around that, might just need to either have
-; function calls highlighted as variables or vice versa
-(expression
-    (ambiguous_name
-        prefix: ((simple_name) @variable)
-        (expression_list)))
+(attribute_identifier) @attribute
 
-(conditional_expression
-    (simple_name) @variable)
-
-(conditional_expression
-    (parenthesized_expression
-        (simple_name) @variable))
-
-(relation
-    (simple_name) @variable)
-(attribute_name
-    prefix: (_) @variable
-    designator: (_) @field)
-
-(variable_declaration
-    (identifier_list (identifier) @variable))
-
-(file_declaration
-    (identifier_list (identifier) @variable))
-
-; ascending and descending specs. TODO see if these can be merged into one
-; query these two are for when there is an expression with multiple arguments,
-; such as (a - b - 1 downto 0)
-(_
-    low: (simple_expression (simple_expression (simple_name) @constant)))
-(_
-    high: (simple_expression (simple_expression (simple_name) @constant))
-)
-; ascending and descending specs. TODO see if these can be merged into one
-; query these two are for when there is an expression with a single argument
-; such as (a downto 0)
-(_
-    low: ((simple_expression (simple_name) @constant)))
-(_
-    high: ((simple_expression (simple_name) @constant))
-)
-
-(simple_expression
-  (term (simple_name) @constant))
-
-(expression
-    (simple_expression (simple_name) @variable))
-
-(package_declaration
-    name: (identifier) @namespace)
-(package_declaration
-    at_end: (simple_name) @namespace)
-
-(entity_declaration
-    name: (identifier) @namespace
-    at_end: (simple_name) @namespace)
-
-(component_declaration
-    name: (identifier) @variable
-    at_end: (simple_name) @variable)
-
-(full_type_declaration
-    name: (identifier) @type.definition)
-
-(record_type_definition
-    at_end: (simple_name) @type)
-
-(architecture_body
-    name: (identifier) @method
-    entity: (simple_name) @namespace
-    at_end: (simple_name) @method)
-
-(component_instantiation
-    component: (simple_name) @variable)
-
-(label (identifier) @label)
-
-(process_statement
-    at_end: (simple_name) @label)
-
-(for_generate_statement
-    at_end: (simple_name) @label)
-
-(if_generate_statement
-    at_end: (simple_name) @label)
-(block_statement
-    at_end: (simple_name) @label)
-
-(entity_instantiation
-    entity: (selected_name
-        prefix: (simple_name) @namespace
-        suffix: (simple_name) @namespace))
+(library_namespace) @module.builtin
 
 (library_clause
-    (logical_name_list
-        library: (simple_name) @namespace))
+  (logical_name_list
+    (identifier) @module ))
 (use_clause
-    (selected_name
-        prefix: (selected_name
-            prefix: (simple_name) @namespace)
-        suffix: (_) @function
-))
-(use_clause
-    (selected_name
-        prefix: (simple_name) @namespace
-))
+  (selected_name
+    . (identifier) @module ))
+(instantiated_unit
+  (name
+    . (identifier) @module ))
 
-(constant_declaration
-    (identifier_list
-        (identifier) @constant))
+(function_specification
+  (operator_symbol) @function.builtin)
 
-; (signal_interface_declaration
-;     (identifier_list
-;         (identifier) @variable))
+(function_specification
+  (identifier) @function)
 
-(signal_declaration
-    (identifier_list
-        (identifier) @variable))
+(procedure_specification
+  (identifier) @function.method)
 
-(entity_header
-    (port_clause
-        (signal_interface_declaration
-            (identifier_list
-                (identifier) @field))))
+(type_declaration      (identifier) @type.definition)
+(mode_view_declaration (identifier) @type.definition)
+(record_mode_view_indication (name (identifier) @type))
 
-(component_instantiation_statement
-    (label
-        (identifier) @label))
+(package_declaration (identifier) @module)
+(package_definition  (identifier) @module)
+(end_package         (identifier) @module)
+(end_package_body    (identifier) @module)
 
-(record_type_definition
-    (_
-    (identifier_list
-        (identifier) @field)))
-(aggregate
-    (named_element_association
-        (choices
-            (simple_expression
-                (simple_name) @field))))
+(entity_declaration  (identifier) @module)
+(end_entity          (identifier) @module)
 
-(simple_waveform_assignment
-    target: (_) @variable)
+(architecture_definition
+  (ARCHITECTURE)
+  (identifier) @property
+  (OF)
+  (name
+    (identifier) @module))
 
-(constant_interface_declaration
-    (identifier_list
-        (identifier) @constant))
+(end_architecture (identifier) @property)
+(subprogram_end   (identifier) @function)
 
-(generic_clause
-    (constant_interface_declaration
-        (identifier_list
-            (identifier) @parameter)))
+(ERROR) @error
 
-(simple_concurrent_signal_assignment
-    target: (simple_name) @variable)
-
-(simple_variable_assignment
-    target: (simple_name) @variable)
-
-(ambiguous_name
-    prefix: (simple_name) @variable)
-
-(ambiguous_name
-    prefix: (simple_name) @function.builtin (#match? @function.builtin
-        "^\(\(rising\|falling\)_edge\)$"))
-
-(ambiguous_name
-    prefix: (simple_name) @type (#match? @type
-        "^\(std_logic\(_vector\)\?\|real\|\(to_\)\?\(\(\(un\)\?signed\)\|integer\)\)$"))
-
-; math_real
-(ambiguous_name
-    prefix: (simple_name) @function.builtin (#any-of? @function.builtin
-        "sign" "ceil" "floor" "round" "fmax" "fmin" "uniform" "srand" "rand"
-        "get_rand_max" "sqrt" "cbrt" "exp" "log" "log2" "sin" "cos" "tan" "asin"
-        "acos" "atan" "atan2" "sinh" "cosh" "tanh" "asinh" "acosh" "atanh"))
-
-(procedure_call_statement
-    procedure: (simple_name) @function.builtin (#any-of? @function.builtin
-        "sign" "ceil" "floor" "round" "fmax" "fmin" "uniform" "srand" "rand"
-        "get_rand_max" "sqrt" "cbrt" "exp" "log" "log2" "sin" "cos" "tan" "asin"
-        "acos" "atan" "atan2" "sinh" "cosh" "tanh" "asinh" "acosh" "atanh"))
-
-(expression (simple_name) @variable)
-
-(expression
-    (simple_name) @variable.builtin (#match? @variable.builtin
-       "^\(true\|false\)$"))
-
-((simple_name) @variable.builtin (#eq? @variable.builtin "now"))
-
-(parameter_specification
-    name: (identifier) @variable)
