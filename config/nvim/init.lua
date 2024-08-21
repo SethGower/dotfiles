@@ -19,7 +19,7 @@
 require 'options'
 require 'plugins'
 require 'autocommands'
-require 'mappings'
+require('mappings').setup()
 require 'local_config'
 
 --local async

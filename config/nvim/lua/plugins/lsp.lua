@@ -8,36 +8,7 @@ local M = {}
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 M.on_attach = function (client, bufnr)
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-    local function lsp_keymap(lsp_capability, ...)
-        if client.server_capabilities[lsp_capability] then
-            buf_set_keymap(...)
-        end
-    end
-
-    --Enable completion triggered by <c-x><c-o>
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    -- Mappings.
-    local opts = { noremap = true, silent = true }
-
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    buf_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-    buf_set_keymap("n", "<leader>d", "<cmd>Trouble document_diagnostics<CR>", opts)
-    buf_set_keymap("n", "<leader>D", "<cmd>Trouble workspace_diagnostics<CR>", opts)
-
-    lsp_keymap('definitionProvider', 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    lsp_keymap('declarationProvider', 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    lsp_keymap('referencesProvider', 'n', 'gr', '<cmd>Trouble lsp_references<CR>', opts)
-    lsp_keymap('implementationsProvider', 'n', 'gi', '<cmd>Trouble lsp_implementations<CR>', opts)
-
-    lsp_keymap('renameProvider', 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    lsp_keymap('codeActionProvider', 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    lsp_keymap('documentFormattingProvider', "n", "<leader>f", "<cmd>lua vim.lsp.buf.format{async = true}<CR>", opts)
-    lsp_keymap('documentFormattingProvider', "n", "<leader>F", "<cmd>lua require('conform').format()<CR>", opts)
+    require("mappings").lsp_setup(client, bufnr)
 
     vim.opt.updatetime = 300
 

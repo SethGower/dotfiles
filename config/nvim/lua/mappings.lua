@@ -1,17 +1,25 @@
 -- Normalize codes (such as <Tab>) to their terminal codes (<Tab> == ^I)
+local M = {}
+
+local default_key_options = { noremap = true, silent = true }
+
 local function t(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
 local function map(mode, lhs, rhs, opts)
-    local options = { noremap = false }
+    local options = default_key_options
     if opts then
-        options = vim.tbl_extend('force', options, opts)
-        if opts['noremap'] then
-            options['noremap'] = true
+        options = vim.tbl_extend("force", options, opts)
+    end
+
+    if type(lhs) == "string" then
+        vim.keymap.set(mode, lhs, rhs, options)
+    elseif type(lhs) == "table" then
+        for _, key in pairs(lhs) do
+            vim.keymap.set(mode, key, rhs, options)
         end
     end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 local function create_noops(keys)
@@ -20,63 +28,171 @@ local function create_noops(keys)
     end
 end
 
-create_noops({
-    { 'n',          '<leader>e' },
-    { 'n',          '<leader>d' },
-    { 'n',          '<leader>D' },
-    { 'n',          'gD' },
-    { 'n',          'gd' },
-    { 'n',          'gr' },
-    { 'n',          'gi' },
-    { 'n',          '<leader>rn' },
-    { 'n',          '<leader>ca' },
-    { 'n',          '<leader>f' },
-    { 'n',          '<F5>' },
-    { 'n',          '<F10>' },
-    { 'n',          '<F11>' },
-    { 'n',          '<F12>' },
-    { 'n',          '<Leader>b' },
-    { 'n',          '<Leader>B' },
-    { 'n',          '<Leader>lp' },
-    { 'n',          '<Leader>dr' },
-    { 'n',          '<Leader>dl' },
-    { 'n',          '<Leader>df' },
-    { 'n',          '<Leader>ds' },
-    { { 'n', 'v' }, '<Leader>dh' },
-    { { 'n', 'v' }, '<Leader>dp' },
-})
+local function Opt(desc)
+    local opt_desc = default_key_options
 
-map('',  'j',                'gj')
-map('',  'k',                'gk')
-map('',  '<leader>wh',       '<C-w>h')
-map('',  '<leader>wj',       '<C-w>j')
-map('',  '<leader>wk',       '<C-w>k')
-map('',  '<leader>wl',       '<C-w>l')
-map('n', '<space>',          'za')
-map('n', 'ga',               '<Plug>(EasyAlign)')
-map('',  'ga',               '<Plug>(EasyAlign)')
-map('n', '<C-P>',            '<cmd>lua require("telescope.builtin").find_files()<CR>')
-map('n', '<C-B>',            '<cmd>lua require("telescope.builtin").buffers()<CR>')
-map('n', '<leader>g',        '<cmd>lua require("telescope.builtin").live_grep()<CR>')
--- map('n', '<C-H>',            '<cmd>Telescope harpoon marks<CR>')
--- map('n', '<C-E>',            '<cmd>Telescope gitmoji<CR>')
--- map('n', '<C-S>',            '<cmd>Telescope session-lens search_session<CR>')
-map('',  '<leader>ws',       ':%s/\\s\\+$//e<CR>:noh<CR>')
-map('n', '<leader><leader>', '<C-^>')
-map('t', '<Esc>',            '<C-\\><C-n>', {noremap = true})
-map('n', 'ga',               '<Plug>(EasyAlign)')
-map('x', 'ga',               '<Plug>(EasyAlign)')
-map('n', '<leader>ad',       '<cmd>ALEDetail<CR>')
-map("n", "<leader>nt",        "<cmd>NvimTreeFindFile<CR>")
+    if desc then
+        opt_desc = vim.tbl_extend("force", default_key_options, {
+            desc = desc
+        })
+    end
 
--- functions to use tab and shift+tab to navigate the completion menu
-function _G.smart_tab()
-    return vim.fn.pumvisible() == 1 and t '<C-n>' or t '<Tab>'
+    return opt_desc
 end
 
-function _G.smart_back_tab()
-    return vim.fn.pumvisible() == 1 and t '<C-p>' or t '<S-Tab>'
+function M.setup_noops()
+    create_noops({
+        { 'n',          '<leader>e' },
+        { 'n',          '<leader>d' },
+        { 'n',          '<leader>D' },
+        { 'n',          'gD' },
+        { 'n',          'gd' },
+        { 'n',          'gr' },
+        { 'n',          'gi' },
+        { 'n',          '<leader>rn' },
+        { 'n',          '<leader>ca' },
+        { 'n',          '<leader>f' },
+        { 'n',          '<F5>' },
+        { 'n',          '<F10>' },
+        { 'n',          '<F11>' },
+        { 'n',          '<F12>' },
+        { 'n',          '<Leader>b' },
+        { 'n',          '<Leader>B' },
+        { 'n',          '<Leader>lp' },
+        { 'n',          '<Leader>dr' },
+        { 'n',          '<Leader>dl' },
+        { 'n',          '<Leader>df' },
+        { 'n',          '<Leader>ds' },
+        { 'n',          '<Leader>ta' },
+        { 'n',          '<Leader>nt' },
+        { { 'n', 'v' }, '<Leader>dh' },
+        { { 'n', 'v' }, '<Leader>dp' },
+    })
 end
 
-vim.api.nvim_set_keymap('i', '<Tab>', 'v:lua.smart_tab()', { expr = true, noremap = true })
-vim.api.nvim_set_keymap('i', '<S-Tab>', 'v:lua.smart_back_tab()', { expr = true, noremap = true })
+function M.misc()
+    map('n', 'ga', '<Plug>(EasyAlign)')
+    map('', 'ga', '<Plug>(EasyAlign)')
+    map('n', 'ga', '<Plug>(EasyAlign)')
+    map('x', 'ga', '<Plug>(EasyAlign)')
+    map('', '<leader>ws', ':%s/\\s\\+$//e<CR>:noh<CR>')
+    map('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
+    map('n', '<leader>ad', '<cmd>ALEDetail<CR>')
+    map("n", "<leader>nt", "<cmd>NvimTreeFindFile<CR>")
+    map("n", "<leader>ta", "<cmd>ToggleAlternate<CR>")
+end
+
+function M.lsp_setup(client, bufnr)
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+
+    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+    local function lsp_keymap(lsp_capability, ...)
+        if client.server_capabilities[lsp_capability] then
+            buf_set_keymap(...)
+        end
+    end
+
+    -- This is a bit hacky, but we have to resolve `vim.lsp.buf` at runtime
+    -- so the operation completes on the active buffer NOT. If we pass
+    -- `vim.lsp.buf.declaration`, it will resolve at mapping time, not at
+    -- run time.
+    local function buf_run(str)
+        return "<Cmd>lua " .. str .. "<CR>"
+    end
+
+    local lOpts = function (desc) return Opt("LSP: " .. desc) end
+
+    --Enable completion triggered by <c-x><c-o>
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+    -- Mappings.
+
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    -- buf_set_keymap("n", "<leader>D", "<cmd>Trouble workspace_diagnostics<CR>", opts)
+    buf_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', lOpts('open floating diagnostic'))
+    buf_set_keymap("n", "<leader>d", "<cmd>Trouble diagnostics<CR>",             lOpts('trouble diagnostics'))
+
+    -- goto bindings
+    lsp_keymap('declarationProvider',        "n", "gD",         buf_run("vim.lsp.buf.declaration()"),            lOpts("goto declaration"))
+    lsp_keymap('definitionProvider',         "n", "gd",         buf_run("vim.lsp.buf.definition()"),             lOpts("goto definition"))
+    lsp_keymap('implementationsProvider',    "n", "gi",         buf_run("vim.lsp.buf.implementation()"),         lOpts("goto implementation"))
+    lsp_keymap('definitionProvider',         "n", "gl",         buf_run("vim.lsp.buf.type_definition()"),        lOpts("goto type definition"))
+    lsp_keymap('references',                 "n", "gr",         buf_run("vim.lsp.buf.references()"),             lOpts("see all object references"))
+
+    lsp_keymap('renameProvider',             'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>',             lOpts('rename symbol'))
+    lsp_keymap('codeActionProvider',         'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>',        lOpts('code action'))
+    lsp_keymap('documentFormattingProvider', "n", "<leader>f",  "<cmd>lua vim.lsp.buf.format{async = true}<CR>", lOpts('format buffer'))
+    lsp_keymap('documentFormattingProvider', "n", "<leader>F",  "<cmd>lua require('conform').format()<CR>",      lOpts('format with conform'))
+end
+
+function M.navigation()
+    map('', 'j', 'gj')
+    map('', 'k', 'gk')
+    local has_navigator, navigator = pcall(require, 'Navigator')
+    if has_navigator then
+        map({ 'n', 't' }, { "<C-h>", "<C-Left>" }, navigator.left, Opt("Navigation: Left a window"))
+        map({ 'n', 't' }, { "<C-k>", "<C-Up>" }, navigator.up, Opt("Navigation: Up a window"))
+        map({ 'n', 't' }, { "<C-l>", "<C-Right>" }, navigator.right, Opt("Navigation: Right a window"))
+        map({ 'n', 't' }, { "<C-j>", "<C-Down>" }, navigator.down, Opt("Navigation: Down a window"))
+        map({ 'n', 't' }, "<A-p>", navigator.previous, Opt("Navigation: Go to previous window"))
+    else
+        map({ 'n', 't' }, { "<C-h>", "<C-Left>" }, "<C-w>h", Opt("Navigation: Left a window"))
+        map({ 'n', 't' }, { "<C-k>", "<C-Up>" }, "<C-w>k", Opt("Navigation: Up a window"))
+        map({ 'n', 't' }, { "<C-l>", "<C-Right>" }, "<C-w>l", Opt("Navigation: Right a window"))
+        map({ 'n', 't' }, { "<C-j>", "<C-Down>" }, "<C-w>j", Opt("Navigation: Down a window"))
+        map({ 'n', 't' }, "<A-p>", "<C-w>p", Opt("Navigation: Go to previous window"))
+    end
+    map('n', '<leader><leader>', '<C-^>')
+
+    if vim.g.plugins_installed then
+        map('n', '<C-P>', '<cmd>lua require("telescope.builtin").find_files()<CR>')
+        map('n', '<C-B>', '<cmd>lua require("telescope.builtin").buffers()<CR>')
+        map('n', '<leader>g', '<cmd>lua require("telescope.builtin").live_grep()<CR>')
+    end -- vim.g.plugins_installed
+
+    -- keybind that shows the changes that haven't been saved yet
+    -- stolen from https://programming.dev/post/18289612
+    vim.keymap.set(
+        'n',
+        '<C-D>',
+        function ()
+            local tmpft = vim.bo.filetype
+            vim.cmd.vnew()
+            vim.bo.filetype = tmpft
+            vim.bo.buftype = 'nofile'
+            vim.keymap.set(
+                'n',
+                'q',
+                '<cmd>bw<cr>',
+                { noremap = true, silent = true, buffer = true }
+            )
+            vim.cmd('silent r#|0d_')
+            vim.bo.modifiable = false
+            vim.cmd('diffthis|wincmd p|diffthis')
+        end,
+        { noremap = true }
+    )
+end
+
+function M.setup()
+    -- M.setup_noops()
+    M.misc()
+    M.navigation()
+    -- map('n', '<space>', 'za')
+
+    -- functions to use tab and shift+tab to navigate the completion menu
+    function _G.smart_tab()
+        return vim.fn.pumvisible() == 1 and t '<C-n>' or t '<Tab>'
+    end
+
+    function _G.smart_back_tab()
+        return vim.fn.pumvisible() == 1 and t '<C-p>' or t '<S-Tab>'
+    end
+
+    vim.api.nvim_set_keymap('i', '<Tab>', 'v:lua.smart_tab()', { expr = true, noremap = true })
+    vim.api.nvim_set_keymap('i', '<S-Tab>', 'v:lua.smart_back_tab()', { expr = true, noremap = true })
+
+end
+
+return M
