@@ -138,7 +138,6 @@ return require('lazy').setup({
     ----------------------------
     'editorconfig/editorconfig-vim', -- To have nvim use the settings in .editorconfig files
     'tpope/vim-sleuth',              -- handles tab expansion based on current file indentation
-    'junegunn/vim-easy-align',       -- Aligning tool to align on delimeters
     'moll/vim-bbye',                 -- better buffer deletion
     'aymericbeaumet/vim-symlink',    -- read symlinks for pwd
     'dstein64/nvim-scrollview',
@@ -163,12 +162,6 @@ return require('lazy').setup({
         'rcarriga/nvim-notify',
         config = function ()
             require 'plugins.others'.notify()
-        end
-    },
-    { -- auto pairs for certain characters
-        'windwp/nvim-autopairs',
-        config = function ()
-            require 'plugins.auto-pairs'
         end
     },
     {
