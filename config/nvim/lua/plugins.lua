@@ -11,6 +11,12 @@ if not vim.loop.fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
+
+-- If we can't install plugins, don't bother
+vim.g.plugins_installed = vim.fn.has("nvim-0.8.0") ~= 0
+if not vim.g.plugins_installed then
+    return
+end
 ---------------------
 --  Plugin Config  --
 ---------------------
@@ -64,6 +70,32 @@ return require('lazy').setup({
         },
     },
 
+    { -- Highlight todo comments
+        "folke/todo-comments.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "telescope.nvim"
+        },
+        event = Events.OpenFile,
+        opts = {
+            signs = false,
+            highlight = {
+                pattern = [[.*<(KEYWORDS)\s*:?]], -- vim regex
+            },
+            search = {
+                command = "rg",
+                args = {
+                    "--color=never",
+                    "--no-heading",
+                    "--with-filename",
+                    "--line-number",
+                    "--column",
+                },
+                -- Don't replace the (KEYWORDS) placeholder
+                pattern = [[\b(KEYWORDS):?]], -- ripgrep regex
+            },
+        }
+    },
     ----------------------------
     -- Completion Engine
     ----------------------------
@@ -201,6 +233,66 @@ return require('lazy').setup({
         },
         lazy = false,
     },
+    { -- Auto buffer resizing
+        "anuvyklack/windows.nvim",
+        dependencies = {
+            "anuvyklack/middleclass",
+            "anuvyklack/animation.nvim"
+        },
+        event = Events.EnterWindow,
+        opts = {
+            autowidth = {
+                enable = true,
+                winwidth = 10,
+                filetype = {
+                    help = 2,
+                },
+            },
+            ignore = {
+                buftype = { "quickfix" },
+                filetype = { "NvimTree", "neo-tree", "undotree", "gundo", "fzf", "TelescopePrompt", "TelescopeResults" }
+            },
+            animation = {
+                enable = true,
+                duration = 300,
+                fps = 30,
+                easing = "in_out_sine"
+            }
+        },
+    },
+
+    { -- Toggle True/False, Yes/No, etc..
+        "rmagatti/alternate-toggler",
+        cmd = "ToggleAlternate",
+        opts = {
+            alternates = {
+                ["=="] = "!=",
+                ["yes"] = "no",
+                ["no"] = "yes",
+                ["NO"] = "YES",
+                ["false"] = "true",
+                ["FALSE"] = "TRUE",
+            }
+        }
+    },
+
+    { -- Ctrl-<hjkl> navigation with TMUX
+        "numToStr/Navigator.nvim",
+        opts = {
+            auto_save = nil,
+            disable_on_zoom = true
+        },
+    },
+
+    { -- Various small utilies
+        "echasnovski/mini.nvim",
+        branch = 'main',
+        event = Events.OpenFile,
+        config = function ()
+            require("plugins.mini").config()
+        end
+    },
+
     ----------------------------
     -- Git stuff
     ----------------------------
