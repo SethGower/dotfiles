@@ -40,6 +40,14 @@ local function Opt(desc)
     return opt_desc
 end
 
+-- This is a bit hacky, but we have to resolve `vim.lsp.buf` at runtime
+-- so the operation completes on the active buffer NOT. If we pass
+-- `vim.lsp.buf.declaration`, it will resolve at mapping time, not at
+-- run time.
+local function buf_run(str)
+    return "<Cmd>lua " .. str .. "<CR>"
+end
+
 function M.setup_noops()
     create_noops({
         { 'n',          '<leader>e' },
@@ -91,14 +99,6 @@ function M.lsp_setup(client, bufnr)
         if client.server_capabilities[lsp_capability] then
             buf_set_keymap(...)
         end
-    end
-
-    -- This is a bit hacky, but we have to resolve `vim.lsp.buf` at runtime
-    -- so the operation completes on the active buffer NOT. If we pass
-    -- `vim.lsp.buf.declaration`, it will resolve at mapping time, not at
-    -- run time.
-    local function buf_run(str)
-        return "<Cmd>lua " .. str .. "<CR>"
     end
 
     local lOpts = function (desc) return Opt("LSP: " .. desc) end
@@ -197,7 +197,8 @@ end
 -----------------
 --  mini.clue  --
 -----------------
-M.clue = {
+M.mini = {}
+M.mini.clue = {
     -- Clue popup triggers
     triggers = {
         -- Leader triggers
@@ -241,5 +242,27 @@ M.clue = {
         { mode = 'n', keys = '<Leader><Leader>', desc = 'Harpoon' },
     }
 }
+
+M.mini.files = {
+
+    mappings = {
+        close       = 'q',
+        go_in       = 'l',
+        go_in_plus  = 'L',
+        go_out      = 'h',
+        go_out_plus = 'H',
+        reset       = '<BS>',
+        reveal_cwd  = '@',
+        show_help   = 'g?',
+        synchronize = '=',
+        trim_left   = '<',
+        trim_right  = '>',
+    },
+    setup = function ()
+        map('n', '<leader>mf', buf_run('MiniFiles.open()'))
+    end
+}
+-- function M.mini.files.setup()
+-- end
 
 return M

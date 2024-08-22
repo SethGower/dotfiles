@@ -8,6 +8,7 @@ local mini = {
     pairs      = require('mini.pairs'),
     surround   = require('mini.surround'),
     trailspace = require('mini.trailspace'),
+    files      = require('mini.files'),
 }
 
 M.config = function ()
@@ -50,7 +51,7 @@ M.config = function ()
                 width = 'auto',
             },
         },
-        triggers = require("mappings").clue.triggers,
+        triggers = require("mappings").mini.clue.triggers,
 
         clues = {
             -- Enhance this by adding descriptions for <Leader> mapping groups
@@ -61,7 +62,7 @@ M.config = function ()
             mini.clue.gen_clues.windows(),
             mini.clue.gen_clues.z(),
 
-            require("mappings").clue.clues
+            require("mappings").mini.clue.clues
         },
     })
     --
@@ -115,6 +116,15 @@ M.config = function ()
     mini.trailspace.setup({
         only_in_normal_buffers = true
     })
+
+    -- ---------------------------------
+    -- -- Files
+    -- ---------------------------------
+    mini.files.setup({
+        mappings = require('mappings').mini.files.mappings
+    })
+
+    require('mappings').mini.files.setup()
 end
 
 return M
