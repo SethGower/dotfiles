@@ -192,7 +192,54 @@ function M.setup()
 
     vim.api.nvim_set_keymap('i', '<Tab>', 'v:lua.smart_tab()', { expr = true, noremap = true })
     vim.api.nvim_set_keymap('i', '<S-Tab>', 'v:lua.smart_back_tab()', { expr = true, noremap = true })
-
 end
+
+-----------------
+--  mini.clue  --
+-----------------
+M.clue = {
+    -- Clue popup triggers
+    triggers = {
+        -- Leader triggers
+        { mode = 'n', keys = '<Leader>' },
+        { mode = 'x', keys = '<Leader>' },
+
+        -- Built-in completion
+        { mode = 'i', keys = '<C-x>' },
+
+        -- `g` key
+        { mode = 'n', keys = 'g' },
+        { mode = 'x', keys = 'g' },
+
+        -- Marks
+        { mode = 'n', keys = "'" },
+        { mode = 'n', keys = '`' },
+        { mode = 'x', keys = "'" },
+        { mode = 'x', keys = '`' },
+
+        -- Registers
+        { mode = 'n', keys = '"' },
+        { mode = 'x', keys = '"' },
+        { mode = 'i', keys = '<C-r>' },
+        { mode = 'c', keys = '<C-r>' },
+
+        -- Window commands
+        { mode = 'n', keys = '<C-w>' },
+        -- { mode = 'n', keys = '<Leader>w' },
+
+        -- `z` key
+        { mode = 'n', keys = 'z' },
+        { mode = 'x', keys = 'z' },
+    },
+    -- Additional clue hints
+    clues = {
+        { mode = 'n', keys = '<Leader>l',        desc = 'LSP: Extra' },
+        { mode = 'n', keys = '<Leader>lw',       desc = 'Workspace' },
+        { mode = 'n', keys = '<Leader>h',        desc = 'git' },
+        { mode = 'n', keys = '<Leader>s',        desc = 'Surround' },
+        { mode = 'n', keys = '<Leader>p',        desc = 'Misc. Pickers' },
+        { mode = 'n', keys = '<Leader><Leader>', desc = 'Harpoon' },
+    }
+}
 
 return M
