@@ -60,7 +60,7 @@ M.setup = function ()
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
     local servers = { "pylsp", "rust_analyzer", "texlab", "bashls", "vimls", "jsonls", "cmake", "marksman",
-        "ginko_ls", "vhdl_ls" }
+        "ginko_ls" }
     for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {}
     end
@@ -69,6 +69,22 @@ M.setup = function ()
         on_attach = on_attach,
         capabilities = capabilities,
         filetypes = { "tex" },
+    }
+
+    -- For some reason the vhdl_ls LSP server doesn't handle snippets in large (hundreds/thousands of files/units).
+    -- Causes a 1-5s freeze when completing something, which is unacceptable when I am trying to type. For now, just
+    -- gonna disable snippetSupport
+    lspconfig["vhdl_ls"].setup {
+        on_attach = on_attach,
+        capabilities = vim.tbl_extend("force", capabilities, {
+            textDocument = {
+                completion = {
+                    completionItem = {
+                        snippetSupport = false
+                    }
+                }
+            }
+        }),
     }
 
     lspconfig["yamlls"].setup {
