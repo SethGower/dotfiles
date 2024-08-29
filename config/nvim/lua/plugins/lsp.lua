@@ -96,6 +96,7 @@ M.setup = function ()
         root_dir = function (_)
             return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
         end,
+        filetypes = { 'systemverilog' }
     }
 
     local runtime_path = vim.split(package.path, ";")
