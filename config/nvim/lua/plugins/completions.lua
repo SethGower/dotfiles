@@ -1,7 +1,7 @@
 local M = {}
 
 
-M.config = function()
+M.config = function ()
     local cmp_present, cmp = pcall(require, "cmp")
     local lua_present, luasnip = pcall(require, "luasnip")
 
@@ -17,7 +17,7 @@ M.config = function()
 
     vim.opt.completeopt = "menu,menuone"
 
-    local has_words_before = function()
+    local has_words_before = function ()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
     end
@@ -25,12 +25,12 @@ M.config = function()
     -- nvim-cmp setup
     cmp.setup {
         snippet = {
-            expand = function(args)
+            expand = function (args)
                 luasnip.lsp_expand(args.body)
             end,
         },
         formatting = {
-            format = function(entry, vim_item) -- load lspkind icons
+            format = function (entry, vim_item) -- load lspkind icons
                 vim_item.kind = string.format(
                     "%s %s",
                     require("plugins.lspkind_icons").icons[vim_item.kind],
@@ -57,6 +57,7 @@ M.config = function()
                 behavior = cmp.ConfirmBehavior.Replace,
                 select = true,
             },
+            -- stylua ignore
             ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item()
@@ -88,25 +89,25 @@ M.config = function()
         },
     } -- cmp.setup
 
-    cmp.setup.cmdline ({'/', '?'}, {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-            {name = 'buffer'},
-            {name = 'path'}
-        }
-    })
-
-    cmp.setup.cmdline (':', {
+    cmp.setup.cmdline({ '/', '?' }, {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
-            {name = 'path'},
-            {name = 'cmdline'}
+            { name = 'nvim_lsp_document_symbol' },
+            { name = 'buffer' },
+            { name = 'path' }
         })
     })
 
+    cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+            { name = 'path' },
+            { name = 'cmdline' }
+        })
+    })
 end
 
-M.luasnip = function()
+M.luasnip = function ()
     local lua_present, luasnip = pcall(require, "luasnip")
 
     if not lua_present then
@@ -131,5 +132,6 @@ M.luasnip = function()
     vim.cmd([[snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(1)<Cr>]])
     vim.cmd([[snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>]])
 end
+
 
 return M
