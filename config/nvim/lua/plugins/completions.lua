@@ -114,6 +114,9 @@ M.config = function ()
             { name = "luasnip" },
         })
     })
+    cmp.setup.filetype('vhdl', {
+        enabled = false
+    })
 
     require("cmp_git").setup()
 end

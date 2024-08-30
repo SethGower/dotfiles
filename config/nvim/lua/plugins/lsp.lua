@@ -74,18 +74,14 @@ M.setup = function ()
     -- For some reason the vhdl_ls LSP server doesn't handle snippets in large (hundreds/thousands of files/units).
     -- Causes a 1-5s freeze when completing something, which is unacceptable when I am trying to type. For now, just
     -- gonna disable snippetSupport
-    lspconfig["vhdl_ls"].setup {
-        on_attach = on_attach,
-        capabilities = vim.tbl_extend("force", capabilities, {
-            textDocument = {
-                completion = {
-                    completionItem = {
-                        snippetSupport = false
-                    }
-                }
-            }
-        }),
-    }
+    local coq = require("coq")
+    lspconfig["vhdl_ls"].setup(coq.lsp_ensure_capabilities({
+        on_attach = function (...)
+            on_attach(...)
+            vim.cmd([[COQnow]])
+        end,
+        capabilities = capabilities,
+    }))
 
     lspconfig["yamlls"].setup {
         on_attach = on_attach,

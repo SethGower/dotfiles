@@ -380,12 +380,20 @@ return require('lazy').setup({
     {                               -- Neovim Language Server
         "neovim/nvim-lspconfig",
         event = Events.OpenFile,
+        init = function ()
+            vim.g.coq_settings = {
+                auto_start = false,
+            }
+        end,
         config = function ()
             require("plugins.lsp").setup()
         end,
         dependencies = {
             "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim"
+            "williamboman/mason-lspconfig.nvim",
+            { "ms-jpq/coq_nvim",       branch = "coq" },
+            { "ms-jpq/coq.artifacts",  branch = "artifacts" },
+            { 'ms-jpq/coq.thirdparty', branch = "3p" }
         }
     },
     {
