@@ -380,11 +380,6 @@ return require('lazy').setup({
     {                               -- Neovim Language Server
         "neovim/nvim-lspconfig",
         event = Events.OpenFile,
-        init = function ()
-            vim.g.coq_settings = {
-                auto_start = false,
-            }
-        end,
         config = function ()
             require("plugins.lsp").setup()
         end,

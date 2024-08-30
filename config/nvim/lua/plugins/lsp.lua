@@ -78,7 +78,7 @@ M.setup = function ()
     lspconfig["vhdl_ls"].setup(coq.lsp_ensure_capabilities({
         on_attach = function (...)
             on_attach(...)
-            vim.cmd([[COQnow]])
+            require("plugins.completions").config_coq()
         end,
         capabilities = capabilities,
     }))

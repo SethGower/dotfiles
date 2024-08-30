@@ -1,5 +1,14 @@
 local M = {}
 
+M.config_coq = function ()
+    vim.g.coq_settings = {
+        keymap = {
+            recommended = true,
+        },
+    }
+
+    vim.cmd([[COQnow]])
+end
 
 M.config = function ()
     local cmp_present, cmp = pcall(require, "cmp")
