@@ -37,6 +37,16 @@ return require('lazy').setup({
     ----------------------------
     'kshenoy/vim-signature', -- adds markers to the sign column
     {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
+        opts = {
+            no_italic = false,
+            term_colors = true,
+            transparent_background = true,
+        }
+    },
+    {
         "dracula/vim",
         name = "dracula",
         lazy = true,
