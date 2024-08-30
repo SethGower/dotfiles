@@ -175,6 +175,7 @@ return require('lazy').setup({
             vim.keymap.set('n', "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext)
         end
     },
+    'mg979/vim-visual-multi',
     {
         'rcarriga/nvim-notify',
         config = function ()
