@@ -443,7 +443,7 @@ return require('lazy').setup({
         },
         event = Events.EnterWindow,
         config = function ()
-            require 'plugins.telescope'
+            require 'plugins.telescope'.config()
         end
     },
 

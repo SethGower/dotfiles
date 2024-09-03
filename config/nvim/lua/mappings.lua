@@ -175,6 +175,48 @@ function M.navigation()
     )
 end
 
+function M.telescope()
+    if vim.g.plugins_installed then
+        local ts = {
+            builtin     = function () return require('telescope.builtin') end,
+            extensions  = function () return require('telescope').extensions end,
+            grep_fuzzy  = function ()
+                require('telescope.builtin').grep_string({
+                    prompt_title = "Fuzzy Find",
+                    shorten_path = true,
+                    word_match = "-w",
+                    only_sort_text = true,
+                    search = ''
+                })
+            end,
+            grep_string = function ()
+                require('telescope.builtin').grep_string({ search = vim.fn.input("Grep > ") })
+            end
+        }
+
+
+        -- File pickers
+        map('n', '<C-P>', ts.builtin().find_files, Opt("Telescope: Fuzzy file finder"))
+        map('n', '<C-B>', ts.builtin().buffers, Opt("Telescope: Show active buffers"))
+        map('n', '<Leader>f', ts.builtin().find_files, Opt("Telescope: Fuzzy file finder"))
+        map('n', '<Leader>b', ts.builtin().buffers, Opt("Telescope: Show active buffers"))
+
+        -- Extra pickers
+        map('n', '<Leader>pz', ts.grep_fuzzy, Opt("Telescope: Fuzzy finder"))
+        map('n', '<Leader>pm', ts.extensions().media_files.media_files, Opt("Telescope: Show media files"))
+        map('n', '<Leader>ph', ts.builtin().help_tags, Opt("Telescope: interactive help menu"))
+        map('n', '<Leader>po', ts.builtin().oldfiles, Opt("Telescope: Previously edited files"))
+
+        -- Global search/help
+        -- map('n', '<leader>g', ts.builtin().live_grep, Opt("Telescope: Live grep"))
+        map('n', '<Leader>/', ts.builtin().live_grep, Opt("Telescope: Live grep"))
+        map('n', '<Leader>,', ts.grep_string, Opt("Telescope: Grep string (statusline)"))
+        map('n', '<Leader>?', ts.builtin().keymaps, Opt("Telescope: Show all keybinds"))
+        map('n', '<Leader>*', ts.builtin().grep_string, Opt("Telescope: Find word under cursor"))
+        map('n', '<Leader>d', ts.builtin().lsp_document_symbols, Opt("Telescope: Show LSP symbols in current file"))
+    end
+end
+
 function M.setup()
     -- M.setup_noops()
     M.misc()
