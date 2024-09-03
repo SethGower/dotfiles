@@ -22,6 +22,12 @@ local function map(mode, lhs, rhs, opts)
     end
 end
 
+local function pmap(mode, lhs, rhs, opts)
+    if vim.g.plugins_installed then
+        map(mode, lhs, rhs, opts)
+    end
+end
+
 local function create_noops(keys)
     for _, v in ipairs(keys) do
         vim.keymap.set(v[1], v[2], '')
@@ -86,8 +92,9 @@ function M.misc()
     map('', '<leader>ws', ':%s/\\s\\+$//e<CR>:noh<CR>')
     map('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
     map('n', '<leader>ad', '<cmd>ALEDetail<CR>')
-    map("n", "<leader>nt", "<cmd>NvimTreeFindFile<CR>")
+    map("n", "<leader>tr", "<cmd>NvimTreeFindFile<CR>")
     map("n", "<leader>ta", "<cmd>ToggleAlternate<CR>")
+    map("n", "<Leader>n", ":noh<CR>", Opt("Display: Hide \"find\" highlight"))
 end
 
 function M.lsp_setup(client, bufnr)
@@ -214,6 +221,12 @@ function M.telescope()
         map('n', '<Leader>?', ts.builtin().keymaps, Opt("Telescope: Show all keybinds"))
         map('n', '<Leader>*', ts.builtin().grep_string, Opt("Telescope: Find word under cursor"))
         map('n', '<Leader>d', ts.builtin().lsp_document_symbols, Opt("Telescope: Show LSP symbols in current file"))
+        -----------------
+        --  GIT SIGNS  --
+        -----------------
+        pmap("n", "<Leader>hb", '<cmd>lua require"gitsigns".blame_line()<CR>', Opt("Git: Blame this line"))
+        pmap("n", "<Leader>hs", '<cmd>Telescope git_status<CR>',               Opt("Git: Git status"))
+        pmap("n", "<Leader>hc", '<cmd>Telescope git_commits<CR>',              Opt("Git: Git commits"))
     end
 end
 
@@ -268,6 +281,7 @@ M.mini.clue = {
         { mode = 'n', keys = '<Leader>lw', desc = 'Workspace' },
         { mode = 'n', keys = '<Leader>s',  desc = 'Surround' },
         { mode = 'n', keys = '<Leader>p',  desc = 'Misc. Pickers' },
+        { mode = 'n', keys = '<Leader>h',  desc = 'Git stuff' },
         -- { mode = 'n', keys = '<Leader><Leader>', desc = 'Harpoon' },
     }
 }
