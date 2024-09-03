@@ -76,7 +76,6 @@
   "vim-sleuth": { "branch": "master", "commit": "1cc4557420f215d02c4d2645a748a816c220e99b" },
   "vim-snippets": { "branch": "master", "commit": "f0a3184d9f90b96b044d5914625a25c554d7f301" },
   "vim-symlink": { "branch": "master", "commit": "fec2d1a72c6875557109ce6113f26d3140b64374" },
-  "vim-visual-multi": { "branch": "master", "commit": "38b0e8d94a5499ccc17d6159763d32c79f53417b" },
   "vim-xdc-syntax": { "branch": "master", "commit": "2a2fbc1e205718218e95a810fe0b84e84a1d7711" },
   "vimtex": { "branch": "master", "commit": "76ef99f73a5ff10be59836a4af4f928eaa8ad284" },
   "vip": { "branch": "master", "commit": "1025e44768e6c6c59c4e314378c46b02f9ef4121" },

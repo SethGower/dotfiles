@@ -159,7 +159,7 @@ return require('lazy').setup({
     'moll/vim-bbye',                 -- better buffer deletion
     'aymericbeaumet/vim-symlink',    -- read symlinks for pwd
     'dstein64/nvim-scrollview',
-    'mg979/vim-visual-multi',
+    -- 'mg979/vim-visual-multi',
     -- {
     --     "folke/noice.nvim",
     --     opts = {
