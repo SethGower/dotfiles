@@ -36,6 +36,7 @@ return require('lazy').setup({
     -- Colors and Appearance
     ----------------------------
     'kshenoy/vim-signature', -- adds markers to the sign column
+    { "EdenEast/nightfox.nvim" },
     {
         "catppuccin/nvim",
         name = "catppuccin",

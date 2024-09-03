@@ -38,4 +38,4 @@ require 'local_config'
 --async:send()
 
 vim.g.dracula_colorterm = 0
-vim.cmd 'colorscheme catppuccin'
+vim.cmd 'colorscheme carbonfox'
