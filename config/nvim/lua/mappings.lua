@@ -111,19 +111,24 @@ function M.lsp_setup(client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     -- buf_set_keymap("n", "<leader>D", "<cmd>Trouble workspace_diagnostics<CR>", opts)
     buf_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', lOpts('open floating diagnostic'))
-    buf_set_keymap("n", "<leader>d", "<cmd>Trouble diagnostics<CR>",             lOpts('trouble diagnostics'))
+    -- buf_set_keymap("n", "<leader>d", "<cmd>Trouble diagnostics<CR>", lOpts('trouble diagnostics'))
 
     -- goto bindings
-    lsp_keymap('declarationProvider',        "n", "gD",         buf_run("vim.lsp.buf.declaration()"),            lOpts("goto declaration"))
-    lsp_keymap('definitionProvider',         "n", "gd",         buf_run("vim.lsp.buf.definition()"),             lOpts("goto definition"))
-    lsp_keymap('implementationsProvider',    "n", "gi",         buf_run("vim.lsp.buf.implementation()"),         lOpts("goto implementation"))
-    lsp_keymap('definitionProvider',         "n", "gl",         buf_run("vim.lsp.buf.type_definition()"),        lOpts("goto type definition"))
-    lsp_keymap('references',                 "n", "gr",         buf_run("vim.lsp.buf.references()"),             lOpts("see all object references"))
+    lsp_keymap('declarationProvider',     "n", "gD", buf_run("vim.lsp.buf.declaration()"),     lOpts("goto declaration"))
+    lsp_keymap('definitionProvider',      "n", "gd", buf_run("vim.lsp.buf.definition()"),      lOpts("goto definition"))
+    lsp_keymap('implementationsProvider', "n", "gi", buf_run("vim.lsp.buf.implementation()"),  lOpts("goto implementation"))
+    lsp_keymap('definitionProvider',      "n", "gl", buf_run("vim.lsp.buf.type_definition()"), lOpts("goto type definition"))
+    lsp_keymap('references',              "n", "gr", buf_run("vim.lsp.buf.references()"),      lOpts("see all object references"))
 
-    lsp_keymap('renameProvider',             'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>',             lOpts('rename symbol'))
+    lsp_keymap('renameProvider',             'n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>',             lOpts('rename symbol'))
     lsp_keymap('codeActionProvider',         'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>',        lOpts('code action'))
-    lsp_keymap('documentFormattingProvider', "n", "<leader>f",  "<cmd>lua vim.lsp.buf.format{async = true}<CR>", lOpts('format buffer'))
-    lsp_keymap('documentFormattingProvider', "n", "<leader>F",  "<cmd>lua require('conform').format()<CR>",      lOpts('format with conform'))
+    lsp_keymap('documentFormattingProvider', "n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{async = true}<CR>", lOpts('format buffer'))
+    lsp_keymap('documentFormattingProvider', "n", "<leader>lF", "<cmd>lua require('conform').format()<CR>",      lOpts('format with conform'))
+
+    -- Workspace operations
+    buf_set_keymap("n", "<Leader>lwa", buf_run("vim.lsp.buf.add_workspace_folder()"),                       lOpts("add workspace folder"))
+    buf_set_keymap("n", "<Leader>lwr", buf_run("vim.lsp.buf.remove_workspace_folder()"),                    lOpts("remove workspace folder"))
+    buf_set_keymap("n", "<Leader>lwl", buf_run("print(vim.inspect(vim.lsp.buf.list_workspace_folders()))"), lOpts("list workspace folders"))
 end
 
 function M.navigation()
@@ -143,13 +148,7 @@ function M.navigation()
         map({ 'n', 't' }, { "<C-j>", "<C-Down>" }, "<C-w>j", Opt("Navigation: Down a window"))
         map({ 'n', 't' }, "<A-p>", "<C-w>p", Opt("Navigation: Go to previous window"))
     end
-    map('n', '<leader><leader>', '<C-^>')
-
-    if vim.g.plugins_installed then
-        map('n', '<C-P>', '<cmd>lua require("telescope.builtin").find_files()<CR>')
-        map('n', '<C-B>', '<cmd>lua require("telescope.builtin").buffers()<CR>')
-        map('n', '<leader>g', '<cmd>lua require("telescope.builtin").live_grep()<CR>')
-    end -- vim.g.plugins_installed
+    map('n', '<leader><leader>', '<C-^>', Opt("Open last buffer"))
 
     -- keybind that shows the changes that haven't been saved yet
     -- stolen from https://programming.dev/post/18289612
@@ -171,7 +170,8 @@ function M.navigation()
             vim.bo.modifiable = false
             vim.cmd('diffthis|wincmd p|diffthis')
         end,
-        { noremap = true }
+        -- { noremap = true }
+        Opt("Diff current buffer with saved version")
     )
 end
 
@@ -222,18 +222,6 @@ function M.setup()
     M.misc()
     M.navigation()
     -- map('n', '<space>', 'za')
-
-    -- functions to use tab and shift+tab to navigate the completion menu
-    function _G.smart_tab()
-        return vim.fn.pumvisible() == 1 and t '<C-n>' or t '<Tab>'
-    end
-
-    function _G.smart_back_tab()
-        return vim.fn.pumvisible() == 1 and t '<C-p>' or t '<S-Tab>'
-    end
-
-    vim.api.nvim_set_keymap('i', '<Tab>', 'v:lua.smart_tab()', { expr = true, noremap = true })
-    vim.api.nvim_set_keymap('i', '<S-Tab>', 'v:lua.smart_back_tab()', { expr = true, noremap = true })
 end
 
 -----------------
@@ -276,12 +264,11 @@ M.mini.clue = {
     },
     -- Additional clue hints
     clues = {
-        { mode = 'n', keys = '<Leader>l',        desc = 'LSP: Extra' },
-        { mode = 'n', keys = '<Leader>lw',       desc = 'Workspace' },
-        { mode = 'n', keys = '<Leader>h',        desc = 'git' },
-        { mode = 'n', keys = '<Leader>s',        desc = 'Surround' },
-        { mode = 'n', keys = '<Leader>p',        desc = 'Misc. Pickers' },
-        { mode = 'n', keys = '<Leader><Leader>', desc = 'Harpoon' },
+        { mode = 'n', keys = '<Leader>l',  desc = 'LSP: Extra' },
+        { mode = 'n', keys = '<Leader>lw', desc = 'Workspace' },
+        { mode = 'n', keys = '<Leader>s',  desc = 'Surround' },
+        { mode = 'n', keys = '<Leader>p',  desc = 'Misc. Pickers' },
+        -- { mode = 'n', keys = '<Leader><Leader>', desc = 'Harpoon' },
     }
 }
 
