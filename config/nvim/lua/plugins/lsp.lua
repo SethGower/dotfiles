@@ -57,10 +57,22 @@ M.setup = function ()
         capabilities = capabilities,
         on_attach = on_attach,
     })
+    if not configs.tclsp then
+        configs.tclsp = {
+            default_config = {
+                cmd = { "tclsp" };
+                filetypes = { "tcl" };
+                root_dir = function (fname)
+                    return util.find_git_ancestor(fname)
+                end;
+                settings = {};
+            };
+        }
+    end
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
     local servers = { "pylsp", "rust_analyzer", "texlab", "bashls", "vimls", "jsonls", "cmake", "marksman",
-        "ginko_ls" }
+        "ginko_ls", "tclsp" }
     for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {}
     end
@@ -234,54 +246,6 @@ M.null_ls = function ()
         })
     }
 
-    local tcllint = {
-        name = "tclint",
-        method = null_ls.methods.DIAGNOSTICS,
-        filetypes = { "tcl" },
-        generator = helpers.generator_factory({
-            command = "tclint",
-            args = function (params)
-                local rv = {}
-                -- check if there is a config file in the root directory, if so
-                -- insert the -c argument with it
-                if vim.fn.filereadable(vim.fn.expand("~/.tcllint.toml")) == 1 then
-                    table.insert(rv, '-c=' .. vim.fn.expand("~/.tcllint.toml"))
-                end
-                table.insert(rv, "$FILENAME")
-                return rv
-            end,
-            cwd = nil,
-            check_exit_code = function () return true end,
-            from_stderr = false,
-            ignore_stderr = true,
-            to_stdin = true,
-            to_temp_file = false,
-            format = "line",
-            multiple_files = false,
-            -- TODO: Probably want to rework this so that I can generate actual severity levels for the different types
-            -- of errors/warnings from the output, since it doesn't print "warning" or anything. That might also be
-            -- something to create as a feature request on tclint instead
-            on_output = helpers.diagnostics.from_patterns({
-                {
-                    pattern = [[.*:(%d+):(%d+):%s+(.*)%[(.*)%]$]],
-                    groups = { 'row', 'col', 'message', 'code' },
-                    overrides = {
-                        severities = {
-                            ["ERROR"] = 3,
-                            ["WARNING"] = 3,
-                            ["INFORMATION"] = 3,
-                            ["HINT"] = 4,
-                        },
-                        diagnostic = {
-                            -- I don't want red everywhere when using this for style checks. Those should be warnings
-                            severity = vim.diagnostic.severity.WARN
-                        }
-                    }
-                }
-            }),
-        })
-    }
-
     local vsg_format = {
         name = "VSG Formatting",
         method = null_ls.methods.FORMATTING,
@@ -318,7 +282,6 @@ M.null_ls = function ()
         debug = true
     })
     vim.cmd("command! ToggleVSG lua require('null-ls.sources').toggle('VSG')")
-    vim.cmd("command! ToggleTCL lua require('null-ls.sources').toggle('tclint')")
 
     local notify = vim.notify
     vim.notify = function (msg, ...)
