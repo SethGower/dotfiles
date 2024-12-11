@@ -44,3 +44,26 @@ elif [[ -n $(which vim) ]]; then
   export EDITOR=vim
 fi
 export VISUAL="$EDITOR"
+
+# Use zkbd to on the fly load the appropriate scan codes for shortcuts and
+# such. I found that HOME/END weren't working in ZSH in TMUX. So this will look
+# for appropriately named files in ~/.zkbd and source them. If it can't find it
+# (i.e. sourcing it fails) then the procedure to create it will be run. There
+# is some manual intervention that will be needed. Right now I assumed that the
+# DISPLAY doesn't matter when in a TMUX session, so when the xkbd file is
+# created for a TMUX config, it will have to be renamed to chop off the display
+# code. Honestly, the display is _probably_ useless anyway, but maybe not with
+# different keyboards on different machines? The file path looks for the TMUX
+# variable, if it is present the parameter eexpansion returns "TMUX", else it
+# returns nothing. I didn't want to use the raw value of $TMUX since it is a
+# path to the session socket, which isn't deterministic (for these purposes)
+source ~/.zkbd/$TERM-${${TMUX:+TMUX}:-${DISPLAY:t}} &> /dev/null
+
+if [[ $? == 0 ]]; then
+    [[ -n ${key[Left]} ]] && bindkey "${key[Left]}" backward-char
+    [[ -n ${key[Right]} ]] && bindkey "${key[Right]}" forward-char
+    [[ -n ${key[Home]} ]] && bindkey  "${key[Home]}" beginning-of-line
+    [[ -n ${key[End]} ]] && bindkey  "${key[End]}" end-of-line
+else
+    autoload zkbd ; zkbd
+fi
