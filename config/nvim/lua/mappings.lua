@@ -216,7 +216,7 @@ function M.telescope()
 
         -- Global search/help
         -- map('n', '<leader>g', ts.builtin().live_grep, Opt("Telescope: Live grep"))
-        map('n', '<Leader>/', ts.builtin().live_grep, Opt("Telescope: Live grep"))
+        map('n', '<Leader>/', require('plugins.telescope').live_grep, Opt("Telescope: Live grep"))
         map('n', '<Leader>,', ts.grep_string, Opt("Telescope: Grep string (statusline)"))
         map('n', '<Leader>?', ts.builtin().keymaps, Opt("Telescope: Show all keybinds"))
         map('n', '<Leader>*', ts.builtin().grep_string, Opt("Telescope: Find word under cursor"))
