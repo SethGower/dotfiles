@@ -109,6 +109,10 @@ M.config = function ()
             suffix_last = 'l',     -- Suffix to search with "prev" method
             suffix_next = 'n',     -- Suffix to search with "next" method
         },
+        -- Whether to respect selection type:
+        -- - Place surroundings on separate lines in linewise mode.
+        -- - Place surroundings on each line in blockwise mode.
+        respect_selection_type = false,
     })
     --
     -- ---------------------------------
