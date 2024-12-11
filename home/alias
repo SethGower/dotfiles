@@ -41,6 +41,10 @@ open(){
   xdg-open $1 &> /dev/null &
 }
 
+if [[ -x $(command -v ct) ]]; then
+    alias ssh="ct ssh"
+fi
+
 h=()
 if [[ -r ~/.ssh/config ]]; then
   h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
