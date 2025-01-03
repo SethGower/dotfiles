@@ -95,6 +95,8 @@ function M.misc()
     map("n", "<leader>tr", "<cmd>NvimTreeFindFile<CR>")
     map("n", "<leader>ta", "<cmd>ToggleAlternate<CR>")
     map("n", "<Leader>n", ":noh<CR>", Opt("Display: Hide \"find\" highlight"))
+    map('v', '<Tab>', '>gv') -- if visually selected, then hitting tab indents the line(s) and then reselects the region
+    map('v', '<S-Tab>', '<gv') -- same thing but to unindent
 end
 
 function M.lsp_setup(client, bufnr)
