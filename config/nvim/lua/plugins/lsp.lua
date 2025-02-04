@@ -132,7 +132,7 @@ M.setup = function ()
     lspconfig["verible"].setup {
         on_attach = on_attach,
         capabilities = capabilities,
-        cmd = { "verible-verilog-ls", "--indentation_spaces", "4" },
+        cmd = { "verible-verilog-ls", "--rules_config_search", "--indentation_spaces", "4" },
         root_dir = function (_)
             return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
         end,
