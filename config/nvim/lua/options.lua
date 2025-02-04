@@ -39,6 +39,8 @@ opt.wildmenu    = true
 opt.listchars   = { eol = "¬", tab = ">·", trail = "~", extends = ">", precedes = "<", space = "␣" }
 
 o.termguicolors = true
+o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 cmd 'set undofile'
 cmd 'set nowrap'
 
