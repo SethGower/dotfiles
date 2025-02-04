@@ -175,7 +175,7 @@ M.setup = function ()
     -- adds a check to see if any of the active clients have the capability
     -- textDocument/documentHighlight. without the check it was causing constant
     -- errors when servers didn't have that capability
-    for _, client in ipairs(vim.lsp.get_active_clients()) do
+    for _, client in ipairs(vim.lsp.get_clients()) do
         if client.server_capabilities.document_highlight then
             vim.cmd [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
             vim.cmd [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
