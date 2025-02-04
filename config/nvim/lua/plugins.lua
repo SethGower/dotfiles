@@ -235,6 +235,9 @@ return require('lazy').setup({
         cmd = { 'GdbStart', 'GdbStartLLDB' },
     },
     {
+        'mfussenegger/nvim-dap'
+    },
+    {
         'tpope/vim-dispatch',
         cmd = { 'Make', 'Dispatch', 'Start' }
     },
