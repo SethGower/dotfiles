@@ -191,7 +191,7 @@ return require('lazy').setup({
                     list = {
                         selection = {
                             -- When `true`, will automatically select the first item in the completion list
-                            preselect = true,
+                            preselect = false,
                             -- When `true`, inserts the completion item automatically when selecting it
                             auto_insert = true,
                         },
