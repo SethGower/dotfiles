@@ -44,9 +44,9 @@ M.setup = function ()
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-    local cmp_present, nvim_cmp_lsp = pcall(require, 'cmp_nvim_lsp')
+    local cmp_present, blink_cmp = pcall(require, 'blink.cmp')
     if cmp_present then
-        capabilities = vim.tbl_extend("force", capabilities, nvim_cmp_lsp.default_capabilities())
+        capabilities = vim.tbl_extend("force", capabilities, blink_cmp.get_lsp_capabilities())
     end
 
 
@@ -90,7 +90,6 @@ M.setup = function ()
     lspconfig["vhdl_ls"].setup(coq.lsp_ensure_capabilities({
         on_attach = function (...)
             on_attach(...)
-            require("plugins.completions").config_coq()
         end,
         capabilities = capabilities,
     }))
