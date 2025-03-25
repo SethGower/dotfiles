@@ -260,7 +260,6 @@ M.null_ls = function ()
         sources = {
             vsg_lint,
             vsg_format,
-            tcllint,
             null_ls.builtins.code_actions.gitsigns,
         },
         root_dir = function (_)
