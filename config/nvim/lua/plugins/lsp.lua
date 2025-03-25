@@ -267,7 +267,7 @@ M.null_ls = function ()
             return vim.fs.dirname(vim.fs.find({ '.git', 'vsg_config.yaml', '.null-ls-root' }, { upward = true })[1]);
         end,
         temp_dir = "/tmp",
-        debug = true
+        debug = false
     })
     vim.cmd("command! ToggleVSG lua require('null-ls.sources').toggle('VSG')")
 
