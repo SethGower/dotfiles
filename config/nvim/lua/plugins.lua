@@ -121,6 +121,31 @@ return require('lazy').setup({
         "rafamadriz/friendly-snippets",
         event = Events.InsertMode,
     },
+    { -- Snippet engine
+        "L3MON4D3/LuaSnip",
+        event = Events.InsertMode,
+        config = function ()
+            local luasnip = require('luasnip')
+
+            luasnip.config.set_config {
+                history = true,
+                updateevents = "TextChanged,TextChangedI",
+            }
+
+            -- Extend honza/vim-snippets "all" to LuaSnip all
+            luasnip.filetype_extend("all", { "_" })
+
+            require('luasnip.loaders.from_vscode').lazy_load()
+            require('luasnip.loaders.from_snipmate').lazy_load()
+            require('luasnip.loaders.from_lua').lazy_load()
+
+            vim.cmd(
+                [[imap <silent><expr> <C-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-j>' ]])
+            vim.cmd([[inoremap <silent> <C-k> <cmd>lua require'luasnip'.jump(-1)<Cr>]])
+            vim.cmd([[snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(1)<Cr>]])
+            vim.cmd([[snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>]])
+        end
+    },
 
     {
         'saghen/blink.cmp',
