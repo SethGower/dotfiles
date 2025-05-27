@@ -492,9 +492,24 @@ return require('lazy').setup({
         config = function ()
             require("plugins.lsp").setup()
         end,
+    },
+    {
+        "williamboman/mason.nvim",
+        opts = {
+            ensure_installed = {
+                "rust_hdl",
+                "lua-language-server"
+            }
+        }
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
         dependencies = {
+            "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
+        },
+        opts = {
+            automatic_installation = true
         }
     },
     {
