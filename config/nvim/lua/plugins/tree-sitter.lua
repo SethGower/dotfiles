@@ -7,7 +7,7 @@ local ts = require('nvim-treesitter.configs')
 
 ts.setup {
     ensure_installed = 'all',
-    ignore_install = { 'norg' }, -- this is failing with a cc1plus error and I can't figure it out. I don't need it, so ignore it
+    ignore_install = { 'norg', 'ipkg' }, -- this is failing with a cc1plus error and I can't figure it out. I don't need it, so ignore it
     query_linter = {
         enabled = true,
         use_virtual_text = true,
