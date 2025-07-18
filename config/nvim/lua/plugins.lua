@@ -404,12 +404,24 @@ return require('lazy').setup({
         }
     },
 
-    { -- Ctrl-<hjkl> navigation with TMUX
-        "numToStr/Navigator.nvim",
-        opts = {
-            auto_save = nil,
-            disable_on_zoom = true
+    -- { -- Ctrl-<hjkl> navigation with TMUX
+    --     "numToStr/Navigator.nvim",
+    --     opts = {
+    --         auto_save = nil,
+    --         disable_on_zoom = true
+    --     },
+    -- },
+    {
+        "swaits/zellij-nav.nvim",
+        lazy = true,
+        event = "VeryLazy",
+        keys = {
+            { "<A-h>", "<cmd>ZellijNavigateLeftTab<cr>",  { silent = true, desc = "navigate left or tab" } },
+            { "<A-j>", "<cmd>ZellijNavigateDown<cr>",     { silent = true, desc = "navigate down" } },
+            { "<A-k>", "<cmd>ZellijNavigateUp<cr>",       { silent = true, desc = "navigate up" } },
+            { "<A-l>", "<cmd>ZellijNavigateRightTab<cr>", { silent = true, desc = "navigate right or tab" } },
         },
+        opts = {},
     },
 
     { -- Various small utilies
