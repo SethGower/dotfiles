@@ -17,8 +17,24 @@
       efi.canTouchEfiVariables = true;
       grub = {
         enable = true;
+        # device = "/dev/disk/by-uuid/2159-BBFE";
         device = "nodev";
         efiSupport = true;
+        useOSProber = true;
+        # extraEntries = ''
+        #   menuentry 'Arch Linux' --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-42077f60-1a8b-4e1a-9b0f-56160e7caa78' {
+        #   	load_video
+        #   	set gfxpayload=keep
+        #   	insmod gzio
+        #   	insmod part_msdos
+        #   	insmod fat
+        #   	search --no-floppy --fs-uuid --set=root 2159-BBFE
+        #   	echo	'Loading Linux linux-lts ...'
+        #   	linux	/vmlinuz-linux-lts root=/dev/mapper/MyVolGroup-root rw  loglevel=3 cryptdevice=UUID=737b62a4-7676-47f3-80e6-740b622adef6:cryptlvm root=/dev/MyVolGroup/root ibt=off resume=UUID=e1792b40-1d52-4d31-a734-173c82d15dc9 nvidia_drm.modeset=1 mem_sleep_default=deep splash
+        #   	echo	'Loading initial ramdisk ...'
+        #   	initrd	/intel-ucode.img /initramfs-linux-lts.img
+        #   }
+        # '';
       };
     };
     initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/737b62a4-7676-47f3-80e6-740b622adef6";
@@ -27,11 +43,17 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "hammond"; # Define your hostname.
+  networking = {
+    hostName = "hammond"; # Define your hostname.
 
-  networking.wireless = {
-    enable = true;
-    networks."Furry Little Pig".pskRaw = "48ccae435a7e6caad37910dc2c4794473af20042fc001021bed7dfcf73684b05";
+    # networkmanager and wireless are mutually exclusive apparently
+    networkmanager.enable = false;
+
+    wireless = {
+      enable = true;
+      userControlled.enable = true;
+      networks."Furry Little Pig".pskRaw = "48ccae435a7e6caad37910dc2c4794473af20042fc001021bed7dfcf73684b05";
+    };
   };
 
   # Set your time zone.
@@ -71,7 +93,7 @@
     ];
   };
 
-  programs.firefox.enable = true;
+  # programs.firefox.enable = true;
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -98,13 +120,6 @@
 
   # Firmware updates through LVFS
   services.fwupd.enable = true;
-
-  # List services that you want to enable:
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  system.copySystemConfiguration = true;
 
   system.stateVersion = "25.05";
 }
