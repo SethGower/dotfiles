@@ -3,6 +3,6 @@ clipboard-read = "allow"
 clipboard-paste-protection = false
 
 ## Theme
-theme = carbonfox
+theme = catppuccin-mocha
 font-family = Iosevka VHDL
 # font-size = 13
