@@ -256,7 +256,10 @@ M.null_ls = function ()
             vsg_lint,
             vsg_format,
             null_ls.builtins.code_actions.gitsigns,
-            null_ls.builtins.formatting.alejandra
+            null_ls.builtins.formatting.alejandra,
+            null_ls.builtins.formatting.shellharden,
+            null_ls.builtins.diagnostics.checkmake,
+            null_ls.builtins.hover.dictionary
         },
         root_dir = function (_)
             return vim.fs.dirname(vim.fs.find({ '.git', 'vsg_config.yaml', '.null-ls-root' }, { upward = true })[1]);

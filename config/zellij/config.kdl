@@ -43,7 +43,9 @@ keybinds clear-defaults=true {
         bind "j" { GoToNextTab; }
         bind "k" { GoToPreviousTab; }
         bind "l" { GoToNextTab; }
-        bind "n" { NewTab; SwitchToMode "normal"; }
+        bind "n" { NewTab {
+            cwd "~/"
+        }; SwitchToMode "normal"; }
         bind "r" { SwitchToMode "renametab"; TabNameInput 0; }
         bind "s" { ToggleActiveSyncTab; SwitchToMode "normal"; }
         bind "Ctrl t" { SwitchToMode "normal"; }
@@ -243,7 +245,7 @@ plugins {
     compact-bar location="zellij:compact-bar"
     configuration location="zellij:configuration"
     filepicker location="zellij:strider" {
-        cwd "/"
+        cwd "/home/seth.gower_cn/"
     }
     plugin-manager location="zellij:plugin-manager"
     session-manager location="zellij:session-manager"
@@ -412,13 +414,13 @@ session_serialization true
 //   - true
 //   - false (default)
 //
-// serialize_pane_viewport false
+serialize_pane_viewport true
 
 // Scrollback lines to serialize along with the pane viewport when serializing sessions, 0
 // defaults to the scrollback size. If this number is higher than the scrollback size, it will
 // also default to the scrollback size. This does nothing if `serialize_pane_viewport` is not true.
 //
-// scrollback_lines_to_serialize 10000
+scrollback_lines_to_serialize 10000
 
 // Enable or disable the rendering of styled and colored underlines (undercurl).
 // May need to be disabled for certain unsupported terminals
