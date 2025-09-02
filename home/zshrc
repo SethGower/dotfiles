@@ -12,7 +12,7 @@ plugins=(
   direnv
 )
 ZSH_DISABLE_COMPFIX=true
-source $ZSH/oh-my-zsh.sh
+source "$ZSH"/oh-my-zsh.sh
 source ~/.function
 
 source ~/.alias
@@ -85,7 +85,7 @@ zellij_tab_name_update() {
          	tab_name=${tab_name##*/}
              fi
     fi
-    command nohup zellij action rename-tab $tab_name >/dev/null 2>&1
+    command nohup zellij action rename-tab "$tab_name" >/dev/null 2>&1
   fi
 }
 
