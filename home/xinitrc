@@ -1,5 +1,8 @@
+#!/usr/bin/env bash
 [[ -f ~/.Xdefaults ]] && xrdb -merge -I$HOME ~/.Xdefaults
+
 [[ -f ~/.xprofile ]] && source ~/.xprofile
 [[ -x $(which wal) ]] && wal -R
 [[ -x $(which xbindkeys) ]] && xbindkeys &
-exec startxfce4
+# exec startxfce4
+exec gnome-session start
