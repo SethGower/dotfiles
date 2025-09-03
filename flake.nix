@@ -17,6 +17,7 @@
     self,
     nixpkgs,
     sops-nix,
+    nixos-hardware,
     ...
   } @ attrs: {
     # Framework 13 Laptop
@@ -25,7 +26,7 @@
       specialArgs = attrs;
       modules = [
         ./nix/configuration.nix
-        # nixos-hardwarex.nixosModules.framework-11th-gen-intel
+        nixos-hardware.nixosModules.framework-11th-gen-intel
         sops-nix.nixosModules.sops
       ];
     };
