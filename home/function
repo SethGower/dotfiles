@@ -6,71 +6,67 @@
 # Create a new directory and enter it
 
 mk() {
-  mkdir -p "$@" && cd "$@"
+    mkdir -p "$@" && cd "$@"
 }
 
 # Extract many types of compressed files
 # Source: http://nparikh.org/notes/zshrc.txt
 
 extract() {
-  if [ -f "$1" ]; then
-    case "$1" in
-      *.tar.bz2)   tar -jxvf "$1"                       ;;
-      *.tar.gz)    tar -zxvf "$1"                      ;;
-      *.bz2)       bunzip2 "$1"                        ;;
-      *.dmg)       hdiutil mount "$1"                  ;;
-      *.gz)        gunzip "$1"                         ;;
-      *.tar)       tar -xvf "$1"                       ;;
-      *.tbz2)      tar -jxvf "$1"                      ;;
-      *.tgz)       tar -zxvf "$1"                      ;;
-      *.zip)       unzip "$1"                          ;;
-      *.ZIP)       unzip "$1"                          ;;
-      *.pax)       cat "$1" | pax -r           ;;
-      *.pax.Z)     uncompress "$1" --stdout | pax -r   ;;
-      *.Z)         uncompress "$1"                     ;;
-      *)       echo "'$1' cannot be extracted/mounted via extract()" ;;
-    esac
-  else
-    echo "'$1' is not a valid file to extract"
-  fi
+    if [ -f "$1" ]; then
+        case "$1" in
+        *.tar.bz2) tar -jxvf "$1" ;;
+        *.tar.gz) tar -zxvf "$1" ;;
+        *.bz2) bunzip2 "$1" ;;
+        *.dmg) hdiutil mount "$1" ;;
+        *.gz) gunzip "$1" ;;
+        *.tar) tar -xvf "$1" ;;
+        *.tbz2) tar -jxvf "$1" ;;
+        *.tgz) tar -zxvf "$1" ;;
+        *.zip) unzip "$1" ;;
+        *.ZIP) unzip "$1" ;;
+        *.pax) cat "$1" | pax -r ;;
+        *.pax.Z) uncompress "$1" --stdout | pax -r ;;
+        *.Z) uncompress "$1" ;;
+        *) echo "'$1' cannot be extracted/mounted via extract()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file to extract"
+    fi
 }
 
-function pdfpextr()
-{
-     # this function uses 3 arguments:
-     #     $1 is the first page of the range to extract
-     #     $2 is the last page of the range to extract
-     #     $3 is the input file
-     #     output file will be named "inputfile_pXX-pYY.pdf"
-     gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER \
-         -dFirstPage=${1} \
-         -dLastPage=${2} \
-         -sOutputFile=${3%.pdf}_p${1}-p${2}.pdf \
-         ${3}
+function pdfpextr() {
+    # this function uses 3 arguments:
+    #     $1 is the first page of the range to extract
+    #     $2 is the last page of the range to extract
+    #     $3 is the input file
+    #     output file will be named "inputfile_pXX-pYY.pdf"
+    gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER \
+        -dFirstPage="${1}" \
+        -dLastPage="${2}" \
+        -sOutputFile="${3%.pdf}_p${1}-p${2}".pdf \
+        "${3}"
 }
-
 
 # Automatically calls ls after moving to new directory
-function cdls()
-{
-  if [ $# -eq 0 ]; then # if no arguments
-    \cd && ls
-  else # if arguments
-    \cd "$@" && ls
-  fi
+function cdls() {
+    if [ $# -eq 0 ]; then # if no arguments
+        \cd && ls
+    else # if arguments
+        \cd "$@" && ls
+    fi
 }
 
 function clock() {
     figlet -f big -W "$(date +%l:%M:%S)" | toilet -f term --gay | perl -pe "s,0;1,01,g"
 }
 
-
 # Add a directory to the $PATH environment variable. If it's already in the
 # PATH, it is skipped
 function add_to_path {
     case ":$PATH:" in
-        *":$1:"*) :;; # already there
-        *) PATH="$PATH:$1";;
+    *":$1:"*) : ;; # already there
+    *) PATH="$PATH:$1" ;;
     esac
 }
 
