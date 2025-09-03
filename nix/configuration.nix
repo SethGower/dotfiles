@@ -111,6 +111,15 @@
     fzf
     ripgrep
     bat
+    starship
+    ghostty
+    alacritty
+    silver-searcher
+    # nerd-fonts
+    iosevka
+    gnome-tweaks
+    zellij
+    signal-desktop
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
