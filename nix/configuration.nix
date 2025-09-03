@@ -88,14 +88,14 @@
     extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
     home = "/home/sgower";
     shell = "/run/current-system/sw/bin/zsh";
-    hashedPassword = "$y$j9T$.sU/2YffI0ehbsBFAVhA1/$CVOPL68OoS4vKXVQBv1gzCS30ou3ZJmz8G.l.hbQw8.";
+    hashedPassword = "$y$j9T$a/5rr9iwUU1u8NK21v.Q50$6rO5Ln.H3d49jo1tF7nZb1J/5Lt5o5cZ8S.FLLeVVN7";
     packages = with pkgs; [
     ];
   };
 
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-bin;
+    package = pkgs.librewolf-bin;
   };
 
   # List packages installed in system profile.
