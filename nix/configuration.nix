@@ -134,4 +134,7 @@
   services.fwupd.enable = true;
 
   system.stateVersion = "25.05";
+
+  services.fprintd.enable = true;
+  security.pam.services.sudo.fprintAuth = true;
 }
