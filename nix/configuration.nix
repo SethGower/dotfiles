@@ -93,7 +93,10 @@
     ];
   };
 
-  # programs.firefox.enable = true;
+  programs.firefox = {
+    enable = true;
+    package = pkgs.firefox-bin;
+  };
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
