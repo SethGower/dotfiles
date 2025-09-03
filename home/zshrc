@@ -6,10 +6,10 @@ export ZSH_CUSTOM=$HOME/.custom_omz
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  sudo
-  direnv
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    sudo
+    direnv
 )
 ZSH_DISABLE_COMPFIX=true
 source "$ZSH"/oh-my-zsh.sh
@@ -19,15 +19,14 @@ source ~/.alias
 source ~/.path
 
 if [ -f ~/.localconfig ]; then
-  source ~/.localconfig
+    source ~/.localconfig
 fi
 
 fpath+=$ZSH_CUSTOM/completions
 
 compinit
 
-if [[ -f ~/.fzf.zsh ]];
-then
+if [[ -f ~/.fzf.zsh ]]; then
     source ~/.fzf.zsh
 fi
 
@@ -39,9 +38,9 @@ fi
 
 # sets the EDITOR env variable. Used for git commits and the like
 if [[ -n $(which nvim) ]]; then
-  export EDITOR=nvim
+    export EDITOR=nvim
 elif [[ -n $(which vim) ]]; then
-  export EDITOR=vim
+    export EDITOR=vim
 fi
 export VISUAL="$EDITOR"
 
@@ -71,22 +70,22 @@ fi
 # Rename Zellij tabs based on the current directory
 # Stolen from https://www.reddit.com/r/zellij/comments/10skez0/comment/jrimomm
 zellij_tab_name_update() {
-  if [[ -n $ZELLIJ ]]; then
-    tab_name=''
-    if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-        tab_name+=$(basename "$(git rev-parse --show-toplevel)")/
-        tab_name+=$(git rev-parse --show-prefix)
-        tab_name=${tab_name%/}
-    else
-        tab_name=$PWD
+    if [[ -n $ZELLIJ ]]; then
+        tab_name=''
+        if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+            tab_name+=$(basename "$(git rev-parse --show-toplevel)")/
+            tab_name+=$(git rev-parse --show-prefix)
+            tab_name=${tab_name%/}
+        else
+            tab_name=$PWD
             if [[ $tab_name == $HOME ]]; then
-         	tab_name="~"
-             else
-         	tab_name=${tab_name##*/}
-             fi
+                tab_name="~"
+            else
+                tab_name=${tab_name##*/}
+            fi
+        fi
+        command nohup zellij action rename-tab "$tab_name" >/dev/null 2>&1
     fi
-    command nohup zellij action rename-tab "$tab_name" >/dev/null 2>&1
-  fi
 }
 
 # run the tab name update at the beginning of the shell lifetime
