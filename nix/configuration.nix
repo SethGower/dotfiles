@@ -24,6 +24,8 @@
       "steam-original"
       "steam-unwrapped"
       "steam-run"
+      "nvidia-x11"
+      "nvidia-settings"
     ];
 
   programs.steam = {
@@ -63,6 +65,19 @@
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # enable NVIDIA driver for eGPU
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+
+    powerManagement.finegrained = false;
+
+    open = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
 
   networking = {
     hostName = "hammond"; # Define your hostname.

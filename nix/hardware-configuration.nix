@@ -9,9 +9,33 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
+  boot.blacklistedKernelModules = [
+    "nouveau"
+    "nvidiafb"
+  ];
+
   boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme"];
-  boot.initrd.kernelModules = ["dm-snapshot" "cryptd"];
-  boot.kernelModules = ["kvm-intel"];
+  boot.initrd.kernelModules = [
+    "dm-snapshot"
+    "cryptd"
+    "thunderbolt"
+    "usbhid"
+    "joydev"
+    "xpad"
+    "nvidia"
+  ];
+  boot.kernelModules = [
+    "kvm-intel"
+    "thunderbolt"
+    "usbhid"
+    "joydev"
+    "xpad"
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia_drm"
+    "amdgpu"
+  ];
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
@@ -26,7 +50,6 @@
     device = "/dev/disk/by-uuid/5cb6cd96-7f2d-4380-803f-bccde9a8874e";
     fsType = "ext4";
   };
-
 
   swapDevices = [
     {device = "/dev/disk/by-uuid/e1792b40-1d52-4d31-a734-173c82d15dc9";}
