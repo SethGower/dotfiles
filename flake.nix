@@ -1,5 +1,5 @@
 {
-  description = "NixOS Personal Computer Flake";
+  description = "NixOS and home-manager configuration Flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/release-25.05";
@@ -23,10 +23,13 @@
     nixos-hardware,
     home-manager,
     ...
-  } @ attrs: {
+  } @ attrs: let
+    system = "x86_64-linux"; # Adjust for your system
+    pkgs = nixpkgs.legacyPackages.${system};
+  in {
     # Framework 13 Laptop
     nixosConfigurations.hammond = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+      inherit system;
       specialArgs = attrs;
       modules = [
         ./nix/configuration.nix
@@ -36,9 +39,13 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.sgower = import ./nix/home.nix;
+          home-manager.users.sgower = import ./users/sgower/home.nix;
         }
       ];
+    };
+    homeConfigurations."seth.gower_cn" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [./users/seth.gower_cn/home.nix];
     };
   };
 }
