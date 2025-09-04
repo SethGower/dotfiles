@@ -57,7 +57,11 @@
       gnutar
       gawk
       zstd
+      meld # GUI diff tool
+      xclip # helper for accessing clipboard contents on CLI
       # gnupg
+      iosevka # NerdFont that provides nice glyphs with ligatures
+      # nerd-fonts
 
       # nix related
       #
@@ -85,15 +89,14 @@
       pciutils # lspci
       usbutils # lsusb
 
-      ghostty
-      alacritty
-      zellij
-      # nerd-fonts
-      iosevka
-      gnome-tweaks
-      # wezterm
-      meld
-      xclip
+      # Terminal stuff
+      ghostty # GPU accelerated terminal
+      alacritty # GPU accelerated Terminal
+      # wezterm # GPU accelerated Terminal
+      zellij # Terminal Multiplexer/Session manager
+
+      # Language Servers
+      nil # nix Language server
     ];
     # starship - an customizable prompt for any shell
     programs.starship = {
