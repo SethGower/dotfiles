@@ -10,7 +10,3 @@
 [submodule ".oh-my-zsh"]
 	path = home/oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
-[submodule "dotbot"]
-	path = dotbot
-	url = https://github.com/anishathalye/dotbot
-	ignore = dirty
