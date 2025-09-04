@@ -97,6 +97,7 @@
 
       # Language Servers
       nil # nix Language server
+      vhdl-ls # VHDL Language server, also called rust_hdl
     ];
     # starship - an customizable prompt for any shell
     programs.starship = {
