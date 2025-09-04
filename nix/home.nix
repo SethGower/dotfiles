@@ -16,7 +16,12 @@
       };
     };
   };
-  config = {
+  config = let
+    xdg_config_entry = name: {
+      source = /. + "../config/" + name;
+      recursive = true;
+    };
+  in {
     home.packages = with pkgs; [
       # here is some command line tools I use frequently
       # feel free to add your own or remove some of them
@@ -90,7 +95,6 @@
       usbutils # lsusb
 
       # Terminal stuff
-      ghostty # GPU accelerated terminal
       alacritty # GPU accelerated Terminal
       # wezterm # GPU accelerated Terminal
       zellij # Terminal Multiplexer/Session manager
@@ -108,6 +112,38 @@
         aws.disabled = true;
         gcloud.disabled = true;
         line_break.disabled = false;
+      };
+    };
+    programs.bat = {
+      enable = true;
+      config = {
+        theme = "Dracula";
+      };
+    };
+
+    programs.ghostty = {
+      enable = true;
+      settings = {
+        clipboard-read = "allow";
+        # clipboard-paste-protecton = false;
+        theme = "catppuccin-mocha";
+        font-family = "Iosevka VHDL";
+      };
+    };
+
+    # xdg.configFile = lib.map (x: xdg_config_entry x) ["nvim" "alacritty"];
+    xdg.configFile = {
+      "alacritty" = {
+        source = ../config/alacritty;
+        recursive = true;
+      };
+      "nvim" = {
+        source = ../config/nvim;
+        recursive = true;
+      };
+      "zellij" = {
+        source = ../config/zellij;
+        recursive = true;
       };
     };
   };
