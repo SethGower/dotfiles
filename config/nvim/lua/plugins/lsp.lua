@@ -67,7 +67,7 @@ M.setup = function ()
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
     local servers = { "pylsp", "rust_analyzer", "texlab", "bashls", "vimls", "jsonls", "cmake", "marksman",
-        "ginko_ls", "tclsp", "vhdl_ls" }
+        "ginko_ls", "tclsp", "vhdl_ls", "nil_ls" }
     for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {}
     end
