@@ -14,6 +14,13 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
+  # Ideally this should be in an overlay, alongside handling the unstable
+  # package. However that's not working, so I am gonna come back to that. For
+  # now, this gets me to the point where I can install and run these programs
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "discord"
+    ];
   boot = {
     loader = {
       efi.canTouchEfiVariables = true;
