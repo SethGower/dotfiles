@@ -107,6 +107,7 @@
     meld
     element-desktop
     xclip
+    discord
   ];
 
   # basic configuration of git, please change to your own
