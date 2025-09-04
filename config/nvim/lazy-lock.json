@@ -68,5 +68,5 @@
   "vimtex": { "branch": "master", "commit": "dc90feacb86f7b85b0b791d8073eefc769a23725" },
   "vip": { "branch": "master", "commit": "1025e44768e6c6c59c4e314378c46b02f9ef4121" },
   "windows.nvim": { "branch": "main", "commit": "c7492552b23d0ab30325e90b56066ec51242adc8" },
-  "zellij-nav.nvim": { "branch": "main", "commit": "91cc2a642d8927ebde50ced5bf71ba470a0fc116" }
+  "zellij-nav.nvim": { "branch": "main", "commit": "f2afe79ca562d952be68845f5f94819615e7209c" }
 }
