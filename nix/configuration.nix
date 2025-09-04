@@ -45,15 +45,7 @@
 
   networking = {
     hostName = "hammond"; # Define your hostname.
-
-    # networkmanager and wireless are mutually exclusive apparently
     networkmanager.enable = true;
-
-    wireless = {
-      enable = false;
-      #userControlled.enable = true;
-      networks."Furry Little Pig".pskRaw = "48ccae435a7e6caad37910dc2c4794473af20042fc001021bed7dfcf73684b05";
-    };
   };
 
   # Set your time zone.
