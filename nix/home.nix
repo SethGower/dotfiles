@@ -147,6 +147,10 @@
         source = ../config/zellij;
         recursive = true;
       };
+      "wezterm" = {
+        source = ../config/wezterm;
+        recursive = true;
+      };
     };
   };
 }
