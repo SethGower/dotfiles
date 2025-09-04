@@ -75,11 +75,11 @@ notify() {
     if [[ $? == 0 ]]; then
         string=""
         print -v string "Command" "\`$@\`" "Succeeded"
-        notify-send "$string"
+        notify-send --hint int:transient:1 "$string"
     else
         string=""
         print -v string "Command" "\`$@\`" "Failed"
-        notify-send "$string"
+        notify-send --hint int:transient:1 "$string"
     fi
 }
 
