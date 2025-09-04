@@ -82,6 +82,18 @@
     shell = "/run/current-system/sw/bin/zsh";
     hashedPassword = "$y$j9T$a/5rr9iwUU1u8NK21v.Q50$6rO5Ln.H3d49jo1tF7nZb1J/5Lt5o5cZ8S.FLLeVVN7";
     packages = with pkgs; [
+      starship
+      ghostty
+      alacritty
+      silver-searcher
+      # nerd-fonts
+      iosevka
+      gnome-tweaks
+      zellij
+      signal-desktop
+      wezterm
+      meld
+      element-desktop
     ];
   };
 
@@ -89,6 +101,8 @@
     enable = true;
     package = pkgs.librewolf-bin;
   };
+
+  # programs.element-desktop.enable = true;
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -103,15 +117,6 @@
     fzf
     ripgrep
     bat
-    starship
-    ghostty
-    alacritty
-    silver-searcher
-    # nerd-fonts
-    iosevka
-    gnome-tweaks
-    zellij
-    signal-desktop
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
