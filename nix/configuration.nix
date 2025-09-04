@@ -96,6 +96,7 @@
       wezterm
       meld
       element-desktop
+      xclip
     ];
   };
 
