@@ -93,11 +93,13 @@
       ethtool
       pciutils # lspci
       usbutils # lsusb
+      traceroute
 
       # Terminal stuff
       alacritty # GPU accelerated Terminal
       # wezterm # GPU accelerated Terminal
       zellij # Terminal Multiplexer/Session manager
+      nushell
 
       # Language Servers
       nil # nix Language server
