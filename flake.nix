@@ -4,7 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/release-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    home-manager.url = github:nix-community/home-manager;
+    home-manager = {
+      url = "github:nix-community/home-manager/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     sops-nix = {
@@ -18,6 +21,7 @@
     nixpkgs,
     sops-nix,
     nixos-hardware,
+    home-manager,
     ...
   } @ attrs: {
     # Framework 13 Laptop
@@ -28,6 +32,12 @@
         ./nix/configuration.nix
         nixos-hardware.nixosModules.framework-11th-gen-intel
         sops-nix.nixosModules.sops
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.sgower = import ./nix/home.nix;
+        }
       ];
     };
   };

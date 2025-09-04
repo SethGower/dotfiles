@@ -84,19 +84,6 @@
     shell = "/run/current-system/sw/bin/zsh";
     hashedPassword = "$y$j9T$a/5rr9iwUU1u8NK21v.Q50$6rO5Ln.H3d49jo1tF7nZb1J/5Lt5o5cZ8S.FLLeVVN7";
     packages = with pkgs; [
-      starship
-      ghostty
-      alacritty
-      silver-searcher
-      # nerd-fonts
-      iosevka
-      gnome-tweaks
-      zellij
-      signal-desktop
-      wezterm
-      meld
-      element-desktop
-      xclip
     ];
   };
 
