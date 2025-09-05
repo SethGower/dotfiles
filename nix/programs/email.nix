@@ -13,12 +13,10 @@
       '';
     };
   };
-  config = lib.mkIf (config.dofiles.programs.email) {
-    services.protonmail-bridge.enable = true;
-
-    programs.thunderbird = {
-      enable = true;
-      package = pkgs.thunderbird-bin;
-    };
+  config = lib.mkIf (config.dotfiles.programs.email && config.dotfiles.programs.personal) {
+    home.packages = with pkgs; [
+      thunderbird-bin
+      protonmail-bridge
+    ];
   };
 }
