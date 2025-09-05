@@ -94,4 +94,4 @@ zellij_tab_name_update
 # tell zsh to always run the function whenever changing directories
 chpwd_functions+=(zellij_tab_name_update)
 
-source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+source /etc/profiles/per-user/${USER}/etc/profile.d/hm-session-vars.sh
