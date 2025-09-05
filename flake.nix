@@ -32,7 +32,10 @@
       })
     ];
 
-    unfree_whitelist = ["discord"];
+    unfree_whitelist = [
+      "discord"
+      "castlabs-electron"
+    ];
     insecure_packages = [""];
 
     pkgsUnstable = import nixpkgs-unstable {
