@@ -139,6 +139,46 @@
 
     services.caffeine.enable = true;
 
+    # programs.zsh = {
+    #   enable = true;
+    #   enableCompletions = true;
+    #   autosuggestions.enable = true;
+    #   syntaxHighlighting.enable = true;
+    #
+    #   oh-my-zsh = {
+    #     enable = true;
+    #     plugins = [
+    #       "git"
+    #       "thefuck"
+    #       "zsh-autosuggestions"
+    #       "zsh-syntax-highlighting"
+    #       "sudo"
+    #       "dirven"
+    #     ];
+    #     # theme = "robbyrussell";
+    #   };
+    # };
+
+    # programs.git = {
+    #   enable = true;
+    #   include.path = "~/.gitconfig.local";
+    #   aliases = {
+    #     stash-all = "stash save --include-untracked";
+    #     showtool = "!f() { git difftool $1^ $1; }; f";
+    #     added = "difftool --cached";
+    #     update-subs = "submodule update --init --recursive --remote";
+    #   };
+    #   diff.tool = "meld";
+    #   pager.difftool = true;
+    #   gpg.program = "gpg";
+    #   core = {
+    #     excludesfile = "~/.gitignore_global";
+    #     autocrlf = true;
+    #   };
+    #   init = {
+    #     defaultBranch = "main";
+    #   };
+    # };
     # xdg.configFile = lib.map (x: xdg_config_entry x) ["nvim" "alacritty"];
     xdg.configFile = {
       "alacritty" = {
