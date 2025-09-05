@@ -94,4 +94,13 @@ zellij_tab_name_update
 # tell zsh to always run the function whenever changing directories
 chpwd_functions+=(zellij_tab_name_update)
 
-source /etc/profiles/per-user/${USER}/etc/profile.d/hm-session-vars.sh
+# since apparently on my NixOS machine, it's the system path, but on my Ubuntu
+# + Nix machine, it's the homedir path, so need a check....
+#
+# This will be unnecessary when I eventually switch to having home manager
+# directly configure zsh, since it'll insert the appropriate things (I think?)
+if [[ -f "/etc/profiles/per-user/${USER}/etc/profile.d/hm-session-vars.sh" ]]; then
+    source /etc/profiles/per-user/"$USER"/etc/profile.d/hm-session-vars.sh
+elif [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]; then
+    source "$HOME"/.nix-profile/etc/profile.d/hm-session-vars.sh
+fi
