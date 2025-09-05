@@ -19,13 +19,39 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     sops-nix,
     nixos-hardware,
     home-manager,
     ...
   } @ attrs: let
     system = "x86_64-linux"; # Adjust for your system
-    pkgs = nixpkgs.legacyPackages.${system};
+    overlays = [
+      (final: prev: {
+        unstable = pkgsUnstable;
+      })
+    ];
+
+    unfree_whitelist = ["discord"];
+    insecure_packages = [""];
+
+    pkgsUnstable = import nixpkgs-unstable {
+      inherit system;
+      config = {
+        allowUnfree = false;
+        allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) unfree_whitelist;
+        permittedInsecurePackages = insecure_packages;
+      };
+    };
+    pkgs = import nixpkgs {
+      inherit system overlays;
+      config = {
+        allowUnfree = false;
+        allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) unfree_whitelist;
+        permittedInsecurePackages = insecure_packages;
+      };
+    };
+    # pkgs = nixpkgs.legacyPackages.${system};
   in {
     # Framework 13 Laptop
     nixosConfigurations.hammond = nixpkgs.lib.nixosSystem {
