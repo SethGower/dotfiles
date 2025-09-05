@@ -41,7 +41,8 @@
       yq-go # yaml processor https://github.com/mikefarah/yq
       eza # A modern replacement for ‘ls’
       fzf # A command-line fuzzy finder
-      silver-searcher # file searcher (more similar to `find` than fzf. command is `ag`)
+      silver-searcher # A code searching tool similar to ack, with a focus on speed. (binary name `ag`)
+      fd # Fast find alternative
 
       # networking tools
       mtr # A network diagnostic tool
@@ -97,7 +98,7 @@
 
       # Terminal stuff
       alacritty # GPU accelerated Terminal
-      # wezterm # GPU accelerated Terminal
+      wezterm # GPU accelerated Terminal
       zellij # Terminal Multiplexer/Session manager
       nushell
 
@@ -135,6 +136,8 @@
         font-family = "Iosevka VHDL";
       };
     };
+
+    services.caffeine.enable = true;
 
     # xdg.configFile = lib.map (x: xdg_config_entry x) ["nvim" "alacritty"];
     xdg.configFile = {
