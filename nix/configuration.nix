@@ -35,12 +35,6 @@
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
-  services.protonmail-bridge.enable = true;
-
-  programs.thunderbird = {
-    enable = true;
-    package = pkgs.thunderbird-bin;
-  };
 
   boot = {
     loader = {
