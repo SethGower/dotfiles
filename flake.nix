@@ -73,5 +73,9 @@
       inherit pkgs;
       modules = [./users/seth.gower_cn/home.nix];
     };
+    homeConfigurations."sgower" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [./users/sgower/home.nix];
+    };
   };
 }
