@@ -55,7 +55,7 @@
   in {
     # Framework 13 Laptop
     nixosConfigurations.hammond = nixpkgs.lib.nixosSystem {
-      inherit system;
+      inherit system pkgs;
       specialArgs = attrs;
       modules = [
         ./nix/configuration.nix
