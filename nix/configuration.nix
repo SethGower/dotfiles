@@ -21,7 +21,6 @@
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
-
   boot = {
     loader = {
       efi.canTouchEfiVariables = true;
@@ -101,13 +100,13 @@
   users.users.sgower = {
     isNormalUser = true;
     extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
+    description = "Seth Gower";
     home = "/home/sgower";
     shell = "/run/current-system/sw/bin/zsh";
     hashedPassword = "$y$j9T$a/5rr9iwUU1u8NK21v.Q50$6rO5Ln.H3d49jo1tF7nZb1J/5Lt5o5cZ8S.FLLeVVN7";
     packages = with pkgs; [
     ];
   };
-
   programs.firefox = {
     enable = true;
     package = pkgs.librewolf-bin;
