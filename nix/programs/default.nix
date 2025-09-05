@@ -15,6 +15,7 @@
   };
   imports = [
     ./social.nix
+    ./email.nix
   ];
   config = {};
 }
