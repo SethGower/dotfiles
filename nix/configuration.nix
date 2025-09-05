@@ -14,20 +14,6 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  # Ideally this should be in an overlay, alongside handling the unstable
-  # package. However that's not working, so I am gonna come back to that. For
-  # now, this gets me to the point where I can install and run these programs
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "discord"
-      "steam"
-      "steam-original"
-      "steam-unwrapped"
-      "steam-run"
-      "nvidia-x11"
-      "nvidia-settings"
-    ];
-
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play

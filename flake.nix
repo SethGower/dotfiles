@@ -35,6 +35,12 @@
     unfree_whitelist = [
       "discord"
       "castlabs-electron"
+      "steam"
+      "steam-original"
+      "steam-unwrapped"
+      "steam-run"
+      "nvidia-x11"
+      "nvidia-settings"
     ];
     insecure_packages = [""];
 
