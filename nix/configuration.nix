@@ -69,7 +69,7 @@
 
   hardware.openrazer = {
     enable = true;
-    users =  [ "sgower" ];
+    users = ["sgower"];
   };
 
   networking = {
