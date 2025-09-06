@@ -201,4 +201,14 @@
     # Add any missing dynamic libraries for unpackaged programs
     # here, NOT in environment.systemPackages
   ];
+
+  # This udev rule allows for mutter (the window manager for GNOME) to properly
+  # use the eGPU as the primary. When I was on Arch, I used all-ways-egpu,
+  # which does this in the backend.
+  # See https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/1562 for more
+  # info on this
+
+  services.udev.extraRules = ''
+    ENV{DEVNAME}=="/dev/dri/card0", TAG+="mutter-device-preferred-primary"
+  '';
 }
