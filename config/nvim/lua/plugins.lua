@@ -627,5 +627,6 @@ return require('lazy').setup({
         'gennaro-tedesco/nvim-jqx',
         ft = "json"
     },
+    'isobit/vim-caddyfile',
 
 })
