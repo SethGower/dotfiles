@@ -17,10 +17,12 @@
     };
   };
   config = let
+    symlink = config.lib.file.mkOutOfStoreSymlink;
     xdg_config_entry = name: {
       source = /. + "../config/" + name;
       recursive = true;
     };
+    dotsLocation = config.dotfiles.dotDir;
   in {
     home.packages = with pkgs; [
       # here is some command line tools I use frequently
@@ -188,7 +190,7 @@
         recursive = true;
       };
       "nvim" = {
-        source = ../config/nvim;
+        source = symlink "${dotsLocation}/config/nvim";
         recursive = true;
       };
       "zellij" = {
