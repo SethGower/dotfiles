@@ -67,6 +67,11 @@
     ];
   };
 
+  hardware.openrazer = {
+    enable = true;
+    users =  [ "sgower" ];
+  };
+
   networking = {
     hostName = "hammond"; # Define your hostname.
     networkmanager.enable = true;
@@ -101,7 +106,8 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sgower = {
     isNormalUser = true;
-    extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
+    # wheel is to allow for sudo access
+    extraGroups = ["wheel" "openrazer" "dialout" "plugdev"];
     description = "Seth Gower";
     home = "/home/sgower";
     shell = "/run/current-system/sw/bin/zsh";
@@ -166,6 +172,8 @@
     bat
     desktop-file-utils
     lact
+    openrazer-daemon
+    polychromatic
   ];
 
   systemd.packages = with pkgs; [lact];
