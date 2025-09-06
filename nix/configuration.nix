@@ -174,6 +174,7 @@
     lact
     openrazer-daemon
     polychromatic
+    pavucontrol
   ];
 
   systemd.packages = with pkgs; [lact];
