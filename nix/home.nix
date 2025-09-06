@@ -82,6 +82,7 @@
       btop # replacement of htop/nmon
       iotop # io monitoring
       iftop # network monitoring
+      nvtopPackages.amd # htop like utility for graphics
 
       # system call monitoring
       strace # system call monitoring

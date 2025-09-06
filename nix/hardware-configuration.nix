@@ -22,7 +22,7 @@
     "usbhid"
     "joydev"
     "xpad"
-    "nvidia"
+    "amdgpu"
   ];
   boot.kernelModules = [
     "kvm-intel"
@@ -30,10 +30,6 @@
     "usbhid"
     "joydev"
     "xpad"
-    "nvidia"
-    "nvidia_modeset"
-    "nvidia_uvm"
-    "nvidia_drm"
     "amdgpu"
   ];
   boot.extraModulePackages = [];

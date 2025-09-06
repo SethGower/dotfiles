@@ -52,17 +52,19 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # enable NVIDIA driver for eGPU
-  services.xserver.videoDrivers = ["nvidia"];
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
+  services.hardware.bolt.enable = true;
+  services.xserver.videoDrivers = ["amdgpu"];
 
-    powerManagement.finegrained = false;
-
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true; # For 32 bit applications
+    extraPackages = with pkgs; [
+      amdvlk
+    ];
+    # For 32 bit applications
+    extraPackages32 = with pkgs; [
+      driversi686Linux.amdvlk
+    ];
   };
 
   networking = {
@@ -163,7 +165,11 @@
     ripgrep
     bat
     desktop-file-utils
+    lact
   ];
+
+  systemd.packages = with pkgs; [lact];
+  systemd.services.lactd.wantedBy = ["multi-user.target"];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
