@@ -8,35 +8,37 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
+  boot = {
+    blacklistedKernelModules = [
+      "nouveau"
+      "nvidiafb"
+    ];
+    initrd = {
+      availableKernelModules = ["xhci_pci" "thunderbolt" "nvme"];
+      kernelModules = [
+        "dm-snapshot"
+        "cryptd"
+        "thunderbolt"
+        "usbhid"
+        "joydev"
+        "xpad"
+        "amdgpu"
+      ];
+    };
+    kernelModules = [
+      "kvm-intel"
+      "thunderbolt"
+      "usbhid"
+      "joydev"
+      "xpad"
+      "amdgpu"
+    ];
+    extraModulePackages = [];
 
-  boot.blacklistedKernelModules = [
-    "nouveau"
-    "nvidiafb"
-  ];
-
-  boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme"];
-  boot.initrd.kernelModules = [
-    "dm-snapshot"
-    "cryptd"
-    "thunderbolt"
-    "usbhid"
-    "joydev"
-    "xpad"
-    "amdgpu"
-  ];
-  boot.kernelModules = [
-    "kvm-intel"
-    "thunderbolt"
-    "usbhid"
-    "joydev"
-    "xpad"
-    "amdgpu"
-  ];
-  boot.extraModulePackages = [];
-
-  boot.plymouth = {
-    enable = false;
-    theme = "bgrt";
+    plymouth = {
+      enable = false;
+      theme = "bgrt";
+    };
   };
 
   fileSystems."/" = {
