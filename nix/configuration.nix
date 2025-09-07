@@ -5,12 +5,24 @@
   config,
   lib,
   pkgs,
+  sops-nix,
   ...
 }: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
+
+  # This will add secrets.yml to the nix store
+  # You can avoid this by adding a string to the full path instead, i.e.
+  # sops.defaultSopsFile = "/root/.sops/secrets/example.yaml";
+  sops.defaultSopsFile = ./secrets/hammond.yaml;
+  # This will automatically import SSH keys as age keys
+  sops.age.sshKeyPaths = ["/home/sgower/.ssh/id_ed25519"];
+  # This will generate a new key if the key specified above does not exist
+  sops.age.generateKey = true;
+  # This is the actual specification of the secrets.
+  sops.secrets.hashedPasswordFile = {};
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
@@ -111,7 +123,7 @@
     description = "Seth Gower";
     home = "/home/sgower";
     shell = "/run/current-system/sw/bin/zsh";
-    hashedPassword = "$y$j9T$a/5rr9iwUU1u8NK21v.Q50$6rO5Ln.H3d49jo1tF7nZb1J/5Lt5o5cZ8S.FLLeVVN7";
+    hashedPasswordFile = config.sops.secrets.hashedPasswordFile.path;
     packages = with pkgs; [
     ];
   };
