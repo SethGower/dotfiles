@@ -214,6 +214,12 @@
     # here, NOT in environment.systemPackages
   ];
 
+  services.protonmail-bridge = {
+    enable = true;
+    path = with pkgs; [pass gnome-keyring];
+    package = pkgs.protonmail-bridge-gui;
+  };
+
   # This udev rule allows for mutter (the window manager for GNOME) to properly
   # use the eGPU as the primary. When I was on Arch, I used all-ways-egpu,
   # which does this in the backend.
