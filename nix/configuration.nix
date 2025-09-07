@@ -207,8 +207,7 @@
   # which does this in the backend.
   # See https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/1562 for more
   # info on this
-
   services.udev.extraRules = ''
-    ENV{DEVNAME}=="/dev/dri/card0", TAG+="mutter-device-preferred-primary"
+    SUBSYSTEM=="drm", ENV{DEVTYPE}=="drm_minor", ENV{DEVNAME}=="/dev/dri/card[0-9]", SUBSYSTEMS=="pci", ATTRS{vendor}=="0x1002", ATTRS{device}=="0x73bf", TAG+="mutter-device-preferred-primary"
   '';
 }
