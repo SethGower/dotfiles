@@ -45,6 +45,7 @@
       fzf # A command-line fuzzy finder
       silver-searcher # A code searching tool similar to ack, with a focus on speed. (binary name `ag`)
       fd # Fast find alternative
+      direnv # Directory based environment switching
 
       # networking tools
       mtr # A network diagnostic tool
