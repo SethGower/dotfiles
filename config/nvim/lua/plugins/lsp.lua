@@ -5,50 +5,41 @@ local M = {}
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
--- M.on_attach = function (client, bufnr)
---     require("mappings").lsp_setup(client, bufnr)
---
---     vim.opt.updatetime = 300
---
---     require('nlspsettings').update_settings(client.name)
---
---     -- Server capabilities spec:
---     -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#serverCapabilities
---     if client.server_capabilities.documentHighlightProvider then
---         vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
---         vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_highlight" }
---         vim.api.nvim_create_autocmd("CursorHold", {
---             callback = vim.lsp.buf.document_highlight,
---             buffer = bufnr,
---             group = "lsp_document_highlight",
---             desc = "Document Highlight",
---         })
---         vim.api.nvim_create_autocmd({ "CursorMoved" }, {
---             callback = vim.lsp.buf.clear_references,
---             buffer = bufnr,
---             group = "lsp_document_highlight",
---             desc = "Clear All the References",
---         })
---     end
--- end
+M.on_attach = function (client, bufnr)
+    require("mappings").lsp_setup(client, bufnr)
+
+    vim.opt.updatetime = 300
+
+    require('nlspsettings').update_settings(client.name)
+
+    -- Server capabilities spec:
+    -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#serverCapabilities
+    if client.server_capabilities.documentHighlightProvider then
+        vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+        vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_highlight" }
+        vim.api.nvim_create_autocmd("CursorHold", {
+            callback = vim.lsp.buf.document_highlight,
+            buffer = bufnr,
+            group = "lsp_document_highlight",
+            desc = "Document Highlight",
+        })
+        vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+            callback = vim.lsp.buf.clear_references,
+            buffer = bufnr,
+            group = "lsp_document_highlight",
+            desc = "Clear All the References",
+        })
+    end
+end
 
 M.setup = function ()
-    -- local on_attach = M.on_attach
-
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-    local cmp_present, blink_cmp = pcall(require, 'blink.cmp')
-    if cmp_present then
-        capabilities = vim.tbl_extend("force", capabilities, blink_cmp.get_lsp_capabilities())
-    end
-
+    local on_attach = M.on_attach
 
     local nlspsettings = require("nlspsettings")
 
     -- Sets the defaults for the server configurations. This way I don't have to specify these for every single one
     vim.lsp.config("*", {
-        capabilities = capabilities,
-        -- on_attach = on_attach,
+        on_attach = on_attach,
     })
 
     vim.lsp.config("tclsp", {
@@ -64,7 +55,7 @@ M.setup = function ()
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
     local servers = { "pylsp", "rust_analyzer", "texlab", "bashls", "vimls", "jsonls", "cmake", "marksman",
-        "ginko_ls", "tclsp", "vhdl_ls", "nil_ls" }
+        "ginko_ls", "tclsp", "vhdl_ls", "nil_ls", "lua_ls" }
     for _, lsp in ipairs(servers) do
         vim.lsp.enable(lsp)
     end
@@ -94,9 +85,7 @@ M.setup = function ()
     })
 
     vim.lsp.config('clangd', {
-        capabilities = capabilities,
-        on_attach = function (client, bufnr)
-            -- on_attach(client, bufnr)
+        on_attach = function (client, _)
             require('nlspsettings').update_settings(client.name)
         end,
     })
@@ -108,37 +97,6 @@ M.setup = function ()
         end,
         filetypes = { 'systemverilog' }
     })
-
-    local runtime_path = vim.split(package.path, ";")
-    vim.lsp.config("lua_ls", {
-        settings = {
-            Lua = {
-                runtime = {
-                    -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                    version = "LuaJIT",
-                    -- Setup your lua path
-                    path = runtime_path,
-                },
-                diagnostics = {
-                    -- Get the language server to recognize the `vim` global
-                    -- globals = { "vim" },
-                    -- disable = { "missing-fields" }
-                },
-                workspace = {
-                    -- Make the server aware of Neovim runtime files
-                    library = {
-                        vim.env.VIMRUNTIME
-                    },
-                    checkThirdParty = false,
-                },
-                -- Do not send telemetry data containing a randomized but unique identifier
-                telemetry = {
-                    enable = false,
-                },
-            },
-        }
-    })
-
 
     -- adds a check to see if any of the active clients have the capability
     -- textDocument/documentHighlight. without the check it was causing constant

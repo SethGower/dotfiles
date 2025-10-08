@@ -118,21 +118,19 @@ function M.lsp_setup(client, bufnr)
     -- Mappings.
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    -- buf_set_keymap("n", "<leader>D", "<cmd>Trouble workspace_diagnostics<CR>", opts)
-    buf_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', lOpts('open floating diagnostic'))
-    -- buf_set_keymap("n", "<leader>d", "<cmd>Trouble diagnostics<CR>", lOpts('trouble diagnostics'))
+    buf_set_keymap('n', 'gre', '<cmd>lua vim.diagnostic.open_float()<CR>', lOpts('open floating diagnostic'))
 
     -- goto bindings
-    lsp_keymap('declarationProvider',     "n", "gD", buf_run("vim.lsp.buf.declaration()"),     lOpts("goto declaration"))
-    lsp_keymap('definitionProvider',      "n", "gd", buf_run("vim.lsp.buf.definition()"),      lOpts("goto definition"))
-    lsp_keymap('implementationsProvider', "n", "gi", buf_run("vim.lsp.buf.implementation()"),  lOpts("goto implementation"))
-    lsp_keymap('definitionProvider',      "n", "gl", buf_run("vim.lsp.buf.type_definition()"), lOpts("goto type definition"))
-    lsp_keymap('references',              "n", "gr", buf_run("vim.lsp.buf.references()"),      lOpts("see all object references"))
+    lsp_keymap('declarationProvider',     "n", "grD", buf_run("vim.lsp.buf.declaration()"),     lOpts("goto declaration"))
+    lsp_keymap('definitionProvider',      "n", "grd", buf_run("vim.lsp.buf.definition()"),      lOpts("goto definition"))
+    lsp_keymap('implementationsProvider', "n", "gri", buf_run("vim.lsp.buf.implementation()"),  lOpts("goto implementation"))
+    lsp_keymap('definitionProvider',      "n", "grl", buf_run("vim.lsp.buf.type_definition()"), lOpts("goto type definition"))
+    lsp_keymap('references',              "n", "grr", buf_run("vim.lsp.buf.references()"),      lOpts("see all object references"))
 
-    lsp_keymap('renameProvider',             'n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>',             lOpts('rename symbol'))
-    lsp_keymap('codeActionProvider',         'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>',        lOpts('code action'))
-    lsp_keymap('documentFormattingProvider', "n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{async = true}<CR>", lOpts('format buffer'))
-    lsp_keymap('documentFormattingProvider', "n", "<leader>lF", "<cmd>lua require('conform').format()<CR>",      lOpts('format with conform'))
+    lsp_keymap('renameProvider',             'n', 'grn', '<cmd>lua vim.lsp.buf.rename()<CR>',             lOpts('rename symbol'))
+    lsp_keymap('codeActionProvider',         'n', 'gca', '<cmd>lua vim.lsp.buf.code_action()<CR>',        lOpts('code action'))
+    lsp_keymap('documentFormattingProvider', "n", "grf", "<cmd>lua vim.lsp.buf.format{async = true}<CR>", lOpts('format buffer'))
+    lsp_keymap('documentFormattingProvider', "n", "grF", "<cmd>lua require('conform').format()<CR>",      lOpts('format with conform'))
 
     -- Workspace operations
     buf_set_keymap("n", "<Leader>lwa", buf_run("vim.lsp.buf.add_workspace_folder()"),                       lOpts("add workspace folder"))
