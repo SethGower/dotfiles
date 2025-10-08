@@ -1,41 +1,39 @@
 ------------------------- LSP -------------------------
-local lspconfig = require('lspconfig')
-local configs = require('lspconfig.configs')
 local util = require('lspconfig.util')
 
 local M = {}
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-M.on_attach = function (client, bufnr)
-    require("mappings").lsp_setup(client, bufnr)
-
-    vim.opt.updatetime = 300
-
-    require('nlspsettings').update_settings(client.name)
-
-    -- Server capabilities spec:
-    -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#serverCapabilities
-    if client.server_capabilities.documentHighlightProvider then
-        vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
-        vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_highlight" }
-        vim.api.nvim_create_autocmd("CursorHold", {
-            callback = vim.lsp.buf.document_highlight,
-            buffer = bufnr,
-            group = "lsp_document_highlight",
-            desc = "Document Highlight",
-        })
-        vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-            callback = vim.lsp.buf.clear_references,
-            buffer = bufnr,
-            group = "lsp_document_highlight",
-            desc = "Clear All the References",
-        })
-    end
-end
+-- M.on_attach = function (client, bufnr)
+--     require("mappings").lsp_setup(client, bufnr)
+--
+--     vim.opt.updatetime = 300
+--
+--     require('nlspsettings').update_settings(client.name)
+--
+--     -- Server capabilities spec:
+--     -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#serverCapabilities
+--     if client.server_capabilities.documentHighlightProvider then
+--         vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+--         vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_highlight" }
+--         vim.api.nvim_create_autocmd("CursorHold", {
+--             callback = vim.lsp.buf.document_highlight,
+--             buffer = bufnr,
+--             group = "lsp_document_highlight",
+--             desc = "Document Highlight",
+--         })
+--         vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+--             callback = vim.lsp.buf.clear_references,
+--             buffer = bufnr,
+--             group = "lsp_document_highlight",
+--             desc = "Clear All the References",
+--         })
+--     end
+-- end
 
 M.setup = function ()
-    local on_attach = M.on_attach
+    -- local on_attach = M.on_attach
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
 
@@ -48,84 +46,71 @@ M.setup = function ()
     local nlspsettings = require("nlspsettings")
 
     -- Sets the defaults for the server configurations. This way I don't have to specify these for every single one
-    lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
+    vim.lsp.config("*", {
         capabilities = capabilities,
-        on_attach = on_attach,
+        -- on_attach = on_attach,
     })
-    if not configs.tclsp then
-        configs.tclsp = {
-            default_config = {
-                cmd = { "tclsp" };
-                filetypes = { "tcl" };
-                root_dir = function (fname)
-                    return util.find_git_ancestor(fname)
-                end;
-                settings = {};
-            };
-        }
-    end
+
+    vim.lsp.config("tclsp", {
+        default_config = {
+            cmd = { "tclsp" };
+            filetypes = { "tcl" };
+            root_dir = function (fname)
+                return util.find_git_ancestor(fname)
+            end;
+            settings = {};
+        };
+    })
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
     local servers = { "pylsp", "rust_analyzer", "texlab", "bashls", "vimls", "jsonls", "cmake", "marksman",
         "ginko_ls", "tclsp", "vhdl_ls", "nil_ls" }
     for _, lsp in ipairs(servers) do
-        lspconfig[lsp].setup {}
+        vim.lsp.enable(lsp)
     end
 
-    lspconfig["ltex"].setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
+    vim.lsp.config("ltex", {
         filetypes = { "tex" },
-    }
+    })
 
-    lspconfig["yamlls"].setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
+    vim.lsp.config("yamlls", {
         settings = {
             yaml = {
                 format = { enable = true },
                 validate = true,
             },
         },
-    }
-    -- lspconfig["svls"].setup {
-    --     on_attach = on_attach,
-    --     capabilities = capabilities,
+    })
+    -- vim.lsp.config("svls", {
     --     root_dir = function (_)
     --         return vim.fs.dirname(vim.fs.find({ '.git', '.svls.toml', 'vhdl_ls.toml' }, { upward = true })[1]);
     --     end,
-    -- }
+    -- })
 
-    lspconfig['svlangserver'].setup {
-        capabilities = capabilities,
-        on_attach = on_attach,
+    vim.lsp.config('svlangserver', {
         root_dir = function (_)
             return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
         end,
-    }
+    })
 
-    lspconfig['clangd'].setup {
+    vim.lsp.config('clangd', {
         capabilities = capabilities,
         on_attach = function (client, bufnr)
-            on_attach(client, bufnr)
+            -- on_attach(client, bufnr)
             require('nlspsettings').update_settings(client.name)
         end,
-    }
+    })
 
-    lspconfig["verible"].setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
+    vim.lsp.config("verible", {
         cmd = { "verible-verilog-ls", "--rules_config_search", "--indentation_spaces", "4" },
         root_dir = function (_)
             return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
         end,
         filetypes = { 'systemverilog' }
-    }
+    })
 
     local runtime_path = vim.split(package.path, ";")
-    lspconfig["lua_ls"].setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
+    vim.lsp.config("lua_ls", {
         settings = {
             Lua = {
                 runtime = {
@@ -152,7 +137,7 @@ M.setup = function ()
                 },
             },
         }
-    }
+    })
 
 
     -- adds a check to see if any of the active clients have the capability
@@ -247,7 +232,7 @@ M.null_ls = function ()
     }
 
     null_ls.setup({
-        on_attach = require('plugins.lsp').on_attach,
+        -- on_attach = require('plugins.lsp').on_attach,
         on_init = function (new_client, _)
             new_client.offset_encoding = 'utf-32'
         end,
