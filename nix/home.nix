@@ -109,9 +109,6 @@
       zellij # Terminal Multiplexer/Session manager
       nushell
 
-      # media stuff
-      tidal-hifi
-
       # Language Servers
       nil # nix Language server
       vhdl-ls # VHDL Language server, also called rust_hdl

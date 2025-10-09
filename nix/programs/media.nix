@@ -18,6 +18,7 @@
       calibre
       jellyfin-media-player
       vlc
+      tidal-hifi
     ];
   };
 }
