@@ -187,6 +187,7 @@
     openrazer-daemon
     polychromatic
     pavucontrol
+    chromium
   ];
 
   systemd.packages = with pkgs; [lact];

@@ -41,6 +41,7 @@
       "steam-run"
       "nvidia-x11"
       "nvidia-settings"
+      "chromium"
     ];
     insecure_packages = [""];
 
