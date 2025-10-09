@@ -1,6 +1,4 @@
 ------------------------- LSP -------------------------
-local util = require('lspconfig.util')
-
 local M = {}
 
 -- Use an on_attach function to only map the following keys
@@ -9,8 +7,6 @@ M.on_attach = function (client, bufnr)
     require("mappings").lsp_setup(client, bufnr)
 
     vim.opt.updatetime = 300
-
-    require('nlspsettings').update_settings(client.name)
 
     -- Server capabilities spec:
     -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#serverCapabilities
@@ -35,69 +31,53 @@ end
 M.setup = function ()
     local on_attach = M.on_attach
 
-    local nlspsettings = require("nlspsettings")
 
     -- Sets the defaults for the server configurations. This way I don't have to specify these for every single one
     vim.lsp.config("*", {
         on_attach = on_attach,
     })
 
-    vim.lsp.config("tclsp", {
-        default_config = {
-            cmd = { "tclsp" };
-            filetypes = { "tcl" };
-            root_dir = function (fname)
-                return util.find_git_ancestor(fname)
-            end;
-            settings = {};
-        };
-    })
     -- Use a loop to conveniently call 'setup' on multiple servers and
     -- map buffer local keybindings when the language server attaches
-    local servers = { "pylsp", "rust_analyzer", "texlab", "bashls", "vimls", "jsonls", "cmake", "marksman",
-        "ginko_ls", "tclsp", "vhdl_ls", "nil_ls", "lua_ls" }
-    for _, lsp in ipairs(servers) do
-        vim.lsp.enable(lsp)
-    end
+    vim.lsp.enable('lua_ls')
+    local enabled_servers = {
+        "lua_ls",        -- Lua language server
+        "pylsp",         -- Python
+        "rust_analyzer", -- Rust
+        "texlab",        -- LaTeX
+        "bashls",        -- Bash
+        "vimls",         -- VimL
+        "jsonls",        -- JSON
+        "cmake",         -- CMake
+        "marksman",      -- Markdown
+        "ginko_ls",      -- Linux Device Trees
+        "tclsp",         -- TCL
+        "vhdl_ls",       -- VHDL (rust_hdl)
+        "nil_ls",        -- Nix
+        "ltex",          -- LaTeX and Markdown
+        "yamlls",        -- YAML
+        "svls",          -- SystemVerilog
+        "svlangserver",  -- SystemVerilog
+        "clangd",        -- C/C++
+        "verible"        -- SystemVerilog/Verilog
+    }
 
-    vim.lsp.config("ltex", {
-        filetypes = { "tex" },
-    })
 
-    vim.lsp.config("yamlls", {
-        settings = {
-            yaml = {
-                format = { enable = true },
-                validate = true,
-            },
-        },
+    -- The files in lsp/ don't override the definitions provided by nvim-lspconfig, but calling config() here does, so
+    -- need to do these here
+    vim.lsp.config("svls", {
+        root_markers = { '.git', '.svls.toml', 'vhdl_ls.toml' }
     })
-    -- vim.lsp.config("svls", {
-    --     root_dir = function (_)
-    --         return vim.fs.dirname(vim.fs.find({ '.git', '.svls.toml', 'vhdl_ls.toml' }, { upward = true })[1]);
-    --     end,
-    -- })
 
     vim.lsp.config('svlangserver', {
-        root_dir = function (_)
-            return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
-        end,
+        root_markers = { '.git', 'vhdl_ls.toml' }
     })
 
-    vim.lsp.config('clangd', {
-        on_attach = function (client, _)
-            require('nlspsettings').update_settings(client.name)
-        end,
-    })
-
-    vim.lsp.config("verible", {
+    vim.lsp.config('verible', {
         cmd = { "verible-verilog-ls", "--rules_config_search", "--indentation_spaces", "4" },
-        root_dir = function (_)
-            return vim.fs.dirname(vim.fs.find({ '.git', 'vhdl_ls.toml' }, { upward = true })[1]);
-        end,
+        root_markers = { ".git", "vhdl_ls.toml" },
         filetypes = { 'systemverilog' }
     })
-
     -- adds a check to see if any of the active clients have the capability
     -- textDocument/documentHighlight. without the check it was causing constant
     -- errors when servers didn't have that capability
@@ -110,22 +90,8 @@ M.setup = function ()
         end
     end
 
-    nlspsettings.setup({
-        config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
-        local_settings_dir = ".nlsp-settings",
-        local_settings_root_markers_fallback = { '.git' },
-        append_default_schemas = true,
-        loader = 'json',
-        ignored_servers = {},
-        nvim_notify = {
-            enable = true,
-            timeout = 5000
-        },
-        open_strictly = false
-    })
-
-
     -- vim.lsp.set_log_level("debug")
+    vim.lsp.enable(enabled_servers)
 end
 
 M.null_ls = function ()
