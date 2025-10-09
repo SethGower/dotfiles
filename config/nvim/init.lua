@@ -21,7 +21,10 @@ require 'plugins'
 -- require 'session'
 require 'autocommands'
 require('mappings').setup()
-require 'local_config'
+-- use a protected call so nvim doesn't puke if this doesn't exist. pcall
+-- returns a status and the module, however I don't actually care about the
+-- returns
+pcall(require, 'local_config')
 
 --local async
 --async =
