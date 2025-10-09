@@ -504,14 +504,7 @@ return require('lazy').setup({
     ----------------------------
     'tamago324/nlsp-settings.nvim', -- A plugin I am trying for json based local config of lsp servers
     'jmbuhr/otter.nvim',            -- Otter allows having embedded LSP on other language snippets (like when code is embedded in a markdown)
-
-    {                               -- Neovim Language Server
-        "neovim/nvim-lspconfig",
-        event = Events.OpenFile,
-        config = function ()
-            require("plugins.lsp").setup()
-        end,
-    },
+    "neovim/nvim-lspconfig",
     {
         "williamboman/mason.nvim",
         opts = {
@@ -521,16 +514,16 @@ return require('lazy').setup({
             }
         }
     },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        dependencies = {
-            "neovim/nvim-lspconfig",
-            "williamboman/mason.nvim",
-        },
-        opts = {
-            automatic_installation = true
-        }
-    },
+    -- {
+    --     "williamboman/mason-lspconfig.nvim",
+    --     dependencies = {
+    --         "neovim/nvim-lspconfig",
+    --         "williamboman/mason.nvim",
+    --     },
+    --     opts = {
+    --         automatic_installation = true
+    --     }
+    -- },
     {
         -- Null LS provides linting for linters that don't support LSP, adding for VSG, can use for others. None LS is a
         -- community maintained version of null-ls since null-ls was deprecated/archived by the original author
@@ -538,9 +531,6 @@ return require('lazy').setup({
         config = function ()
             require('plugins.lsp').null_ls()
         end,
-        dependencies = {
-            { "neovim/nvim-lspconfig" },
-        }
     },
     { -- Images inside neovim LSP completion menu
         "onsails/lspkind-nvim",
