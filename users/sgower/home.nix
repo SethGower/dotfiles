@@ -17,5 +17,6 @@ in {
   ];
 
   dotfiles.dotDir = installDir;
+  dotfiles.programs.personal = true;
   dotfiles.programs.wine = true;
 }
