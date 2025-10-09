@@ -19,6 +19,13 @@ in {
   dotfiles.dotDir = installDir;
   dotfiles.programs.personal = false;
 
+  # work PC has an nvidia card, so we want this version not sure how I wanna
+  # handle this for my work laptop as well, since that connects to my eGPU at
+  # home with the AMD card...
+  home.packages = with pkgs; [
+    nvtopPackages.nvidia # htop like utility for graphics
+  ];
+
   xdg.desktopEntries."org.wezfurlong.wezterm" = {
     name = "WezTerm";
     comment = "Wez's Terminal Emulator";
