@@ -9,14 +9,12 @@
   ...
 }: {
   imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
   ];
 
   # This will add secrets.yml to the nix store
   # You can avoid this by adding a string to the full path instead, i.e.
   # sops.defaultSopsFile = "/root/.sops/secrets/example.yaml";
-  sops.defaultSopsFile = ./secrets/hammond.yaml;
+  sops.defaultSopsFile = ../../secrets/hammond.yaml;
   # This will automatically import SSH keys as age keys
   sops.age.sshKeyPaths = ["/home/sgower/.ssh/id_ed25519"];
   # This will generate a new key if the key specified above does not exist
@@ -187,6 +185,8 @@
     openrazer-daemon
     polychromatic
     pavucontrol
+    killall
+    amdgpu_top
     cifs-utils
     chromium
   ];
@@ -244,4 +244,5 @@
     #
     # in ["${automount_opts},credentials=${config.sops.secrets.smb-secrets.path}"];
   };
+  services.udisks2.enable = true;
 }

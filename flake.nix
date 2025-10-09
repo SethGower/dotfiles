@@ -68,7 +68,7 @@
       inherit system pkgs;
       specialArgs = attrs;
       modules = [
-        ./nix/configuration.nix
+        ./nix/hosts/hammond
         nixos-hardware.nixosModules.framework-11th-gen-intel
         sops-nix.nixosModules.sops
         home-manager.nixosModules.home-manager
