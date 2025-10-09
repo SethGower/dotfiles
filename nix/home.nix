@@ -108,14 +108,28 @@
       wezterm # GPU accelerated Terminal
       zellij # Terminal Multiplexer/Session manager
       nushell
+      nix-direnv
+      direnv
 
       # Language Servers
       nil # nix Language server
       vhdl-ls # VHDL Language server, also called rust_hdl
+      bash-language-server
+      cmake-language-server
+      ginko
+      # vscode-json-languageserver
+      ltex-ls
+      marksman
+      rust-analyzer
+      svls
+      texlab
+      vim-language-server
+      clang-tools
 
       # Office Products
       libreoffice-qt
       hunspell
+      alejandra
     ];
     # starship - an customizable prompt for any shell
     programs.starship = {
