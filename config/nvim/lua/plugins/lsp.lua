@@ -31,10 +31,17 @@ end
 M.setup = function ()
     local on_attach = M.on_attach
 
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+    local cmp_present, blink_cmp = pcall(require, 'blink.cmp')
+    if cmp_present then
+        capabilities = vim.tbl_extend("force", capabilities, blink_cmp.get_lsp_capabilities())
+    end
 
     -- Sets the defaults for the server configurations. This way I don't have to specify these for every single one
     vim.lsp.config("*", {
         on_attach = on_attach,
+        capabilities = capabilities,
     })
 
     -- Use a loop to conveniently call 'setup' on multiple servers and
