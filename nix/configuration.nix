@@ -187,6 +187,7 @@
     openrazer-daemon
     polychromatic
     pavucontrol
+    cifs-utils
     chromium
   ];
 
@@ -229,4 +230,18 @@
   services.udev.extraRules = ''
     SUBSYSTEM=="drm", ENV{DEVTYPE}=="drm_minor", ENV{DEVNAME}=="/dev/dri/card[0-9]", SUBSYSTEMS=="pci", ATTRS{vendor}=="0x1002", ATTRS{device}=="0x73bf", TAG+="mutter-device-preferred-primary"
   '';
+
+  sops.secrets.smb-secrets = {};
+
+  fileSystems."/mnt/media" = {
+    # device = "//10.0.0.2/mnt/media";
+    device = "10.0.0.2:/mnt/media";
+    fsType = "nfs";
+    # options = let
+    #   # this line prevents hanging on network split
+    #   automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+    #   ownership = "uid=${config.users.users.sgower.uid},gid=${config.users.users.sgower.gid}";
+    #
+    # in ["${automount_opts},credentials=${config.sops.secrets.smb-secrets.path}"];
+  };
 }
