@@ -1,1 +1,3 @@
 config/nvim/lua/.luarc.json
+.direnv/
+result
