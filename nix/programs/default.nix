@@ -26,6 +26,7 @@
     ./wine.nix
     ./vpn.nix
     ./media.nix
+    ./gnome.nix
   ];
   config = {};
 }
