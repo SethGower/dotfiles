@@ -69,7 +69,9 @@
       meld # GUI diff tool
       xclip # helper for accessing clipboard contents on CLI
       # gnupg
-      iosevka # NerdFont that provides nice glyphs with ligatures
+      # iosevka # NerdFont that provides nice glyphs with ligatures
+      nerd-fonts.iosevka # NerdFont that provides nice glyphs with ligatures
+      nerd-fonts.iosevka-term # NerdFont that provides nice glyphs with ligatures
       # nerd-fonts
 
       # nix related
