@@ -126,10 +126,12 @@
       vim-language-server
       clang-tools
 
+      # Nix Language Formatting
+      alejandra
+
       # Office Products
       libreoffice-qt
       hunspell
-      alejandra
     ];
     # starship - an customizable prompt for any shell
     programs.starship = {
