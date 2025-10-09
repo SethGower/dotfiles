@@ -4,7 +4,7 @@ local config = wezterm.config_builder()
 config.default_prog = { 'zellij', '-l', 'welcome' }
 
 config.font = wezterm.font(
-    'IosevkaTerm NerdFont Mono',
+    'IosevkaTerm Nerd Font Mono',
     { stretch = 'Expanded', weight = 'Regular' }
 )
 
