@@ -18,4 +18,17 @@ in {
 
   dotfiles.dotDir = installDir;
   dotfiles.programs.personal = false;
+
+  xdg.desktopEntries."org.wezfurlong.wezterm" = {
+    name = "WezTerm";
+    comment = "Wez's Terminal Emulator";
+    # keywords = "shell;prompt;command;commandline;cmd;";
+    icon = "org.wezfurlong.wezterm";
+    # startupwmclass = "org.wezfurlong.wezterm";
+    # tryexec = "wezterm";
+    exec = "nixGL wezterm start --cwd .";
+    type = "Application";
+    categories = ["System" "TerminalEmulator" "Utility"];
+    terminal = false;
+  };
 }
