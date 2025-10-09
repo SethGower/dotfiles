@@ -119,7 +119,7 @@
   users.users.sgower = {
     isNormalUser = true;
     # wheel is to allow for sudo access
-    extraGroups = ["wheel" "openrazer" "dialout" "plugdev"];
+    extraGroups = ["wheel" "openrazer" "dialout" "plugdev" "docker"];
     description = "Seth Gower";
     home = "/home/sgower";
     shell = "/run/current-system/sw/bin/zsh";
