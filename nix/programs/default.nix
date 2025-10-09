@@ -24,6 +24,8 @@
     ./social.nix
     ./email.nix
     ./wine.nix
+    ./vpn.nix
+    ./media.nix
   ];
   config = {};
 }
