@@ -68,6 +68,8 @@
       zstd
       meld # GUI diff tool
       xclip # helper for accessing clipboard contents on CLI
+      gnumake # make - self explanatory
+      pre-commit # program for installing pre-commit hooks
       # gnupg
       # iosevka # NerdFont that provides nice glyphs with ligatures
       nerd-fonts.iosevka # NerdFont that provides nice glyphs with ligatures
@@ -126,8 +128,11 @@
       vim-language-server
       clang-tools
 
-      # Nix Language Formatting
-      alejandra
+      cbfmt # Code Block Formatting in markdown
+      alejandra # Nix Language Formatting
+      stylua
+      nodePackages.prettier
+      selene
 
       # Office Products
       libreoffice-qt
