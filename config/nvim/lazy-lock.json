@@ -26,7 +26,7 @@
   "nightfox.nvim": { "branch": "main", "commit": "ba47d4b4c5ec308718641ba7402c143836f35aa9" },
   "nlsp-settings.nvim": { "branch": "main", "commit": "94c13dc28ee1bc4213aea98f90a815ca5bba7dec" },
   "noice.nvim": { "branch": "main", "commit": "38c702be0d8fea81527ee6a73e1e834e72481193" },
-  "none-ls.nvim": { "branch": "main", "commit": "5cf63841461b49989972d35bf886e076a1ab3649" },
+  "none-ls.nvim": { "branch": "vsg-vhdl-style-guide", "commit": "33228aa21da93156aa4e3fd2a697074e1ef4a12b" },
   "nui.nvim": { "branch": "main", "commit": "de740991c12411b663994b2860f1a4fd0937c130" },
   "nvim-colorizer.lua": { "branch": "master", "commit": "a065833f35a3a7cc3ef137ac88b5381da2ba302e" },
   "nvim-dap": { "branch": "master", "commit": "881f7dc17c0b4204a1d844732f95539575350e5b" },

@@ -527,7 +527,9 @@ return require('lazy').setup({
     {
         -- Null LS provides linting for linters that don't support LSP, adding for VSG, can use for others. None LS is a
         -- community maintained version of null-ls since null-ls was deprecated/archived by the original author
-        'nvimtools/none-ls.nvim',
+        -- 'nvimtools/none-ls.nvim',
+        'SethGower/none-ls.nvim',
+        branch = "vsg-vhdl-style-guide",
         config = function ()
             require('plugins.lsp').null_ls()
         end,
