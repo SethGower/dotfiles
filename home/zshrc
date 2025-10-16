@@ -104,3 +104,8 @@ if [[ -f "/etc/profiles/per-user/${USER}/etc/profile.d/hm-session-vars.sh" ]]; t
 elif [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]; then
     source "$HOME"/.nix-profile/etc/profile.d/hm-session-vars.sh
 fi
+
+# added by Nix installer
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+    source $HOME/.nix-profile/etc/profile.d/nix.sh;
+fi
