@@ -261,7 +261,7 @@ return require('lazy').setup({
     'tpope/vim-sleuth',              -- handles tab expansion based on current file indentation
     'moll/vim-bbye',                 -- better buffer deletion
     'aymericbeaumet/vim-symlink',    -- read symlinks for pwd
-    'dstein64/nvim-scrollview',
+    'dstein64/nvim-scrollview',      -- Adds a scrollbar with LSP warning/error signs
     -- 'mg979/vim-visual-multi',
     {
         "folke/noice.nvim",
@@ -323,16 +323,6 @@ return require('lazy').setup({
         end
     },
 
-    { -- Adds easier to use terminal that can be accessed within nvim
-        "akinsho/toggleterm.nvim",
-        config = function ()
-            require("plugins.toggle-term")
-        end,
-        cmd = "ToggleTerm",
-        keys = {
-            { '<c-\\>', "<cmd>ToggleTerm<cr>", desc = "Toggle Term" },
-        }
-    },
     { -- GDB Integration
         'sakhnik/nvim-gdb',
         build = ':!./install.sh',
@@ -342,17 +332,8 @@ return require('lazy').setup({
         'mfussenegger/nvim-dap'
     },
     {
-        'tpope/vim-dispatch',
-        cmd = { 'Make', 'Dispatch', 'Start' }
-    },
-    {
         'tweekmonster/startuptime.vim',
         cmd = 'StartupTime'
-    },
-    {
-        'stevearc/conform.nvim',
-        opts = {},
-        config = require('plugins.others').conform
     },
     { -- Updated comment plugin, compared to tpope/commentary.vim
         'numToStr/Comment.nvim',
@@ -502,9 +483,18 @@ return require('lazy').setup({
     ----------------------------
     -- Language Server
     ----------------------------
-    'tamago324/nlsp-settings.nvim', -- A plugin I am trying for json based local config of lsp servers
-    'jmbuhr/otter.nvim',            -- Otter allows having embedded LSP on other language snippets (like when code is embedded in a markdown)
+    -- 'tamago324/nlsp-settings.nvim', -- A plugin I am trying for json based local config of lsp servers
     "neovim/nvim-lspconfig",
+    {
+        'jmbuhr/otter.nvim', -- Otter allows having embedded LSP on other language snippets (like when code is embedded in a markdown)
+        filetype =
+        {
+            "markdown", -- since there can be code blocks of other langs
+            "lua",      -- can have embedded vimscript
+            "vim"       -- can have embedded lua
+        }
+    },
+    -- TODO: Do I really need this anymore, now that I have nix and home-manager?
     {
         "williamboman/mason.nvim",
         opts = {
@@ -554,17 +544,17 @@ return require('lazy').setup({
             })
         end
     },
-    { -- Better looking LSP referneces, diagnostics, and such
-        "folke/trouble.nvim",
-        dependencies = { "kyazdani42/nvim-web-devicons" },
-        config = function ()
-            require 'plugins.others'.trouble()
-        end
-    },
+    -- { -- Better looking LSP referneces, diagnostics, and such
+    --     "folke/trouble.nvim",
+    --     dependencies = { "kyazdani42/nvim-web-devicons" },
+    --     config = function ()
+    --         require 'plugins.others'.trouble()
+    --     end
+    -- },
     ----------------------------
     -- Searching
     ----------------------------
-    'Numkil/ag.nvim',
+    -- 'Numkil/ag.nvim',
     { -- Fuzzy search
         "nvim-telescope/telescope.nvim",
         dependencies = {
@@ -605,6 +595,7 @@ return require('lazy').setup({
 
     { -- VHDL plugin for copying and pasting entities and such
         'JPR75/vip',
+        filetype = { "vhdl" },
     },
     { -- Preview markdown
         "iamcco/markdown-preview.nvim",
