@@ -127,6 +127,7 @@
       texlab
       vim-language-server
       clang-tools
+      shellharden
 
       cbfmt # Code Block Formatting in markdown
       alejandra # Nix Language Formatting
