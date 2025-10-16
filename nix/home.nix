@@ -227,5 +227,32 @@
         recursive = true;
       };
     };
+
+    systemd.user = {
+      services = {
+        "wallpaper_changer" = {
+          Unit = {
+            Description = "Change Wallpaper on a set interval";
+          };
+          Service = {
+            ExecStart = "${dotsLocation}/config/scripts/set-wallpaper.sh";
+          };
+        };
+      };
+      timers = {
+        "wallpaper_changer" = {
+          Unit = {
+            Description = "Change Wallpaper on a set interval";
+          };
+          Timer = {
+            OnCalendar = "*:0/15";
+            Unit = "wallpaper_changer.service";
+          };
+          Install = {
+            WantedBy = [ "timers.target" ];
+          };
+        };
+      };
+    };
   };
 }
