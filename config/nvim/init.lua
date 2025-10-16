@@ -21,7 +21,7 @@ require 'plugins'
 -- require 'session'
 require 'autocommands'
 require('mappings').setup()
-require("plugins.lsp").setup()
+require("lsp").setup()
 -- use a protected call so nvim doesn't puke if this doesn't exist. pcall
 -- returns a status and the module, however I don't actually care about the
 -- returns

@@ -1,17 +1,14 @@
-local M = {}
-
-local mini = {
-    ai         = require('mini.ai'),
-    align      = require('mini.align'),
-    clue       = require('mini.clue'),
-    jump2d     = require('mini.jump2d'),
-    pairs      = require('mini.pairs'),
-    surround   = require('mini.surround'),
-    trailspace = require('mini.trailspace'),
-    files      = require('mini.files'),
-}
-
-M.config = function ()
+config = function ()
+    local mini = {
+        ai         = require('mini.ai'),
+        align      = require('mini.align'),
+        clue       = require('mini.clue'),
+        jump2d     = require('mini.jump2d'),
+        pairs      = require('mini.pairs'),
+        surround   = require('mini.surround'),
+        trailspace = require('mini.trailspace'),
+        files      = require('mini.files'),
+    }
     ---------------------------------
     -- -- A,I
     mini.ai.setup({
@@ -94,20 +91,20 @@ M.config = function ()
     mini.surround.setup({
         -- Module mappings. Use `''` (empty string) to disable one.
         mappings = {
-            add = '<Leader>sa',            -- Add surrounding in Normal and Visual modes
-                                           --  Works by using visual selection. e.g.
-                                           --  <L>saiW), add surrounding to inner word: '(...)'
-            delete = '<Leader>sd',         -- Delete surrounding
-            find = '<Leader>sf',           -- Find surrounding (to the right)
-            find_left = '<Leader>sF',      -- Find surrounding (to the left)
-            highlight = '<Leader>sh',      -- Highlight surrounding
-            replace = '<Leader>sr',        -- Replace surrounding.
-                                   --  Use by running sr"' for example to replace
-                                   --  surrounding "quotes" with single 'ticks'
+            add = '<Leader>sa', -- Add surrounding in Normal and Visual modes
+            --  Works by using visual selection. e.g.
+            --  <L>saiW), add surrounding to inner word: '(...)'
+            delete = '<Leader>sd',    -- Delete surrounding
+            find = '<Leader>sf',      -- Find surrounding (to the right)
+            find_left = '<Leader>sF', -- Find surrounding (to the left)
+            highlight = '<Leader>sh', -- Highlight surrounding
+            replace = '<Leader>sr',   -- Replace surrounding.
+            --  Use by running sr"' for example to replace
+            --  surrounding "quotes" with single 'ticks'
             update_n_lines = '<Leader>sn', -- Update `n_lines`
 
-            suffix_last = 'l',     -- Suffix to search with "prev" method
-            suffix_next = 'n',     -- Suffix to search with "next" method
+            suffix_last = 'l',             -- Suffix to search with "prev" method
+            suffix_next = 'n',             -- Suffix to search with "next" method
         },
         -- Whether to respect selection type:
         -- - Place surroundings on separate lines in linewise mode.
@@ -131,4 +128,9 @@ M.config = function ()
     require('mappings').mini.files.setup()
 end
 
-return M
+return { -- Various small utilies
+    "echasnovski/mini.nvim",
+    branch = 'main',
+    -- event = { "BufReadPost", "BufNewFile" },
+    -- config = config()
+}
