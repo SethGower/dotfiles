@@ -27,6 +27,7 @@
     ./vpn.nix
     ./media.nix
     ./gnome.nix
+    ./homelab.nix
   ];
   config = {};
 }
