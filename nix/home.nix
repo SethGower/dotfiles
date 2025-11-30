@@ -141,6 +141,8 @@
       # Office Products
       libreoffice-qt
       hunspell
+
+      bruno
     ];
     # starship - an customizable prompt for any shell
     programs.starship = {
