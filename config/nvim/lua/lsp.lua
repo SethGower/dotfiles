@@ -66,7 +66,10 @@ M.setup = function ()
         "svls",          -- SystemVerilog
         "svlangserver",  -- SystemVerilog
         "clangd",        -- C/C++
-        "verible"        -- SystemVerilog/Verilog
+        "verible",       -- SystemVerilog/Verilog
+        "postgres_lsp",
+        "harper_ls",
+        "vrl-lsp"
     }
 
 
