@@ -128,6 +128,7 @@
       vim-language-server
       clang-tools
       shellharden
+      vrl-lsp
 
       cbfmt # Code Block Formatting in markdown
       alejandra # Nix Language Formatting

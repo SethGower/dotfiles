@@ -29,6 +29,7 @@
     overlays = [
       (final: prev: {
         unstable = pkgsUnstable;
+        vrl-lsp = prev.callPackage ./nix/packages/vrl-lsp.nix {};
       })
     ];
 
