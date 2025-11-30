@@ -112,6 +112,7 @@
       nushell
       nix-direnv
       direnv
+      tree-sitter
 
       # Language Servers
       nil # nix Language server
@@ -128,6 +129,7 @@
       vim-language-server
       clang-tools
       shellharden
+      yaml-language-server
       vrl-lsp
 
       cbfmt # Code Block Formatting in markdown
