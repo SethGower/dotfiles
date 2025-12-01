@@ -46,6 +46,7 @@
       silver-searcher # A code searching tool similar to ack, with a focus on speed. (binary name `ag`)
       fd # Fast find alternative
       direnv # Directory based environment switching
+      git-credential-manager
 
       # networking tools
       mtr # A network diagnostic tool
@@ -193,6 +194,7 @@
         aws.disabled = true;
         gcloud.disabled = true;
         line_break.disabled = false;
+        command_timeout = 10;
       };
     };
     programs.bat = {
@@ -295,7 +297,7 @@
             Unit = "wallpaper_changer.service";
           };
           Install = {
-            WantedBy = [ "timers.target" ];
+            WantedBy = ["timers.target"];
           };
         };
       };
