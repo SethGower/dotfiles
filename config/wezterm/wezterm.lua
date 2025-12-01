@@ -1,12 +1,12 @@
 local wezterm = require('wezterm')
 local config = wezterm.config_builder()
 
-config.default_prog = { 'zellij', '-l', 'welcome' }
+config.default_prog = { 'zellij' }
 
-config.font = wezterm.font(
-    'IosevkaTerm Nerd Font Mono',
-    { stretch = 'Expanded', weight = 'Regular' }
-)
+-- config.font = wezterm.font(
+--     'IosevkaTerm Nerd Font Mono'
+--     -- { stretch = 'Expanded', weight = 'Regular' }
+-- )
 
 local mux = wezterm.mux
 wezterm.on("gui-startup", function(cmd)
