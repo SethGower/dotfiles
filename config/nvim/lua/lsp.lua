@@ -63,13 +63,15 @@ M.setup = function ()
         "nil_ls",        -- Nix
         "ltex",          -- LaTeX and Markdown
         "yamlls",        -- YAML
-        "svls",          -- SystemVerilog
-        "svlangserver",  -- SystemVerilog
-        "clangd",        -- C/C++
-        "verible",       -- SystemVerilog/Verilog
-        "postgres_lsp",
-        "harper_ls",
-        "vrl-lsp"
+        -- "svls",          -- SystemVerilog
+        -- "svlangserver",  -- SystemVerilog
+        "clangd",       -- C/C++
+        "verible",      -- SystemVerilog/Verilog
+        "postgres_lsp", -- SQL Files
+        "harper_ls",    -- Grammar checking
+        "vrl-lsp",      -- Vector Remap Language
+        "dockerls",     -- Dockerfiles
+        "html"          -- HTML
     }
 
 
