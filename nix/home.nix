@@ -131,6 +131,7 @@
       shellharden
       yaml-language-server
       vrl-lsp
+      unstable.dockerfile-language-server
 
       cbfmt # Code Block Formatting in markdown
       alejandra # Nix Language Formatting
