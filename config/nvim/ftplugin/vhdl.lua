@@ -45,5 +45,3 @@ vim.api.nvim_buf_set_keymap(0, "i", "tou", "to_unsigned", { noremap = true, sile
 vim.api.nvim_set_keymap("n", "<F9>", [[:setl autoread<CR>:let b:current_file = @%<CR>:w!<CR>:execute '!vsg -f ' . b:current_file . ' --fix --configuration ./vsg_config.yaml'<CR><CR>:edit<CR>:setl noautoread<CR>]], { noremap = true, silent = true })
 
 opt.foldmethod = "indent"
-
-vim.treesitter.start()

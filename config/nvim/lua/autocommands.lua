@@ -19,3 +19,9 @@ vim.api.nvim_create_autocmd("VimLeave", {
     pattern = "*",
     command = "silent !zellij action switch-mode normal"
 })
+
+-- Start TreeSitter for the specified languages.
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'vhdl', 'lua', 'vrl', 'systemverilog', 'verilog', 'nix' },
+    callback = function () vim.treesitter.start() end,
+})

@@ -44,7 +44,3 @@ pcall(require, 'local_config')
 vim.g.dracula_colorterm = 0
 vim.cmd 'colorscheme carbonfox'
 
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = { '<filetype>' },
-    callback = function() vim.treesitter.start() end,
-})
