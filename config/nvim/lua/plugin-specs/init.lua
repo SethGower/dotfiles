@@ -266,7 +266,12 @@ return {
     { -- Git commands within Neovim
         "tpope/vim-fugitive",
         "tpope/vim-rhubarb",
-        'shumphrey/fugitive-gitlab.vim',
+        {
+            'shumphrey/fugitive-gitlab.vim',
+            config = function (...)
+                vim.g.fugitive_gitlab_domains = { 'https://gitlab.csde.caci.com' }
+            end
+        },
         event = Events.EnterWindow
     },
     ----------------------------
