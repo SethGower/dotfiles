@@ -65,6 +65,7 @@
       "libnvjitlink"
       "libcusparse"
       "libnpp"
+      "drawio"
     ];
     insecure_packages = [""];
 
@@ -113,6 +114,7 @@
     devShells."x86_64-linux".default = pkgs.mkShell {
       packages = with pkgs; [
         sops
+        toml2nix
       ];
     };
   };
