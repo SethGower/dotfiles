@@ -71,7 +71,46 @@
       gnumake # make - self explanatory
       pre-commit # program for installing pre-commit hooks
       # gnupg
-      # iosevka # NerdFont that provides nice glyphs with ligatures
+      # (unstable.iosevka.override
+      #   {
+      #     set = "Iosevka Custom";
+      #     privateBuildPlan = {
+      #       exportGlyphNames = false;
+      #       family = "Iosevka Custom";
+      #       noCvSs = true;
+      #       serifs = "sans";
+      #       ligations = {
+      #         disables = ["lteq" "eqlt" "gteq"];
+      #       };
+      #       slopes = {
+      #         Italic = {
+      #           angle = 9.4;
+      #           css = "italic";
+      #           menu = "italic";
+      #           shape = "italic";
+      #         };
+      #         Upright = {
+      #           angle = 0;
+      #           css = "normal";
+      #           menu = "upright";
+      #           shape = "upright";
+      #         };
+      #       };
+      #       spacing = "normal";
+      #       weights = {
+      #         Bold = {
+      #           css = 700;
+      #           menu = 700;
+      #           shape = 700;
+      #         };
+      #         Regular = {
+      #           css = 400;
+      #           menu = 400;
+      #           shape = 400;
+      #         };
+      #       };
+      #     };
+      #   }) # NerdFont that provides nice glyphs with ligatures
       nerd-fonts.iosevka # NerdFont that provides nice glyphs with ligatures
       nerd-fonts.iosevka-term # NerdFont that provides nice glyphs with ligatures
       # nerd-fonts
