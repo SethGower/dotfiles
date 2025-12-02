@@ -96,8 +96,8 @@
   services.xserver.xkb.variant = "colemak";
   services.xserver.xkb.options = "caps:swapescape";
 
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
