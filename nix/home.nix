@@ -130,7 +130,7 @@
       iotop # io monitoring
       iftop # network monitoring
       nvtopPackages.amd # htop like utility for graphics
-      glxinfo # OpenGL info
+      mesa-demos # OpenGL info
 
       # system call monitoring
       strace # system call monitoring
