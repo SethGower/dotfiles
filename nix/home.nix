@@ -129,7 +129,6 @@
       btop # replacement of htop/nmon
       iotop # io monitoring
       iftop # network monitoring
-      nvtopPackages.amd # htop like utility for graphics
       mesa-demos # OpenGL info
 
       # system call monitoring

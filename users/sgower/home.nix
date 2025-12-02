@@ -11,6 +11,10 @@ in {
     stateVersion = "25.05";
   };
 
+  home.packages = with pkgs; [
+    nvtopPackages.amd # htop like utility for graphics
+  ];
+
   imports = [
     ../../nix/home.nix
     ../../nix/programs
