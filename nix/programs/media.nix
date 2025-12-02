@@ -16,7 +16,7 @@
   config = lib.mkIf (config.dotfiles.programs.media && config.dotfiles.programs.personal) {
     home.packages = with pkgs; [
       calibre
-      jellyfin-media-player
+      # jellyfin-media-player
       vlc
       tidal-hifi
     ];
