@@ -28,20 +28,24 @@ opt.formatoptions = vim.bo.formatoptions .. "cro"
 opt.textwidth = 0
 
 -- Simple shortcuts from https://github.com/salinasv/vim-vhdl/
-vim.api.nvim_buf_set_keymap(0, "i", "con", "constant", { noremap = true, silent = true })
-vim.api.nvim_buf_set_keymap(0, "i", "dt", "downto", { noremap = true, silent = true })
-vim.api.nvim_buf_set_keymap(0, "i", "sig", "signal", { noremap = true, silent = true })
-vim.api.nvim_buf_set_keymap(0, "i", "var", "variable", { noremap = true, silent = true })
-vim.api.nvim_buf_set_keymap(0, "i", "gen", "generate", { noremap = true, silent = true })
-vim.api.nvim_buf_set_keymap(0, "i", "ot", "others", { noremap = true, silent = true })
-vim.api.nvim_buf_set_keymap(0, "i", "sl", "std_logic", { noremap = true, silent = true })
-vim.api.nvim_buf_set_keymap(0, "i", "slv", "std_logic_vector", { noremap = true, silent = true })
-vim.api.nvim_buf_set_keymap(0, "i", "lv", "std_logic_vector", { noremap = true, silent = true })
-vim.api.nvim_buf_set_keymap(0, "i", "uns", "unsigned", { noremap = true, silent = true })
-vim.api.nvim_buf_set_keymap(0, "i", "toi", "to_integer", { noremap = true, silent = true })
-vim.api.nvim_buf_set_keymap(0, "i", "tos", "to_signed", { noremap = true, silent = true })
-vim.api.nvim_buf_set_keymap(0, "i", "tou", "to_unsigned", { noremap = true, silent = true })
+vim.cmd([[
+    iabbrev <buffer> con constant
+    iabbrev <buffer> dt  downto
+    iabbrev <buffer> sig signal
+    iabbrev <buffer> var variable
+    iabbrev <buffer> gen generate
+    iabbrev <buffer> ot  others
+    iabbrev <buffer> sl  std_logic
+    iabbrev <buffer> slv std_logic_vector
+    iabbrev <buffer> lv  std_logic_vector
+    iabbrev <buffer> uns unsigned
+    iabbrev <buffer> toi to_integer
+    iabbrev <buffer> tos to_signed
+    iabbrev <buffer> tou to_unsigned
+]])
 
-vim.api.nvim_set_keymap("n", "<F9>", [[:setl autoread<CR>:let b:current_file = @%<CR>:w!<CR>:execute '!vsg -f ' . b:current_file . ' --fix --configuration ./vsg_config.yaml'<CR><CR>:edit<CR>:setl noautoread<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<F9>",
+    [[:setl autoread<CR>:let b:current_file = @%<CR>:w!<CR>:execute '!vsg -f ' . b:current_file . ' --fix --configuration ./vsg_config.yaml'<CR><CR>:edit<CR>:setl noautoread<CR>]],
+    { noremap = true, silent = true })
 
 opt.foldmethod = "indent"
