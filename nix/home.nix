@@ -45,7 +45,6 @@
       fzf # A command-line fuzzy finder
       silver-searcher # A code searching tool similar to ack, with a focus on speed. (binary name `ag`)
       fd # Fast find alternative
-      direnv # Directory based environment switching
       git-credential-manager
 
       # networking tools
@@ -150,7 +149,6 @@
       zellij # Terminal Multiplexer/Session manager
       nushell
       nix-direnv
-      direnv
       tree-sitter
 
       # Language Servers
@@ -214,6 +212,12 @@
     };
 
     services.caffeine.enable = true;
+
+    # Directory based environment switching
+    programs.direnv = {
+      enable = true;
+      silent = true;
+    };
 
     # programs.zsh = {
     #   enable = true;
