@@ -261,6 +261,9 @@
     #   };
     # };
     # xdg.configFile = lib.map (x: xdg_config_entry x) ["nvim" "alacritty"];
+
+    home.file.".p10k.zsh".source = ../home/p10k.zsh;
+
     xdg.configFile = {
       "alacritty" = {
         source = ../config/alacritty;
