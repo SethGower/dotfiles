@@ -154,7 +154,7 @@
 
       # Language Servers
       nil # nix Language server
-      vhdl-ls # VHDL Language server, also called rust_hdl
+      unstable.vhdl-ls # VHDL Language server, also called rust_hdl
       bash-language-server
       cmake-language-server
       ginko
