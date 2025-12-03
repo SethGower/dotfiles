@@ -10,3 +10,6 @@
 [submodule ".oh-my-zsh"]
 	path = home/oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
+[submodule "home/custom_omz/themes/powerlevel10k"]
+	path = home/custom_omz/themes/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git

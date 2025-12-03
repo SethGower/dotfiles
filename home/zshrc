@@ -3,6 +3,7 @@
 # Path to oh-my-zsh installation.
 export ZSH=${HOME}/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.custom_omz
+export ZSH_THEME=powerlevel10k/powerlevel10k
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
@@ -32,9 +33,9 @@ fi
 
 zstyle ':completion:*:*:nvim:*' file-patterns '^*.(aux|pdf|dvi|o):source-files' '*:all-files'
 
-if [[ -x "$(command -v starship)" ]]; then
-    eval "$(starship init zsh)"
-fi
+# if [[ -x "$(command -v starship)" ]]; then
+#     eval "$(starship init zsh)"
+# fi
 
 # sets the EDITOR env variable. Used for git commits and the like
 if [[ -n $(which nvim) ]]; then
