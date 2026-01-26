@@ -187,6 +187,7 @@
     amdgpu_top
     cifs-utils
     chromium
+    gnome-tweaks
   ];
 
   systemd.packages = with pkgs; [lact];
