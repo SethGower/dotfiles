@@ -221,6 +221,8 @@
     package = pkgs.protonmail-bridge-gui;
   };
 
+  services.mullvad-vpn.enable = true;
+
   # This udev rule allows for mutter (the window manager for GNOME) to properly
   # use the eGPU as the primary. When I was on Arch, I used all-ways-egpu,
   # which does this in the backend.
