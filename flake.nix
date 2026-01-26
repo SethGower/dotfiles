@@ -67,7 +67,7 @@
       "libnpp"
       "drawio"
     ];
-    insecure_packages = [""];
+    insecure_packages = ["qtwebengine-5.15.19"];
 
     pkgsUnstable = import nixpkgs-unstable {
       inherit system;
