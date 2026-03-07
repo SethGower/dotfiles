@@ -28,6 +28,7 @@
     ./media.nix
     ./gnome.nix
     ./homelab.nix
+    ./games.nix
   ];
   config = {};
 }
