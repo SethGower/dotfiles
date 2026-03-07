@@ -101,7 +101,7 @@
   };
   programs.firefox = {
     enable = true;
-    package = pkgs.librewolf-bin;
+    package = pkgs.librewolf;
     policies = {
       DisableTelemetry = true;
       DisableFirefoxStudies = true;
