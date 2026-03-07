@@ -4,73 +4,63 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
-  boot = {
-    blacklistedKernelModules = [
-      "nouveau"
-      "nvidiafb"
-    ];
-    initrd = {
-      availableKernelModules = ["xhci_pci" "thunderbolt" "nvme"];
-      kernelModules = [
-        "dm-snapshot"
-        "cryptd"
-        "thunderbolt"
-        "usbhid"
-        "joydev"
-        "xpad"
-        "amdgpu"
-      ];
-    };
-    kernelModules = [
-      "kvm-intel"
-      "thunderbolt"
-      "usbhid"
-      "joydev"
-      "xpad"
-      "amdgpu"
-    ];
-    extraModulePackages = [];
 
-    plymouth = {
-      enable = false;
-      theme = "bgrt";
-    };
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "thunderbolt"
+    "nvme"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+  ];
+  boot.initrd.kernelModules = [
+    "dm-snapshot"
+    "cryptd"
+    "thunderbolt"
+    "usbhid"
+    "joydev"
+    "xpad"
+    "amdgpu"
+  ];
 
-    # Enable "Silent boot"
-    consoleLogLevel = 3;
-    initrd.verbose = false;
-    kernelParams = [
-      "quiet"
-      "splash"
-      "boot.shell_on_fail"
-      "udev.log_priority=3"
-      "rd.systemd.show_status=auto"
-    ];
-    # Hide the OS choice for bootloaders.
-    # It's still possible to open the bootloader list by pressing any key
-    # It will just not appear on screen unless a key is pressed
-    loader.timeout = 0;
-  };
+  boot.kernelModules = [
+    "kvm-intel"
+    "thunderbolt"
+    "usbhid"
+    "joydev"
+    "xpad"
+    "amdgpu"
+  ];
+  boot.extraModulePackages = [ ];
+
+  boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/737b62a4-7676-47f3-80e6-740b622adef6";
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/f482c8b2-5207-45ab-b776-f5e86dd460ec";
     fsType = "ext4";
   };
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/2159-BBFE";
-    fsType = "vfat";
-  };
+
   fileSystems."/home" = {
     device = "/dev/disk/by-uuid/5cb6cd96-7f2d-4380-803f-bccde9a8874e";
     fsType = "ext4";
   };
 
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/7F8A-6789";
+    fsType = "vfat";
+    options = [
+      "fmask=0022"
+      "dmask=0022"
+    ];
+  };
+
   swapDevices = [
-    {device = "/dev/disk/by-uuid/e1792b40-1d52-4d31-a734-173c82d15dc9";}
+    { device = "/dev/disk/by-uuid/e1792b40-1d52-4d31-a734-173c82d15dc9"; }
   ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -78,6 +68,11 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp2s0f0np0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp2s0f1np1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp87s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp88s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp89s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
