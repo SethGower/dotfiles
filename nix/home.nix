@@ -155,6 +155,7 @@
       # Language Servers
       nil # nix Language server
       unstable.vhdl-ls # VHDL Language server, also called rust_hdl
+      verilator
       bash-language-server
       cmake-language-server
       ginko
@@ -170,6 +171,8 @@
       yaml-language-server
       vrl-lsp
       unstable.dockerfile-language-server
+      lua-language-server
+      shfmt
 
       cbfmt # Code Block Formatting in markdown
       alejandra # Nix Language Formatting
