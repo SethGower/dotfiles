@@ -183,6 +183,8 @@
 
       bruno
       keymapp
+
+      tidal-hifi
     ];
     # starship - an customizable prompt for any shell
     programs.starship = {

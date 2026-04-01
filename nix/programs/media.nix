@@ -18,7 +18,6 @@
       calibre
       # jellyfin-media-player
       vlc
-      tidal-hifi
       seafile-client
     ];
   };
