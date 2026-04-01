@@ -115,6 +115,10 @@
       inherit pkgs;
       modules = [./users/sgower/home.nix];
     };
+    homeConfigurations."sgower@work" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [./users/sgower-work/home.nix];
+    };
     devShells."x86_64-linux".default = pkgs.mkShell {
       packages = with pkgs; [
         sops
