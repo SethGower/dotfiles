@@ -188,6 +188,8 @@
       keymapp
 
       tidal-hifi
+
+      yubikey-manager
     ];
     # starship - an customizable prompt for any shell
     programs.starship = {
