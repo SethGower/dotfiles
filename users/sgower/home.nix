@@ -12,7 +12,7 @@ in {
   };
 
   home.packages = with pkgs; [
-    nvtopPackages.amd # htop like utility for graphics
+    nvtopPackages.intel # htop like utility for graphics
   ];
 
   imports = [
