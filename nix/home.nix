@@ -193,6 +193,12 @@
       tidal-hifi
 
       yubikey-manager
+
+      (freecad.overrideAttrs (old: {
+        nativeBuildInputs = old.nativeBuildInputs or [] ++ [wrapGAppsHook3];
+        dontWrapGApps = true;
+        qtWrapperArgs = old.qtWrapperArgs or [] ++ ["\${gappsWrapperArgs[@]}"];
+      }))
     ];
     # starship - an customizable prompt for any shell
     programs.starship = {
