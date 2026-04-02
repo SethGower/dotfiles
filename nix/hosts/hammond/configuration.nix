@@ -229,6 +229,19 @@
   #   # in ["${automount_opts},credentials=${config.sops.secrets.smb-secrets.path}"];
   # };
   services.udisks2.enable = true;
+
+  services.clamav = {
+    clamonacc.enable = true;
+    updater = {
+      enable = true;
+    };
+    daemon = {
+      enable = true;
+    };
+    scanner = {
+      enable = false;
+    };
+  };
   # Echo cancellation, pulled from https://wiki.archlinux.org/title/PipeWire/Examples#Echo_cancellation
   # services.pipewire.extraConfig.pipewire."60-echo-cancel" = {
   #   "context.moudles" = [
