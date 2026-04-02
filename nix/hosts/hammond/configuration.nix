@@ -242,6 +242,9 @@
       enable = false;
     };
   };
+
+  hardware.keyboard.zsa.enable = true;
+
   # Echo cancellation, pulled from https://wiki.archlinux.org/title/PipeWire/Examples#Echo_cancellation
   # services.pipewire.extraConfig.pipewire."60-echo-cancel" = {
   #   "context.moudles" = [
