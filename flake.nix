@@ -14,6 +14,8 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixgl.url = "github:nix-community/nixGL";
   };
 
   outputs = {
@@ -23,6 +25,7 @@
     sops-nix,
     nixos-hardware,
     home-manager,
+    nixgl,
     ...
   } @ attrs: let
     system = "x86_64-linux"; # Adjust for your system
@@ -31,6 +34,7 @@
         unstable = pkgsUnstable;
         vrl-lsp = prev.callPackage ./nix/packages/vrl-lsp.nix {};
       })
+      nixgl.overlay
     ];
 
     unfree_whitelist = [
@@ -66,6 +70,7 @@
       "libcusparse"
       "libnpp"
       "drawio"
+      "keymapp"
     ];
     insecure_packages = ["qtwebengine-5.15.19"];
 
@@ -110,6 +115,10 @@
     homeConfigurations."sgower" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       modules = [./users/sgower/home.nix];
+    };
+    homeConfigurations."sgower@work" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [./users/sgower-work/home.nix];
     };
     devShells."x86_64-linux".default = pkgs.mkShell {
       packages = with pkgs; [
