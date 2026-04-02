@@ -200,6 +200,8 @@
         dontWrapGApps = true;
         qtWrapperArgs = old.qtWrapperArgs or [] ++ ["\${gappsWrapperArgs[@]}"];
       }))
+
+      input-leap
     ];
     # starship - an customizable prompt for any shell
     programs.starship = {
