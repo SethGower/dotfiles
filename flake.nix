@@ -70,6 +70,7 @@
       "libcusparse"
       "libnpp"
       "drawio"
+      "teamspeak3"
       "keymapp"
     ];
     insecure_packages = ["qtwebengine-5.15.19"];

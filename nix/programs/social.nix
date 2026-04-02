@@ -9,6 +9,7 @@
       signal-desktop
       element-desktop
       discord
+      teamspeak3
     ];
   };
 }
