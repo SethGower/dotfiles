@@ -90,6 +90,16 @@ M.setup = function ()
         root_markers = { ".git", "vhdl_ls.toml" },
         filetypes = { 'systemverilog' }
     })
+
+    vim.lsp.config('nil_ls', {
+        settings = {
+            ["nil"] = {
+                formatting = {
+                    command = { "alejandra" }
+                }
+            }
+        }
+    })
     -- adds a check to see if any of the active clients have the capability
     -- textDocument/documentHighlight. without the check it was causing constant
     -- errors when servers didn't have that capability
