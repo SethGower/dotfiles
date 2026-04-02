@@ -79,9 +79,16 @@
   services.printing.enable = true;
 
   # Enable sound.
+  # rtkit is optional but recommended
+  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
     pulse.enable = true;
+    jack.enable = true;
+    audio.enable = true;
+    wireplumber.enable = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -222,4 +229,59 @@
   #   # in ["${automount_opts},credentials=${config.sops.secrets.smb-secrets.path}"];
   # };
   services.udisks2.enable = true;
+  # Echo cancellation, pulled from https://wiki.archlinux.org/title/PipeWire/Examples#Echo_cancellation
+  # services.pipewire.extraConfig.pipewire."60-echo-cancel" = {
+  #   "context.moudles" = [
+  #     {
+  #       name = "libpipewire-module-echo-cancel";
+  #       args = {
+  #         # Monitor mode: Instead of creating a virtual sink into which all
+  #         # applications must play, in PipeWire the echo cancellation module can read
+  #         # the audio that should be cancelled directly from the current fallback
+  #         # audio output
+  #         "monitor.mode" = true;
+  #         "capture.props" = {
+  #           # The audio source / microphone the echo should be cancelled from
+  #           # Can be found with: pw-cli list-objects Node | grep node.name
+  #           # Optional; if not specified the module uses/follows the fallback audio source
+  #           # node.target = "alsa_input.usb-046d_HD_Pro_Webcam_C920_A2F94E5F-02.analog-stereo";
+  #           # Passive node: Do not keep the microphone alive when this capture is idle
+  #           "node.passive" = true;
+  #           # Force quanatum of input stream in the graph
+  #           # Fiddle with if experiencing voice distortion/crackling
+  #           # Default: 0/unset
+  #           #node.force-quantum = 256
+  #         };
+  #         # Output sink to be filtered from input
+  #         # Can be found with: pw-cli list-objects Node | grep node.name
+  #         # Optional; if not specified the module uses/follows the fallback audio source
+  #         #sink.props = {
+  #         # node.target = "alsa_output.usb-Audioengine_Audioengine_2_-00.iec958-stereo";
+  #         #}
+  #         "source.props" = {
+  #           # The virtual audio source that provides the echo-cancelled microphone audio
+  #           "node.name" = "source_ec";
+  #           "node.description" = "Echo-cancelled source";
+  #         };
+  #         "aec.args" = {
+  #           # Settings for the WebRTC echo cancellation engine
+  #           # Gain control: On-the-fly microphone audio normalization
+  #           # Default: false
+  #           # Caution, the PipeWire WebRTC source code advises against enabling it:
+  #           #  > Note: AGC seems to mess up with Agnostic Delay Detection, especially
+  #           #  > with speech, result in very poor performance, disable by default
+  #           #webrtc.gain_control = true
+  #           # Extended filter: Widened audio delay window (?)
+  #           # Default: true
+  #           # Quote from the old source of the abandoned Mozilla Positron project (2016):
+  #           #  > The extended filter mode gives us the flexibility to ignore the system's
+  #           #  > reported delays. We do this for platforms which we believe provide results
+  #           #  > which are incompatible with the AEC's expectations.
+  #           # Suggestion: Turn it off unless required
+  #           "webrtc.extended_filter" = false;
+  #         };
+  #       };
+  #     }
+  #   ];
+  # };
 }

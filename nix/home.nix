@@ -143,6 +143,9 @@
       pciutils # lspci
       usbutils # lsusb
       traceroute
+      helvum
+      carla
+      qjackctl
 
       # Terminal stuff
       alacritty # GPU accelerated Terminal
