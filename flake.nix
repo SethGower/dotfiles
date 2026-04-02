@@ -72,6 +72,7 @@
       "drawio"
       "teamspeak3"
       "keymapp"
+      "claude-code"
     ];
     insecure_packages = ["qtwebengine-5.15.19"];
 

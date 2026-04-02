@@ -176,6 +176,7 @@
       unstable.dockerfile-language-server
       lua-language-server
       shfmt
+      claude-code
 
       cbfmt # Code Block Formatting in markdown
       alejandra # Nix Language Formatting
