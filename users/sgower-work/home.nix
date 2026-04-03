@@ -23,6 +23,7 @@ in {
   nixpkgs.overlays = [
     (final: prev: {
       wezterm = wrapWithNixGL prev.wezterm;
+      keymapp = wrapWithNixGL prev.keymapp;
     })
   ];
 
