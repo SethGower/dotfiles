@@ -22,7 +22,7 @@ if vim.fn.exists(':Rooter') ~= 0 then
     g.rooter_patterns = { '.hdl_checker.config', 'vhdl_ls.toml' }
 end
 
-opt.comments = ":--,:--"
+opt.comments = ":--!,:--"
 opt.commentstring = "--%s"
 opt.formatoptions = vim.bo.formatoptions .. "cro"
 opt.textwidth = 0
