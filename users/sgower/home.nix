@@ -13,6 +13,12 @@ in {
 
   home.packages = with pkgs; [
     nvtopPackages.intel # htop like utility for graphics
+
+    (freecad.overrideAttrs (old: {
+      nativeBuildInputs = old.nativeBuildInputs or [] ++ [wrapGAppsHook3];
+      dontWrapGApps = true;
+      qtWrapperArgs = old.qtWrapperArgs or [] ++ ["\${gappsWrapperArgs[@]}"];
+    }))
   ];
 
   imports = [
