@@ -129,8 +129,9 @@ function M.lsp_setup(client, bufnr)
 
     lsp_keymap('renameProvider',             'n', 'grn', '<cmd>lua vim.lsp.buf.rename()<CR>',             lOpts('rename symbol'))
     lsp_keymap('codeActionProvider',         'n', 'gca', '<cmd>lua vim.lsp.buf.code_action()<CR>',        lOpts('code action'))
-    lsp_keymap('documentFormattingProvider', "n", "grf", "<cmd>lua vim.lsp.buf.format{async = true}<CR>", lOpts('format buffer'))
-    lsp_keymap('documentFormattingProvider', "n", "grF", "<cmd>lua require('conform').format()<CR>",      lOpts('format with conform'))
+
+    buf_set_keymap("n", "grf", "<cmd>lua vim.lsp.buf.format{async = true}<CR>", lOpts('format buffer'))
+    buf_set_keymap("n", "grF", "<cmd>lua require('conform').format()<CR>",      lOpts('format with conform'))
 
     -- Workspace operations
     buf_set_keymap("n", "<Leader>lwa", buf_run("vim.lsp.buf.add_workspace_folder()"),                       lOpts("add workspace folder"))
